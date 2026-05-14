@@ -15,6 +15,15 @@ Use it when you want a new repo to have:
 
 ## First 30 Minutes
 
+### Easiest Agent Path
+
+Drag this folder into Claude Code or Codex, or open a terminal in this folder,
+then say:
+
+```text
+Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+```
+
 ### 1. Bootstrap A New Repo
 
 From this template repo:

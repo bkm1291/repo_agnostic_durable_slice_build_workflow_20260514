@@ -186,6 +186,12 @@ def render_readme(methodology: dict[str, Any]) -> str:
 
 ## New Here? Start With `{beginner_docs.get("start_here", "START_HERE.md")}`
 
+Drag this folder into Claude Code or Codex, or open a terminal in this folder, then say:
+
+```text
+Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+```
+
 If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.
 
 ## Giving This To An Agent? Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}`

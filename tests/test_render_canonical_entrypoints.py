@@ -48,6 +48,9 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert rendered.index("## 10-Minute Bootstrap Path") < rendered.index(
         "## Expert / Custom Path"
     )
+    assert "Drag this folder into Claude Code or Codex" in rendered
+    assert "Use this workflow template to set up my repo" in rendered
+    assert "Do not code until the packet validates" in rendered
     assert "examples/small_config_tool_repo" in rendered
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
     assert "contracts/low_token_workflow_contract.json" in rendered

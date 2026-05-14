@@ -2,6 +2,12 @@
 
 Use this when you want to hand a repo and a project goal to a fresh agent.
 
+Shortest beginner prompt:
+
+```text
+Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+```
+
 Copy the block below into the new agent. Replace the bracketed values first.
 
 ```text

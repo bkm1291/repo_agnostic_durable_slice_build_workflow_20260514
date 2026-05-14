@@ -40,6 +40,8 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "PROMPT_FOR_NEW_AGENT.md" in start_here
     assert "CLAUDE.md" in start_here
     assert "/durable-slice" in start_here
+    assert "Drag this folder into Claude Code or Codex" in start_here
+    assert "Do not code until the packet validates" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
     assert "docs/MIGRATING_MATURE_REPO.md" in start_here
 
@@ -48,6 +50,9 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
     prompt = read("PROMPT_FOR_NEW_AGENT.md")
 
     for required_text in [
+        "Shortest beginner prompt",
+        "Use this workflow template to set up my repo",
+        "Do not code until the packet validates",
         "[ABSOLUTE_REPO_PATH]",
         "[ONE OR TWO PARAGRAPHS DESCRIBING WHAT THE REPO SHOULD BUILD]",
         "Read AGENTS.md",
