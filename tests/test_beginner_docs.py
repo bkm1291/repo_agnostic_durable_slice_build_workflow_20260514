@@ -57,6 +57,8 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "drag this folder into" in start_here
     assert "Claude Code or Codex" in start_here
     assert "Do not code until the packet validates" in start_here
+    assert "Go. Implement slice 001 exactly as defined" in start_here
+    assert "Continue. Pick the next roadmap slice" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
     assert "docs/MIGRATING_MATURE_REPO.md" in start_here
 
@@ -79,6 +81,10 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "use it automatically",
         "Do not create or update a roadmap, packet, or code until the goal is known.",
         "Do not code until the packet validates",
+        "Go. Implement slice 001 exactly as defined",
+        "Run the focused validators/tests before closeout.",
+        "Continue. Pick the next roadmap slice",
+        "Do not implement the next slice until I say go.",
         "[ABSOLUTE_REPO_PATH]",
         "[ONE OR TWO PARAGRAPHS DESCRIBING WHAT THE REPO SHOULD BUILD]",
         "Read AGENTS.md",

@@ -31,6 +31,19 @@ First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exis
 After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates.
 ```
 
+When the packet passes, the agent should show this next prompt:
+
+```text
+Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
+```
+
+When implementation finishes and proof passes, the agent should show this next
+planning prompt:
+
+```text
+Continue. Pick the next roadmap slice, create or update its slice packet, validate the packet, and stop before coding. Do not implement the next slice until I say go.
+```
+
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,
 replace the placeholder with your real project goal, then drag this folder into
 Claude Code or Codex and paste the same instruction above.

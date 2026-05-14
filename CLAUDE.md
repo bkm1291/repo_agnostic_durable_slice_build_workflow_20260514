@@ -37,3 +37,15 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 ## Closeout
 
 Report changed files, validation commands/results, worktree state, whether generated refresh was required, and the next recommended slice. Do not leave future requirements only in chat.
+
+For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json` validates and show this exact next prompt:
+
+```text
+Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
+```
+
+After an implementation slice passes proof, show this exact next planning prompt:
+
+```text
+Continue. Pick the next roadmap slice, create or update its slice packet, validate the packet, and stop before coding. Do not implement the next slice until I say go.
+```

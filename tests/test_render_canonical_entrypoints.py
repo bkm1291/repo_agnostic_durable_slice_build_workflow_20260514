@@ -63,6 +63,10 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "No-prompt option" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not code until the packet validates" in rendered
+    assert "Go. Implement slice 001 exactly as defined" in rendered
+    assert "Run the focused validators/tests before closeout." in rendered
+    assert "Continue. Pick the next roadmap slice" in rendered
+    assert "Do not implement the next slice until I say go." in rendered
     assert "examples/small_config_tool_repo" in rendered
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
     assert "contracts/low_token_workflow_contract.json" in rendered
@@ -113,6 +117,8 @@ def test_rendered_claude_mentions_project_skills() -> None:
     assert "/durable-slice" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not create or update a roadmap, packet, or code until the goal is known." in rendered
+    assert "Go. Implement slice 001 exactly as defined" in rendered
+    assert "Continue. Pick the next roadmap slice" in rendered
     assert ".claude/skills/durable-slice/SKILL.md" in rendered
     assert "validate_claude_integration.py" in rendered
 

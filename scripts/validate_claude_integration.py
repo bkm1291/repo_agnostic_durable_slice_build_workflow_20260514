@@ -23,6 +23,8 @@ REQUIRED_SKILLS = {
             "validate_claude_integration.py",
             "What do you want to build? One or two paragraphs is enough.",
             "Do not create or update a roadmap, packet, or code until the goal is known.",
+            "Go. Implement slice 001 exactly as defined",
+            "Continue. Pick the next roadmap slice",
         ],
     },
     "durable-slice-audit": {
@@ -62,6 +64,8 @@ CLAUDE_MD_REQUIRED_TEXT = (
     ".claude/skills/durable-slice/SKILL.md",
     "What do you want to build? One or two paragraphs is enough.",
     "Do not create or update a roadmap, packet, or code until the goal is known.",
+    "Go. Implement slice 001 exactly as defined",
+    "Continue. Pick the next roadmap slice",
 )
 
 GITIGNORE_REQUIRED_TEXT = (

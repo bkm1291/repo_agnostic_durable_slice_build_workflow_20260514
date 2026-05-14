@@ -99,3 +99,16 @@ Do not weaken tests to make a change pass.
 Report implementation commit, generated-refresh commit if any, validation
 commands/results, worktree state, classified residual noise, future-affecting
 notes persisted, and whether the next wave is ready.
+
+For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json`
+validates and show this exact next prompt:
+
+```text
+Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
+```
+
+After an implementation slice passes proof, show this exact next planning prompt:
+
+```text
+Continue. Pick the next roadmap slice, create or update its slice packet, validate the packet, and stop before coding. Do not implement the next slice until I say go.
+```
