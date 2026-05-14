@@ -1,0 +1,272 @@
+{
+  "schema_version": "repo_agnostic.audit.v1",
+  "report_id": "vbtprobuild_slice_01_19_vs_wave_1_11_progression_audit_20260514",
+  "created_at_local_date": "2026-05-14",
+  "audit_mode": "read_only_source_repo_audit_with_local_report_persistence",
+  "source_repo": "/home/benji/vbtprobuild",
+  "target_repo": "/home/benji/Desktop/repo_agnostic_durable_slice_build_workflow_20260514",
+  "purpose": "Audit vbtprobuild V7.2.4 slices 1-19 planning, build history, index state, and persistence mechanics, then compare them against Wave 1-11 crack-repair governance to identify the progression logic that should be preserved in the repo-agnostic workflow.",
+  "source_refs": {
+    "slice_git_range_reviewed": "fec41388^..5d4dd0f",
+    "slice_range_start": "fec41388 Activate V7.2.4 slice 00 control plane",
+    "slice_range_end": "5d4dd0f Align Slice 19 report with uncompleted step semantic",
+    "slice_01_19_active_then_superseded_plan": "/home/benji/vbtprobuild/plans/v7_2_4/slice_01_19_v2_addition_overlay_polish_20260507.json",
+    "historical_controller": "/home/benji/vbtprobuild/plans/v7_2_4_build_controller_plan_20260506.json",
+    "plan_note_index": "/home/benji/vbtprobuild/manifests/v2/plan_note_index.json",
+    "plan_note_active_set": "/home/benji/vbtprobuild/manifests/v2/plan_note_active_set.json",
+    "repo_index_summary": "/home/benji/vbtprobuild/manifests/v2/repo_index_summary.json",
+    "output_schema_index": "/home/benji/vbtprobuild/manifests/v2/output_schema_index.json",
+    "slice_01_19_full_repo_audit": "/home/benji/vbtprobuild/tmp/v7_2_4_full_slice_01_19_repo_audit_20260511/00_audit_summary.json",
+    "slice_01_19_issue_ledger": "/home/benji/vbtprobuild/tmp/v7_2_4_full_slice_01_19_repo_audit_20260511/01_issue_ledger.json",
+    "smooth_ops_plan": "/home/benji/vbtprobuild/tmp/v7_2_4_full_repo_smooth_ops_plan_20260510/00_smooth_operations_plan.json",
+    "repo_research_workflow_report": "/home/benji/vbtprobuild/tmp/reports/production/repo_research_workflow_20260512.json",
+    "wave_1_11_comparison_baseline": "reports/vbtprobuild_wave_1_11_planning_build_persistence_audit_20260514.json"
+  },
+  "core_conclusion": {
+    "summary": "Slices 1-19 built the V7.2.4 capability ladder and discovered the control-plane problems. Wave 1-11 was the governance repair layer that distilled those discoveries into stricter authority classification, conditional generated refresh, read-only validation, and evidence-only report handling.",
+    "slice_era_strength": "The slice chain made capability progression explicit: foundation, semantics, grammar, validators, catalogs, provider authorization, bounded source materialization, normalization, features, masks, labels, PIT lineage, VBT sweep compilation, bounded sweep budget, local model config proposals, dry-run dispatch, runtime research, replay/portfolio smoke, and final planning-control evidence.",
+    "slice_era_weakness": "The slice chain still carried too much status machinery: per-slice receipts/checkpoints, prompt/handoff artifacts, broad index refreshes, metadata noise, historical next_action leakage, mutable validators, and index freshness ambiguity.",
+    "wave_era_progression": "Wave 1-11 kept the useful build discipline but hardened it into governance: one active plan, evidence distinct from authority, focused validators/tests as proof, generated refresh only under explicit triggers, receipts only for writers/closeout, and stale scanner/index findings treated as evidence unless a real validator/test/safety failure exists."
+  },
+  "slice_01_19_planning_structure": {
+    "active_plan_lifecycle": {
+      "during_slice_audit": "The plan-note status inside the 2026-05-11 full slice audit reported one active plan: v7_2_4_slice_01_19_v2_addition_overlay_polish_20260507.",
+      "after_wave_1_11": "The same plan is now status=superseded, authority_class=historical_non_authoritative, active_eligible=false, superseded_by=v7_2_4_vbtprobuild_crack_repair_execution_plan_20260513.",
+      "historical_controller_rule": "The older build controller was already demoted to historical reference and explicitly barred from providing next_action, current_decision, handoff state, prompt authority, or slice execution authority."
+    },
+    "global_rules_from_slice_plan": [
+      "Runtime values must be config-owned, not hard-coded.",
+      "Provider role decisions are config-owned.",
+      "Completed slices are not rebuilt unless a required validator fails.",
+      "Slice 09 and later must consume provider role bridge authority where provider data roles are involved.",
+      "Autonomous protected mutation without validation is forbidden.",
+      "Future slices use thin V7 wrappers around existing runners.",
+      "Script selection follows script_surface_usage_policy.",
+      "Production candidate and production-ready claims are forbidden."
+    ],
+    "shared_authority_model": {
+      "active_reusable_runner_authority": [
+        "scripts/v2_run_production_pipeline.py",
+        "src/vbtpro_strategy_v2/production/pipeline_runner.py",
+        "scripts/v2_production_hard_run_wrapped.py",
+        "scripts/v2_production_local_parquet_hard_run.py",
+        "configs/v2/script_surface_usage_policy.json"
+      ],
+      "explicit_do_not_use": [
+        "scripts/v2_run_production_pipeline_profile.py"
+      ],
+      "rule": "Slices 12-19 should add thin V7 plans, configs, schemas, validators, receipts, checkpoints, and run-specs around existing active runners instead of creating new hard-run engines by default."
+    },
+    "slice_overlay_index": {
+      "slice_count": 19,
+      "active_overlay_window_during_slice_plan": "slices 12-19",
+      "completed_slice_during_final_overlay": "slice_18_replay_portfolio_and_configured_scope_smoke",
+      "current_slice_during_final_overlay": "slice_19_uncompleted_step",
+      "slice_19_semantic": "Slice 19 was an uncompleted baseline/planning-control-plane step, not an extension boundary, gate, ceiling, production-readiness proof, or future-work prerequisite."
+    }
+  },
+  "slice_build_progression": [
+    {
+      "phase": "foundation_and_claim_control",
+      "slices": "00-04",
+      "commits": [
+        "fec41388 Activate V7.2.4 slice 00 control plane",
+        "87bb9541 Implement V7.2.4 slice 01 foundation claim boundary",
+        "223e7dd8 Implement V7.2.4 slice 02 semantic taxonomy crosswalk",
+        "5b0e069b Implement V7.2.4 slice 03 strategy component grammar",
+        "4cd5d1d4 Implement V7.2.4 slice 04 semantic validators"
+      ],
+      "logic": "Build the claim boundary, semantic taxonomy, grammar, validators, and negative fixtures before touching live provider, feature, runtime, replay, or readiness claims."
+    },
+    {
+      "phase": "catalogs_provider_and_first_data",
+      "slices": "05-08",
+      "commits": [
+        "99f646aa Implement V7.2.4 slice 05 schema catalogs",
+        "f1c57a09 Implement V7.2.4 slice 06 provider authorization preflight",
+        "a92220bb Implement V7.2.4 slice 07 bounded source materialization smoke",
+        "d6ea7b60 Implement V7.2.4 slice 08 data normalization and bar smoke"
+      ],
+      "logic": "Move from metadata/control into bounded source authorization, first pull, and normalization while preserving no-runtime/no-replay/no-production-ready boundaries."
+    },
+    {
+      "phase": "v2_v4_overlay_and_feature_pipeline",
+      "slices": "09-11",
+      "commits": [
+        "d457e8cc Activate V7.2.4 additive overlay plan",
+        "b6ea4736 Implement V7.2.4 slice 09 feature materialization smoke",
+        "aeafdd0e Implement V7.2.4 slice 10 mask materialization smoke",
+        "b2f99dad Implement V7.2.4 slice 11 label outcome generation smoke",
+        "d7db353a Repair V7.2.4 Slice 02-11 V2/V4 real pipeline overlay"
+      ],
+      "logic": "Reconcile completed V7 surfaces with existing V2/V4 production pipeline authority instead of rebuilding the whole system."
+    },
+    {
+      "phase": "lineage_vbt_sweep_and_budget",
+      "slices": "12-14",
+      "commits": [
+        "425817dc Implement V7.2.4 slice 12 source lineage PIT holdout preflight",
+        "145394d2 Implement V7.2.4 slice 13 VBT Pro native sweep axis compiler",
+        "fff84691 Implement V7.2.4 slice 14 VBT Pro sweep budget random subset"
+      ],
+      "logic": "Add PIT lineage and bounded VBTPro sweep planning without allowing unbounded sweep execution, runtime, replay, or production claims."
+    },
+    {
+      "phase": "operator_loop_and_dry_run_orchestration",
+      "slices": "15-16",
+      "commits": [
+        "09f3afbe Implement V7.2.4 slice 15 config generation operator decision loop",
+        "c7635904 Repair V7.2.4 slice 15 NIM real-data config proof",
+        "00914772 Use live NIM for Slice 15 structured config proof",
+        "bc140ecd Implement V7.2.4 slice 16 dry-run queue dispatch receipts",
+        "dcdf1da1 Augment Slice 16 with V4 research overlay dry-run"
+      ],
+      "logic": "Introduce local-model structured JSON and script sweep preview, but keep model output unable to approve itself, execute shell commands, mutate protected files, or auto-run provider/materialization/runtime/replay work."
+    },
+    {
+      "phase": "runtime_research_and_sidecar_ml_proof",
+      "slices": "17",
+      "commits": [
+        "dd5c5c7d Implement V7.2.4 slice 17 runtime research smoke",
+        "211f14e2 Harden Slice 17 ML and runtime research metadata",
+        "d5741765 Add Solthera ML stack runtime smoke proof",
+        "5d11073a Strengthen Solthera ML runtime leakage validation",
+        "e6bf2940 Add Slice 17 Solthera cross-environment prompt"
+      ],
+      "logic": "Permit bounded runtime research with context/execution timeframe separation, label quarantine, bridge-safe runtime inputs, and explicit non-production claims."
+    },
+    {
+      "phase": "replay_portfolio_and_readiness_record",
+      "slices": "18-19",
+      "commits": [
+        "e2cb346e Implement V7.2.4 slice 18 replay portfolio smoke",
+        "ab226b6c Repair Slice 18 replay evidence addendum",
+        "0736f995 Implement Slice 19 planning control plane",
+        "ba75ccdb Record Slice 19 bundle paths in build docs",
+        "5d4dd0f Align Slice 19 report with uncompleted step semantic"
+      ],
+      "logic": "Prove replay/portfolio smoke and then record the remaining evidence/backlog without converting Slice 19 into a terminal gate or production-readiness authority."
+    }
+  ],
+  "git_history_shape": {
+    "commit_count_in_reviewed_range": 116,
+    "high_level_counts_observed": {
+      "slice_implementation_commits": 20,
+      "repair_or_hardening_commits": 27,
+      "index_refresh_commits": 14,
+      "authority_workflow_context_commits": 31,
+      "sidecar_solthera_ml_related_commits": 18
+    },
+    "interpretation": "The slice era was not a clean one-commit-per-slice chain. It was a build ladder with frequent repairs, index refreshes, prompt/context fixes, guidance-map edits, and sidecar proof work. That history explains why Wave 1-11 later had to formalize commit boundaries and generated-refresh triggers."
+  },
+  "slice_index_findings": {
+    "plan_note_index_during_slice_audit": {
+      "status": "passed",
+      "plan_count": 271,
+      "active_plan_count": 1,
+      "primary_plan_id": "v7_2_4_slice_01_19_v2_addition_overlay_polish_20260507",
+      "metadata_missing_count": 233,
+      "authority_class_counts": {
+        "active": 1,
+        "archive_review": 129,
+        "draft_non_authoritative": 5,
+        "evidence_only": 28,
+        "historical_non_authoritative": 101,
+        "implemented": 7
+      },
+      "current_direction": "Only failed required tests or validators block next-slice movement; historical controllers are not active authority."
+    },
+    "plan_note_index_after_wave_1_11": {
+      "primary_plan_id": "v7_2_4_vbtprobuild_crack_repair_execution_plan_20260513",
+      "slice_01_19_plan_status": "superseded",
+      "slice_01_19_authority_class": "historical_non_authoritative",
+      "slice_01_19_active_eligible": false,
+      "known_blockers": []
+    },
+    "repo_index_observation": {
+      "slice_audit_problem": "The 2026-05-11 slice audit found repo_index stale=false but exact path lookups missing committed Slice 18 surfaces.",
+      "current_repo_index_summary": "repo_index_summary.json declares authority=false and treats projections as discovery/migration inputs, not source authority.",
+      "progression": "This became Wave 8, Wave 10, and Wave 11 logic: exact-path and generated-index misses are routing evidence unless tied to a required proof failure; refreshes need explicit ownership or closeout/future-discovery triggers."
+    },
+    "output_schema_observation": {
+      "slice_19_records_found": [
+        "contracts/v2/v7_2_4_operator_readiness_report_contract.json",
+        "manifests/v2/v7_2_4_slice_19_operator_readiness_report_manifest.json",
+        "receipts/v2/v7_2_4_slice_19_operator_readiness_report_receipt.json"
+      ],
+      "interpretation": "Slice 19 was indexed as a planning-control artifact, not runtime authority."
+    }
+  },
+  "slice_persistence_patterns": {
+    "good_patterns_to_keep": [
+      "Single active plan superseded historical controller next_action.",
+      "Each slice named must_not_claim boundaries.",
+      "Runtime-affecting values were supposed to be config-owned.",
+      "Completed slices were not rebuilt without failed validators.",
+      "Existing V2/V4/VBTPro surfaces were reused through thin wrappers and bridge rules.",
+      "Receipts and checkpoints preserved execution evidence, output paths, and handoff state.",
+      "Tmp reports were allowed as audit evidence when cited by active plan, receipt, checkpoint, or operator request."
+    ],
+    "problems_that_triggered_later_governance": [
+      "Per-slice receipts and checkpoints became routine status surfaces, not only proof for writers or closeout gates.",
+      "Old prompts, handoff maps, and historical controller fields could still appear in search and confuse next-action authority.",
+      "Plan-note metadata was missing for many historical records, causing broad audit noise.",
+      "Repo-index stale=false did not guarantee exact-path discoverability.",
+      "Some validators could write outputs by default, mixing proof with mutation.",
+      "Strict JSON and metric semantics issues appeared in durable Slice 18 outputs.",
+      "Sidecar ML/Solthera work and Slice 17 runtime proof increased the need for clear authority boundaries."
+    ]
+  },
+  "wave_1_11_comparison": {
+    "what_wave_1_11_preserved_from_slices_1_19": [
+      "Use one repo-native active plan as the current authority.",
+      "Prefer config, schema, contract, validator, and focused tests over chat-only reasoning.",
+      "Keep production-ready and production-candidate claims forbidden unless explicit evidence routes satisfy them.",
+      "Use existing helper/routing/index surfaces before creating new engines.",
+      "Classify historical controllers and tmp reports as evidence instead of next-action authority."
+    ],
+    "what_wave_1_11_repaired_or_tightened": [
+      "Plan-note authority classification became config-driven and explicit: active, implemented, superseded, historical, archive_review, evidence_only.",
+      "Generated refresh stopped being habitual and became conditional on ownership, stale discovery blockers, future-wave dependency, closeout gates, or operator request.",
+      "Focused validators/tests became the slice proof; repo-index status became discovery evidence.",
+      "Read-only command harness separated validation from output mutation.",
+      "Receipts/checkpoints were reserved for writers, generators, materializers, external actions, irreversible decisions, and real closeout gates.",
+      "Head-only staleness after generated refresh was not chased.",
+      "Scanner, exact-path, handoff, and superseded-plan findings became evidence unless paired with a required validator/test/safety failure."
+    ],
+    "main_difference": "Slices 1-19 were capability-first with growing governance overlays. Wave 1-11 was governance-first and turned those overlays into durable build law."
+  },
+  "progression_logic": [
+    {
+      "stage": "capability ladder",
+      "source": "Slices 1-19",
+      "meaning": "Build capabilities in dependency order: claim boundaries before provider pulls, data before features, features before labels/masks, PIT lineage before runtime, runtime before replay, and evidence report before future extension."
+    },
+    {
+      "stage": "overlay repair",
+      "source": "Late slices and smooth-ops plans",
+      "meaning": "As the repo grew, broad prompts, historical controllers, tmp reports, indexes, receipts, and sidecar proof surfaces created routing ambiguity. The repo responded with active overlay plans, guidance maps, active-only context helpers, script policies, and evidence-only tmp classification."
+    },
+    {
+      "stage": "crack repair",
+      "source": "Wave 1-11",
+      "meaning": "The repo converted observed ambiguity into explicit governance: active plan supersession, authority classification, worktree noise policy, source acquisition semantics, runtime/research mode taxonomy, helper boundary consolidation, read-only harness, and generated-output refresh discipline."
+    },
+    {
+      "stage": "repo-agnostic extraction",
+      "source": "This audit",
+      "meaning": "The portable workflow should not copy vbtprobuild prompts or domain policies. It should copy the progression rule: capability slices produce evidence; governance waves distill repeated confusion into packet fields, validators, indexes, and commit-boundary rules."
+    }
+  ],
+  "repo_agnostic_rules_to_persist": [
+    "Use slices to build small capability bundles and waves only when repeated slice friction exposes a cross-cutting governance problem.",
+    "A slice packet must declare the owner bundle, proof commands, boundary rules, refresh decision, and commit plan before protected edits.",
+    "Completed slice evidence should be queryable, but only active plan/packet authority should control next action.",
+    "Per-slice receipts should not be automatic. Require them only when the slice owns a writer, generator, materializer, external action, irreversible decision, or closeout gate.",
+    "Generated indexes are discovery surfaces. They need structured refresh triggers and must not be treated as behavioral proof by default.",
+    "Historical plans, prompts, handoff notes, and tmp reports must be classified so they can be found for audits without becoming current instructions.",
+    "Read-only validators should be read-only by default; write/regenerate modes need explicit flags and receipts.",
+    "The workflow should preserve Codex reasoning by saving decisions into plans, packets, registers, contracts, validators, reports, receipts, and checkpoints, not by copying full prompts as authority."
+  ],
+  "audit_result": "The progression is capability-first slices followed by governance-first repair waves. Slices 1-19 show what the system learned to build; Wave 1-11 shows what the system learned to control."
+}
