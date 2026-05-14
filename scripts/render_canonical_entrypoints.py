@@ -478,6 +478,8 @@ def render_prompts(methodology: dict[str, Any]) -> str:
         if key.endswith("_short"):
             title = key.replace("_", " ").replace("prompt short", "Prompt").title()
             short_sections.append(f"### {title}\n\n```text\n{value}\n```")
+    prompt_sections_text = "\n\n".join(prompt_sections)
+    short_sections_text = "\n\n".join(short_sections)
     return f"""{GENERATED_HEADER}
 
 # Durable Build Stage Prompts
@@ -495,11 +497,11 @@ uncertain, or when protected/runtime/source/safety surfaces are involved. Use
 short form only when `AGENTS.md`, `SKILL.md`, the durable methodology, and the
 active roadmap are already available to the agent.
 
-{"\n\n".join(prompt_sections)}
+{prompt_sections_text}
 
 ## Short Form Prompts
 
-{"\n\n".join(short_sections)}
+{short_sections_text}
 """
 
 
