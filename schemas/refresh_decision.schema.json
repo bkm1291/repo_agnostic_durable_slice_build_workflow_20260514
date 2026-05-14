@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/refresh_decision.schema.json",
+  "title": "Durable Slice Refresh Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repo_index_required",
+    "script_import_index_required",
+    "plan_note_index_required",
+    "config_variable_inventory_required",
+    "output_schema_index_required",
+    "post_output_hook_required",
+    "next_wave_discovery_depends_on_new_surfaces",
+    "required_reason",
+    "refresh_timing",
+    "decision_basis"
+  ],
+  "properties": {
+    "repo_index_required": { "type": "boolean" },
+    "script_import_index_required": { "type": "boolean" },
+    "plan_note_index_required": { "type": "boolean" },
+    "config_variable_inventory_required": { "type": "boolean" },
+    "output_schema_index_required": { "type": "boolean" },
+    "post_output_hook_required": { "type": "boolean" },
+    "next_wave_discovery_depends_on_new_surfaces": { "type": "boolean" },
+    "required_reason": {
+      "type": "string",
+      "minLength": 8,
+      "not": {
+        "pattern": "^\\s*([Tt][Bb][Dd]|[Tt][Oo][Dd][Oo]|[Mm][Aa][Yy][Bb][Ee]|[Ii][Ff] [Nn][Ee][Ee][Dd][Ee][Dd]|[Aa][Ss] [Nn][Ee][Ee][Dd][Ee][Dd]|[Nn]/[Aa]|[Nn][Oo][Nn][Ee])\\s*$"
+      }
+    },
+    "refresh_timing": {
+      "type": "string",
+      "enum": [
+        "skip",
+        "after_implementation_commit",
+        "after_plan_note_rebuild",
+        "after_post_output_hook",
+        "defer_to_release_closeout",
+        "operator_requested"
+      ]
+    },
+    "decision_basis": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 8
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "repo_index_required": { "const": false },
+          "script_import_index_required": { "const": false },
+          "plan_note_index_required": { "const": false },
+          "config_variable_inventory_required": { "const": false },
+          "output_schema_index_required": { "const": false },
+          "post_output_hook_required": { "const": false },
+          "next_wave_discovery_depends_on_new_surfaces": { "const": false }
+        },
+        "required": [
+          "repo_index_required",
+          "script_import_index_required",
+          "plan_note_index_required",
+          "config_variable_inventory_required",
+          "output_schema_index_required",
+          "post_output_hook_required",
+          "next_wave_discovery_depends_on_new_surfaces"
+        ]
+      },
+      "then": {
+        "properties": {
+          "refresh_timing": { "const": "skip" }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          { "properties": { "repo_index_required": { "const": true } }, "required": ["repo_index_required"] },
+          { "properties": { "script_import_index_required": { "const": true } }, "required": ["script_import_index_required"] },
+          { "properties": { "plan_note_index_required": { "const": true } }, "required": ["plan_note_index_required"] },
+          { "properties": { "config_variable_inventory_required": { "const": true } }, "required": ["config_variable_inventory_required"] },
+          { "properties": { "output_schema_index_required": { "const": true } }, "required": ["output_schema_index_required"] },
+          { "properties": { "post_output_hook_required": { "const": true } }, "required": ["post_output_hook_required"] },
+          { "properties": { "next_wave_discovery_depends_on_new_surfaces": { "const": true } }, "required": ["next_wave_discovery_depends_on_new_surfaces"] }
+        ]
+      },
+      "then": {
+        "properties": {
+          "refresh_timing": { "not": { "const": "skip" } }
+        }
+      }
+    }
+  ]
+}

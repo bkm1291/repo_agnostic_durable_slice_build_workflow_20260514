@@ -1,0 +1,52 @@
+{
+  "selected_wave_or_slice": "slice_001",
+  "goal": "Prove that a compact slice packet can be validated before implementation starts.",
+  "files_to_create_or_edit": [
+    "plans/repo_roadmap.json",
+    "plans/slices/slice_001_packet.json",
+    "scripts/validate_slice_packet.py",
+    "tests/test_validate_slice_packet.py"
+  ],
+  "exact_owner_configs_schemas_contracts": [],
+  "required_source_reads": [
+    {
+      "surface": "local durable workflow README",
+      "read_type": "docs",
+      "status": "satisfied",
+      "evidence_ref": "README.md"
+    }
+  ],
+  "owning_wave_validator": "scripts/validate_slice_packet.py",
+  "owning_wave_tests": [
+    "tests/test_validate_slice_packet.py"
+  ],
+  "focused_validators_and_tests": [
+    "python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only",
+    "python -m pytest -q tests"
+  ],
+  "not_in_scope": [
+    "Generated index refresh",
+    "Receipt writing",
+    "External source access"
+  ],
+  "refresh_decision": {
+    "repo_index_required": false,
+    "script_import_index_required": false,
+    "plan_note_index_required": false,
+    "config_variable_inventory_required": false,
+    "output_schema_index_required": false,
+    "post_output_hook_required": false,
+    "next_wave_discovery_depends_on_new_surfaces": false,
+    "required_reason": "focused validator and tests directly prove this minimal example",
+    "refresh_timing": "skip",
+    "decision_basis": [
+      "The example has no generated discovery surfaces.",
+      "The next action is visible from the roadmap and packet."
+    ]
+  },
+  "commit_plan": {
+    "implementation_commit": "minimal_workflow_example_only",
+    "generated_refresh_commit": "not_required",
+    "do_not_chase_head_only_staleness": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "selected_wave_or_slice": "slice_001",
+  "goal": "Render a greeting from validated config-owned runtime values.",
+  "files_to_create_or_edit": [
+    "configs/greeting_config.json",
+    "schemas/greeting_config.schema.json",
+    "scripts/validate_greeting_config.py",
+    "scripts/render_greeting.py",
+    "tests/test_greeting_tool.py",
+    "plans/repo_roadmap.json",
+    "plans/slices/slice_001_packet.json"
+  ],
+  "exact_owner_configs_schemas_contracts": [
+    "configs/greeting_config.json",
+    "schemas/greeting_config.schema.json"
+  ],
+  "required_source_reads": [
+    {
+      "surface": "repo-local durable workflow README",
+      "read_type": "docs",
+      "status": "satisfied",
+      "evidence_ref": "README.md"
+    }
+  ],
+  "owning_wave_validator": "scripts/validate_greeting_config.py",
+  "owning_wave_tests": [
+    "tests/test_greeting_tool.py"
+  ],
+  "focused_validators_and_tests": [
+    "python scripts/validate_greeting_config.py configs/greeting_config.json --summary-only",
+    "python scripts/render_greeting.py --config configs/greeting_config.json",
+    "python -m pytest -q tests/test_greeting_tool.py"
+  ],
+  "not_in_scope": [
+    "Argument-driven runtime override",
+    "Generated config inventory implementation",
+    "Packaging or installation"
+  ],
+  "refresh_decision": {
+    "repo_index_required": false,
+    "script_import_index_required": false,
+    "plan_note_index_required": false,
+    "config_variable_inventory_required": true,
+    "output_schema_index_required": false,
+    "post_output_hook_required": false,
+    "next_wave_discovery_depends_on_new_surfaces": true,
+    "required_reason": "the next slice would need fresh discovery of the new config-owned runtime fields",
+    "refresh_timing": "after_implementation_commit",
+    "decision_basis": [
+      "This slice creates a new runtime config and schema.",
+      "Future slices should discover config-owned runtime values without reading chat."
+    ]
+  },
+  "commit_plan": {
+    "implementation_commit": "config_cli_validator_tests",
+    "generated_refresh_commit": "config_inventory_refresh_after_implementation",
+    "do_not_chase_head_only_staleness": true
+  }
+}

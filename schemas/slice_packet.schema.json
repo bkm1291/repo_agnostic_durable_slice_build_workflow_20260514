@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/slice_packet.schema.json",
+  "title": "Durable Slice Packet",
+  "oneOf": [
+    { "$ref": "#/$defs/compact_slice_packet" },
+    {
+      "type": "object",
+      "required": ["compact_slice_packet"],
+      "properties": {
+        "packet_id": { "type": "string" },
+        "wave_id": { "type": "string" },
+        "status": { "type": "string" },
+        "purpose": { "type": "string" },
+        "authority_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "compact_slice_packet": { "$ref": "#/$defs/compact_slice_packet" }
+      },
+      "additionalProperties": true
+    }
+  ],
+  "$defs": {
+    "string_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "repo_relative_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+    },
+    "source_read": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["surface", "read_type", "status", "evidence_ref"],
+      "properties": {
+        "surface": { "type": "string", "minLength": 1 },
+        "read_type": {
+          "type": "string",
+          "enum": ["full_source", "attrs", "docs", "none"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["satisfied", "deferred", "not_required"]
+        },
+        "evidence_ref": { "type": "string" }
+      }
+    },
+    "commit_plan": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "implementation_commit",
+        "generated_refresh_commit",
+        "do_not_chase_head_only_staleness"
+      ],
+      "properties": {
+        "implementation_commit": { "type": "string", "minLength": 1 },
+        "generated_refresh_commit": { "type": "string", "minLength": 1 },
+        "do_not_chase_head_only_staleness": { "const": true }
+      }
+    },
+    "compact_slice_packet": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "selected_wave_or_slice",
+        "goal",
+        "files_to_create_or_edit",
+        "exact_owner_configs_schemas_contracts",
+        "required_source_reads",
+        "owning_wave_validator",
+        "owning_wave_tests",
+        "focused_validators_and_tests",
+        "not_in_scope",
+        "refresh_decision",
+        "commit_plan"
+      ],
+      "properties": {
+        "selected_wave_or_slice": { "type": "string", "minLength": 1 },
+        "goal": { "type": "string", "minLength": 1 },
+        "files_to_create_or_edit": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repo_relative_path" }
+        },
+        "exact_owner_configs_schemas_contracts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/repo_relative_path" },
+              { "type": "string", "enum": ["none", "explicit none"] }
+            ]
+          }
+        },
+        "required_source_reads": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source_read" }
+        },
+        "owning_wave_validator": { "$ref": "#/$defs/repo_relative_path" },
+        "owning_wave_tests": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/repo_relative_path" }
+        },
+        "focused_validators_and_tests": { "$ref": "#/$defs/string_list" },
+        "not_in_scope": { "$ref": "#/$defs/string_list" },
+        "refresh_decision": {
+          "$ref": "refresh_decision.schema.json"
+        },
+        "commit_plan": { "$ref": "#/$defs/commit_plan" }
+      }
+    }
+  }
+}

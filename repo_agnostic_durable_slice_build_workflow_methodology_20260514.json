@@ -1,0 +1,2426 @@
+{
+  "schema_version": "v1.repo_agnostic_durable_slice_build_workflow_methodology.1",
+  "methodology_id": "repo_agnostic_durable_slice_build_workflow_methodology_20260514",
+  "created_at_utc": "2026-05-14T10:30:00Z",
+  "status": "brand_new_repo_bootstrap_template",
+  "scope": "repo_agnostic_from_scratch_repos_only",
+  "intended_use": "Use this Desktop bundle to bootstrap brand-new repositories from scratch. It is not current-repo authority for an existing mature repo unless an operator deliberately copies and adapts it into that repo's own authority surfaces.",
+  "positioning_statement": "This is not a coding template. It is a build-governance template for working with AI agents.",
+  "not_intended_for": [
+    "silently overriding an existing repo's AGENTS.md, SKILL.md, pyproject.toml, roadmap, indexes, validators, or safety policies",
+    "retroactively replacing a mature repo's local authority without an explicit migration plan",
+    "copying one repo's exact commands, paths, indexes, providers, or safety rules into another repo without adaptation"
+  ],
+  "purpose": "Capture a reusable from-scratch planning and implementation workflow for building new complex repositories through durable evidence, small provable slices, focused validators, future-facing notes, conditional index refreshes, and meaningful closeout receipts.",
+  "why_this_exists": {
+    "problem": "Large software or research repos fail when decisions live in chat, plans drift from implementation, broad audits become blockers, generated indexes are refreshed reflexively, tests are too broad or too weak, and future agents cannot tell which evidence is current authority.",
+    "solution": "Treat every build as a chain of small durable slices. Each slice has a compact packet, explicit owner files, an owning validator, focused tests, future notes only when useful, an implementation commit, conditional generated/index refresh, and closeout evidence only when it proves something.",
+    "core_result": "Future work can continue from repository evidence instead of memory. The build can survive context loss, agent changes, long pauses, and repo size growth."
+  },
+  "starter_kit_artifacts": {
+    "canonical_source": "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
+    "quickstart": "README.md",
+    "human_entrypoints": [
+      "AGENTS.md",
+      "SKILL.md",
+      "BUILD_STAGE_PROMPTS.md"
+    ],
+    "schemas": {
+      "methodology": "schemas/methodology.schema.json",
+      "slice_packet": "schemas/slice_packet.schema.json",
+      "refresh_decision": "schemas/refresh_decision.schema.json"
+    },
+    "starter_validator": {
+      "path": "scripts/validate_slice_packet.py",
+      "command_template": "python scripts/validate_slice_packet.py <packet> --summary-only",
+      "purpose": "Provide a dependency-free first protocol validator for compact slice packets and refresh decisions."
+    },
+    "entrypoint_renderer": {
+      "path": "scripts/render_canonical_entrypoints.py",
+      "check_command": "python scripts/render_canonical_entrypoints.py --check",
+      "write_command": "python scripts/render_canonical_entrypoints.py --write",
+      "purpose": "Render Markdown entrypoints from this canonical methodology JSON so duplicated doctrine does not drift."
+    },
+    "minimal_example": {
+      "root": "examples/minimal_repo",
+      "roadmap": "examples/minimal_repo/plans/repo_roadmap.json",
+      "slice_packet": "examples/minimal_repo/plans/slices/slice_001_packet.json",
+      "validator": "examples/minimal_repo/scripts/validate_slice_packet.py",
+      "focused_tests": "examples/minimal_repo/tests/test_validate_slice_packet.py"
+    },
+    "realistic_small_example": {
+      "root": "examples/small_config_tool_repo",
+      "roadmap": "examples/small_config_tool_repo/plans/repo_roadmap.json",
+      "slice_packet": "examples/small_config_tool_repo/plans/slices/slice_001_packet.json",
+      "config": "examples/small_config_tool_repo/configs/greeting_config.json",
+      "schema": "examples/small_config_tool_repo/schemas/greeting_config.schema.json",
+      "validator": "examples/small_config_tool_repo/scripts/validate_greeting_config.py",
+      "runtime_script": "examples/small_config_tool_repo/scripts/render_greeting.py",
+      "focused_tests": "examples/small_config_tool_repo/tests/test_greeting_tool.py"
+    },
+    "canonicalization_rule": "The methodology JSON owns full doctrine. Markdown files and pyproject metadata are entrypoints and projections that should be reconciled from this file when drift appears."
+  },
+  "non_negotiable_principles": [
+    {
+      "principle_id": "durability_over_chat",
+      "rule": "Important decisions must be saved in repo-native durable artifacts before they are treated as future authority.",
+      "reason": "Chat context disappears, compresses, or becomes ambiguous. Durable artifacts can be validated, searched, committed, and audited.",
+      "implementation": "Use JSON or another machine-readable repo-native format for plans, packets, registers, receipts, policies, schemas, contracts, and evidence reports."
+    },
+    {
+      "principle_id": "small_provable_slices",
+      "rule": "A slice must be small enough that its owner surfaces, validator, tests, and downstream effects can be named before coding starts.",
+      "reason": "Large ambiguous work causes broad reads, over-testing, accidental refactors, and unclear proof.",
+      "implementation": "Split work until one slice has a coherent owner bundle and an explicit proof path."
+    },
+    {
+      "principle_id": "owner_validator_first",
+      "rule": "Every implementation slice must have an owning validator or explicitly extend an existing owning validator.",
+      "reason": "A focused validator turns architecture into an enforceable contract and prevents relying on screenshots, status text, or broad test luck.",
+      "implementation": "The slice packet must name the validator path before protected edits begin."
+    },
+    {
+      "principle_id": "focused_tests_are_slice_proof",
+      "rule": "Focused tests prove the behavior added by the slice. Broad index or status checks are navigation evidence, not behavioral proof.",
+      "reason": "Broad checks can be stale or noisy. Focused tests catch the behavior the slice actually owns.",
+      "implementation": "Each slice names focused tests in the packet and runs them at closeout."
+    },
+    {
+      "principle_id": "future_notes_only_when_actionable",
+      "rule": "Only save future-wave notes when a discovery changes future implementation order, owner files, validators, full-read/source requirements, safety boundaries, index requirements, activation gates, or closeout criteria.",
+      "reason": "Too many notes create noise. Too few notes lose critical dependency knowledge.",
+      "implementation": "Future notes must be attached to the roadmap, owner plan, or slice packet, not left in chat."
+    },
+    {
+      "principle_id": "conditional_generated_refresh",
+      "rule": "Generated indexes, catalogs, inventories, projections, dashboards, and receipts refresh only when the selected slice owns them, future discovery depends on them, stale discovery blocks work, closeout requires them, or the operator explicitly requests them.",
+      "reason": "Automatic refreshes after every commit create loops, churn, false blockers, and noisy history.",
+      "implementation": "Each slice packet carries a structured refresh decision."
+    },
+    {
+      "principle_id": "receipts_are_not_status_confetti",
+      "rule": "Do not write receipts or checkpoints merely to say work happened. Write them when they prove an output writer, materializer, generator, external action, closeout gate, or irreversible decision.",
+      "reason": "Receipt spam makes evidence harder to trust.",
+      "implementation": "Most ordinary source/config/test slices are proven by validators/tests and commits; writer/generator slices add receipts."
+    },
+    {
+      "principle_id": "implementation_before_generated_refresh",
+      "rule": "Commit implementation first, then refresh generated discovery outputs if required, then commit generated outputs separately once.",
+      "reason": "Generated refreshes should capture a stable implementation head and not be mixed with hand-edited source changes.",
+      "implementation": "Use two commits when a generated refresh is needed: implementation commit, then generated refresh commit."
+    },
+    {
+      "principle_id": "no_head_chasing",
+      "rule": "After a generated-index commit, do not run another refresh only because the generated index describes its parent commit.",
+      "reason": "Generated artifacts often index the parent implementation head. Refreshing again to chase the generated commit creates an infinite or near-infinite loop.",
+      "implementation": "Classify head-only staleness after generated refresh commits as evidence unless a real refresh condition exists."
+    },
+    {
+      "principle_id": "config_owns_runtime_values",
+      "rule": "Runtime-affecting values belong in config, policy, contract, schema, or explicit operator selection, not hidden in code or chat.",
+      "reason": "Hard-coded values make behavior untraceable and hard to safely change.",
+      "implementation": "Symbols, dates, providers, routes, modes, caps, workers, thresholds, output roots, and behavior flags must be declared in versioned owner surfaces."
+    }
+  ],
+  "artifact_taxonomy": {
+    "roadmap": {
+      "purpose": "Describe the full project route, wave dependencies, owner areas, readiness criteria, and future phases.",
+      "should_contain": [
+        "project goal",
+        "wave list",
+        "dependency graph",
+        "current sequence",
+        "future phase placeholders",
+        "global validation policy",
+        "when to create per-slice packets"
+      ],
+      "should_not_contain": [
+        "hidden runtime values",
+        "large raw research dumps",
+        "unvalidated claims",
+        "unbounded to-do lists without owner surfaces"
+      ]
+    },
+    "slice_packet": {
+      "purpose": "Convert a roadmap wave into a tactical implementation checklist.",
+      "should_contain": [
+        "selected wave or slice",
+        "files to create or edit",
+        "owner configs, schemas, contracts, policies, modules, scripts, and tests",
+        "required source reads or explicit no-new-source-read statement",
+        "owning validator",
+        "focused tests",
+        "validation commands",
+        "not-in-scope boundaries",
+        "structured refresh decision",
+        "commit plan"
+      ],
+      "should_not_contain": [
+        "another broad architecture plan",
+        "future feature implementation details unrelated to this slice",
+        "vague refresh wording",
+        "manual secrets",
+        "unowned runtime choices"
+      ]
+    },
+    "owner_files": {
+      "purpose": "The concrete files whose behavior the slice changes.",
+      "categories": [
+        "config or policy",
+        "schema",
+        "contract",
+        "runtime module",
+        "script or CLI",
+        "validator",
+        "focused tests",
+        "fixture",
+        "manifest or generated output only when owned by the slice"
+      ],
+      "rule": "If a file is changed, it should be explainable by the slice packet."
+    },
+    "owning_validator": {
+      "purpose": "The slice-specific executable check that enforces the new contract.",
+      "qualities": [
+        "read-only unless explicitly a writer validator",
+        "summary-only mode does not mutate outputs",
+        "clear failure codes",
+        "checks the real owner surfaces",
+        "distinguishes hard failures from warnings and research gaps",
+        "safe to run repeatedly"
+      ]
+    },
+    "focused_tests": {
+      "purpose": "Automated proof that the owner behavior works and important negative cases fail.",
+      "minimum_shape": [
+        "happy-path test for committed or fixture config",
+        "negative test for missing required owner field",
+        "negative test for unsafe or forbidden mode",
+        "read-only/no-mutation test when command claims read-only",
+        "no-secret persistence test when credentials or external sources are nearby"
+      ]
+    },
+    "future_notes": {
+      "purpose": "Carry only implementation-relevant discoveries forward.",
+      "valid_reasons": [
+        "changes future implementation order",
+        "changes future owner files",
+        "adds or changes future validators or tests",
+        "adds source/full-read requirement",
+        "changes safety boundary",
+        "changes index refresh requirement",
+        "changes activation or execution gate",
+        "changes receipt or closeout requirement"
+      ],
+      "invalid_reasons": [
+        "general status",
+        "encouragement",
+        "duplicated plan prose",
+        "raw thought dump",
+        "untriaged audit output"
+      ]
+    },
+    "generated_indexes": {
+      "purpose": "Make committed source truth discoverable for future work.",
+      "examples": [
+        "repo index",
+        "script/import index",
+        "plan-note index",
+        "config inventory",
+        "output schema index",
+        "helper catalog",
+        "static lookup index",
+        "artifact index"
+      ],
+      "rule": "Generated indexes are discovery surfaces. They are not the primary proof that source behavior is correct."
+    },
+    "receipts_and_checkpoints": {
+      "purpose": "Record evidence for writer/generator/materializer runs, closeout gates, external side effects, or irreversible operations.",
+      "valid_when": [
+        "provider pull or external API run",
+        "materializer wrote data",
+        "index generator wrote artifacts",
+        "closeout proof bundle completed",
+        "delete/move/re-root operation was authorized",
+        "promotion or release gate needs durable evidence"
+      ],
+      "invalid_when": [
+        "ordinary implementation status",
+        "audit-only note with no output",
+        "commit-hash-only evidence",
+        "chat-only decision"
+      ]
+    }
+  },
+  "index_architecture_and_layering": {
+    "purpose": "Guide a brand-new repo in building indexes as discovery and navigation infrastructure without confusing indexes with behavioral proof.",
+    "core_rule": "Indexes derive from committed source truth. They help future agents find files, owners, helpers, plans, symbols, configs, artifacts, and evidence. They do not prove behavior by themselves; owning validators and focused tests prove behavior.",
+    "new_repo_index_progression": [
+      {
+        "stage": 1,
+        "name": "no_index_yet",
+        "use_when": "The repo has only bootstrap files and the first roadmap.",
+        "allowed_discovery": [
+          "git status",
+          "file tree",
+          "ripgrep/search",
+          "manual owner refs in the roadmap and packet"
+        ],
+        "exit_condition": "The repo has enough durable files that manual discovery starts to become error-prone."
+      },
+      {
+        "stage": 2,
+        "name": "seed_file_and_authority_register",
+        "use_when": "The repo needs a simple source-of-record list before building real indexes.",
+        "recommended_format": "JSON",
+        "records": [
+          "path",
+          "kind",
+          "owner area",
+          "source truth or generated",
+          "protected or unprotected",
+          "created_by_slice",
+          "validator_or_test_ref"
+        ],
+        "exit_condition": "The register can answer where the roadmap, packets, configs, validators, tests, and helper catalog live."
+      },
+      {
+        "stage": 3,
+        "name": "helper_validator_script_catalog",
+        "use_when": "The repo has reusable scripts, validators, builders, or helpers.",
+        "recommended_format": "JSON first, sqlite or DuckDB later if needed.",
+        "records": [
+          "helper_id",
+          "path",
+          "purpose",
+          "read-only or writer",
+          "inputs",
+          "outputs",
+          "side_effect_policy",
+          "safe_summary_command",
+          "validator_or_test_refs",
+          "when_to_use",
+          "when_not_to_use"
+        ],
+        "exit_condition": "Future slices can find existing helpers before creating duplicates."
+      },
+      {
+        "stage": 4,
+        "name": "plan_note_and_slice_packet_index",
+        "use_when": "The repo has multiple plans, packets, future notes, or evidence reports.",
+        "recommended_format": "JSON or sqlite with status fields.",
+        "records": [
+          "plan_id",
+          "path",
+          "status",
+          "authority_class",
+          "current_or_historical",
+          "selected_next_action",
+          "supersedes_or_superseded_by",
+          "affected_slices",
+          "validation_refs"
+        ],
+        "exit_condition": "A future agent can distinguish active authority from historical notes."
+      },
+      {
+        "stage": 5,
+        "name": "config_schema_contract_index",
+        "use_when": "The repo has configs, schemas, contracts, policies, or structured runtime owners.",
+        "recommended_format": "JSON first; sqlite/DuckDB when cross-references matter.",
+        "records": [
+          "path",
+          "artifact_id_or_schema_id",
+          "owner area",
+          "runtime_affecting_fields",
+          "references_to_other_artifacts",
+          "required_validator",
+          "focused_tests",
+          "safety_boundary"
+        ],
+        "exit_condition": "The repo can answer which config/schema/contract owns a behavior and how it is validated."
+      },
+      {
+        "stage": 6,
+        "name": "artifact_evidence_index",
+        "use_when": "The repo writes manifests, receipts, checkpoints, reports, generated outputs, or external-run evidence.",
+        "recommended_format": "JSON/JSONL for small repos; sqlite/DuckDB when query volume grows.",
+        "records": [
+          "artifact path",
+          "artifact kind",
+          "writer or generator",
+          "source commit or run id",
+          "input refs",
+          "output refs",
+          "checksum or hash",
+          "secret_safe_status",
+          "receipt_or_checkpoint_ref",
+          "validation_ref"
+        ],
+        "exit_condition": "A future agent can tell which outputs are durable evidence and which are generated noise."
+      },
+      {
+        "stage": 7,
+        "name": "symbol_static_lookup_or_semantic_index",
+        "use_when": "The repo is large enough that file-level indexes are not enough.",
+        "recommended_format": "sqlite, DuckDB, FTS, static lookup tables, or vector/semantic indexes as appropriate.",
+        "records": [
+          "module or file",
+          "symbol",
+          "import",
+          "CLI flag",
+          "call/reference",
+          "semantic chunk",
+          "owner area",
+          "source hash",
+          "last_indexed_commit"
+        ],
+        "exit_condition": "Future agents can find exact code surfaces without broad filesystem guessing."
+      }
+    ],
+    "canonical_index_layers": [
+      {
+        "layer": "file_inventory_index",
+        "question_answered": "What files exist, what type are they, are they source truth or generated, and are they protected?",
+        "minimum_fields": [
+          "path",
+          "extension",
+          "family",
+          "hash",
+          "source_truth_or_generated",
+          "protected",
+          "owner area"
+        ]
+      },
+      {
+        "layer": "authority_and_plan_index",
+        "question_answered": "Which roadmap, packet, policy, or note is current authority?",
+        "minimum_fields": [
+          "artifact_id",
+          "path",
+          "status",
+          "authority_class",
+          "current_direction",
+          "supersession refs"
+        ]
+      },
+      {
+        "layer": "script_symbol_cli_index",
+        "question_answered": "Which scripts, modules, symbols, imports, and CLI flags exist?",
+        "minimum_fields": [
+          "path",
+          "symbol or CLI flag",
+          "role",
+          "owner area",
+          "imports",
+          "calls",
+          "validator/test refs"
+        ]
+      },
+      {
+        "layer": "helper_catalog_index",
+        "question_answered": "Which helper should be reused before creating a new one?",
+        "minimum_fields": [
+          "helper_id",
+          "path",
+          "purpose",
+          "read-only or writer",
+          "when_to_use",
+          "when_not_to_use",
+          "safe command",
+          "tests"
+        ]
+      },
+      {
+        "layer": "config_schema_contract_index",
+        "question_answered": "Which structured owner surface defines behavior and how is it validated?",
+        "minimum_fields": [
+          "path",
+          "artifact id",
+          "schema id or contract id",
+          "owner area",
+          "runtime fields",
+          "refs",
+          "validator",
+          "tests"
+        ]
+      },
+      {
+        "layer": "artifact_evidence_index",
+        "question_answered": "Which manifests, receipts, checkpoints, reports, or generated outputs are meaningful evidence?",
+        "minimum_fields": [
+          "path",
+          "artifact kind",
+          "writer",
+          "run id or commit",
+          "input refs",
+          "output refs",
+          "checksum",
+          "validation ref"
+        ]
+      },
+      {
+        "layer": "external_reference_index",
+        "question_answered": "Which external docs, APIs, source mirrors, providers, or licensed references were used and what may be persisted?",
+        "minimum_fields": [
+          "reference id",
+          "source type",
+          "access route",
+          "license or privacy rule",
+          "allowed persistence",
+          "distilled evidence ref",
+          "full-read requirement"
+        ]
+      }
+    ],
+    "index_record_minimum_common_fields": [
+      "path_or_reference_id",
+      "record_kind",
+      "owner_area",
+      "source_truth_or_generated",
+      "protected_or_mutable",
+      "current_hash_or_version",
+      "created_or_updated_by_slice",
+      "validator_or_test_ref",
+      "refresh_reason",
+      "last_indexed_commit_or_run",
+      "supersession_or_deprecation_ref"
+    ],
+    "index_builder_rules": [
+      "Start with a simple JSON index before building sqlite, DuckDB, FTS, or semantic search.",
+      "Build an index only after deciding what question it must answer.",
+      "Prefer tracked source truth as index input.",
+      "Keep ignored scratch files out of authority indexes unless explicitly promoted.",
+      "Mark generated records as generated.",
+      "Mark protected surfaces as protected.",
+      "Record enough hash/version data to detect meaningful drift.",
+      "Do not let index builders mutate unrelated artifacts.",
+      "Provide status/check mode and rebuild/write mode separately.",
+      "Summary/status mode must not write.",
+      "Validate generated index JSON/JSONL/database outputs.",
+      "Commit generated index outputs separately when refresh is required."
+    ],
+    "index_refresh_decision_rules": [
+      "Refresh when the selected slice owns index/reconciliation work.",
+      "Refresh when stale discovery blocks current implementation.",
+      "Refresh when the next slice truly depends on fresh discovery.",
+      "Refresh when a closeout/release/projection gate requires freshness.",
+      "Refresh when the index is corrupt, missing, or unusable.",
+      "Refresh when the operator explicitly requests it.",
+      "Do not refresh only because the index reports head-only staleness after a generated-output commit.",
+      "Do not refresh after every small source change by habit.",
+      "Do not treat index freshness as behavior proof."
+    ],
+    "planner_index_questions": [
+      "What question does this index answer?",
+      "Who consumes this index in the next slice?",
+      "Is this index source truth, generated discovery, or evidence?",
+      "What inputs does the index read?",
+      "What outputs does the index write?",
+      "Can status mode run without writing?",
+      "What validator proves the index is coherent?",
+      "What focused test proves stale, missing, generated, protected, and superseded records are classified correctly?",
+      "When should this index refresh?",
+      "When should this index intentionally stay stale?"
+    ],
+    "anti_patterns": [
+      "creating indexes before knowing the discovery questions",
+      "treating indexes as proof of runtime behavior",
+      "refreshing indexes after every commit",
+      "mixing index refresh outputs into normal implementation commits",
+      "letting indexes include unpromoted scratch evidence as authority",
+      "creating semantic/vector indexes before exact path and owner indexes exist",
+      "using generated index staleness to block work that focused validators already prove"
+    ]
+  },
+  "minimum_mapping_helper_and_validator_suite": {
+    "purpose": "Define the minimum repo-owned mapping helpers and validators a brand-new repo should grow so agents can discover commands, configs, schemas, contracts, helpers, validators, tests, and generated evidence without guessing.",
+    "core_rule": "Build mapping helpers only when they answer a concrete discovery or validation question. Each mapping helper should have a read-only status/check mode, an explicit write/rebuild mode if it generates artifacts, focused tests, and a validator that proves the map is coherent.",
+    "mapping_surfaces": [
+      {
+        "surface": "repo_map",
+        "question_answered": "What durable files exist and which ones are source truth, generated evidence, protected, historical, or active?",
+        "minimum_artifacts": [
+          "repo_map.json or repo_index.json",
+          "build_repo_map helper",
+          "validate_repo_map validator",
+          "focused tests for tracked, generated, protected, ignored, missing, and changed files"
+        ],
+        "minimum_record_fields": [
+          "path",
+          "kind",
+          "owner area",
+          "source truth or generated",
+          "protected",
+          "active/historical",
+          "hash or version",
+          "created_by_slice",
+          "validator/test refs"
+        ]
+      },
+      {
+        "surface": "command_map",
+        "question_answered": "Which commands, scripts, CLIs, tasks, make targets, package scripts, validators, builders, and generated-output writers exist?",
+        "minimum_artifacts": [
+          "command_map.json",
+          "build_command_map helper",
+          "validate_command_map validator",
+          "focused tests for read-only commands, writer commands, required flags, and side-effect classification"
+        ],
+        "minimum_record_fields": [
+          "command_id",
+          "path or invocation",
+          "role",
+          "read-only or writer",
+          "required inputs",
+          "outputs",
+          "side effects",
+          "safe summary/status command",
+          "owner config refs",
+          "validator/test refs",
+          "when to use",
+          "when not to use"
+        ]
+      },
+      {
+        "surface": "config_map",
+        "question_answered": "Which config or policy owns each runtime-affecting value?",
+        "minimum_artifacts": [
+          "config_map.json",
+          "build_config_map helper",
+          "validate_config_map validator",
+          "focused tests for missing owner config, hard-coded runtime value, stale config ref, and invalid default"
+        ],
+        "minimum_record_fields": [
+          "config_id",
+          "path",
+          "owner area",
+          "runtime-affecting fields",
+          "allowed values or selection route",
+          "schema ref",
+          "contract ref",
+          "validator ref",
+          "test refs",
+          "secret_safe_status"
+        ]
+      },
+      {
+        "surface": "schema_contract_map",
+        "question_answered": "Which schema and contract validate each structured artifact and runtime boundary?",
+        "minimum_artifacts": [
+          "schema_contract_map.json",
+          "build_schema_contract_map helper",
+          "validate_schema_contract_map validator",
+          "focused tests for missing schema, wrong schema id, contract/config mismatch, additional-property drift, and missing required fields"
+        ],
+        "minimum_record_fields": [
+          "artifact path",
+          "schema id",
+          "contract id",
+          "owner area",
+          "validated fields",
+          "runtime boundary",
+          "validator command",
+          "test refs",
+          "supersession refs"
+        ]
+      },
+      {
+        "surface": "helper_map",
+        "question_answered": "Which helper should be reused, wrapped, extended, or avoided before writing new scripts?",
+        "minimum_artifacts": [
+          "helper_catalog.json",
+          "build_helper_catalog helper",
+          "validate_helper_catalog validator",
+          "focused tests for duplicate helpers, missing safe command, writer/read-only mismatch, and deprecated helper routing"
+        ],
+        "minimum_record_fields": [
+          "helper_id",
+          "path",
+          "purpose",
+          "owner domain",
+          "read-only or writer",
+          "inputs",
+          "outputs",
+          "side-effect policy",
+          "safe summary/status command",
+          "validator/test refs",
+          "when to use",
+          "when not to use",
+          "replacement or supersession refs"
+        ]
+      },
+      {
+        "surface": "validator_map",
+        "question_answered": "Which validator owns each invariant and which slices rely on it?",
+        "minimum_artifacts": [
+          "validator_map.json",
+          "build_validator_map helper",
+          "validate_validator_map validator",
+          "focused tests for missing owner validator, stale validator refs, writer behavior in summary mode, and missing failure codes"
+        ],
+        "minimum_record_fields": [
+          "validator_id",
+          "path or command",
+          "owner invariant",
+          "read-only or writer",
+          "supported modes",
+          "failure code taxonomy",
+          "owner files checked",
+          "test refs",
+          "safe summary command",
+          "slices depending on it"
+        ]
+      },
+      {
+        "surface": "test_map",
+        "question_answered": "Which focused tests prove each owner behavior and failure path?",
+        "minimum_artifacts": [
+          "test_map.json",
+          "build_test_map helper",
+          "validate_test_map validator",
+          "focused tests for orphan tests, missing owner behavior tests, and missing negative cases"
+        ],
+        "minimum_record_fields": [
+          "test_id",
+          "path",
+          "owner behavior",
+          "happy path",
+          "negative cases",
+          "fixtures",
+          "validator refs",
+          "slice refs",
+          "parallel safety",
+          "network or credential policy"
+        ]
+      },
+      {
+        "surface": "artifact_output_map",
+        "question_answered": "Which commands write manifests, receipts, checkpoints, reports, indexes, or runtime outputs, and where do those outputs belong?",
+        "minimum_artifacts": [
+          "artifact_output_map.json",
+          "build_artifact_output_map helper",
+          "validate_artifact_output_map validator",
+          "focused tests for unregistered outputs, secret persistence, receipt/write drift, and summary-only mutation"
+        ],
+        "minimum_record_fields": [
+          "writer command",
+          "output kind",
+          "output root",
+          "generated or source truth",
+          "receipt/checkpoint requirement",
+          "secret/no-token rule",
+          "post-output hook",
+          "refresh decision",
+          "validator/test refs"
+        ]
+      }
+    ],
+    "minimum_helper_scripts_for_new_repo": [
+      {
+        "helper": "query_authority",
+        "purpose": "Read the current authority map, roadmap, active packet, and required startup refs.",
+        "first_version": "A read-only script or documented command that prints the current owner plan and selected slice."
+      },
+      {
+        "helper": "build_repo_map",
+        "purpose": "Generate the file/source/generation/protection map.",
+        "first_version": "JSON writer over tracked files only."
+      },
+      {
+        "helper": "validate_repo_map",
+        "purpose": "Check map freshness, missing paths, protected classification, and generated classification.",
+        "first_version": "Read-only status/check validator."
+      },
+      {
+        "helper": "build_command_map",
+        "purpose": "Catalog commands, scripts, validators, builders, and writers.",
+        "first_version": "Manual JSON seed plus validator; automate extraction later."
+      },
+      {
+        "helper": "validate_command_map",
+        "purpose": "Prove commands have roles, side-effect classification, safe status command, and owner refs.",
+        "first_version": "Read-only JSON validator."
+      },
+      {
+        "helper": "build_config_schema_contract_map",
+        "purpose": "Map configs to schemas/contracts and validators.",
+        "first_version": "Read structured refs from JSON config files."
+      },
+      {
+        "helper": "validate_config_schema_contract_map",
+        "purpose": "Prove structured owners have schema/contract/validator/test refs and no obvious drift.",
+        "first_version": "JSON/schema validation plus custom cross-checks."
+      },
+      {
+        "helper": "build_helper_catalog",
+        "purpose": "Catalog reusable helpers and when to use them.",
+        "first_version": "Manual JSON catalog, then evolve toward extraction from scripts."
+      },
+      {
+        "helper": "validate_helper_catalog",
+        "purpose": "Prevent duplicate helpers, unsafe read-only claims, and missing tests.",
+        "first_version": "Read-only JSON validator."
+      },
+      {
+        "helper": "build_validator_map",
+        "purpose": "Catalog validators by invariant and owner files.",
+        "first_version": "Manual JSON seed linked from packets."
+      },
+      {
+        "helper": "validate_validator_map",
+        "purpose": "Ensure every implementation slice has an owning validator or explicit extension.",
+        "first_version": "Read-only packet and validator map checker."
+      },
+      {
+        "helper": "build_artifact_output_map",
+        "purpose": "Map writers to manifests, receipts, checkpoints, reports, indexes, and generated outputs.",
+        "first_version": "Manual JSON seed for known writers."
+      },
+      {
+        "helper": "validate_artifact_output_map",
+        "purpose": "Check writer outputs, receipt rules, secret rules, and summary-only no-write behavior.",
+        "first_version": "Read-only JSON validator with focused tests."
+      },
+      {
+        "helper": "validate_slice_packet",
+        "purpose": "Block build mode until owner files, validator, tests, source reads, refresh decision, and commit plan are named.",
+        "first_version": "The first protocol validator in a new repo."
+      },
+      {
+        "helper": "validate_worktree_cleanliness",
+        "purpose": "Classify worktree noise, generated drift, untracked scratch evidence, and action-required dirt.",
+        "first_version": "Read-only git status classifier."
+      },
+      {
+        "helper": "validate_read_only_commands",
+        "purpose": "Prove summary/status validators do not write tracked artifacts.",
+        "first_version": "Run selected commands before/after status hash checks."
+      },
+      {
+        "helper": "validate_no_secrets_persisted",
+        "purpose": "Check configs, reports, receipts, logs, and generated outputs for secrets or tokenized URLs.",
+        "first_version": "Pattern-based scan with allowlist support."
+      }
+    ],
+    "minimum_validator_scripts_for_new_repo": [
+      "validate_slice_packet",
+      "validate_repo_map",
+      "validate_command_map",
+      "validate_config_schema_contract_map",
+      "validate_helper_catalog",
+      "validate_validator_map",
+      "validate_artifact_output_map",
+      "validate_worktree_cleanliness",
+      "validate_read_only_commands",
+      "validate_no_secrets_persisted",
+      "one owning behavior validator per implementation slice"
+    ],
+    "build_order": [
+      "Create AGENTS.md, SKILL.md, pyproject.toml, roadmap, and first slice packet.",
+      "Create validate_slice_packet as the first protocol validator.",
+      "Create a simple repo_map and validate_repo_map.",
+      "Create command_map and helper_catalog only when the repo has enough commands/helpers to justify them.",
+      "Create config_schema_contract_map before runtime configs become numerous or safety-sensitive.",
+      "Create validator_map and test_map once more than one slice exists.",
+      "Create artifact_output_map before any command writes durable outputs.",
+      "Upgrade JSON maps to sqlite/DuckDB/FTS/semantic indexes only after JSON maps no longer answer discovery questions efficiently."
+    ],
+    "do_not_build_yet": [
+      "semantic/vector index before exact owner/path/helper/artifact maps",
+      "global command runner before command side effects are classified",
+      "receipt writer before receipt meaning is defined",
+      "automatic refresh hook before refresh decision rules exist",
+      "broad helper framework before one repeated helper need is proven"
+    ]
+  },
+  "generic_script_architecture": {
+    "purpose": "Define the portable helper/control-plane script architecture that a serious repo should grow as durable planning, implementation, validation, evidence, and discovery needs appear.",
+    "core_rule": "The roles are generic; exact names, paths, schemas, policies, storage engines, protected surfaces, and domain safety rules are repo-local. Build the smallest useful helper first, then harden it when repeated use proves the shape.",
+    "architecture_roles": [
+      {
+        "order": 1,
+        "role": "authority_map_query",
+        "generic_script_name": "query_authority.py",
+        "responsibility": "Read current roadmap, active slice packet, guidance routing, required startup refs, active/historical authority classes, and selected owner surfaces.",
+        "first_version": "Read-only command that prints current owner plan, selected slice, required reads, and required validators.",
+        "must_prove": [
+          "active authority can be found without chat history",
+          "historical or superseded notes do not provide next action",
+          "missing authority is reported as an explicit failure"
+        ],
+        "side_effect_policy": "read_only"
+      },
+      {
+        "order": 2,
+        "role": "repo_file_index",
+        "generic_script_name": "repo_index.py",
+        "responsibility": "Map files, source-truth/generated status, protected status, owner area, hashes, symbols or references if needed, and stale/fresh status.",
+        "first_version": "Tracked-file JSON index with status mode and rebuild mode.",
+        "must_prove": [
+          "status mode does not write",
+          "generated outputs are marked generated",
+          "protected surfaces are marked protected",
+          "head-only staleness is evidence, not behavior proof"
+        ],
+        "side_effect_policy": "read_only_status_explicit_rebuild_writer"
+      },
+      {
+        "order": 3,
+        "role": "plan_note_index",
+        "generic_script_name": "plan_note_index.py",
+        "responsibility": "Index roadmaps, slice packets, future notes, decision records, evidence reports, supersession records, and active/historical authority classes.",
+        "first_version": "JSON or sqlite index over durable JSON planning artifacts.",
+        "must_prove": [
+          "active plans are distinguishable from evidence-only reports",
+          "future-affecting notes are findable by slice",
+          "superseded notes cannot control current next action"
+        ],
+        "side_effect_policy": "read_only_status_explicit_rebuild_writer"
+      },
+      {
+        "order": 4,
+        "role": "script_helper_command_catalog",
+        "generic_script_name": "build_helper_catalog.py and validate_helper_catalog.py",
+        "responsibility": "Catalog scripts, helpers, validators, builders, writers, safe status commands, side effects, owner refs, and duplicate-prevention guidance.",
+        "first_version": "Manual JSON helper/command catalog validated by a read-only checker.",
+        "must_prove": [
+          "new helpers do not duplicate existing helper behavior",
+          "writer commands are not auto-safe",
+          "read-only claims have no-write evidence or tests"
+        ],
+        "side_effect_policy": "catalog_writer_requires_explicit_intent"
+      },
+      {
+        "order": 5,
+        "role": "config_schema_contract_registry",
+        "generic_script_name": "build_config_schema_contract_map.py and validate_config_schema_contract_map.py",
+        "responsibility": "Map runtime-affecting values to configs, policies, schemas, contracts, validators, focused tests, and allowed selection routes.",
+        "first_version": "JSON cross-reference over configs, schemas, and contracts.",
+        "must_prove": [
+          "runtime-affecting values have config or operator-selection owners",
+          "schemas and contracts agree on required fields",
+          "validators read owner surfaces instead of hard-coding runtime values"
+        ],
+        "side_effect_policy": "read_only_validator_explicit_catalog_writer"
+      },
+      {
+        "order": 6,
+        "role": "slice_packet_validator",
+        "generic_script_name": "validate_slice_packet.py",
+        "responsibility": "Block implementation until selected slice, owner files, owning validator, focused tests, source reads, not-in-scope boundaries, refresh decision, and commit plan are named.",
+        "first_version": "Read-only JSON validator for compact slice packets.",
+        "must_prove": [
+          "implementation cannot start from vague ownership",
+          "refresh decisions are structured",
+          "future placeholders stay out of scope"
+        ],
+        "side_effect_policy": "read_only"
+      },
+      {
+        "order": 7,
+        "role": "owning_behavior_validator_per_slice",
+        "generic_script_name": "validate_<slice_behavior>.py",
+        "responsibility": "Prove the selected slice's behavior, owner contract, critical failure modes, and safety boundaries.",
+        "first_version": "Focused read-only validator with explicit failure codes and negative cases where relevant.",
+        "must_prove": [
+          "the behavior works against real owner files or fixtures",
+          "important invalid states fail",
+          "summary/check mode does not write unless explicitly allowed"
+        ],
+        "side_effect_policy": "read_only_by_default_explicit_writer_only_when_needed"
+      },
+      {
+        "order": 8,
+        "role": "focused_tests",
+        "generic_script_name": "tests/<owner_area>/test_<slice_behavior>.py",
+        "responsibility": "Prove happy path, negative cases, fixtures, no-write/no-network/no-secret constraints where relevant, and integration with owner files.",
+        "first_version": "Small test file scoped to one owner behavior.",
+        "must_prove": [
+          "the owning validator is not paperwork-only",
+          "known bad inputs fail",
+          "the slice does not mutate unrelated artifacts"
+        ],
+        "side_effect_policy": "test_runner_side_effects_must_be_known_and_bounded"
+      },
+      {
+        "order": 9,
+        "role": "worktree_cleanliness_classifier",
+        "generic_script_name": "validate_worktree_cleanliness.py",
+        "responsibility": "Classify generated drift, raw scratch evidence, untracked files, staged changes, protected mutations, and action-required dirt without reverting or deleting anything.",
+        "first_version": "Read-only git porcelain classifier backed by a JSON policy.",
+        "must_prove": [
+          "unrelated user changes are not reverted",
+          "generated or raw evidence noise is classified",
+          "action-required dirt remains visible"
+        ],
+        "side_effect_policy": "read_only"
+      },
+      {
+        "order": 10,
+        "role": "read_only_command_harness",
+        "generic_script_name": "validate_read_only_commands.py",
+        "responsibility": "Run configured status, summary, check, and validator commands with before/after worktree checks to prove they do not write tracked artifacts.",
+        "first_version": "Policy-driven no-write harness over selected commands.",
+        "must_prove": [
+          "summary/status commands are no-write",
+          "writer exceptions are explicit and named",
+          "secret/token scans cover generated reports and receipts"
+        ],
+        "side_effect_policy": "read_only"
+      },
+      {
+        "order": 11,
+        "role": "protected_surface_guard",
+        "generic_script_name": "guard_protected_surfaces.py",
+        "responsibility": "Prevent unauthorized edits, deletes, moves, or rewrites to protected source, config, contract, schema, data, infrastructure, or deployment surfaces.",
+        "first_version": "Staged-change guard with explicit override env var or policy gate.",
+        "must_prove": [
+          "protected modifications require explicit authorization",
+          "new additive files can be allowed by policy",
+          "delete/move/reroot operations require an approved manifest"
+        ],
+        "side_effect_policy": "read_only_guard"
+      },
+      {
+        "order": 12,
+        "role": "generated_output_post_hook",
+        "generic_script_name": "run_output_post_hooks.py and validate_output_post_hooks.py",
+        "responsibility": "After configured writers or generators run, update only named inventories, output maps, schema indexes, or catalogs and validate the hook pairing.",
+        "first_version": "Policy-driven post-hook runner with check mode and explicit write mode.",
+        "must_prove": [
+          "writers are paired with required post-output hooks",
+          "post-hooks update only named generated outputs",
+          "hook-invoked scripts do not recursively require themselves"
+        ],
+        "side_effect_policy": "explicit_writer"
+      },
+      {
+        "order": 13,
+        "role": "conditional_index_refresh",
+        "generic_script_name": "refresh_indexes.py",
+        "responsibility": "Refresh generated discovery outputs only for structured reasons: selected slice owns index work, stale discovery blocks work, next slice needs fresh discovery, closeout requires freshness, index is corrupt/missing, or operator asks.",
+        "first_version": "Single refresh command that names exact generated outputs and validates them.",
+        "must_prove": [
+          "implementation commit happens before generated refresh commit",
+          "generated refresh outputs are committed once",
+          "head-only staleness after the generated commit is not chased"
+        ],
+        "side_effect_policy": "explicit_generated_writer"
+      },
+      {
+        "order": 14,
+        "role": "repo_health_gate",
+        "generic_script_name": "validate_repo_health_gate.py",
+        "responsibility": "Run the repo's selected health commands, validators, no-write checks, secret scans, and diff/worktree checks for closeout or release-style confidence.",
+        "first_version": "Read-only health gate with optional receipt writing only when receipt meaning is defined.",
+        "must_prove": [
+          "health gate is a selected command bundle, not every possible test",
+          "read-only mode does not write",
+          "receipt/checkpoint output is written only when it proves a writer, release gate, external action, irreversible operation, or phase closeout"
+        ],
+        "side_effect_policy": "read_only_by_default_explicit_receipt_writer"
+      }
+    ],
+    "comparison_classifications": [
+      "present",
+      "missing",
+      "planned_later",
+      "too_domain_specific_to_reuse_directly",
+      "generic_candidate",
+      "unsafe_writer_without_policy",
+      "read_only_safe",
+      "paperwork_only_needs_behavior_proof"
+    ],
+    "build_order_guidance": [
+      "Create authority query and slice-packet validator before relying on agents to follow the workflow.",
+      "Create repo map, command map, helper catalog, and config/schema/contract registry as soon as manual discovery becomes error-prone.",
+      "Create the owning behavior validator and focused tests inside each implementation slice.",
+      "Create worktree cleanliness and read-only harness before generated artifacts or status commands become common.",
+      "Create protected-surface guard before allowing automated edits to protected areas.",
+      "Create post-output hooks before writers/generators produce durable artifacts.",
+      "Refresh indexes only when the structured refresh decision says they are needed.",
+      "Use the repo health gate for closeout/release confidence, not as a substitute for owning validators."
+    ],
+    "anti_patterns": [
+      "building all 14 helpers as a giant framework before the first useful slice",
+      "treating a helper catalog as permission to execute every helper",
+      "allowing status or summary commands to write by default",
+      "creating one generic validator that checks paperwork but no behavior",
+      "refreshing indexes after every commit",
+      "using repo health gate success to hide a failed owning validator",
+      "copying another repo's domain helper names without replacing their domain assumptions"
+    ]
+  },
+  "planning_logic": {
+    "systems_logic_planning_guard": {
+      "purpose": "Help the operator think in systems, ownership layers, evidence, and failure paths instead of merely filling template fields.",
+      "core_rule": "A slice is not ready just because it has a title. It is ready only when the planner can explain ownership, proof, failure modes, downstream dependency, configuration boundaries, evidence versus authority, not-in-scope boundaries, and generated-output value.",
+      "required_planning_questions": [
+        "What behavior or decision does this slice change?",
+        "Which layer owns that behavior: roadmap, config, schema, contract, runtime code, script, validator, test, manifest, receipt, index, helper catalog, or external source?",
+        "Which exact owner files must change, and why does each file own part of the behavior?",
+        "What proves the behavior changed correctly?",
+        "What focused validator checks the owner contract?",
+        "What focused tests prove happy path and important failure paths?",
+        "What can fail, and how will the validator/test expose the failure?",
+        "What future slice depends on this output, decision, or surface?",
+        "What should be config-owned or operator-selected instead of hard-coded?",
+        "What is evidence versus authority in this slice?",
+        "What should not be built yet?",
+        "What generated output is useful, and what generated output would just be noise?",
+        "Does this slice need a receipt/checkpoint, or is validator/test proof enough?",
+        "Does this slice require live/external/credentialed/destructive/stateful execution, and if so what safety gate owns it?",
+        "If a new agent starts tomorrow, what durable artifact tells them the next correct action?"
+      ],
+      "layer_model": [
+        {
+          "layer": "intent_layer",
+          "question": "What is the goal, and what is explicitly out of scope?",
+          "typical_surfaces": [
+            "roadmap",
+            "slice packet",
+            "decision record"
+          ]
+        },
+        {
+          "layer": "authority_layer",
+          "question": "Which durable file owns the rule or behavior?",
+          "typical_surfaces": [
+            "authority map",
+            "config",
+            "policy",
+            "schema",
+            "contract"
+          ]
+        },
+        {
+          "layer": "execution_layer",
+          "question": "Which script, module, workflow, or helper performs the behavior?",
+          "typical_surfaces": [
+            "runtime module",
+            "script",
+            "CLI",
+            "helper",
+            "materializer",
+            "adapter"
+          ]
+        },
+        {
+          "layer": "proof_layer",
+          "question": "What proves the behavior and failure paths directly?",
+          "typical_surfaces": [
+            "owning validator",
+            "focused tests",
+            "fixtures",
+            "read-only/no-write harness",
+            "secret/no-token check"
+          ]
+        },
+        {
+          "layer": "discovery_layer",
+          "question": "What helps future agents find the new surface?",
+          "typical_surfaces": [
+            "repo index",
+            "script index",
+            "helper catalog",
+            "plan-note index",
+            "config inventory",
+            "source-read register"
+          ]
+        },
+        {
+          "layer": "evidence_layer",
+          "question": "What durable evidence is meaningful, and what would be noise?",
+          "typical_surfaces": [
+            "manifest",
+            "receipt",
+            "checkpoint",
+            "evidence report",
+            "closeout report"
+          ]
+        },
+        {
+          "layer": "future_dependency_layer",
+          "question": "What does a later slice need to know or consume?",
+          "typical_surfaces": [
+            "future note",
+            "roadmap dependency",
+            "packet update",
+            "helper catalog update",
+            "validator/test requirement"
+          ]
+        }
+      ],
+      "bad_planning_smells": [
+        {
+          "smell": "slice too large",
+          "symptom": "The planner cannot name one owning validator or one focused test group.",
+          "correction": "Split the slice by owner layer or proof path."
+        },
+        {
+          "smell": "fake owner files",
+          "symptom": "Files are listed because they exist, not because they own the behavior.",
+          "correction": "Explain why each file owns a rule, data shape, execution path, proof, or discovery surface."
+        },
+        {
+          "smell": "paperwork validator",
+          "symptom": "The validator only checks that a field exists, not that the behavior is coherent or unsafe cases fail.",
+          "correction": "Add cross-checks, negative cases, failure codes, and read-only/no-secret checks where relevant."
+        },
+        {
+          "smell": "index_as_proof",
+          "symptom": "The planner treats index freshness as proof that behavior works.",
+          "correction": "Use indexes for discovery; prove behavior with owning validator and focused tests."
+        },
+        {
+          "smell": "future_note_noise",
+          "symptom": "Future notes record status, encouragement, or repeated plan prose.",
+          "correction": "Persist only notes that change future order, owners, validators, tests, source reads, safety, refresh, activation, receipts, or closeout."
+        },
+        {
+          "smell": "premature_abstraction",
+          "symptom": "The planner creates generic frameworks before one working slice proves repeated need.",
+          "correction": "Build the first thin slice using direct owner surfaces, then abstract after repetition."
+        },
+        {
+          "smell": "unasked_safety_questions",
+          "symptom": "Data lineage, credentials, live execution, destructive actions, runtime values, or failure modes are not named.",
+          "correction": "Return to targeted planning and assign safety ownership before build mode."
+        }
+      ],
+      "planner_quality_gate": {
+        "must_answer_before_build": [
+          "What owns this behavior?",
+          "What proves this behavior?",
+          "What can fail?",
+          "What future slice depends on it?",
+          "What belongs in config or operator selection?",
+          "What is evidence and what is authority?",
+          "What is explicitly not being built?",
+          "What generated output is useful versus noise?"
+        ],
+        "pass_condition": "The answers are concrete and point to owner surfaces, validators, tests, or durable notes.",
+        "fail_condition": "Any answer is vague, chat-only, or says to decide during implementation.",
+        "failure_action": "Do not implement. Split the slice or return to targeted planning."
+      }
+    },
+    "operator_modes": {
+      "naming_note": "These modes are about repo maturity, not operator intelligence. New repo mode is the default for a repo starting from scratch. Mature repo mode is allowed only after the workflow has been proven by completed slices.",
+      "new_repo_mode": {
+        "purpose": "Make a brand-new repo usable from scratch by reducing choices to checklists, one small slice at a time, while preserving the same safety guarantees.",
+        "default_for": [
+          "first-time repo bootstrap",
+          "operators new to programming",
+          "unclear project scope",
+          "high chance of overplanning or overbuilding",
+          "first three implementation slices in a new repo"
+        ],
+        "how_to_work": [
+          "Use the long-form prompts, not the short-form prompts.",
+          "Ask the readiness prompt before every implementation slice.",
+          "Create only one roadmap, one slice packet, one validator, and one focused test group at a time.",
+          "Prefer plain JSON checklists over complex schemas until the pattern is proven.",
+          "Use existing language/tool defaults before adding extra tooling.",
+          "Do not create broad helper systems until one repeated need is proven.",
+          "Do not refresh indexes unless the packet says why.",
+          "Stop after each slice and read the closeout before starting the next slice."
+        ],
+        "allowed_simplifications": [
+          "The first index can be a simple JSON file list before becoming sqlite or another database.",
+          "The first authority map can be a small JSON route table.",
+          "The first validator can be a simple script or checklist validator.",
+          "The first focused tests can cover only the new owner behavior and one negative case.",
+          "The first helper catalog can list only helper_id, path, purpose, and when_to_use."
+        ],
+        "must_not_simplify": [
+          "Do not leave decisions only in chat.",
+          "Do not skip the compact slice packet.",
+          "Do not skip the owning validator or focused tests.",
+          "Do not hide runtime values in code.",
+          "Do not mix implementation and generated refresh commits when refresh is required.",
+          "Do not persist secrets.",
+          "Do not mutate donor/reference roots without explicit authorization."
+        ],
+        "new_repo_prompt_rule": "Use the foundation preamble plus the long-form readiness and implementation prompts. The short form is not new repo mode unless the operator has already read the doctrine in the same turn.",
+        "exit_to_mature_repo_mode_when": [
+          "The repo has a working roadmap, packet, validator, focused test, and refresh policy.",
+          "At least three slices have completed without workflow confusion.",
+          "The operator can explain the refresh decision and future-note rule without rereading the whole methodology.",
+          "The next slice is large enough to benefit from deeper planning or mature-repo review."
+        ]
+      },
+      "mature_repo_mode": {
+        "purpose": "Let a repo with proven workflow infrastructure move faster while preserving durable evidence, validator-led proof, and controlled generated refreshes.",
+        "default_for": [
+          "mature new repo after the bootstrap pattern is proven",
+          "operators comfortable with the full doctrine",
+          "large multi-slice planning",
+          "domain-specific source/runtime/safety work",
+          "closeout or release-style validation"
+        ],
+        "how_to_work": [
+          "Use short-form prompts only when the project docs and durable methodology are already available to the agent.",
+          "Batch related planning edits, then rebuild plan/index surfaces once if required.",
+          "Create stronger schemas/contracts when the owner surface is repeated or safety-sensitive.",
+          "Create reusable helpers only after repeated needs prove the abstraction.",
+          "Use targeted reads instead of rereading all historical plans.",
+          "Run focused validators/tests first, then broader gates only when shared surfaces or closeout require them.",
+          "Keep implementation commits and generated refresh commits separate."
+        ],
+        "mature_repo_obligations": [
+          "Do not bypass the slice packet.",
+          "Do not treat broad status/index success as behavior proof.",
+          "Do not refresh indexes by habit.",
+          "Do not keep future-affecting discoveries in chat.",
+          "Do not let speed remove the owning validator or focused tests."
+        ],
+        "fall_back_to_new_repo_mode_when": [
+          "Owner files cannot be named.",
+          "The validator or focused tests are unclear.",
+          "The refresh decision is vague.",
+          "The operator is unsure whether a note affects future work.",
+          "A slice starts growing into unrelated features."
+        ]
+      },
+      "mode_selection_rule": "Start every brand-new repo in new repo mode. Move to mature repo mode only after the workflow has been proven by completed slices. Fall back to new repo mode whenever ambiguity increases."
+    },
+    "planning_modes": [
+      {
+        "mode": "broad_architecture_planning",
+        "use_when": "The project lacks a durable roadmap, domain model, dependency order, or safety boundaries.",
+        "output": "A compact durable roadmap plus open questions and owner-surface candidates.",
+        "exit_condition": "There is enough detail to create the first slice packet."
+      },
+      {
+        "mode": "targeted_preimplementation_planning",
+        "use_when": "A selected wave exists but one ambiguity would make implementation unsafe or future waves harder.",
+        "output": "A small packet or plan update that narrows that ambiguity.",
+        "exit_condition": "The packet names owner files, validator, tests, evidence requirements, and refresh decision."
+      },
+      {
+        "mode": "implementation_build_mode",
+        "use_when": "The selected slice has a packet and proof path.",
+        "output": "Owner-surface edits, focused validation, implementation commit, optional generated refresh commit.",
+        "exit_condition": "Focused proof passes and future-affecting discoveries are saved."
+      },
+      {
+        "mode": "closeout_mode",
+        "use_when": "A wave chain, release, or phase is complete and needs durable proof that no new root problem remains.",
+        "output": "Closeout validation bundle, receipt/checkpoint if meaningful, and optional generated index refresh.",
+        "exit_condition": "The next action is either normal research/build work or a separately tracked follow-up."
+      }
+    ],
+    "readiness_question": "Is the selected wave ready to implement, or is there one small prep detail that would make future slices easier?",
+    "readiness_decision_tree": [
+      {
+        "condition": "Owner files, validator, tests, source evidence, and refresh decision are all clear.",
+        "action": "Implement the slice."
+      },
+      {
+        "condition": "Only one or two tactical ambiguities remain.",
+        "action": "Save a compact prep note or update the slice packet, then implement."
+      },
+      {
+        "condition": "The wave cannot name owner files or proof path.",
+        "action": "Split the wave or return to targeted planning."
+      },
+      {
+        "condition": "The problem requires new domain research.",
+        "action": "Create a durable research note, distill it into the roadmap, then create a packet."
+      }
+    ],
+    "how_to_split_large_work": [
+      "Separate acquisition from loading.",
+      "Separate loading from feature generation.",
+      "Separate features from signals.",
+      "Separate signals from portfolio/performance.",
+      "Separate performance from optimization.",
+      "Separate research from live execution.",
+      "Separate source truth from derived artifacts.",
+      "Separate read-only validators from writers.",
+      "Separate implementation commits from generated-index commits."
+    ],
+    "definition_of_ready": [
+      "The selected slice has a stable ID.",
+      "The current owner roadmap or owner plan is read.",
+      "Owner files are listed.",
+      "Runtime values are config-owned or explicitly out of scope.",
+      "The owning validator is named.",
+      "Focused tests are named.",
+      "Required source reads are complete or explicitly not needed.",
+      "Not-in-scope boundaries are explicit.",
+      "Refresh decision is structured.",
+      "Commit shape is known."
+    ],
+    "definition_of_done": [
+      "Owner surfaces are implemented.",
+      "Changed structured files parse.",
+      "Owning validator passes.",
+      "Focused tests pass.",
+      "Read-only/no-mutation checks pass when relevant.",
+      "Secret scan or no-secret persistence check passes when relevant.",
+      "Future-affecting discoveries are saved.",
+      "Implementation is committed.",
+      "Generated indexes are refreshed only if required and committed separately.",
+      "Worktree is clean or remaining noise is classified."
+    ]
+  },
+  "from_zero_bootstrap_sequence": {
+    "purpose": "Define how to start this workflow in a repo that has no durable roadmap, authority map, indexes, helpers, validators, tests, or generated evidence policy yet.",
+    "starting_assumption": "The project begins with only an idea, a repo directory, and possibly some exploratory code. Nothing in chat is future authority until it is distilled into durable repo-owned artifacts.",
+    "commit_and_index_rule_for_new_repos": {
+      "core_rule": "A from-scratch repo follows the same commit and generated-refresh discipline as a mature repo: commit implementation/source/plan/test changes first, refresh generated indexes only when the selected slice or next slice needs discovery, commit generated outputs separately once, and do not chase head-only staleness.",
+      "early_exception": "The first few slices may legitimately create the index, helper catalog, plan-note registry, or generated evidence policy itself. Treat those as explicit index or infrastructure slices, not as permission to refresh indexes after every commit.",
+      "recommended_early_commit_sequence": [
+        "Commit bootstrap entrypoints, durable roadmap, directory layout, authority map seed, and first packet.",
+        "Commit first protocol validator and focused test policy.",
+        "Commit index/helper-catalog implementation only when that slice owns discovery infrastructure.",
+        "Commit generated index/catalog outputs separately only after the index/helper-catalog slice requires them.",
+        "After discovery infrastructure exists, keep generated indexes stale until a structured refresh decision requires fresh discovery."
+      ],
+      "do_not_do": [
+        "refresh generated indexes after every small source commit",
+        "combine implementation and generated refresh outputs in one commit unless the slice itself is the generator",
+        "treat head-only generated-index staleness as a blocker",
+        "build index infrastructure before deciding what discovery questions it must answer"
+      ]
+    },
+    "sequence": [
+      {
+        "step": 1,
+        "id": "repo_identity_and_boundaries",
+        "goal": "Name the repo, its purpose, mutable roots, read-only donor/reference roots, and domain risk class.",
+        "durable_output": "A bootstrap note or AGENTS-style file that states repo identity, allowed mutation roots, and forbidden roots.",
+        "done_when": "A future worker can tell what repo they are allowed to change and what domains require extra safety."
+      },
+      {
+        "step": 2,
+        "id": "top_level_entrypoints",
+        "goal": "Create concise human and agent entrypoints before detailed work starts.",
+        "durable_output": "AGENTS.md, SKILL.md, and pyproject.toml or equivalent project metadata.",
+        "done_when": "The entrypoints say where authority lives, what startup checks run, what hard safety invariants exist, and where durable planning goes."
+      },
+      {
+        "step": 3,
+        "id": "durable_directory_layout",
+        "goal": "Create stable places for plans, packets, configs, schemas, contracts, scripts, tests, manifests, receipts, reports, and references.",
+        "durable_output": "A directory layout note or config that names the durable surfaces.",
+        "done_when": "No important plan, note, receipt, or generated artifact needs to live only in chat or an unnamed scratch path."
+      },
+      {
+        "step": 4,
+        "id": "authority_map_seed",
+        "goal": "Route task types to the files that own their rules.",
+        "durable_output": "An authority map or routing config.",
+        "done_when": "A worker can answer where to look for planning, validation, source/data, runtime, test, helper, and closeout rules without guessing."
+      },
+      {
+        "step": 5,
+        "id": "index_strategy_seed",
+        "goal": "Decide how the repo will find source truth as it grows.",
+        "durable_output": "An index policy or simple starter register for files, plans, helpers, validators, generated outputs, and receipts.",
+        "done_when": "The repo has a low-friction discovery path, even if it starts as JSON before evolving into sqlite, DuckDB, static lookup, or richer indexes."
+      },
+      {
+        "step": 6,
+        "id": "helper_strategy_seed",
+        "goal": "Prevent duplicate scripts and ad hoc edits by declaring helper discovery and reuse rules early.",
+        "durable_output": "A helper catalog seed or helper policy.",
+        "done_when": "A worker knows to search for an existing helper, wrap it, extend it, or create a new helper with tests."
+      },
+      {
+        "step": 7,
+        "id": "validator_strategy_seed",
+        "goal": "Make the workflow enforceable before relying on it.",
+        "durable_output": "A first protocol validator or checklist that validates slice packets and required owner fields.",
+        "done_when": "Every implementation slice must name its owner surfaces, validator, focused tests, refresh decision, and commit shape before coding."
+      },
+      {
+        "step": 8,
+        "id": "focused_test_strategy_seed",
+        "goal": "Define how behavior proof will be written for small slices.",
+        "durable_output": "A focused test directory and minimal test policy.",
+        "done_when": "The first slice can add a happy path, negative path, read-only/no-write check, and safety check without inventing a test convention."
+      },
+      {
+        "step": 9,
+        "id": "generated_evidence_policy_seed",
+        "goal": "Define which outputs are generated discovery evidence and when they are refreshed.",
+        "durable_output": "A generated artifact policy covering indexes, manifests, summaries, receipts, checkpoints, and refresh commits.",
+        "done_when": "Generated outputs are not refreshed by habit, and the repo knows when to commit them separately."
+      },
+      {
+        "step": 10,
+        "id": "first_durable_roadmap",
+        "goal": "Turn the idea into a sequenced project without overplanning every implementation detail.",
+        "durable_output": "A roadmap with waves, dependencies, owner areas, not-in-scope boundaries, safety gates, and open questions.",
+        "done_when": "The next action is a small slice packet, not another broad architecture conversation."
+      },
+      {
+        "step": 11,
+        "id": "first_slice_packet",
+        "goal": "Convert the first roadmap wave into executable build work.",
+        "durable_output": "A compact slice packet.",
+        "done_when": "The packet names files to create or edit, source reads, validator, focused tests, future-note rules, refresh decision, and commit plan."
+      },
+      {
+        "step": 12,
+        "id": "first_implementation_loop",
+        "goal": "Prove the workflow with the smallest real implementation.",
+        "durable_output": "Owner files, owning validator, focused tests, implementation commit, and optional generated refresh commit.",
+        "done_when": "The first slice is proven by its own validator/tests and the repo can repeat the pattern."
+      },
+      {
+        "step": 13,
+        "id": "first_closeout_and_adjustment",
+        "goal": "Record what the first slice taught future slices.",
+        "durable_output": "Future notes only if they change later owner files, validators, tests, refresh decisions, safety boundaries, or ordering.",
+        "done_when": "The roadmap and packet pattern are improved without turning closeout into a status journal."
+      }
+    ],
+    "minimum_viable_starting_set": [
+      "AGENTS.md or equivalent bootstrap file",
+      "SKILL.md or equivalent workflow pointer",
+      "pyproject.toml or equivalent project metadata",
+      "plans/roadmap JSON",
+      "plans/slice packet JSON",
+      "authority map JSON",
+      "helper catalog seed",
+      "validator or checklist for packet completeness",
+      "focused test directory",
+      "generated evidence policy"
+    ],
+    "do_not_start_by": [
+      "writing broad runtime code before authority surfaces exist",
+      "creating a large raw report pile with no roadmap distillation",
+      "building indexes before deciding what questions the indexes must answer",
+      "writing receipts before defining what receipts prove",
+      "creating generic abstractions before the first slice proves the shape"
+    ]
+  },
+  "helper_and_reuse_policy": {
+    "purpose": "Ensure helpers, builders, validators, scanners, generators, and query scripts reduce repeated work instead of creating duplicate control surfaces.",
+    "core_rule": "Before creating a helper, search the current repo's helper catalog, script index, tests, and owner plans. Reuse or wrap an existing helper when it already owns the behavior. Create a new helper only when the slice packet names the gap and the new helper has focused proof.",
+    "helper_types": [
+      "query helper",
+      "validator",
+      "builder or generator",
+      "manifest or receipt writer",
+      "index refresher",
+      "schema or contract checker",
+      "path or config resolver",
+      "source/data materializer",
+      "test fixture factory",
+      "closeout or release gate"
+    ],
+    "before_creating_new_helper": [
+      "Query the repo index or file search for similar helper names, flags, and owner files.",
+      "Read the helper catalog or create a seed catalog if none exists.",
+      "Read nearby tests to understand expected CLI shape and failure codes.",
+      "Check whether the desired behavior belongs in config, schema, contract, validator, runtime code, or helper.",
+      "Decide whether to reuse, wrap, extend, deprecate, or create.",
+      "Record the decision in the slice packet if the helper affects future work."
+    ],
+    "reuse_decision_matrix": [
+      {
+        "case": "Existing helper already owns the behavior.",
+        "decision": "Reuse it and add focused tests only if the current slice needs new coverage."
+      },
+      {
+        "case": "Existing helper is close but lacks one config-owned option.",
+        "decision": "Extend it conservatively and test the old and new behavior."
+      },
+      {
+        "case": "Existing helper performs side effects in a read-only path.",
+        "decision": "Fix or wrap it so summary/status modes are read-only before relying on it."
+      },
+      {
+        "case": "Existing helper mixes unrelated domains.",
+        "decision": "Create a thin domain-specific wrapper only if the wrapper reduces risk and has its own validator/test."
+      },
+      {
+        "case": "No helper exists and the operation will be repeated by future slices.",
+        "decision": "Create a helper with owner config, focused tests, and catalog/index registration when discovery requires it."
+      },
+      {
+        "case": "No helper exists and the operation is one-time manual evidence.",
+        "decision": "Prefer a durable note or focused script in the slice only if automation is not worth maintaining."
+      }
+    ],
+    "helper_catalog_minimum_fields": [
+      "helper_id",
+      "path",
+      "purpose",
+      "owner domain",
+      "read-only or writer mode",
+      "inputs and config refs",
+      "outputs and generated artifacts",
+      "side-effect policy",
+      "validator or test refs",
+      "safe summary/status command",
+      "when to use",
+      "when not to use",
+      "replacement or supersession refs if deprecated"
+    ],
+    "helper_validation_rules": [
+      "A read-only helper must have a mode that does not write tracked artifacts.",
+      "A writer helper must declare outputs, receipts, and no-secret/no-token persistence expectations.",
+      "A generator helper must declare whether its outputs are committed, ignored, or run-scoped.",
+      "A helper used by future slices should be discoverable through the repo's helper catalog or index.",
+      "A helper should not silently choose runtime values that belong in config."
+    ],
+    "common_helper_failures": [
+      "duplicate helper with slightly different flags",
+      "helper writes during summary-only validation",
+      "helper hard-codes paths or domain values",
+      "helper has no focused test",
+      "helper is indexed as active before it is safe",
+      "helper creates generated artifacts without a refresh or receipt policy"
+    ]
+  },
+  "persistent_mid_build_note_logic": {
+    "purpose": "Define when discoveries during implementation must be persisted, where they go, and when they should be ignored as transient working context.",
+    "core_rule": "Do not journal every thought. Persist only discoveries that change future implementation, validation, safety, ordering, source-read requirements, index refresh needs, helper reuse, or closeout criteria.",
+    "persist_immediately_when": [
+      "a future wave must use a newly discovered owner file",
+      "a future wave must avoid a specific helper, API, or pattern",
+      "a future validator or focused test requirement changes",
+      "a source/full-read requirement is added or removed",
+      "a generated index or helper catalog must be refreshed for future discovery",
+      "a read-only, no-secret, credential, live-execution, delete, or promotion safety boundary changes",
+      "an implementation detail changes wave order or splits a wave",
+      "an external source has a license, token, privacy, or persistence constraint",
+      "a receipt/checkpoint is required or explicitly not useful"
+    ],
+    "do_not_persist_when": [
+      "the note is ordinary progress status",
+      "the note repeats the existing roadmap",
+      "the note is a temporary debugging thought with no future effect",
+      "the note is raw exploratory output that has not been distilled",
+      "the note contains secrets, private URLs, copied proprietary text, or tokenized links",
+      "the note is only a commit hash without behavioral meaning"
+    ],
+    "where_to_persist": [
+      {
+        "kind": "future implementation detail",
+        "surface": "roadmap future-wave notes or selected slice packet"
+      },
+      {
+        "kind": "source research finding",
+        "surface": "distilled evidence report referenced by roadmap or packet"
+      },
+      {
+        "kind": "helper reuse decision",
+        "surface": "helper catalog, helper policy, or packet helper section"
+      },
+      {
+        "kind": "validator/test requirement",
+        "surface": "slice packet validation section and future wave owner notes"
+      },
+      {
+        "kind": "generated refresh requirement",
+        "surface": "structured refresh decision"
+      },
+      {
+        "kind": "safety invariant",
+        "surface": "authority map, safety policy, validator, or top-level bootstrap rule"
+      }
+    ],
+    "mid_build_note_template": {
+      "note_id": "<stable_id>",
+      "discovered_during_slice": "<slice_id>",
+      "discovery": "<specific fact>",
+      "affects_future_work": true,
+      "affected_future_slices": [
+        "<slice_or_wave_id>"
+      ],
+      "required_change": "<owner file, validator, test, source read, refresh decision, or safety boundary>",
+      "evidence_ref": "<command, source read, report, or file path>",
+      "not_authority_until": "merged into roadmap, packet, policy, or validator"
+    },
+    "closeout_rule": "At slice closeout, review all mid-build discoveries. Promote only future-affecting notes into durable owner surfaces, leave transient debugging notes out of the repo, and never let chat remain the only record of a future requirement."
+  },
+  "slice_lifecycle": [
+    {
+      "step": 1,
+      "name": "authority_start",
+      "goal": "Establish current repo truth before changing anything.",
+      "actions": [
+        "Read top-level instructions or project bootstrap note.",
+        "Check current worktree.",
+        "Check current roadmap or authority map.",
+        "Classify stale indexes and generated noise as evidence unless the slice owns them."
+      ],
+      "evidence": [
+        "startup command output",
+        "worktree status",
+        "active roadmap or authority refs"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "wave_start_read",
+      "goal": "Understand the selected wave without rereading the entire repo.",
+      "actions": [
+        "Read full active roadmap or owner plan for the implementation chain.",
+        "Read the selected wave section in detail.",
+        "Read dependency and future-wave notes that mention the selected wave.",
+        "Read existing owner files and local patterns."
+      ],
+      "avoid": [
+        "broad unrelated manual reads",
+        "historical notes unless routed by the current plan",
+        "external source reads before a concrete implementation dependency exists"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "slice_packet",
+      "goal": "Make implementation executable and auditable.",
+      "actions": [
+        "Create or confirm compact packet.",
+        "Name owner files.",
+        "Name owning validator.",
+        "Name focused tests.",
+        "Name required source reads.",
+        "Name not-in-scope boundaries.",
+        "Name structured refresh decision."
+      ],
+      "proof": "The packet validator or manual checklist passes before protected edits."
+    },
+    {
+      "step": 4,
+      "name": "targeted_implementation",
+      "goal": "Change only the owner bundle.",
+      "actions": [
+        "Edit config/policy/schema/contract first when behavior needs authority.",
+        "Edit runtime module or script after owner semantics are declared.",
+        "Add or update owning validator.",
+        "Add focused tests and fixtures.",
+        "Avoid unrelated refactors."
+      ]
+    },
+    {
+      "step": 5,
+      "name": "focused_proof",
+      "goal": "Prove the slice behavior directly.",
+      "actions": [
+        "Parse changed structured files.",
+        "Run owning validator.",
+        "Run focused tests.",
+        "Run read-only/no-write harness if read-only behavior is claimed.",
+        "Run secret/no-token checks if credentials or private sources are nearby.",
+        "Run whitespace/diff checks."
+      ],
+      "not_proof": [
+        "index status alone",
+        "commit hash alone",
+        "audit note alone",
+        "manual claim",
+        "broad test success that never touches the owner behavior"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "future_note_closeout",
+      "goal": "Save only discoveries that future slices need.",
+      "actions": [
+        "Record future-wave effects in roadmap or packet.",
+        "Do not create broad new planning unless a new root problem appears.",
+        "Keep notes structured and linked to owner files or validators."
+      ]
+    },
+    {
+      "step": 7,
+      "name": "implementation_commit",
+      "goal": "Commit a coherent source/plan/test bundle.",
+      "actions": [
+        "Stage exact intended paths only.",
+        "Do not include unrelated dirty work.",
+        "Commit implementation and plan-note outputs before generated index outputs."
+      ]
+    },
+    {
+      "step": 8,
+      "name": "conditional_generated_refresh",
+      "goal": "Refresh discovery surfaces only when needed.",
+      "actions": [
+        "Read the structured refresh decision.",
+        "Run only required generated refresh commands.",
+        "Validate generated outputs.",
+        "Commit generated outputs separately.",
+        "Stop without head-chasing."
+      ]
+    },
+    {
+      "step": 9,
+      "name": "final_state_report",
+      "goal": "Leave the next worker with exact state.",
+      "actions": [
+        "Report commits.",
+        "Report validation commands.",
+        "Report worktree state.",
+        "Report classified residual noise.",
+        "Report caveats and next recommended slice."
+      ]
+    }
+  ],
+  "slice_packet_contract_template": {
+    "packet_id": "<repo_or_project>_<wave_or_slice>_packet_<date>",
+    "wave_id": "<selected_wave_or_slice>",
+    "status": "implementation_ready | planning_needed | blocked_by_missing_decision",
+    "purpose": "<one sentence>",
+    "authority_refs": [
+      "<roadmap>",
+      "<owner plan>",
+      "<policy or config refs>",
+      "<source read register if applicable>"
+    ],
+    "compact_slice_packet": {
+      "selected_wave_or_slice": "<id>",
+      "goal": "<specific behavior this slice adds>",
+      "files_to_create_or_edit": [
+        "<paths>"
+      ],
+      "exact_owner_configs_schemas_contracts": [
+        "<paths or explicit none>"
+      ],
+      "required_source_reads": [
+        {
+          "surface": "<external or internal source surface>",
+          "read_type": "full_source | attrs | docs | none",
+          "status": "satisfied | deferred | not_required",
+          "evidence_ref": "<register or report ref>"
+        }
+      ],
+      "owning_wave_validator": "<path>",
+      "owning_wave_tests": [
+        "<test paths>"
+      ],
+      "focused_validators_and_tests": [
+        "<exact commands or post-implementation placeholders>"
+      ],
+      "not_in_scope": [
+        "<future feature not allowed in this slice>"
+      ],
+      "refresh_decision": {
+        "repo_index_required": false,
+        "script_import_index_required": false,
+        "plan_note_index_required": false,
+        "config_variable_inventory_required": false,
+        "output_schema_index_required": false,
+        "post_output_hook_required": false,
+        "next_wave_discovery_depends_on_new_surfaces": false,
+        "required_reason": "not_required_for_same_wave_direct_validator_proof",
+        "refresh_timing": "skip",
+        "decision_basis": [
+          "Focused validator and tests directly prove this slice.",
+          "No future wave depends on generated discovery of new surfaces from this slice."
+        ]
+      },
+      "commit_plan": {
+        "implementation_commit": "source_plan_test_changes_only",
+        "generated_refresh_commit": "only_if_refresh_decision_requires_it",
+        "do_not_chase_head_only_staleness": true
+      }
+    }
+  },
+  "refresh_decision_contract": {
+    "required_fields": [
+      "repo_index_required",
+      "script_import_index_required",
+      "plan_note_index_required",
+      "config_variable_inventory_required",
+      "output_schema_index_required",
+      "post_output_hook_required",
+      "next_wave_discovery_depends_on_new_surfaces",
+      "required_reason",
+      "refresh_timing",
+      "decision_basis"
+    ],
+    "allowed_refresh_timing": [
+      "skip",
+      "after_implementation_commit",
+      "after_plan_note_rebuild",
+      "after_post_output_hook",
+      "defer_to_release_closeout",
+      "operator_requested"
+    ],
+    "logic_rules": [
+      "If no refresh surface is required, refresh_timing must be skip.",
+      "If any refresh surface is required, refresh_timing must not be skip.",
+      "If next_wave_discovery_depends_on_new_surfaces is true, repo_index_required should usually be true.",
+      "If new scripts or validators must be discoverable by later waves, script_import_index_required should usually be true.",
+      "If plan, roadmap, packet, or durable evidence reports changed, plan_note_index_required should be true.",
+      "If config topology changed and future discovery depends on it, config_variable_inventory_required should be true.",
+      "If a writer/generator produced artifacts, post_output_hook_required should follow the repo's output organization policy.",
+      "required_reason must be concrete; it cannot be maybe, if needed, as needed, or TBD."
+    ],
+    "valid_refresh_reasons": [
+      "selected wave owns index or reconciliation work",
+      "stale discovery blocks current implementation",
+      "next wave depends on new surfaces being discoverable",
+      "release or closeout gate requires fresh indexes",
+      "index is corrupt, missing, or unusable",
+      "operator explicitly requests refresh"
+    ],
+    "invalid_refresh_reasons": [
+      "new commit exists",
+      "habit",
+      "validator file was created but no future discovery depends on it",
+      "head-only mismatch after generated refresh commit",
+      "status check feels stale but no tracked hash or missing path matters",
+      "audit note changed but no discovery lookup needs it"
+    ]
+  },
+  "validator_design": {
+    "validator_should": [
+      "load owner config/policy/schema/contract surfaces",
+      "validate schema before custom cross-checks when schemas exist",
+      "emit structured findings with stable codes",
+      "separate hard failures, warnings, research gaps, and passes",
+      "support summary-only mode without writing artifacts",
+      "support repo-corpus mode when broad scanning is actually needed",
+      "avoid external network calls unless explicitly activated",
+      "avoid credential loading in no-network tests",
+      "redact secrets and tokenized URLs",
+      "fail on missing required owner surfaces",
+      "fail on unsafe promotion/live/production claims without evidence"
+    ],
+    "validator_should_not": [
+      "rewrite receipts in summary-only mode",
+      "refresh indexes as a side effect",
+      "load live credentials in ordinary tests",
+      "turn warnings into blockers without policy",
+      "depend on chat state",
+      "silently mutate committed fixtures",
+      "hard-code runtime values that belong in config"
+    ],
+    "failure_taxonomy": {
+      "hard_failure": "A required owner invariant failed and the slice cannot proceed.",
+      "warning": "Evidence that should be considered but does not block by itself.",
+      "research_gap": "Known missing evidence or scope not yet implemented; blocks only if the selected slice requires it.",
+      "pass": "A specific invariant was checked and satisfied."
+    }
+  },
+  "focused_test_strategy": {
+    "minimum_tests": [
+      "committed or fixture owner config passes",
+      "missing required field fails",
+      "unsafe mode or false activation fails",
+      "summary-only command is read-only",
+      "no secret or token is persisted",
+      "future placeholder is rejected if used too early"
+    ],
+    "test_scope_rules": [
+      "Use focused tests during implementation.",
+      "Use broad tests only when shared surfaces changed or closeout requires confidence.",
+      "Use no-network fixtures for source/provider-adjacent logic unless live execution is explicitly activated.",
+      "Use tmp_path or isolated outputs for tests that exercise writers.",
+      "Do not update committed generated artifacts during ordinary pytest."
+    ]
+  },
+  "evidence_chain": {
+    "normal_slice": [
+      "roadmap or owner plan",
+      "slice packet",
+      "owner files",
+      "owning validator",
+      "focused tests",
+      "future notes if needed",
+      "implementation commit"
+    ],
+    "slice_with_required_generated_refresh": [
+      "normal slice evidence",
+      "structured refresh decision",
+      "generated refresh commands",
+      "generated index outputs",
+      "generated refresh commit"
+    ],
+    "writer_or_materializer_slice": [
+      "normal slice evidence",
+      "writer policy and activation config",
+      "output route policy",
+      "receipt schema",
+      "run-scoped manifest/checkpoint/receipt",
+      "post-output hook",
+      "no-secret validation"
+    ],
+    "closeout_gate": [
+      "pre-status snapshot",
+      "focused validators for all completed owner surfaces",
+      "focused pytest groups",
+      "read-only/no-write harness when relevant",
+      "required index/status checks",
+      "receipt/checkpoint only if the closeout proves a phase or release decision",
+      "decision whether another wave is needed"
+    ]
+  },
+  "commit_discipline": {
+    "implementation_commit": {
+      "contains": [
+        "owner source/config/schema/contract/script/test changes",
+        "plan-note compiled output if plan/packet changed",
+        "durable evidence report if promoted"
+      ],
+      "does_not_contain": [
+        "unrelated dirty work",
+        "generated index outputs unless the slice itself is the index writer",
+        "raw temporary dumps unless promoted",
+        "private URLs or secrets"
+      ]
+    },
+    "generated_refresh_commit": {
+      "contains": [
+        "generated index summaries",
+        "generated sqlite/duckdb/projection artifacts if tracked and required",
+        "generated checkpoint/receipt for the refresh command"
+      ],
+      "does_not_contain": [
+        "manual source edits",
+        "new implementation changes",
+        "another generated refresh chasing its own commit"
+      ]
+    },
+    "closeout_commit": {
+      "contains": [
+        "closeout receipt/checkpoint when meaningful",
+        "plan status update",
+        "focused validation evidence summary"
+      ],
+      "does_not_contain": [
+        "unreviewed raw audit dumps",
+        "unvalidated production/readiness claims",
+        "unrelated refactors"
+      ]
+    }
+  },
+  "planning_to_build_transition": {
+    "planning_is_complete_when": [
+      "The roadmap exists.",
+      "The first executable slice is identified.",
+      "The slice packet can be filled without guessing.",
+      "Future placeholders are named but not implemented early.",
+      "Source/read evidence requirements are known.",
+      "Validation and refresh decisions are known."
+    ],
+    "do_not_keep_planning_when": [
+      "The only remaining questions can be discovered during implementation.",
+      "The slice packet already names owner files and proof.",
+      "Further planning would duplicate existing durable decisions.",
+      "The next action is a focused validator/test implementation."
+    ],
+    "return_to_planning_when": [
+      "Owner files cannot be named.",
+      "The validator cannot be named.",
+      "The slice crosses too many domains.",
+      "A new root problem appears.",
+      "An external/source API behavior is unknown and code depends on it.",
+      "Safety boundaries are ambiguous."
+    ]
+  },
+  "future_repo_bootstrap_template": {
+    "minimum_files": [
+      "README or AGENTS-style bootstrap",
+      "durable roadmap",
+      "slice packet directory",
+      "validator directory",
+      "focused test directory",
+      "evidence report directory",
+      "generated index or manifest directory if needed"
+    ],
+    "minimum_first_rules": [
+      "Important decisions are durable.",
+      "Every slice has owner files.",
+      "Every slice has an owning validator.",
+      "Every slice has focused tests.",
+      "Runtime values are config-owned.",
+      "Generated refreshes are conditional.",
+      "Receipts prove outputs, not vibes.",
+      "Implementation and generated refresh commits are separate."
+    ],
+    "first_three_artifacts_to_create": [
+      "repo_roadmap.json",
+      "slice_001_packet.json",
+      "validation_rule_registry.json"
+    ]
+  },
+  "anti_patterns": [
+    {
+      "anti_pattern": "audit_only_commits_without_distillation",
+      "risk": "History fills with raw evidence that future workers cannot act on.",
+      "replacement": "Commit distilled evidence reports only when referenced by active plans or future implementation decisions."
+    },
+    {
+      "anti_pattern": "automatic_index_refresh_after_every_commit",
+      "risk": "Generated churn, loops, and false blockers.",
+      "replacement": "Use structured refresh decisions."
+    },
+    {
+      "anti_pattern": "building_future_placeholders_early",
+      "risk": "Current slice gets polluted by live, ML, paper-trading, or orchestration concerns before foundations exist.",
+      "replacement": "Plan boundaries now; implement future phases only when selected."
+    },
+    {
+      "anti_pattern": "generic_abstraction_before_first_working_slice",
+      "risk": "Wrong abstraction becomes a new system to maintain.",
+      "replacement": "Build the first thin owner slice, then abstract after repeated patterns prove the shape."
+    },
+    {
+      "anti_pattern": "validation_by_broad_test_only",
+      "risk": "Broad tests can pass while the new behavior is untested.",
+      "replacement": "Create owning validator and focused tests."
+    },
+    {
+      "anti_pattern": "future_notes_as_journal",
+      "risk": "Future workers cannot distinguish useful decisions from noise.",
+      "replacement": "Save future notes only when they change a future build action."
+    },
+    {
+      "anti_pattern": "receipt_for_everything",
+      "risk": "Receipts lose meaning.",
+      "replacement": "Use receipts for writers, generators, materializers, external actions, and closeout gates."
+    },
+    {
+      "anti_pattern": "chat_as_authority",
+      "risk": "Context loss and contradiction.",
+      "replacement": "Chat can discuss; durable artifacts decide."
+    }
+  ],
+  "human_prompt_templates": {
+    "readiness_prompt": "Is wave <id> ready to implement, or is there anything else we should do to make future slices easier?",
+    "implementation_prompt": "Implement wave <id> and note anything that will affect or give needed details for future wave implementation.",
+    "closeout_prompt": "Is post-wave closeout ready to implement, or is there anything else we should do to make future slices easier?",
+    "audit_prompt": "Audit this plan against the completed workflow and identify missing owner files, validators, focused tests, refresh decisions, future notes, or receipt/checkpoint logic.",
+    "do_not_use_as_final_authority": "Prompts start the work; durable roadmap, packets, validators, tests, and commits are the authority."
+  },
+  "build_stage_prompt_structure": {
+    "purpose": "Provide reusable operator prompts for the build phase after broad architecture planning is closed. These prompts keep each implementation slice validator-led, durable, and efficient.",
+    "when_to_use": "Use after a durable roadmap exists and the next selected wave or slice is known. If the roadmap or owner surfaces are not clear, return to targeted planning before using build prompts.",
+    "prompt_variables": {
+      "wave_id": "The selected wave, slice, milestone, issue, or implementation unit.",
+      "owner_plan_ref": "The durable roadmap, owner plan, or packet that defines the wave.",
+      "domain_source_refs": "Any required source/docs/library/API/read evidence refs.",
+      "hard_safety_invariants": "Repo-local safety rules that must never be violated.",
+      "expected_commit_shape": "Implementation commit only, or implementation commit plus generated refresh commit."
+    },
+    "stage_prompts": [
+      {
+        "stage": "build_readiness",
+        "operator_prompt": "Is <wave_id> ready to implement, or is there anything else we should do to make future slices easier?",
+        "agent_should_do": [
+          "Read the full active roadmap or owner plan for the implementation chain.",
+          "Read the selected wave section in detail.",
+          "Read dependency and future-wave notes that mention the selected wave.",
+          "Confirm owner files, owning validator, focused tests, source reads, safety boundaries, refresh decision, and commit shape.",
+          "Answer with either implementation-ready or one compact prep action."
+        ],
+        "agent_should_not_do": [
+          "Implement code before readiness is clear.",
+          "Reread unrelated historical plans.",
+          "Create broad new planning unless a new root problem appears."
+        ],
+        "durable_output": "Updated or confirmed slice packet if anything changed."
+      },
+      {
+        "stage": "slice_packet_creation_or_confirmation",
+        "operator_prompt": "Create or confirm the compact slice packet for <wave_id> with owner files, owning validator, focused tests, source reads, future-note rules, refresh decision, and commit plan.",
+        "agent_should_do": [
+          "Use the roadmap as authority.",
+          "Create a tactical packet, not a new architecture plan.",
+          "Name exact files to create or edit.",
+          "Name exact validators/tests or declare which new ones will be created.",
+          "Name the exact refresh decision and why.",
+          "Validate the packet if the repo has a packet validator."
+        ],
+        "durable_output": "A machine-readable slice packet or equivalent durable checklist."
+      },
+      {
+        "stage": "implementation",
+        "operator_prompt": "Implement <wave_id> and note anything that will affect or give needed details for future wave implementation.",
+        "agent_should_do": [
+          "Edit only the owner bundle named in the packet.",
+          "Use existing helper/cookbook/patterns before creating new helpers.",
+          "Keep runtime-affecting values in config or explicit owner surfaces.",
+          "Add or update the owning validator.",
+          "Add focused tests.",
+          "Record future-affecting discoveries in the packet, roadmap, helper catalog, validator plan, or evidence note."
+        ],
+        "agent_should_not_do": [
+          "Implement future placeholders early.",
+          "Refresh generated indexes mid-wave unless stale discovery blocks implementation.",
+          "Turn transient debugging notes into durable future notes.",
+          "Create receipts unless the slice writes, generates, materializes, acts externally, or closes out a phase."
+        ],
+        "durable_output": "Owner files, validator, focused tests, and future-affecting notes."
+      },
+      {
+        "stage": "mid_build_discovery",
+        "operator_prompt": "Persist any mid-build discovery only if it changes future owner files, validators, tests, source reads, safety boundaries, refresh decisions, helper reuse, or closeout criteria.",
+        "agent_should_do": [
+          "Classify the discovery as future-affecting or transient.",
+          "Persist future-affecting discoveries in the correct owner surface.",
+          "Avoid raw journals and chat-only decisions.",
+          "Avoid saving secrets, tokenized URLs, private source text, or copied proprietary docs."
+        ],
+        "durable_output": "Roadmap future note, packet update, helper catalog update, evidence report, or validator/test requirement."
+      },
+      {
+        "stage": "focused_proof",
+        "operator_prompt": "Run the owning validator, focused tests, changed structured-file parse, no-write/no-secret checks where relevant, and diff/worktree checks for <wave_id>.",
+        "agent_should_do": [
+          "Run focused proof before broad test suites.",
+          "Treat broad index/status checks as navigation evidence unless this wave owns them.",
+          "Fix owner failures instead of weakening tests.",
+          "Report exact validation commands and results."
+        ],
+        "durable_output": "Validation evidence sufficient to justify the implementation commit."
+      },
+      {
+        "stage": "implementation_commit",
+        "operator_prompt": "Commit the implementation bundle for <wave_id> with exact intended paths only.",
+        "agent_should_do": [
+          "Stage only owner files, validators, focused tests, packet/roadmap updates, and required plan-note outputs.",
+          "Keep generated index outputs out of the implementation commit unless the wave itself is the generator/index writer.",
+          "Use a coherent commit message tied to the slice."
+        ],
+        "durable_output": "Implementation commit hash."
+      },
+      {
+        "stage": "conditional_generated_refresh",
+        "operator_prompt": "If the packet refresh decision requires generated discovery refresh, run only the required refreshes, validate outputs, commit generated outputs once, and stop without head-chasing.",
+        "agent_should_do": [
+          "Refresh only indexes/catalogs/inventories named by the packet decision.",
+          "Commit generated outputs separately from implementation.",
+          "Classify post-refresh head-only staleness as evidence unless a real refresh condition remains."
+        ],
+        "durable_output": "Generated refresh commit hash or explicit no-refresh decision."
+      },
+      {
+        "stage": "wave_closeout",
+        "operator_prompt": "Close out <wave_id>: report commits, validation, worktree state, classified residual noise, future-wave notes, and whether the next wave is ready.",
+        "agent_should_do": [
+          "Summarize what changed and why.",
+          "List validation run.",
+          "List implementation and generated-refresh commits separately.",
+          "State worktree cleanliness or classified noise.",
+          "State future-wave details that were persisted.",
+          "Recommend the next readiness prompt."
+        ],
+        "durable_output": "Final response plus durable notes already saved in repo artifacts."
+      }
+    ],
+    "single_turn_build_prompt": {
+      "template": "Implement <wave_id>. Start by confirming the compact slice packet from <owner_plan_ref>. Do not broaden planning unless owner files, owning validator, focused tests, source reads, safety boundaries, or refresh decision are unclear. Implement only the owner bundle. Run focused proof. Persist only future-affecting discoveries. Commit implementation first. Refresh generated indexes only if the packet requires it, commit generated outputs once, and stop without head-chasing.",
+      "use_when": "The wave is already believed to be ready and the operator wants one efficient build turn."
+    },
+    "two_prompt_build_loop": {
+      "readiness_prompt": "Is <wave_id> ready to implement, or is there anything else we should do to make future slices easier?",
+      "implementation_prompt": "Implement <wave_id> and note anything that will affect or give needed details for future wave implementation.",
+      "use_when": "The operator wants the same cadence used by the proven wave-by-wave workflow."
+    },
+    "build_prompt_success_criteria": [
+      "The agent reads the right roadmap/packet and not unrelated history.",
+      "The agent names owner files, owning validator, focused tests, and refresh decision before editing.",
+      "The agent implements only the selected owner bundle.",
+      "The agent saves future-affecting discoveries durably.",
+      "The agent proves behavior with focused validation.",
+      "The agent separates implementation commits from generated refresh commits.",
+      "The agent stops after the required generated refresh instead of chasing head-only staleness."
+    ],
+    "mandatory_foundation_preamble": {
+      "purpose": "Make every build-stage prompt self-contained enough that a new agent starts from the full workflow foundation instead of relying on prior chat.",
+      "short_preamble": "Use the durable slice workflow: roadmap -> compact slice packet -> owner files -> owning validator -> focused tests -> future-affecting notes -> implementation commit -> conditional generated refresh commit -> no head-chasing. Read AGENTS.md, SKILL.md, the durable methodology, the active roadmap/owner plan, and the selected slice packet before editing. Treat chat as discussion, not authority.",
+      "required_agent_start_actions": [
+        "Read AGENTS.md and SKILL.md.",
+        "Read the durable methodology or prompt structure file.",
+        "Read the active roadmap or owner plan for the whole implementation chain.",
+        "Read the selected wave/slice section in detail.",
+        "Read future-wave or dependency notes that mention the selected wave.",
+        "Check worktree state.",
+        "Check repo indexes/status surfaces only if they exist and are relevant.",
+        "Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.",
+        "Confirm or create the compact slice packet before protected edits.",
+        "Do not rely on previous chat as authority."
+      ],
+      "required_packet_confirmation": [
+        "selected wave or slice",
+        "owner files to create or edit",
+        "owner configs, schemas, contracts, policies, modules, scripts, and tests",
+        "required source reads or explicit no-new-source-read statement",
+        "owning validator",
+        "focused tests",
+        "not-in-scope boundaries",
+        "structured refresh decision",
+        "implementation commit plan",
+        "generated refresh commit plan if required"
+      ],
+      "required_safety_clauses": [
+        "Keep runtime-affecting values config-owned or explicitly operator-selected.",
+        "Use existing helpers, indexes, catalogs, and patterns before creating new helpers.",
+        "Persist only discoveries that affect future implementation.",
+        "Do not persist secrets, tokenized URLs, private endpoint URLs, or copied proprietary source unless the repo explicitly allows it.",
+        "Do not mutate donor/reference roots unless explicitly authorized.",
+        "Do not weaken tests to make a change pass.",
+        "Do not implement future placeholders early.",
+        "Do not refresh generated indexes mid-wave unless stale discovery blocks implementation.",
+        "Do not write receipts unless the slice writes, generates, materializes, acts externally, performs an irreversible operation, or closes out a phase."
+      ],
+      "required_closeout_clauses": [
+        "Run changed structured-file parse where relevant.",
+        "Run the owning validator.",
+        "Run focused tests.",
+        "Run read-only/no-write checks where relevant.",
+        "Run no-secret/no-token checks where relevant.",
+        "Run diff/worktree checks.",
+        "Commit implementation first.",
+        "Refresh generated indexes only if the structured refresh decision requires it.",
+        "Commit generated outputs once if refreshed.",
+        "Stop without head-chasing.",
+        "Report commits, validation, worktree state, classified residual noise, future notes, and next slice readiness."
+      ]
+    },
+    "self_contained_prompt_templates": {
+      "readiness_prompt_full": "Use the durable slice workflow foundation. Read AGENTS.md, SKILL.md, the durable methodology, the active roadmap or owner plan for the whole wave chain, the selected <wave_id> section, and any dependency/future-wave notes that mention <wave_id>. Check worktree state and classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails. Is <wave_id> ready to implement, or is there one compact prep action that would make future slices easier? Confirm owner files, owning validator, focused tests, required source reads, not-in-scope boundaries, structured refresh decision, and commit shape. Do not implement yet unless readiness is clear.",
+      "slice_packet_prompt_full": "Use the durable slice workflow foundation. Create or confirm the compact slice packet for <wave_id> from <owner_plan_ref>. The packet must name selected wave/slice, files to create or edit, owner configs/schemas/contracts/policies/modules/scripts/tests, required source reads or explicit no-new-source-read statement, owning validator, focused tests, not-in-scope boundaries, future-note rules, structured refresh decision, implementation commit plan, and generated refresh commit plan if required. Keep this tactical; do not create a new broad architecture plan.",
+      "implementation_prompt_full": "Use the durable slice workflow foundation. Read AGENTS.md, SKILL.md, the durable methodology, <owner_plan_ref>, the selected <wave_id> section, dependency/future notes for <wave_id>, and the compact slice packet. Confirm owner files, owning validator, focused tests, required source reads, not-in-scope boundaries, structured refresh decision, and commit shape before editing. Implement only the owner bundle. Use existing helpers/indexes/catalogs/patterns before creating new helpers. Keep runtime-affecting values config-owned or explicitly operator-selected. Add or update the owning validator and focused tests. Persist only discoveries that change future implementation order, owner files, validators, tests, source reads, safety boundaries, refresh decisions, helper reuse, activation gates, receipts, or closeout. Run focused proof. Commit implementation first. Refresh generated indexes only if the packet requires it, commit generated outputs once, and stop without head-chasing.",
+      "focused_proof_prompt_full": "Use the durable slice workflow foundation. For <wave_id>, run changed structured-file parse where relevant, the owning validator, focused tests, read-only/no-write checks where relevant, no-secret/no-token checks where relevant, and diff/worktree checks. Treat broad index/status checks as navigation evidence unless this wave owns them. Fix owner failures instead of weakening tests. Report exact commands and results.",
+      "generated_refresh_prompt_full": "Use the durable slice workflow foundation. Read the structured refresh decision for <wave_id>. If refresh is required, run only the named generated index/catalog/inventory/projection hooks from the implementation head, validate generated outputs, commit generated outputs once, and stop. If only head-only staleness remains after the generated commit, classify it as evidence and do not refresh again.",
+      "closeout_prompt_full": "Use the durable slice workflow foundation. Close out <wave_id> by reporting implementation commit, generated-refresh commit if any, validation commands/results, worktree state, classified residual noise, future-affecting notes persisted, and whether the next wave is ready. Confirm no future requirement remains only in chat. Do not create a closeout receipt unless it proves a writer, generator, materializer, external action, irreversible operation, release gate, or phase closeout."
+    },
+    "prompt_form_labels": {
+      "long_form": "Use self_contained_prompt_templates when starting a new agent, when automatic project-doc injection is uncertain, or when protected/runtime/source/safety surfaces are involved.",
+      "short_form": "Use short_form_prompt_templates only when AGENTS.md, SKILL.md, the durable methodology, and the active roadmap are already injected or were just read in the same turn."
+    },
+    "short_form_prompt_templates": {
+      "readiness_prompt_short": "Is wave X ready to implement, or is there anything else we should do to make future slices easier? Read the full active roadmap/owner plan for this wave chain, dependency/future-wave notes, and build a compact slice packet if ready.",
+      "implementation_prompt_short": "Implement wave X from the compact slice packet. During closeout, note anything that affects future wave implementation, update durable JSON only when it changes future order/owners/validators/full-read needs/safety/index/activation gates, then validate and commit.",
+      "usage_rule": "The short form is a trigger into the durable doctrine, not a replacement for it. Prefer long form for new agents, uncertain context, protected edits, source/runtime changes, safety-sensitive work, generated refreshes, or closeout."
+    },
+    "new_agent_first_message_prompt": "You are starting from no chat history. Use the durable slice workflow foundation in this repo. Read AGENTS.md, SKILL.md, the durable methodology, the active roadmap/owner plan, and the selected slice packet before editing. Build by roadmap -> compact packet -> owner files -> owning validator -> focused tests -> future-affecting notes -> implementation commit -> conditional generated refresh commit -> no head-chasing. Treat chat as discussion, not authority. For the requested <wave_id>, confirm readiness first, then implement only if owner files, validator, tests, source reads, safety boundaries, refresh decision, and commit shape are clear.",
+    "operator_usage_rule": "When handing work to a new agent, paste either the new_agent_first_message_prompt plus the selected stage prompt, or use one of the self_contained_prompt_templates directly. The short prompts are convenient only when AGENTS.md/SKILL.md are guaranteed to be injected automatically."
+  },
+  "portability_notes": {
+    "works_for": [
+      "research repos",
+      "data pipelines",
+      "trading systems",
+      "ML systems",
+      "frontend apps",
+      "backend services",
+      "developer tools",
+      "automation systems",
+      "multi-agent workflows"
+    ],
+    "adaptation_rule": "Replace domain-specific source-read, validation, and receipt surfaces with equivalents for the target repo, but keep the lifecycle unchanged.",
+    "minimum_to_copy": [
+      "durable roadmap",
+      "slice packet contract",
+      "owner validator requirement",
+      "focused test requirement",
+      "future note policy",
+      "structured refresh decision",
+      "conditional receipt/checkpoint policy",
+      "implementation then generated refresh commit order"
+    ]
+  },
+  "non_agnostic_instantiation_boundaries": {
+    "summary": "The workflow lifecycle is generic doctrine, but every future repo must instantiate its own local authority, scripts, validators, indexes, protected-surface policy, and domain safety rules. Do not copy vbtprobuild-specific commands or domain assumptions into another repo without replacing them with that repo's equivalents.",
+    "future_repo_must_define": [
+      "authority map or equivalent routing surface",
+      "startup/readiness commands",
+      "repo indexes or discovery mechanisms",
+      "plan/note index or durable planning registry",
+      "validator directory and validator naming convention",
+      "focused test directory and test runner convention",
+      "protected directories and protected edit rules",
+      "domain safety invariants",
+      "secret and credential loading policy",
+      "runtime configuration ownership rules",
+      "generated artifact and refresh policy",
+      "receipt/checkpoint meaning and write policy",
+      "commit discipline and hook behavior",
+      "resource limits and worker/parallelism policy",
+      "source-read or external-reference policy",
+      "release/closeout gate policy"
+    ],
+    "details_that_cannot_be_fully_generic": [
+      {
+        "detail": "exact startup commands",
+        "reason": "Each repo has different bootstrap checks, authority queries, dependency setup, and health validators."
+      },
+      {
+        "detail": "exact index scripts",
+        "reason": "Index storage, refresh behavior, query syntax, stale-state classification, and generated outputs are repo-local."
+      },
+      {
+        "detail": "exact validator names",
+        "reason": "Validators must enforce the concrete owner surfaces and invariants of the selected repo and slice."
+      },
+      {
+        "detail": "exact protected directories",
+        "reason": "Different repos protect different source, config, contract, schema, data, infrastructure, or deployment surfaces."
+      },
+      {
+        "detail": "exact environment variables such as VBT_DOTENV_PATH",
+        "reason": "Credential routes, dotenv paths, service accounts, and runtime gates are domain and host specific."
+      },
+      {
+        "detail": "exact provider/source rules",
+        "reason": "Data providers, APIs, rate limits, licenses, availability timestamps, lineage requirements, and pull semantics differ by domain."
+      },
+      {
+        "detail": "exact external-source, MCP, documentation, or full-read surfaces",
+        "reason": "Every repo must decide which external authorities are locators, which are implementation evidence, and what may be persisted."
+      },
+      {
+        "detail": "exact commit hooks or generated-index behavior",
+        "reason": "Some repos index parent commits, some index current heads, some do not generate committed indexes, and some hooks mutate outputs."
+      },
+      {
+        "detail": "exact test runner flags and resource limits",
+        "reason": "Parallelism, CPU/GPU use, memory ceilings, no-network flags, and cache behavior depend on the host and stack."
+      },
+      {
+        "detail": "exact plan, index, manifest, receipt, checkpoint, and report directory layout",
+        "reason": "The workflow requires durable surfaces, but their paths and schemas must match the target repo's organization."
+      },
+      {
+        "detail": "exact domain safety invariants",
+        "reason": "Trading, data pulls, secrets, paper trading, GPU ML, deployment, medical, security, finance, and autonomous execution require different hard stops."
+      }
+    ],
+    "doctrine_rule": "Generic doctrine owns the lifecycle; the target repo owns the concrete commands, paths, validators, schemas, safety gates, and artifact locations.",
+    "reuse_checklist": [
+      "Copy the lifecycle and artifact roles, not the old repo's paths.",
+      "Create the new repo's authority map before the first implementation slice.",
+      "Create one validator that proves the workflow protocol itself before relying on agents to follow it.",
+      "Define generated/index refresh rules before the first generated artifact exists.",
+      "Define protected surfaces before allowing automated edits.",
+      "Define receipt/checkpoint meaning before writing receipts.",
+      "Define domain safety invariants before live, external, credentialed, destructive, or stateful execution.",
+      "Update the agnostic AGENTS.md, SKILL.md, and pyproject.toml templates with repo-local commands and paths."
+    ]
+  },
+  "success_metrics": [
+    "A new worker can identify the current wave without chat history.",
+    "A new worker can run the owning validator and focused tests.",
+    "A future wave can find the previous wave's owner surfaces and future notes.",
+    "Generated index refreshes happen for stated reasons, not habit.",
+    "Receipts and checkpoints remain meaningful.",
+    "Worktree noise is classified instead of becoming panic.",
+    "The repo can grow without restarting from scratch."
+  ],
+  "one_page_summary": {
+    "workflow": [
+      "Durable roadmap",
+      "Per-slice packet",
+      "Owner files",
+      "Owner validator",
+      "Focused tests",
+      "Future notes",
+      "Conditional generated/index refresh",
+      "Closeout receipt only when it proves something"
+    ],
+    "core_sentence": "Build complex repos by turning every wave into a small, durable, validator-led evidence chain that future waves can trust without chat memory."
+  }
+}

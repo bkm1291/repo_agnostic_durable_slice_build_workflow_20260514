@@ -1,0 +1,31 @@
+{
+  "roadmap_id": "minimal_repo_roadmap",
+  "status": "active",
+  "purpose": "Show the durable slice workflow with one small implementation slice.",
+  "authority": {
+    "canonical_workflow": "../../repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
+    "entrypoint": "README.md"
+  },
+  "waves": [
+    {
+      "wave_id": "slice_001",
+      "goal": "Prove that the repo can validate a compact slice packet before implementation.",
+      "owner_area": "workflow_protocol",
+      "packet": "plans/slices/slice_001_packet.json",
+      "status": "implementation_ready",
+      "depends_on": [],
+      "not_in_scope": [
+        "Generated index refresh",
+        "Receipt writing",
+        "External source access"
+      ]
+    }
+  ],
+  "validation_policy": {
+    "focused_first": true,
+    "commands": [
+      "python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only",
+      "python -m pytest -q tests"
+    ]
+  }
+}

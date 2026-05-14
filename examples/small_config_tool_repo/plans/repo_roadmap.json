@@ -1,0 +1,28 @@
+{
+  "roadmap_id": "small_config_tool_roadmap",
+  "status": "active",
+  "purpose": "Demonstrate a realistic small slice with config-owned runtime values.",
+  "waves": [
+    {
+      "wave_id": "slice_001",
+      "goal": "Render a greeting from validated config-owned values.",
+      "packet": "plans/slices/slice_001_packet.json",
+      "status": "implementation_ready",
+      "owner_area": "config_driven_cli",
+      "depends_on": [],
+      "not_in_scope": [
+        "Argument-driven runtime override",
+        "Generated config inventory implementation",
+        "Packaging or installation"
+      ]
+    }
+  ],
+  "validation_policy": {
+    "commands": [
+      "python scripts/validate_greeting_config.py configs/greeting_config.json --summary-only",
+      "python scripts/render_greeting.py --config configs/greeting_config.json",
+      "python ../../scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only",
+      "python -m pytest -q tests"
+    ]
+  }
+}

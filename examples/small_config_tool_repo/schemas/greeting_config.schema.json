@@ -1,0 +1,16 @@
+{
+  "schema_id": "example.greeting_config.v1",
+  "required_fields": [
+    "schema_id",
+    "message",
+    "recipient",
+    "punctuation"
+  ],
+  "allowed_punctuation": [
+    ".",
+    "!",
+    "?"
+  ],
+  "max_message_length": 40,
+  "max_recipient_length": 60
+}

@@ -1,0 +1,6 @@
+{
+  "schema_id": "example.greeting_config.v1",
+  "message": "Hello",
+  "recipient": "workflow operator",
+  "punctuation": "!"
+}

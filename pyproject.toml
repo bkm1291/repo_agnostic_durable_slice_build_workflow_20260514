@@ -1,0 +1,235 @@
+[project]
+name = "durable-slice-build-template"
+version = "0.1.0"
+description = "Repo-agnostic bootstrap template for creating brand-new repos with durable slice-based planning, implementation, validation, and closeout."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.durable_slice_workflow]
+methodology = "durable_roadmap_per_slice_packet_owner_validator_focused_tests_future_notes_conditional_refresh_meaningful_closeout"
+canonical_methodology_path = "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json"
+quickstart_path = "README.md"
+intended_use = "brand_new_repo_bootstrap_only"
+not_existing_repo_authority_unless_adapted = true
+durable_format = "json"
+chat_is_authority = false
+implementation_commit_before_generated_refresh = true
+head_only_generated_index_staleness_is_blocker = false
+default_operator_mode = "new_repo"
+mature_repo_mode_allowed_after_completed_slices = 3
+fallback_to_new_repo_mode_when_ambiguous = true
+
+[tool.durable_slice_workflow.operator_modes.new_repo]
+use_long_form_prompts = true
+one_slice_at_a_time = true
+one_packet_at_a_time = true
+one_validator_at_a_time = true
+one_focused_test_group_at_a_time = true
+simple_json_checklists_allowed = true
+ask_readiness_before_every_implementation = true
+stop_after_each_closeout = true
+
+[tool.durable_slice_workflow.operator_modes.mature_repo]
+use_short_form_prompts_when_docs_available = true
+batch_related_plan_edits = true
+stronger_schemas_contracts_helpers_allowed = true
+must_keep_slice_packet = true
+must_keep_owning_validator = true
+must_keep_focused_tests = true
+must_keep_conditional_refresh = true
+
+[tool.durable_slice_workflow.systems_logic_planning_guard]
+must_answer_owner = true
+must_answer_proof = true
+must_answer_failure_modes = true
+must_answer_future_dependency = true
+must_answer_config_or_operator_selection = true
+must_answer_evidence_vs_authority = true
+must_answer_not_in_scope = true
+must_answer_generated_output_value = true
+block_build_when_answers_are_vague = true
+indexes_are_discovery_not_proof = true
+paperwork_only_validators_are_not_enough = true
+avoid_premature_abstractions = true
+
+[tool.durable_slice_workflow.index_architecture]
+indexes_are_discovery_not_proof = true
+start_with_json_before_database = true
+exact_path_owner_indexes_before_semantic_indexes = true
+status_mode_must_not_write = true
+commit_generated_index_outputs_separately = true
+index_builder_requires_validator = true
+index_builder_requires_focused_tests = true
+
+[tool.durable_slice_workflow.index_architecture.layers]
+file_inventory = true
+authority_and_plan = true
+helper_catalog = true
+script_symbol_cli = true
+config_schema_contract = true
+artifact_evidence = true
+external_reference = true
+semantic_or_vector_only_after_basic_layers = true
+
+[tool.durable_slice_workflow.minimum_mapping_helpers]
+query_authority = true
+validate_slice_packet = true
+build_repo_map = true
+validate_repo_map = true
+build_command_map = true
+validate_command_map = true
+build_config_schema_contract_map = true
+validate_config_schema_contract_map = true
+build_helper_catalog = true
+validate_helper_catalog = true
+build_validator_map = true
+validate_validator_map = true
+build_artifact_output_map = true
+validate_artifact_output_map = true
+validate_worktree_cleanliness = true
+validate_read_only_commands = true
+validate_no_secrets_persisted = true
+owning_behavior_validator_per_slice = true
+
+[tool.durable_slice_workflow.minimum_script_architecture]
+authority_map_query = "query_authority"
+repo_file_index = "repo_index"
+plan_note_index = "plan_note_index"
+script_helper_command_catalog = "helper_command_catalog"
+config_schema_contract_registry = "config_schema_contract_registry"
+slice_packet_validator = "validate_slice_packet"
+owning_behavior_validator_per_slice = true
+focused_tests_per_slice = true
+worktree_cleanliness_classifier = "validate_worktree_cleanliness"
+read_only_command_harness = "validate_read_only_commands"
+protected_surface_guard = "guard_protected_surfaces"
+generated_output_post_hook = "run_output_post_hooks"
+conditional_index_refresh = "refresh_indexes"
+repo_health_gate = "validate_repo_health_gate"
+status_modes_must_be_read_only = true
+writer_modes_require_explicit_intent = true
+indexes_are_discovery_not_proof = true
+build_only_when_role_has_real_consumer = true
+
+[tool.durable_slice_workflow.minimum_maps]
+repo_map = true
+command_map = true
+config_map = true
+schema_contract_map = true
+helper_map = true
+validator_map = true
+test_map = true
+artifact_output_map = true
+
+[tool.durable_slice_workflow.paths]
+roadmaps = "plans"
+slice_packets = "plans/slices"
+configs = "configs"
+schemas = "schemas"
+contracts = "contracts"
+validators = "scripts"
+tests = "tests"
+evidence_reports = "reports"
+receipts = "receipts"
+checkpoints = "checkpoints"
+generated_indexes = "manifests"
+minimal_example = "examples/minimal_repo"
+realistic_small_example = "examples/small_config_tool_repo"
+starter_slice_packet_validator = "scripts/validate_slice_packet.py"
+entrypoint_renderer = "scripts/render_canonical_entrypoints.py"
+
+[tool.durable_slice_workflow.schemas]
+methodology = "schemas/methodology.schema.json"
+slice_packet = "schemas/slice_packet.schema.json"
+refresh_decision = "schemas/refresh_decision.schema.json"
+
+[tool.durable_slice_workflow.commands]
+validate_slice_packet = "python scripts/validate_slice_packet.py <packet> --summary-only"
+validate_minimal_example_packet = "python scripts/validate_slice_packet.py examples/minimal_repo/plans/slices/slice_001_packet.json --summary-only"
+validate_small_config_example_packet = "python scripts/validate_slice_packet.py examples/small_config_tool_repo/plans/slices/slice_001_packet.json --summary-only"
+check_canonical_entrypoints = "python scripts/render_canonical_entrypoints.py --check"
+write_canonical_entrypoints = "python scripts/render_canonical_entrypoints.py --write"
+
+[tool.durable_slice_workflow.required_slice_packet_fields]
+selected_wave_or_slice = true
+files_to_create_or_edit = true
+exact_owner_configs_schemas_contracts = true
+required_source_reads = true
+owning_wave_validator = true
+owning_wave_tests = true
+focused_validators_and_tests = true
+not_in_scope = true
+refresh_decision = true
+commit_plan = true
+
+[tool.durable_slice_workflow.refresh_decision_fields]
+repo_index_required = true
+script_import_index_required = true
+plan_note_index_required = true
+config_variable_inventory_required = true
+output_schema_index_required = true
+post_output_hook_required = true
+next_wave_discovery_depends_on_new_surfaces = true
+required_reason = true
+refresh_timing = true
+decision_basis = true
+
+[tool.durable_slice_workflow.refresh_policy]
+refresh_mid_wave = false
+refresh_for_head_only_staleness = false
+refresh_for_validator_creation_alone = false
+commit_generated_outputs_separately = true
+from_scratch_repos_follow_same_commit_structure = true
+early_index_work_must_be_explicit_infrastructure_slice = true
+keep_indexes_stale_until_structured_refresh_decision = true
+valid_reasons = [
+  "selected_slice_owns_index_or_reconciliation",
+  "stale_discovery_blocks_current_implementation",
+  "next_wave_depends_on_fresh_discovery",
+  "release_projection_or_closeout_gate_requires_freshness",
+  "index_is_corrupt_missing_or_unusable",
+  "operator_explicitly_requests_refresh"
+]
+
+[tool.durable_slice_workflow.receipt_policy]
+per_wave_receipts_default = false
+valid_reasons = [
+  "writer_or_generator_output",
+  "materializer_output",
+  "external_api_or_provider_run",
+  "delete_move_or_reroot_operation",
+  "promotion_release_or_closeout_gate",
+  "irreversible_or_operator_activated_action"
+]
+
+[tool.durable_slice_workflow.build_stage_prompts]
+foundation_preamble = "You are starting from no chat history. Use the durable slice workflow foundation in this repo. Read AGENTS.md, SKILL.md, the durable methodology, the active roadmap/owner plan, and the selected slice packet before editing. Build by roadmap -> compact packet -> owner files -> owning validator -> focused tests -> future-affecting notes -> implementation commit -> conditional generated refresh commit -> no head-chasing. Treat chat as discussion, not authority. For the requested <wave_id>, confirm readiness first, then implement only if owner files, validator, tests, source reads, safety boundaries, refresh decision, and commit shape are clear."
+readiness_long = "Use the durable slice workflow foundation. Read AGENTS.md, SKILL.md, the durable methodology, the active roadmap or owner plan for the whole wave chain, the selected <wave_id> section, and any dependency/future-wave notes that mention <wave_id>. Check worktree state and classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails. Is <wave_id> ready to implement, or is there one compact prep action that would make future slices easier? Confirm owner files, owning validator, focused tests, required source reads, not-in-scope boundaries, structured refresh decision, and commit shape. Do not implement yet unless readiness is clear."
+implementation_long = "Use the durable slice workflow foundation. Read AGENTS.md, SKILL.md, the durable methodology, <owner_plan_ref>, the selected <wave_id> section, dependency/future notes for <wave_id>, and the compact slice packet. Confirm owner files, owning validator, focused tests, required source reads, not-in-scope boundaries, structured refresh decision, and commit shape before editing. Implement only the owner bundle. Use existing helpers/indexes/catalogs/patterns before creating new helpers. Keep runtime-affecting values config-owned or explicitly operator-selected. Add or update the owning validator and focused tests. Persist only discoveries that change future implementation order, owner files, validators, tests, source reads, safety boundaries, refresh decisions, helper reuse, activation gates, receipts, or closeout. Run focused proof. Commit implementation first. Refresh generated indexes only if the packet requires it, commit generated outputs once, and stop without head-chasing."
+single_turn_long = "Use the durable slice workflow foundation. Read AGENTS.md, SKILL.md, the durable methodology, <owner_plan_ref>, the selected <wave_id> section, dependency/future notes for <wave_id>, and the compact slice packet. Confirm owner files, owning validator, focused tests, required source reads, not-in-scope boundaries, structured refresh decision, and commit shape before editing. Implement only the owner bundle. Use existing helpers/indexes/catalogs/patterns before creating new helpers. Keep runtime-affecting values config-owned or explicitly operator-selected. Add or update the owning validator and focused tests. Persist only discoveries that change future implementation order, owner files, validators, tests, source reads, safety boundaries, refresh decisions, helper reuse, activation gates, receipts, or closeout. Run focused proof. Commit implementation first. Refresh generated indexes only if the packet requires it, commit generated outputs once, and stop without head-chasing."
+readiness_short = "Is wave X ready to implement, or is there anything else we should do to make future slices easier? Read the full active roadmap/owner plan for this wave chain, dependency/future-wave notes, and build a compact slice packet if ready."
+implementation_short = "Implement wave X from the compact slice packet. During closeout, note anything that affects future wave implementation, update durable JSON only when it changes future order/owners/validators/full-read needs/safety/index/activation gates, then validate and commit."
+focused_proof = "Use the durable slice workflow foundation. For <wave_id>, run changed structured-file parse where relevant, the owning validator, focused tests, read-only/no-write checks where relevant, no-secret/no-token checks where relevant, and diff/worktree checks. Treat broad index/status checks as navigation evidence unless this wave owns them. Fix owner failures instead of weakening tests. Report exact commands and results."
+generated_refresh = "Use the durable slice workflow foundation. Read the structured refresh decision for <wave_id>. If refresh is required, run only the named generated index/catalog/inventory/projection hooks from the implementation head, validate generated outputs, commit generated outputs once, and stop. If only head-only staleness remains after the generated commit, classify it as evidence and do not refresh again."
+closeout = "Use the durable slice workflow foundation. Close out <wave_id> by reporting implementation commit, generated-refresh commit if any, validation commands/results, worktree state, classified residual noise, future-affecting notes persisted, and whether the next wave is ready. Confirm no future requirement remains only in chat. Do not create a closeout receipt unless it proves a writer, generator, materializer, external action, irreversible operation, release gate, or phase closeout."
+
+[tool.durable_slice_workflow.validation]
+parse_structured_files = true
+owning_validator_required = true
+focused_tests_required = true
+read_only_check_when_claimed = true
+secret_scan_when_credentials_nearby = true
+diff_check_required = true
+worktree_status_required = true
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = []
