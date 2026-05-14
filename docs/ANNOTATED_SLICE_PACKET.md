@@ -24,10 +24,11 @@ annotations in this Markdown file and keep packet files comment-free.
   ],
   "required_source_reads": [
     {
+      "read_id": "methodology_json",
       "surface": "repo-local durable workflow README",
       "read_type": "docs",
       "status": "satisfied",
-      "evidence_ref": "README.md"
+      "evidence_ref": "source_read:methodology_json"
     }
   ],
   "owning_wave_validator": "scripts/validate_greeting_config.py",
@@ -41,9 +42,24 @@ annotations in this Markdown file and keep packet files comment-free.
   ],
   "not_in_scope": [
     "Argument-driven runtime override",
-    "Generated config inventory implementation",
+    "Generated config variable inventory implementation",
     "Packaging or installation"
   ],
+  "boundary_rules": {
+    "allowed_scope": [
+      "Greeting config, schema, renderer, validator, and focused tests"
+    ],
+    "forbidden_path_prefixes": [
+      "manifests/",
+      "receipts/"
+    ],
+    "forbidden_keywords": [
+      "Packaging or installation"
+    ],
+    "planned_future_surface_ids": [
+      "config_variable_inventory"
+    ]
+  },
   "refresh_decision": {
     "repo_index_required": false,
     "script_import_index_required": false,
@@ -111,6 +127,11 @@ The exact local evidence read before implementation.
 Use repo files, local docs, schemas, contracts, or indexes. Do not use chat as
 evidence.
 
+When the repo has `plans/source_read_register.json`, cite a durable read with
+`read_id` and `evidence_ref: "source_read:<read_id>"`. Use `full_source` or
+`full_read` when exact implementation behavior depends on a source/API surface,
+and use `docs` for normal local documentation.
+
 ### `owning_wave_validator`
 
 The main validator for the slice.
@@ -133,6 +154,19 @@ implementation or generated-refresh steps.
 Things you are deliberately not building in this slice.
 
 This protects beginners from turning a small slice into an open-ended project.
+
+### `boundary_rules`
+
+Machine-checkable scope guards for this slice.
+
+- `allowed_scope`: what this slice may change.
+- `forbidden_path_prefixes`: path families this slice must not edit.
+- `forbidden_keywords`: scope topics that must stay in `not_in_scope`.
+- `planned_future_surface_ids`: future registry ids that are intentionally not
+  implemented in this slice.
+
+Use `plans/planned_future_surfaces.json` to make intentionally absent future
+files visible without treating them as broken current work.
 
 ### `refresh_decision`
 

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/source_read_register.schema.json",
+  "title": "Source Read Register",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "register_id",
+    "status",
+    "purpose",
+    "reads"
+  ],
+  "properties": {
+    "schema_version": { "const": "v1.repo_agnostic_source_read_register.1" },
+    "register_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "status": { "type": "string", "enum": ["active", "draft"] },
+    "purpose": { "type": "string", "minLength": 16 },
+    "reads": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "read_id",
+          "surface",
+          "surface_type",
+          "read_type",
+          "status",
+          "owner_slice",
+          "evidence_ref",
+          "summary"
+        ],
+        "properties": {
+          "read_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+$"
+          },
+          "surface": { "type": "string", "minLength": 1 },
+          "surface_type": {
+            "type": "string",
+            "enum": [
+              "repo_methodology",
+              "repo_doc",
+              "contract",
+              "schema",
+              "validator",
+              "runtime_source",
+              "external_doc",
+              "external_source",
+              "other"
+            ]
+          },
+          "read_type": {
+            "type": "string",
+            "enum": ["full_source", "full_read", "attrs", "docs", "none"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["satisfied", "deferred", "not_required"]
+          },
+          "owner_slice": { "type": "string", "minLength": 1 },
+          "evidence_ref": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "minLength": 16 }
+        }
+      }
+    }
+  }
+}

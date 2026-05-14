@@ -1,6 +1,6 @@
 [project]
 name = "durable-slice-build-template"
-version = "0.3.0"
+version = "0.4.0"
 description = "Repo-agnostic bootstrap template for creating brand-new repos with durable slice-based planning, implementation, validation, and closeout."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -155,7 +155,13 @@ local_bootstrap = "scripts/bootstrap_local_repo.py"
 repo_file_index_builder = "scripts/build_repo_file_index.py"
 repo_file_index_query = "scripts/query_repo_file_index.py"
 read_only_command_harness = "scripts/validate_read_only_commands.py"
+source_read_register = "plans/source_read_register.json"
+planned_future_surfaces = "plans/planned_future_surfaces.json"
+source_read_register_validator = "scripts/validate_source_read_register.py"
+planned_future_surfaces_validator = "scripts/validate_planned_future_surfaces.py"
 beginner_start = "START_HERE.md"
+new_agent_prompt = "PROMPT_FOR_NEW_AGENT.md"
+release_checklist = "RELEASE_CHECKLIST.md"
 beginner_docs = "docs"
 beginner_glossary = "docs/GLOSSARY.md"
 beginner_troubleshooting = "docs/TROUBLESHOOTING.md"
@@ -171,11 +177,15 @@ refresh_decision = "schemas/refresh_decision.schema.json"
 low_token_workflow_contract = "schemas/low_token_workflow_contract.schema.json"
 repo_file_index = "schemas/repo_file_index.schema.json"
 read_only_command_harness = "schemas/read_only_command_harness.schema.json"
+source_read_register = "schemas/source_read_register.schema.json"
+planned_future_surfaces = "schemas/planned_future_surfaces.schema.json"
 
 [tool.durable_slice_workflow.commands]
 validate_low_token_workflow = "python scripts/validate_low_token_workflow.py --summary-only"
 validate_read_only_commands = "python scripts/validate_read_only_commands.py --summary-only"
 run_read_only_commands = "python scripts/validate_read_only_commands.py --run --summary-only"
+validate_source_read_register = "python scripts/validate_source_read_register.py --summary-only"
+validate_planned_future_surfaces = "python scripts/validate_planned_future_surfaces.py --summary-only"
 build_repo_file_index_summary = "python scripts/build_repo_file_index.py --summary-only"
 write_repo_file_index = "python scripts/build_repo_file_index.py --write --summary-only"
 query_repo_file_index = "python scripts/query_repo_file_index.py --index manifests/repo_file_index.json --path-contains <path-fragment> --summary-only"
@@ -196,6 +206,7 @@ owning_wave_validator = true
 owning_wave_tests = true
 focused_validators_and_tests = true
 not_in_scope = true
+boundary_rules = true
 refresh_decision = true
 commit_plan = true
 

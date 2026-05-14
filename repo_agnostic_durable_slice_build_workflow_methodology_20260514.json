@@ -31,7 +31,9 @@
       "refresh_decision": "schemas/refresh_decision.schema.json",
       "low_token_workflow_contract": "schemas/low_token_workflow_contract.schema.json",
       "repo_file_index": "schemas/repo_file_index.schema.json",
-      "read_only_command_harness": "schemas/read_only_command_harness.schema.json"
+      "read_only_command_harness": "schemas/read_only_command_harness.schema.json",
+      "source_read_register": "schemas/source_read_register.schema.json",
+      "planned_future_surfaces": "schemas/planned_future_surfaces.schema.json"
     },
     "starter_validator": {
       "path": "scripts/validate_slice_packet.py",
@@ -72,15 +74,31 @@
       "validator": "scripts/validate_read_only_commands.py",
       "summary_command": "python scripts/validate_read_only_commands.py --summary-only",
       "run_command": "python scripts/validate_read_only_commands.py --run --summary-only",
-      "purpose": "Define compact status/check commands and optionally execute them under before/after file snapshots to prove they stay read-only."
+      "purpose": "Define compact status/check commands and optionally execute them under before/after file snapshots, git porcelain comparison, and secret-like output scanning to prove they stay read-only."
+    },
+    "source_read_register": {
+      "register": "plans/source_read_register.json",
+      "schema": "schemas/source_read_register.schema.json",
+      "validator": "scripts/validate_source_read_register.py",
+      "summary_command": "python scripts/validate_source_read_register.py --summary-only",
+      "purpose": "Track exact source, API, docs, or full-read evidence that slice packets may cite as source_read:<id> instead of relying on chat memory."
+    },
+    "planned_future_surfaces": {
+      "registry": "plans/planned_future_surfaces.json",
+      "schema": "schemas/planned_future_surfaces.schema.json",
+      "validator": "scripts/validate_planned_future_surfaces.py",
+      "summary_command": "python scripts/validate_planned_future_surfaces.py --summary-only",
+      "purpose": "Classify intentionally absent future files so agents do not treat planned-but-not-created surfaces as broken current work."
     },
     "beginner_docs": {
       "start_here": "START_HERE.md",
+      "new_agent_prompt": "PROMPT_FOR_NEW_AGENT.md",
+      "release_checklist": "RELEASE_CHECKLIST.md",
       "glossary": "docs/GLOSSARY.md",
       "troubleshooting": "docs/TROUBLESHOOTING.md",
       "decision_tree": "docs/NEXT_ACTION_DECISION_TREE.md",
       "annotated_slice_packet": "docs/ANNOTATED_SLICE_PACKET.md",
-      "purpose": "Give non-agent experts a plain-language first path, term map, failure guide, next-action chooser, and field-by-field packet example."
+      "purpose": "Give non-agent experts a plain-language first path, copy-paste handoff prompt, release checklist, term map, failure guide, next-action chooser, and field-by-field packet example."
     },
     "local_make_targets": {
       "check": "make check",
@@ -216,6 +234,7 @@
         "focused tests",
         "validation commands",
         "not-in-scope boundaries",
+        "machine-checkable boundary rules",
         "structured refresh decision",
         "commit plan"
       ],
@@ -1851,10 +1870,11 @@
       ],
       "required_source_reads": [
         {
+          "read_id": "<optional source_read_register id>",
           "surface": "<external or internal source surface>",
-          "read_type": "full_source | attrs | docs | none",
+          "read_type": "full_source | full_read | attrs | docs | none",
           "status": "satisfied | deferred | not_required",
-          "evidence_ref": "<register or report ref>"
+          "evidence_ref": "<source_read:<id>, register, report, or repo path ref>"
         }
       ],
       "owning_wave_validator": "<path>",
@@ -1867,6 +1887,20 @@
       "not_in_scope": [
         "<future feature not allowed in this slice>"
       ],
+      "boundary_rules": {
+        "allowed_scope": [
+          "<plain-language scope this slice may touch>"
+        ],
+        "forbidden_path_prefixes": [
+          "<repo-relative prefixes this slice must not edit>"
+        ],
+        "forbidden_keywords": [
+          "<topics that must remain in not_in_scope>"
+        ],
+        "planned_future_surface_ids": [
+          "<ids from plans/planned_future_surfaces.json that stay deferred>"
+        ]
+      },
       "refresh_decision": {
         "repo_index_required": false,
         "script_import_index_required": false,

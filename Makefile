@@ -17,6 +17,8 @@ test:
 
 validate-examples:
 	$(PYTHON) scripts/validate_low_token_workflow.py --summary-only
+	$(PYTHON) scripts/validate_source_read_register.py --summary-only
+	$(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --summary-only
 	$(PYTHON) scripts/validate_read_only_commands.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --root examples/small_config_tool_repo --summary-only
@@ -27,12 +29,16 @@ validate-examples:
 release-check:
 	$(PYTHON) -m json.tool repo_agnostic_durable_slice_build_workflow_methodology_20260514.json >/dev/null
 	$(PYTHON) -m json.tool contracts/low_token_workflow_contract.json >/dev/null
+	$(PYTHON) -m json.tool plans/source_read_register.json >/dev/null
+	$(PYTHON) -m json.tool plans/planned_future_surfaces.json >/dev/null
 	$(PYTHON) -m json.tool schemas/methodology.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/slice_packet.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/refresh_decision.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/low_token_workflow_contract.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/repo_file_index.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/read_only_command_harness.schema.json >/dev/null
+	$(PYTHON) -m json.tool schemas/source_read_register.schema.json >/dev/null
+	$(PYTHON) -m json.tool schemas/planned_future_surfaces.schema.json >/dev/null
 	$(PYTHON) -m json.tool contracts/read_only_command_harness.json >/dev/null
 	$(PYTHON) -B -c "import pathlib,tomllib; tomllib.loads(pathlib.Path('pyproject.toml').read_text())"
 	@if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then git diff --check; else echo "SKIP git diff --check (not a git repo)"; fi
@@ -50,6 +56,8 @@ bootstrap-smoke:
 	$(PYTHON) scripts/bootstrap_local_repo.py /tmp/durable-slice-bootstrap-smoke --project-name durable-slice-bootstrap-smoke --force
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/render_canonical_entrypoints.py --check
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_low_token_workflow.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_source_read_register.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/build_repo_file_index.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_read_only_commands.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only

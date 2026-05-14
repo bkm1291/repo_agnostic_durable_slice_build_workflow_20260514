@@ -1,0 +1,35 @@
+{
+  "schema_version": "v1.repo_agnostic_planned_future_surfaces.1",
+  "registry_id": "repo_agnostic_planned_future_surfaces_20260514",
+  "status": "active",
+  "purpose": "Classify intentionally absent future files so agents do not treat planned-but-not-created surfaces as broken current work.",
+  "surfaces": [
+    {
+      "surface_id": "config_variable_inventory",
+      "path": "manifests/config_variable_inventory.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_002_config_inventory",
+      "activation_packet": "plans/slices/slice_002_config_inventory_packet.json",
+      "reason": "Useful after a repo has several config-owned runtime values; not needed for the first bootstrap slice."
+    },
+    {
+      "surface_id": "helper_command_catalog",
+      "path": "manifests/helper_command_catalog.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_003_helper_catalog",
+      "activation_packet": "plans/slices/slice_003_helper_catalog_packet.json",
+      "reason": "Useful after helper and command count grows beyond what README and packet evidence can route."
+    },
+    {
+      "surface_id": "artifact_output_map",
+      "path": "manifests/artifact_output_map.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_004_artifact_outputs",
+      "activation_packet": "plans/slices/slice_004_artifact_outputs_packet.json",
+      "reason": "Useful before durable writer commands produce receipts, reports, or materialized outputs."
+    }
+  ]
+}

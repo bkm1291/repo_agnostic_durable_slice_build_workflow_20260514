@@ -23,6 +23,26 @@
     "snapshot_roots": [
       "."
     ],
+    "compare_git_porcelain_before_after": true,
+    "stdout_stderr_secret_scan": true,
+    "secret_scan_patterns": [
+      {
+        "name": "private_key_block",
+        "pattern": "-----BEGIN [A-Z ]*PRIVATE KEY-----"
+      },
+      {
+        "name": "aws_access_key",
+        "pattern": "\\bAKIA[0-9A-Z]{16}\\b"
+      },
+      {
+        "name": "bearer_token",
+        "pattern": "(?i)\\bbearer\\s+[A-Za-z0-9._~+/=-]{16,}"
+      },
+      {
+        "name": "secret_assignment",
+        "pattern": "(?i)\\b(password|passwd|api[_-]?key|secret|token)\\s*[:=]\\s*['\\\"]?[A-Za-z0-9._~+/=-]{8,}"
+      }
+    ],
     "ignore_dirs": [
       ".git",
       ".mypy_cache",
@@ -65,6 +85,32 @@
       "argv": [
         "{python}",
         "scripts/build_repo_file_index.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_source_read_register",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_source_read_register.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_planned_future_surfaces",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_planned_future_surfaces.py",
         "--summary-only"
       ],
       "expected_exit_codes": [

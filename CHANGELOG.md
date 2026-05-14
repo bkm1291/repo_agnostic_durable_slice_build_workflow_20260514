@@ -2,6 +2,16 @@
 
 All notable changes to this local template are documented here.
 
+## 0.4.0 - 2026-05-14
+
+- Added source-read/full-read register, schema, validator, and tests.
+- Added planned-future-surfaces registry, schema, validator, and tests.
+- Added packet `boundary_rules` validation for allowed scope, forbidden path prefixes, forbidden keywords, and deferred future-surface refs.
+- Hardened the read-only command harness with git porcelain before/after comparison and secret-like stdout/stderr scanning.
+- Added `PROMPT_FOR_NEW_AGENT.md` for non-expert handoff to a fresh agent.
+- Added `RELEASE_CHECKLIST.md` with exact local validation, tag, and publish commands.
+- Wired the new hardening into bootstrap, examples, docs, generated entrypoints, Makefile checks, and publish metadata.
+
 ## 0.3.0 - 2026-05-14
 
 - Added `START_HERE.md` with a first-30-minutes beginner walkthrough.

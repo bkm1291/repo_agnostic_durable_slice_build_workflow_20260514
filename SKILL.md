@@ -24,7 +24,7 @@ This skill is a compact generated pointer.
 Use planning mode only when the roadmap, owner surfaces, proof path, source
 evidence, or safety boundaries are unclear. Planning outputs should be durable
 and structured: roadmap, slice packet, decision record, open question register,
-source-read register, or evidence report.
+source-read register, planned-future-surfaces registry, or evidence report.
 
 Do not create runtime configs, schemas, source modules, scripts, or tests during
 planning unless implementation is explicitly activated.
@@ -33,12 +33,14 @@ planning unless implementation is explicitly activated.
 
 Build Mode begins when the selected slice packet is ready. Read targeted owner
 files, reuse existing patterns, keep runtime values config-owned, avoid future
-placeholders, add/update the owning validator, add focused tests, run focused
-proof, and stage exact intended paths.
+placeholders, enforce `boundary_rules`, add/update the owning validator, add
+focused tests, run focused proof, and stage exact intended paths.
 
 ## Low-Token Workflow
 
 Use `contracts/low_token_workflow_contract.json` as the compact-read policy. Query or inspect file inventory before large reads; the starter tools are `scripts/build_repo_file_index.py` and `scripts/query_repo_file_index.py`. Keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output. Use `scripts/validate_read_only_commands.py` when you need command status proof to be read-only.
+
+Use `plans/source_read_register.json` for durable source/full-read refs and `plans/planned_future_surfaces.json` for intentionally deferred future files.
 
 If a wider read is needed, state:
 
@@ -54,6 +56,7 @@ If a wider read is needed, state:
 - `owning_wave_tests`
 - `focused_validators_and_tests`
 - `not_in_scope`
+- `boundary_rules`
 - `refresh_decision`
 - `commit_plan`
 

@@ -52,6 +52,8 @@ def render_readme(methodology: dict[str, Any]) -> str:
     low_token = starter.get("low_token_workflow", {})
     repo_file_index = starter.get("repo_file_index", {})
     read_only_harness = starter.get("read_only_command_harness", {})
+    source_read_register = starter.get("source_read_register", {})
+    planned_future_surfaces = starter.get("planned_future_surfaces", {})
     beginner_docs = starter.get("beginner_docs", {})
     realistic_example = starter.get("realistic_small_example", {})
     starter_validator_path = starter.get("starter_validator", {}).get(
@@ -70,6 +72,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
     quickstart = [
         f"If you are new to the workflow, read `{beginner_docs.get('start_here', 'START_HERE.md')}` first.",
         (
+            "To hand the repo to a fresh agent, fill in and paste "
+            f"`{beginner_docs.get('new_agent_prompt', 'PROMPT_FOR_NEW_AGENT.md')}`."
+        ),
+        (
             "Run `python scripts/bootstrap_local_repo.py "
             "../my-new-repo --project-name my-new-repo`."
         ),
@@ -81,6 +87,14 @@ def render_readme(methodology: dict[str, Any]) -> str:
         (
             "Run `python scripts/validate_low_token_workflow.py --summary-only` "
             "to confirm compact-read defaults."
+        ),
+        (
+            "Run `python scripts/validate_source_read_register.py --summary-only` "
+            "to confirm durable source-read evidence refs."
+        ),
+        (
+            "Run `python scripts/validate_planned_future_surfaces.py --summary-only` "
+            "to confirm intentionally deferred future files are classified."
         ),
         (
             "Run `python scripts/build_repo_file_index.py --summary-only` "
@@ -116,7 +130,13 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Repo file index query: {_wrap_code(repo_file_index.get('query', 'scripts/query_repo_file_index.py'))}",
         f"Read-only command harness: {_wrap_code(read_only_harness.get('validator', 'scripts/validate_read_only_commands.py'))}",
         f"Read-only command contract: {_wrap_code(read_only_harness.get('contract', 'contracts/read_only_command_harness.json'))}",
+        f"Source-read register: {_wrap_code(source_read_register.get('register', 'plans/source_read_register.json'))}",
+        f"Source-read validator: {_wrap_code(source_read_register.get('validator', 'scripts/validate_source_read_register.py'))}",
+        f"Planned future surfaces: {_wrap_code(planned_future_surfaces.get('registry', 'plans/planned_future_surfaces.json'))}",
+        f"Planned future validator: {_wrap_code(planned_future_surfaces.get('validator', 'scripts/validate_planned_future_surfaces.py'))}",
         f"Beginner start: {_wrap_code(beginner_docs.get('start_here', 'START_HERE.md'))}",
+        f"New-agent handoff prompt: {_wrap_code(beginner_docs.get('new_agent_prompt', 'PROMPT_FOR_NEW_AGENT.md'))}",
+        f"Release checklist: {_wrap_code(beginner_docs.get('release_checklist', 'RELEASE_CHECKLIST.md'))}",
         f"Glossary: {_wrap_code(beginner_docs.get('glossary', 'docs/GLOSSARY.md'))}",
         f"Troubleshooting: {_wrap_code(beginner_docs.get('troubleshooting', 'docs/TROUBLESHOOTING.md'))}",
         f"Next-action decision tree: {_wrap_code(beginner_docs.get('decision_tree', 'docs/NEXT_ACTION_DECISION_TREE.md'))}",
@@ -154,7 +174,7 @@ python scripts/render_canonical_entrypoints.py --write
 
 ## Beginner Path
 
-If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
+If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}` to hand a project goal to a fresh agent, `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` before tagging or publishing, `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
 
 ## 10-Minute Bootstrap Path
 
@@ -172,6 +192,8 @@ Validate it with:
 
 ```bash
 {low_token.get("command_template", "python scripts/validate_low_token_workflow.py --summary-only")}
+{source_read_register.get("summary_command", "python scripts/validate_source_read_register.py --summary-only")}
+{planned_future_surfaces.get("summary_command", "python scripts/validate_planned_future_surfaces.py --summary-only")}
 {repo_file_index.get("summary_command", "python scripts/build_repo_file_index.py --summary-only")}
 {read_only_harness.get("summary_command", "python scripts/validate_read_only_commands.py --summary-only")}
 ```
@@ -185,6 +207,8 @@ python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
 cd ../my-new-repo
 python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/validate_source_read_register.py --summary-only
+python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
@@ -200,6 +224,8 @@ Before publishing or pushing a release branch:
 
 ```bash
 make check
+make bootstrap-smoke
+make read-only-check
 git status --short
 ```
 
@@ -207,11 +233,14 @@ The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
 builder/query pair, a read-only command harness, and example tests.
 
+Use `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` for the full tag and publish sequence.
+
 ## First Slice Readiness
 
 A slice is ready when its packet names the selected slice, files to create or edit,
 owner configs/schemas/contracts, required source reads, owning validator, focused
-tests, not-in-scope boundaries, refresh decision, and commit plan.
+tests, not-in-scope boundaries, machine-checkable boundary rules, refresh
+decision, and commit plan.
 
 If any of those are vague, split the slice or return to targeted planning.
 
@@ -245,11 +274,15 @@ def render_agents(methodology: dict[str, Any]) -> str:
     low_token = starter.get("low_token_workflow", {})
     repo_file_index = starter.get("repo_file_index", {})
     read_only_harness = starter.get("read_only_command_harness", {})
+    source_read_register = starter.get("source_read_register", {})
+    planned_future_surfaces = starter.get("planned_future_surfaces", {})
     start_steps = [
         "Read this `AGENTS.md`.",
         "Read root `SKILL.md` if present.",
         "Read the canonical methodology JSON.",
         f"Read `{low_token.get('contract', 'contracts/low_token_workflow_contract.json')}` if present.",
+        f"Read `{source_read_register.get('register', 'plans/source_read_register.json')}` if packet source reads cite `source_read:<id>`.",
+        f"Read `{planned_future_surfaces.get('registry', 'plans/planned_future_surfaces.json')}` if packet boundary rules cite future surface ids.",
         "Check worktree state.",
         "Read the current durable roadmap or owner plan.",
         "Confirm or create the selected slice packet before protected edits.",
@@ -303,7 +336,8 @@ If the answers are vague, split the slice or return to targeted planning.
 Implement only the owner bundle named in the packet. Use existing helpers,
 indexes, catalogs, and patterns before creating new helpers. Keep reads targeted
 and command output compact under the low-token contract. Keep runtime values
-config-owned or explicitly operator-selected.
+config-owned or explicitly operator-selected. Enforce `boundary_rules` before
+expanding owner files, generated outputs, external access, or future surfaces.
 
 ## Low-Token Workflow
 
@@ -313,7 +347,7 @@ If a targeted read is insufficient, state:
 
 `Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
 
-Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `{read_only_harness.get("validator", "scripts/validate_read_only_commands.py")}` to validate or run declared read-only checks under before/after file snapshots.
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `{read_only_harness.get("validator", "scripts/validate_read_only_commands.py")}` to validate or run declared read-only checks under before/after file snapshots, git porcelain comparison, and secret-like output scanning.
 
 ## Generated Outputs
 
@@ -342,6 +376,8 @@ def render_skill(methodology: dict[str, Any]) -> str:
     low_token = starter.get("low_token_workflow", {})
     repo_file_index = starter.get("repo_file_index", {})
     read_only_harness = starter.get("read_only_command_harness", {})
+    source_read_register = starter.get("source_read_register", {})
+    planned_future_surfaces = starter.get("planned_future_surfaces", {})
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
     return f"""{GENERATED_HEADER}
 
@@ -362,7 +398,7 @@ This skill is a compact generated pointer.
 Use planning mode only when the roadmap, owner surfaces, proof path, source
 evidence, or safety boundaries are unclear. Planning outputs should be durable
 and structured: roadmap, slice packet, decision record, open question register,
-source-read register, or evidence report.
+source-read register, planned-future-surfaces registry, or evidence report.
 
 Do not create runtime configs, schemas, source modules, scripts, or tests during
 planning unless implementation is explicitly activated.
@@ -371,12 +407,14 @@ planning unless implementation is explicitly activated.
 
 Build Mode begins when the selected slice packet is ready. Read targeted owner
 files, reuse existing patterns, keep runtime values config-owned, avoid future
-placeholders, add/update the owning validator, add focused tests, run focused
-proof, and stage exact intended paths.
+placeholders, enforce `boundary_rules`, add/update the owning validator, add
+focused tests, run focused proof, and stage exact intended paths.
 
 ## Low-Token Workflow
 
 Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the compact-read policy. Query or inspect file inventory before large reads; the starter tools are `{repo_file_index.get("builder", "scripts/build_repo_file_index.py")}` and `{repo_file_index.get("query", "scripts/query_repo_file_index.py")}`. Keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output. Use `{read_only_harness.get("validator", "scripts/validate_read_only_commands.py")}` when you need command status proof to be read-only.
+
+Use `{source_read_register.get("register", "plans/source_read_register.json")}` for durable source/full-read refs and `{planned_future_surfaces.get("registry", "plans/planned_future_surfaces.json")}` for intentionally deferred future files.
 
 If a wider read is needed, state:
 
@@ -392,6 +430,7 @@ If a wider read is needed, state:
 - `owning_wave_tests`
 - `focused_validators_and_tests`
 - `not_in_scope`
+- `boundary_rules`
 - `refresh_decision`
 - `commit_plan`
 

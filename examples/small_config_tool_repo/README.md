@@ -10,7 +10,7 @@ Run from this directory:
 python scripts/validate_greeting_config.py configs/greeting_config.json --summary-only
 python scripts/render_greeting.py --config configs/greeting_config.json
 python ../../scripts/build_repo_file_index.py --root . --summary-only
-python ../../scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
+python ../../scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --planned-future-surfaces ../../plans/planned_future_surfaces.json --summary-only
 python -m pytest -q tests
 ```
 

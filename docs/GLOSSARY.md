@@ -44,6 +44,38 @@ slice is safe to implement.
 
 Chat memory is not durable evidence. Prefer repo files and compact indexes.
 
+## Source-Read Register
+
+A durable list of exact source or documentation reads that packets can cite with
+`source_read:<id>`.
+
+Starter path: `plans/source_read_register.json`
+
+Use:
+
+```bash
+python scripts/validate_source_read_register.py --summary-only
+```
+
+## Planned Future Surfaces
+
+A registry of files that are intentionally planned for later slices. This helps
+future workers distinguish "not built yet on purpose" from "missing by mistake".
+
+Starter path: `plans/planned_future_surfaces.json`
+
+Use:
+
+```bash
+python scripts/validate_planned_future_surfaces.py --summary-only
+```
+
+## Boundary Rules
+
+Machine-checkable slice limits. Boundary rules name allowed scope, forbidden path
+prefixes, forbidden keywords, and planned future surfaces that must not be built
+in the current slice.
+
 ## Owning Validator
 
 The script that checks the rule or behavior owned by the slice.

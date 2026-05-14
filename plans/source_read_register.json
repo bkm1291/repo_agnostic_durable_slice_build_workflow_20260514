@@ -1,0 +1,58 @@
+{
+  "schema_version": "v1.repo_agnostic_source_read_register.1",
+  "register_id": "repo_agnostic_source_read_register_20260514",
+  "status": "active",
+  "purpose": "Track exact internal or external source reads that slice packets may cite instead of relying on chat memory.",
+  "reads": [
+    {
+      "read_id": "methodology_json",
+      "surface": "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
+      "surface_type": "repo_methodology",
+      "read_type": "docs",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
+      "summary": "Canonical workflow doctrine, starter artifacts, slice packet contract, refresh discipline, and bootstrap sequence."
+    },
+    {
+      "read_id": "low_token_contract",
+      "surface": "contracts/low_token_workflow_contract.json",
+      "surface_type": "contract",
+      "read_type": "docs",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "contracts/low_token_workflow_contract.json",
+      "summary": "Portable compact-read policy: query or inventory first, bounded targeted reads, compact command output, and explicit wider-read escalation."
+    },
+    {
+      "read_id": "read_only_harness_contract",
+      "surface": "contracts/read_only_command_harness.json",
+      "surface_type": "contract",
+      "read_type": "docs",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "contracts/read_only_command_harness.json",
+      "summary": "Policy for compact read-only commands, before/after snapshots, git porcelain comparison, and secret-like output scanning."
+    },
+    {
+      "read_id": "source_read_register_validator",
+      "surface": "scripts/validate_source_read_register.py",
+      "surface_type": "validator",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/validate_source_read_register.py",
+      "summary": "Dependency-free validator proving source-read register structure, evidence refs, statuses, duplicate ids, and path safety."
+    },
+    {
+      "read_id": "planned_future_surfaces_validator",
+      "surface": "scripts/validate_planned_future_surfaces.py",
+      "surface_type": "validator",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/validate_planned_future_surfaces.py",
+      "summary": "Dependency-free validator proving future-surface ids, paths, owner slices, statuses, and activation packet references."
+    }
+  ]
+}

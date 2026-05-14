@@ -33,9 +33,24 @@
   ],
   "not_in_scope": [
     "Argument-driven runtime override",
-    "Generated config inventory implementation",
+    "Generated config variable inventory implementation",
     "Packaging or installation"
   ],
+  "boundary_rules": {
+    "allowed_scope": [
+      "Greeting config, schema, renderer, validator, roadmap, packet, and focused tests"
+    ],
+    "forbidden_path_prefixes": [
+      "manifests/",
+      "receipts/"
+    ],
+    "forbidden_keywords": [
+      "Packaging or installation"
+    ],
+    "planned_future_surface_ids": [
+      "config_variable_inventory"
+    ]
+  },
   "refresh_decision": {
     "repo_index_required": false,
     "script_import_index_required": false,

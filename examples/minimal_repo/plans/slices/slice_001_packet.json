@@ -29,6 +29,19 @@
     "Receipt writing",
     "External source access"
   ],
+  "boundary_rules": {
+    "allowed_scope": [
+      "Minimal roadmap, slice packet, packet validator, and focused validator test"
+    ],
+    "forbidden_path_prefixes": [
+      "manifests/",
+      "receipts/"
+    ],
+    "forbidden_keywords": [
+      "External source access"
+    ],
+    "planned_future_surface_ids": []
+  },
   "refresh_decision": {
     "repo_index_required": false,
     "script_import_index_required": false,

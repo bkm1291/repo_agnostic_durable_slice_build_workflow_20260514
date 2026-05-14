@@ -21,10 +21,12 @@ unless the current task explicitly authorizes mutation.
 2. Read root `SKILL.md` if present.
 3. Read the canonical methodology JSON.
 4. Read `contracts/low_token_workflow_contract.json` if present.
-5. Check worktree state.
-6. Read the current durable roadmap or owner plan.
-7. Confirm or create the selected slice packet before protected edits.
-8. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
+5. Read `plans/source_read_register.json` if packet source reads cite `source_read:<id>`.
+6. Read `plans/planned_future_surfaces.json` if packet boundary rules cite future surface ids.
+7. Check worktree state.
+8. Read the current durable roadmap or owner plan.
+9. Confirm or create the selected slice packet before protected edits.
+10. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
 
 ## Core Rules
 
@@ -60,7 +62,8 @@ If the answers are vague, split the slice or return to targeted planning.
 Implement only the owner bundle named in the packet. Use existing helpers,
 indexes, catalogs, and patterns before creating new helpers. Keep reads targeted
 and command output compact under the low-token contract. Keep runtime values
-config-owned or explicitly operator-selected.
+config-owned or explicitly operator-selected. Enforce `boundary_rules` before
+expanding owner files, generated outputs, external access, or future surfaces.
 
 ## Low-Token Workflow
 
@@ -70,7 +73,7 @@ If a targeted read is insufficient, state:
 
 `Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
 
-Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `scripts/validate_read_only_commands.py` to validate or run declared read-only checks under before/after file snapshots.
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `scripts/validate_read_only_commands.py` to validate or run declared read-only checks under before/after file snapshots, git porcelain comparison, and secret-like output scanning.
 
 ## Generated Outputs
 

@@ -9,6 +9,8 @@ Use it when you want a new repo to have:
 - one small packet per piece of work
 - a validator and focused tests for each piece
 - a clear rule for when generated indexes or reports should refresh
+- a copy-paste prompt for handing the repo to a fresh agent
+- a release checklist for tagging or publishing
 
 ## First 30 Minutes
 
@@ -29,6 +31,8 @@ starter roadmap/packet.
 ```bash
 python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/validate_source_read_register.py --summary-only
+python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
@@ -56,12 +60,15 @@ A good first slice is small enough to name all of this before coding:
 - the validator that checks the behavior
 - the focused tests that prove the behavior
 - what is not in scope
+- the machine-checkable boundary rules
 
 If you cannot name those, split the work smaller.
 
 ### 5. Edit The Packet First
 
 Update `plans/slices/slice_001_packet.json` before editing source code.
+If the packet cites `source_read:<id>` or a planned future surface id, update
+`plans/source_read_register.json` or `plans/planned_future_surfaces.json` first.
 
 Then run:
 
@@ -104,3 +111,5 @@ Only refresh generated indexes afterward if the packet says a refresh is needed.
 - If a validator fails, read `docs/TROUBLESHOOTING.md`.
 - If you do not know the next action, read `docs/NEXT_ACTION_DECISION_TREE.md`.
 - If the packet fields feel abstract, read `docs/ANNOTATED_SLICE_PACKET.md`.
+- If you are handing this repo to a fresh agent, fill in `PROMPT_FOR_NEW_AGENT.md`.
+- If you are tagging or publishing, follow `RELEASE_CHECKLIST.md`.

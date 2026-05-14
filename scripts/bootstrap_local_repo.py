@@ -18,6 +18,8 @@ CORE_PATHS = (
     ".gitattributes",
     "LICENSE",
     "CHANGELOG.md",
+    "PROMPT_FOR_NEW_AGENT.md",
+    "RELEASE_CHECKLIST.md",
     "START_HERE.md",
     "Makefile",
     "README.md",
@@ -28,6 +30,7 @@ CORE_PATHS = (
     METHODOLOGY,
     "docs",
     "contracts",
+    "plans",
     "schemas",
     "scripts",
     "tests",
@@ -141,6 +144,8 @@ def _starter_packet() -> dict:
         "files_to_create_or_edit": [
             "README.md",
             "START_HERE.md",
+            "PROMPT_FOR_NEW_AGENT.md",
+            "RELEASE_CHECKLIST.md",
             "docs/GLOSSARY.md",
             "docs/TROUBLESHOOTING.md",
             "docs/NEXT_ACTION_DECISION_TREE.md",
@@ -156,18 +161,26 @@ def _starter_packet() -> dict:
             "schemas/low_token_workflow_contract.schema.json",
             "schemas/repo_file_index.schema.json",
             "schemas/read_only_command_harness.schema.json",
+            "schemas/source_read_register.schema.json",
+            "schemas/planned_future_surfaces.schema.json",
             "contracts/low_token_workflow_contract.json",
             "contracts/read_only_command_harness.json",
+            "plans/source_read_register.json",
+            "plans/planned_future_surfaces.json",
             "scripts/build_repo_file_index.py",
             "scripts/query_repo_file_index.py",
             "scripts/render_canonical_entrypoints.py",
             "scripts/validate_read_only_commands.py",
             "scripts/validate_low_token_workflow.py",
+            "scripts/validate_source_read_register.py",
+            "scripts/validate_planned_future_surfaces.py",
             "scripts/validate_slice_packet.py",
             "tests/test_repo_file_index.py",
             "tests/test_validate_read_only_commands.py",
             "tests/test_render_canonical_entrypoints.py",
             "tests/test_validate_low_token_workflow.py",
+            "tests/test_validate_source_read_register.py",
+            "tests/test_validate_planned_future_surfaces.py",
             "tests/test_validate_slice_packet.py",
             "plans/repo_roadmap.json",
             "plans/slices/slice_001_packet.json",
@@ -179,21 +192,27 @@ def _starter_packet() -> dict:
             "schemas/low_token_workflow_contract.schema.json",
             "schemas/repo_file_index.schema.json",
             "schemas/read_only_command_harness.schema.json",
+            "schemas/source_read_register.schema.json",
+            "schemas/planned_future_surfaces.schema.json",
             "contracts/low_token_workflow_contract.json",
             "contracts/read_only_command_harness.json",
+            "plans/source_read_register.json",
+            "plans/planned_future_surfaces.json",
         ],
         "required_source_reads": [
             {
+                "read_id": "methodology_json",
                 "surface": "copied local durable slice workflow methodology",
                 "read_type": "docs",
                 "status": "satisfied",
-                "evidence_ref": METHODOLOGY,
+                "evidence_ref": "source_read:methodology_json",
             },
             {
+                "read_id": "low_token_contract",
                 "surface": "generic low-token workflow contract",
                 "read_type": "docs",
                 "status": "satisfied",
-                "evidence_ref": "contracts/low_token_workflow_contract.json",
+                "evidence_ref": "source_read:low_token_contract",
             },
             {
                 "surface": "repo file inventory starter tools",
@@ -202,16 +221,31 @@ def _starter_packet() -> dict:
                 "evidence_ref": "scripts/build_repo_file_index.py",
             },
             {
+                "read_id": "read_only_harness_contract",
                 "surface": "read-only command harness contract",
                 "read_type": "docs",
                 "status": "satisfied",
-                "evidence_ref": "contracts/read_only_command_harness.json",
+                "evidence_ref": "source_read:read_only_harness_contract",
             },
             {
                 "surface": "beginner start and glossary documentation",
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": "START_HERE.md",
+            },
+            {
+                "read_id": "source_read_register_validator",
+                "surface": "source-read register validator",
+                "read_type": "full_source",
+                "status": "satisfied",
+                "evidence_ref": "source_read:source_read_register_validator",
+            },
+            {
+                "read_id": "planned_future_surfaces_validator",
+                "surface": "planned future surfaces validator",
+                "read_type": "full_source",
+                "status": "satisfied",
+                "evidence_ref": "source_read:planned_future_surfaces_validator",
             }
         ],
         "owning_wave_validator": "scripts/validate_slice_packet.py",
@@ -233,8 +267,29 @@ def _starter_packet() -> dict:
         "not_in_scope": [
             "Domain runtime implementation",
             "Generated index refresh",
+            "Generated config variable inventory",
+            "Generated helper command catalog",
+            "Generated artifact output map",
             "External source access",
         ],
+        "boundary_rules": {
+            "allowed_scope": [
+                "Copied durable slice workflow starter surfaces and starter packet proof"
+            ],
+            "forbidden_path_prefixes": [
+                "manifests/",
+                "receipts/"
+            ],
+            "forbidden_keywords": [
+                "Domain runtime implementation",
+                "External source access"
+            ],
+            "planned_future_surface_ids": [
+                "config_variable_inventory",
+                "helper_command_catalog",
+                "artifact_output_map"
+            ],
+        },
         "refresh_decision": {
             "repo_index_required": False,
             "script_import_index_required": False,
@@ -301,6 +356,8 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  read START_HERE.md")
     print("  python scripts/render_canonical_entrypoints.py --check")
     print("  python scripts/validate_low_token_workflow.py --summary-only")
+    print("  python scripts/validate_source_read_register.py --summary-only")
+    print("  python scripts/validate_planned_future_surfaces.py --summary-only")
     print("  python scripts/build_repo_file_index.py --summary-only")
     print("  python scripts/validate_read_only_commands.py --summary-only")
     print(

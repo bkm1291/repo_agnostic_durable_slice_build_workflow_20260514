@@ -19,6 +19,8 @@ Run the starter checks:
 ```bash
 python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/validate_source_read_register.py --summary-only
+python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only

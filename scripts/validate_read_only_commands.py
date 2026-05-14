@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path, PurePosixPath
@@ -16,6 +17,27 @@ from typing import Any
 DEFAULT_CONTRACT = Path("contracts/read_only_command_harness.json")
 SHELL_METACHARS = (";", "&&", "||", "|", ">", "<", "`", "$(")
 DEFAULT_IGNORE_DIRS = {".git", ".mypy_cache", ".pytest_cache", ".ruff_cache", "__pycache__"}
+DEFAULT_SECRET_PATTERNS = [
+    {
+        "name": "private_key_block",
+        "pattern": r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
+    },
+    {
+        "name": "aws_access_key",
+        "pattern": r"\bAKIA[0-9A-Z]{16}\b",
+    },
+    {
+        "name": "bearer_token",
+        "pattern": r"(?i)\bbearer\s+[A-Za-z0-9._~+/=-]{16,}",
+    },
+    {
+        "name": "secret_assignment",
+        "pattern": (
+            r"(?i)\b(password|passwd|api[_-]?key|secret|token)\s*[:=]\s*"
+            r"['\"]?[A-Za-z0-9._~+/=-]{8,}"
+        ),
+    },
+]
 
 
 def _load_json(path: Path) -> Any:
@@ -71,6 +93,32 @@ def _validate_command(command: dict[str, Any], policy: dict[str, Any], failures:
         failures.append(f"READ_ONLY_COMMAND_BAD_EXPECTED_CODES command_id={command_id}")
 
 
+def _secret_patterns(policy: dict[str, Any]) -> list[dict[str, str]]:
+    configured = policy.get("secret_scan_patterns")
+    if not isinstance(configured, list):
+        return DEFAULT_SECRET_PATTERNS
+    patterns: list[dict[str, str]] = []
+    for item in configured:
+        if isinstance(item, dict) and isinstance(item.get("name"), str) and isinstance(item.get("pattern"), str):
+            patterns.append({"name": item["name"], "pattern": item["pattern"]})
+    return patterns
+
+
+def _validate_secret_patterns(policy: dict[str, Any], failures: list[str]) -> None:
+    if policy.get("stdout_stderr_secret_scan") is not True:
+        failures.append("READ_ONLY_POLICY_SECRET_SCAN_NOT_ENABLED")
+        return
+    patterns = _secret_patterns(policy)
+    if not patterns:
+        failures.append("READ_ONLY_POLICY_SECRET_PATTERNS_EMPTY")
+        return
+    for item in patterns:
+        try:
+            re.compile(item["pattern"])
+        except re.error:
+            failures.append(f"READ_ONLY_POLICY_SECRET_PATTERN_INVALID name={item['name']}")
+
+
 def validate_contract(contract: Any) -> list[str]:
     if not isinstance(contract, dict):
         return ["READ_ONLY_CONTRACT_NOT_OBJECT"]
@@ -87,6 +135,9 @@ def validate_contract(contract: Any) -> list[str]:
         failures.append("READ_ONLY_POLICY_SNAPSHOT_ROOTS_EMPTY")
     if not isinstance(policy.get("compact_mode_tokens"), list) or not policy.get("compact_mode_tokens"):
         failures.append("READ_ONLY_POLICY_COMPACT_TOKENS_EMPTY")
+    if policy.get("compare_git_porcelain_before_after") is not True:
+        failures.append("READ_ONLY_POLICY_GIT_PORCELAIN_COMPARE_NOT_ENABLED")
+    _validate_secret_patterns(policy, failures)
 
     seen: set[str] = set()
     commands = _commands(contract)
@@ -133,6 +184,29 @@ def _expand_argv(argv: list[str]) -> list[str]:
     return [sys.executable if token == "{python}" else token for token in argv]
 
 
+def _git_porcelain(root: Path) -> list[str]:
+    if not (root / ".git").exists():
+        return []
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+        cwd=root,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        return [f"<git-status-failed:{result.returncode}>"]
+    return result.stdout.splitlines()
+
+
+def _scan_secrets(text: str, policy: dict[str, Any]) -> list[str]:
+    findings: list[str] = []
+    for item in _secret_patterns(policy):
+        if re.search(item["pattern"], text):
+            findings.append(item["name"])
+    return findings
+
+
 def _run_command(root: Path, command: dict[str, Any], policy: dict[str, Any]) -> dict[str, Any]:
     command_id = str(command["command_id"])
     cwd = root / str(command.get("cwd", "."))
@@ -141,6 +215,7 @@ def _run_command(root: Path, command: dict[str, Any], policy: dict[str, Any]) ->
     ignore_dirs.update(str(item) for item in policy.get("ignore_dirs", []))
     snapshot_roots = [str(item) for item in policy.get("snapshot_roots", ["."])]
     before = _snapshot(root, snapshot_roots, ignore_dirs)
+    git_before = _git_porcelain(root) if policy.get("compare_git_porcelain_before_after") else []
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     result = subprocess.run(
@@ -153,20 +228,34 @@ def _run_command(root: Path, command: dict[str, Any], policy: dict[str, Any]) ->
         env=env,
     )
     after = _snapshot(root, snapshot_roots, ignore_dirs)
+    git_after = _git_porcelain(root) if policy.get("compare_git_porcelain_before_after") else []
     changed = _changed_paths(before, after)
     expected = set(int(item) for item in command.get("expected_exit_codes", [0]))
+    secret_findings = (
+        _scan_secrets(f"{result.stdout}\n{result.stderr}", policy)
+        if policy.get("stdout_stderr_secret_scan")
+        else []
+    )
     failures: list[str] = []
     if result.returncode not in expected:
         failures.append("READ_ONLY_COMMAND_UNEXPECTED_EXIT")
     if changed:
         failures.append("READ_ONLY_COMMAND_MODIFIED_PATHS")
+    if git_before != git_after:
+        failures.append("READ_ONLY_COMMAND_GIT_PORCELAIN_CHANGED")
+    if secret_findings:
+        failures.append("READ_ONLY_COMMAND_SECRET_OUTPUT")
     return {
         "command_id": command_id,
         "returncode": result.returncode,
         "changed_path_count": len(changed),
         "changed_paths": changed[:25],
+        "git_porcelain_before_count": len(git_before),
+        "git_porcelain_after_count": len(git_after),
         "stdout_line_count": len(result.stdout.splitlines()),
         "stderr_line_count": len(result.stderr.splitlines()),
+        "secret_finding_count": len(secret_findings),
+        "secret_findings": secret_findings,
         "failures": failures,
     }
 

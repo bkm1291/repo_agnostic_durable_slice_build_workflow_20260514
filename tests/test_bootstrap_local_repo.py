@@ -28,6 +28,8 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert result.returncode == 0
     assert (target / "README.md").is_file()
     assert (target / "START_HERE.md").is_file()
+    assert (target / "PROMPT_FOR_NEW_AGENT.md").is_file()
+    assert (target / "RELEASE_CHECKLIST.md").is_file()
     assert (target / "docs" / "GLOSSARY.md").is_file()
     assert (target / "docs" / "TROUBLESHOOTING.md").is_file()
     assert (target / "docs" / "NEXT_ACTION_DECISION_TREE.md").is_file()
@@ -37,7 +39,11 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "Makefile").is_file()
     assert (target / "contracts" / "low_token_workflow_contract.json").is_file()
     assert (target / "contracts" / "read_only_command_harness.json").is_file()
+    assert (target / "plans" / "source_read_register.json").is_file()
+    assert (target / "plans" / "planned_future_surfaces.json").is_file()
     assert (target / "scripts" / "validate_low_token_workflow.py").is_file()
+    assert (target / "scripts" / "validate_source_read_register.py").is_file()
+    assert (target / "scripts" / "validate_planned_future_surfaces.py").is_file()
     assert (target / "scripts" / "build_repo_file_index.py").is_file()
     assert (target / "scripts" / "query_repo_file_index.py").is_file()
     assert (target / "scripts" / "validate_read_only_commands.py").is_file()
@@ -69,6 +75,14 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
         [sys.executable, "scripts/build_repo_file_index.py", "--summary-only"],
         cwd=target,
     )
+    source_read_check = run_command(
+        [sys.executable, "scripts/validate_source_read_register.py", "--summary-only"],
+        cwd=target,
+    )
+    planned_surfaces_check = run_command(
+        [sys.executable, "scripts/validate_planned_future_surfaces.py", "--summary-only"],
+        cwd=target,
+    )
     read_only_check = run_command(
         [sys.executable, "scripts/validate_read_only_commands.py", "--summary-only"],
         cwd=target,
@@ -78,6 +92,8 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert packet_check.returncode == 0
     assert low_token_check.returncode == 0
     assert repo_index_summary.returncode == 0
+    assert source_read_check.returncode == 0
+    assert planned_surfaces_check.returncode == 0
     assert read_only_check.returncode == 0
 
 

@@ -46,6 +46,37 @@ A required source read says it was needed, but does not name the evidence.
 Add an `evidence_ref`, or set `read_type` to `none` and `status` to
 `not_required` when the read is truly unnecessary.
 
+## `SOURCE_READ_REGISTER_REF_NOT_FOUND`
+
+The packet cites `source_read:<id>`, but that id is not present in
+`plans/source_read_register.json`.
+
+Add the source read to the register, or change the packet to cite a durable repo
+file directly.
+
+## `BOUNDARY_RULES_NOT_OBJECT`
+
+The packet is missing machine-checkable boundary rules.
+
+Add `boundary_rules` with allowed scope, forbidden path prefixes, forbidden
+keywords, and planned future surface ids. Use empty arrays only when there is
+truly nothing to forbid or defer.
+
+## `BOUNDARY_FORBIDDEN_PATH_PREFIX_MATCH`
+
+The packet tries to edit a path under a forbidden prefix such as `manifests/` or
+`receipts/`.
+
+Either remove that path from the slice, or make the generated/index work its own
+explicit slice with a non-skip refresh decision.
+
+## `BOUNDARY_PLANNED_SURFACE_WRONG_OWNER`
+
+The packet tries to create or edit a future surface owned by another slice.
+
+Open `plans/planned_future_surfaces.json`. Either activate the owning slice, or
+keep this surface in `not_in_scope`.
+
 ## `FOCUSED_COMMANDS_MISSING_OWNING_VALIDATOR`
 
 The focused commands do not run the validator named by `owning_wave_validator`.
@@ -107,6 +138,21 @@ The read-only command harness ran a command and detected file changes.
 
 Move that command out of the read-only harness, or change the command so it uses
 a check/status/summary mode that does not write files.
+
+## `READ_ONLY_COMMAND_GIT_PORCELAIN_CHANGED`
+
+The command changed `git status --porcelain` output.
+
+Treat this as a side effect even if file hashes look harmless. Move the command
+out of the read-only harness or make it a true status/check command.
+
+## `READ_ONLY_COMMAND_SECRET_OUTPUT`
+
+The command printed something that looks like a credential, token, private key,
+or secret assignment.
+
+Do not paste the raw output into reports. Fix the command to redact sensitive
+values before it is allowed in the read-only harness.
 
 ## First Debug Command
 

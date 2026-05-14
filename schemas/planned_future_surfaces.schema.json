@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/planned_future_surfaces.schema.json",
+  "title": "Planned Future Surfaces Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "status",
+    "purpose",
+    "surfaces"
+  ],
+  "properties": {
+    "schema_version": { "const": "v1.repo_agnostic_planned_future_surfaces.1" },
+    "registry_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "status": { "type": "string", "enum": ["active", "draft"] },
+    "purpose": { "type": "string", "minLength": 16 },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface_id",
+          "path",
+          "surface_type",
+          "status",
+          "owner_slice",
+          "activation_packet",
+          "reason"
+        ],
+        "properties": {
+          "surface_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+$"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "surface_type": {
+            "type": "string",
+            "enum": [
+              "config",
+              "schema",
+              "contract",
+              "script",
+              "test",
+              "doc",
+              "plan",
+              "generated_index",
+              "artifact",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["planned_not_created", "active", "blocked", "superseded"]
+          },
+          "owner_slice": { "type": "string", "minLength": 1 },
+          "activation_packet": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "reason": { "type": "string", "minLength": 16 }
+        }
+      }
+    }
+  }
+}

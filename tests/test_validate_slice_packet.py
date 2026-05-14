@@ -24,12 +24,11 @@ def valid_packet() -> dict:
         ],
         "required_source_reads": [
             {
+                "read_id": "methodology_json",
                 "surface": "repo-local workflow methodology",
                 "read_type": "docs",
                 "status": "satisfied",
-                "evidence_ref": (
-                    "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json"
-                ),
+                "evidence_ref": "source_read:methodology_json",
             }
         ],
         "owning_wave_validator": "scripts/validate_slice_packet.py",
@@ -45,6 +44,19 @@ def valid_packet() -> dict:
             "Generated index refresh infrastructure",
             "External provider access",
         ],
+        "boundary_rules": {
+            "allowed_scope": [
+                "Slice packet validator and focused packet tests only"
+            ],
+            "forbidden_path_prefixes": [
+                "manifests/",
+                "receipts/"
+            ],
+            "forbidden_keywords": [
+                "External provider access"
+            ],
+            "planned_future_surface_ids": []
+        },
         "refresh_decision": {
             "repo_index_required": False,
             "script_import_index_required": False,
@@ -266,3 +278,50 @@ def test_focused_commands_cannot_have_write_intent(tmp_path: Path) -> None:
 
     assert result.returncode == 1
     assert "FOCUSED_COMMANDS_CONTAIN_WRITE_INTENT" in result.stdout
+
+
+def test_source_read_register_ref_must_exist(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["required_source_reads"][0]["read_id"] = "missing_read"
+    packet["required_source_reads"][0]["evidence_ref"] = "source_read:missing_read"
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "SOURCE_READ_REGISTER_REF_NOT_FOUND read_id=missing_read" in result.stdout
+
+
+def test_boundary_forbidden_prefix_blocks_owner_file(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["files_to_create_or_edit"].append("manifests/repo_file_index.json")
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "BOUNDARY_FORBIDDEN_PATH_PREFIX_MATCH" in result.stdout
+
+
+def test_boundary_keyword_must_be_in_not_in_scope(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["boundary_rules"]["forbidden_keywords"] = ["Packaging"]
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "BOUNDARY_KEYWORD_NOT_IN_SCOPE keyword=Packaging" in result.stdout
+
+
+def test_planned_future_surface_ref_cannot_be_edited_by_wrong_slice(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["files_to_create_or_edit"].append("manifests/config_variable_inventory.json")
+    packet["not_in_scope"].append("config variable inventory")
+    packet["boundary_rules"]["planned_future_surface_ids"] = ["config_variable_inventory"]
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "BOUNDARY_PLANNED_SURFACE_WRONG_OWNER" in result.stdout

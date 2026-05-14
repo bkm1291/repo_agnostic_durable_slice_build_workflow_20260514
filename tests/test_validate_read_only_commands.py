@@ -33,6 +33,17 @@ def base_contract() -> dict:
             "compact_mode_tokens": ["--summary-only", "--check", "-q"],
             "forbidden_argv_tokens": ["--write", "--force"],
             "snapshot_roots": ["."],
+            "compare_git_porcelain_before_after": True,
+            "stdout_stderr_secret_scan": True,
+            "secret_scan_patterns": [
+                {
+                    "name": "secret_assignment",
+                    "pattern": (
+                        r"(?i)\b(password|passwd|api[_-]?key|secret|token)\s*[:=]\s*"
+                        r"['\"]?[A-Za-z0-9._~+/=-]{8,}"
+                    ),
+                }
+            ],
             "ignore_dirs": [".git", "__pycache__"],
             "timeout_seconds": 10,
         },
@@ -118,3 +129,28 @@ def test_forbidden_write_flag_fails_contract(tmp_path: Path) -> None:
     payload = json.loads(result.stdout)
     assert result.returncode == 1
     assert "READ_ONLY_COMMAND_FORBIDDEN_TOKEN command_id=write_flag token=--write" in payload["failures"]
+
+
+def test_secret_like_output_fails_run(tmp_path: Path) -> None:
+    contract = base_contract()
+    contract["commands"].append(
+        {
+            "command_id": "prints_secret",
+            "cwd": ".",
+            "argv": [
+                "{python}",
+                "-c",
+                "print('token=abc123456789')",
+                "--summary-only",
+            ],
+            "expected_exit_codes": [0],
+            "compact_mode": True,
+        }
+    )
+    path = write_contract(tmp_path, contract)
+
+    result = run_validator([str(path), "--root", str(tmp_path), "--run", "--summary-only"])
+
+    payload = json.loads(result.stdout)
+    assert result.returncode == 1
+    assert "READ_ONLY_COMMAND_SECRET_OUTPUT command_id=prints_secret" in payload["failures"]
