@@ -54,6 +54,8 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "I authorize you to inspect the files in this folder" in rendered
     assert "I authorize you to create that folder if needed" in rendered
     assert "copy or bootstrap this workflow into it" in rendered
+    assert "current repo, current folder, current one" in rendered
+    assert "use the current working directory as the target" in rendered
     assert "If no target repo path or folder is clear" in rendered
     assert "Do not create app/source implementation files or code features" in rendered
     assert "PROJECT_GOAL.template.md" in rendered
