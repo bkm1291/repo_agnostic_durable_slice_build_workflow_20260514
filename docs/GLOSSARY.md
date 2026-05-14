@@ -132,6 +132,42 @@ Use:
 python scripts/build_repo_file_index.py --summary-only
 ```
 
+## Command Map
+
+A compact list of repo commands, helpers, validators, builders, writers, test
+commands, side-effect classes, compact modes, owner refs, validator refs, and
+focused test refs.
+
+Use:
+
+```bash
+python scripts/build_command_map.py --summary-only
+python scripts/validate_command_map.py --summary-only
+```
+
+## Schema-Vs-Validator Authority
+
+Schemas define JSON shape, required fields, allowed enum values, and portable
+structural constraints.
+
+Python validators define semantic rules, cross-file rules, side-effect rules,
+read-only checks, and local adoption safety.
+
+If a schema accepts a document but the Python validator rejects it, the
+validator rejection blocks closeout until the schema or document is
+intentionally updated.
+
+## Mature Repo Migration Packet
+
+A required adoption packet for using this template in an existing repo that
+already has its own authority surfaces.
+
+Use:
+
+```bash
+python scripts/validate_mature_repo_migration_packet.py <packet> --summary-only
+```
+
 ## Read-Only Command Harness
 
 A validator that can check or run selected status commands and prove they did

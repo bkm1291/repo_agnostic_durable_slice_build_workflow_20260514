@@ -147,6 +147,7 @@ def _starter_packet() -> dict:
             "PROMPT_FOR_NEW_AGENT.md",
             "RELEASE_CHECKLIST.md",
             "docs/GLOSSARY.md",
+            "docs/MIGRATING_MATURE_REPO.md",
             "docs/TROUBLESHOOTING.md",
             "docs/NEXT_ACTION_DECISION_TREE.md",
             "docs/ANNOTATED_SLICE_PACKET.md",
@@ -160,22 +161,30 @@ def _starter_packet() -> dict:
             "schemas/refresh_decision.schema.json",
             "schemas/low_token_workflow_contract.schema.json",
             "schemas/repo_file_index.schema.json",
+            "schemas/command_map.schema.json",
+            "schemas/mature_repo_migration_packet.schema.json",
             "schemas/read_only_command_harness.schema.json",
             "schemas/source_read_register.schema.json",
             "schemas/planned_future_surfaces.schema.json",
+            "contracts/command_map_contract.json",
             "contracts/low_token_workflow_contract.json",
             "contracts/read_only_command_harness.json",
             "plans/source_read_register.json",
             "plans/planned_future_surfaces.json",
             "scripts/build_repo_file_index.py",
+            "scripts/build_command_map.py",
             "scripts/query_repo_file_index.py",
             "scripts/render_canonical_entrypoints.py",
+            "scripts/validate_command_map.py",
+            "scripts/validate_mature_repo_migration_packet.py",
             "scripts/validate_read_only_commands.py",
             "scripts/validate_low_token_workflow.py",
             "scripts/validate_source_read_register.py",
             "scripts/validate_planned_future_surfaces.py",
             "scripts/validate_slice_packet.py",
             "tests/test_repo_file_index.py",
+            "tests/test_command_map.py",
+            "tests/test_validate_mature_repo_migration_packet.py",
             "tests/test_validate_read_only_commands.py",
             "tests/test_render_canonical_entrypoints.py",
             "tests/test_validate_low_token_workflow.py",
@@ -191,9 +200,12 @@ def _starter_packet() -> dict:
             "schemas/refresh_decision.schema.json",
             "schemas/low_token_workflow_contract.schema.json",
             "schemas/repo_file_index.schema.json",
+            "schemas/command_map.schema.json",
+            "schemas/mature_repo_migration_packet.schema.json",
             "schemas/read_only_command_harness.schema.json",
             "schemas/source_read_register.schema.json",
             "schemas/planned_future_surfaces.schema.json",
+            "contracts/command_map_contract.json",
             "contracts/low_token_workflow_contract.json",
             "contracts/read_only_command_harness.json",
             "plans/source_read_register.json",
@@ -219,6 +231,12 @@ def _starter_packet() -> dict:
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": "scripts/build_repo_file_index.py",
+            },
+            {
+                "surface": "command map and mature-repo migration validators",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "docs/MIGRATING_MATURE_REPO.md",
             },
             {
                 "read_id": "read_only_harness_contract",
@@ -257,6 +275,8 @@ def _starter_packet() -> dict:
             "python scripts/render_canonical_entrypoints.py --check",
             "python scripts/validate_low_token_workflow.py --summary-only",
             "python scripts/build_repo_file_index.py --summary-only",
+            "python scripts/build_command_map.py --summary-only",
+            "python scripts/validate_command_map.py --summary-only",
             "python scripts/validate_read_only_commands.py --summary-only",
             (
                 "python scripts/validate_slice_packet.py "
@@ -359,6 +379,8 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  python scripts/validate_source_read_register.py --summary-only")
     print("  python scripts/validate_planned_future_surfaces.py --summary-only")
     print("  python scripts/build_repo_file_index.py --summary-only")
+    print("  python scripts/build_command_map.py --summary-only")
+    print("  python scripts/validate_command_map.py --summary-only")
     print("  python scripts/validate_read_only_commands.py --summary-only")
     print(
         "  python scripts/validate_slice_packet.py "

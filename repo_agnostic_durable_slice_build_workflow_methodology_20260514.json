@@ -17,6 +17,11 @@
     "solution": "Treat every build as a chain of small durable slices. Each slice has a compact packet, explicit owner files, an owning validator, focused tests, future notes only when useful, an implementation commit, conditional generated/index refresh, and closeout evidence only when it proves something.",
     "core_result": "Future work can continue from repository evidence instead of memory. The build can survive context loss, agent changes, long pauses, and repo size growth."
   },
+  "schema_vs_python_validator_authority_rule": {
+    "schema_authority": "Schemas define JSON shape, required fields, allowed enum values, and portable structural constraints.",
+    "python_validator_authority": "Python validators define semantic rules, cross-file rules, side-effect rules, read-only checks, and local adoption safety.",
+    "conflict_rule": "When a schema accepts a document but the Python validator rejects it, the validator rejection blocks closeout until the schema or document is intentionally updated."
+  },
   "starter_kit_artifacts": {
     "canonical_source": "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
     "quickstart": "README.md",
@@ -31,9 +36,11 @@
       "refresh_decision": "schemas/refresh_decision.schema.json",
       "low_token_workflow_contract": "schemas/low_token_workflow_contract.schema.json",
       "repo_file_index": "schemas/repo_file_index.schema.json",
+      "command_map": "schemas/command_map.schema.json",
       "read_only_command_harness": "schemas/read_only_command_harness.schema.json",
       "source_read_register": "schemas/source_read_register.schema.json",
-      "planned_future_surfaces": "schemas/planned_future_surfaces.schema.json"
+      "planned_future_surfaces": "schemas/planned_future_surfaces.schema.json",
+      "mature_repo_migration_packet": "schemas/mature_repo_migration_packet.schema.json"
     },
     "starter_validator": {
       "path": "scripts/validate_slice_packet.py",
@@ -68,6 +75,17 @@
       "query_command": "python scripts/query_repo_file_index.py --index manifests/repo_file_index.json --path-contains <path-fragment> --summary-only",
       "purpose": "Give new repos a dependency-free exact-path file inventory so agents can route reads before opening large docs, logs, generated indexes, or broad plans."
     },
+    "command_map": {
+      "contract": "contracts/command_map_contract.json",
+      "schema": "schemas/command_map.schema.json",
+      "builder": "scripts/build_command_map.py",
+      "validator": "scripts/validate_command_map.py",
+      "default_output": "manifests/command_map.json",
+      "summary_command": "python scripts/build_command_map.py --summary-only",
+      "validate_command": "python scripts/validate_command_map.py --summary-only",
+      "write_command": "python scripts/build_command_map.py --write --summary-only",
+      "purpose": "Map repo commands, helpers, validators, builders, writers, side effects, compact modes, owner refs, validator refs, and focused test refs without guessing."
+    },
     "read_only_command_harness": {
       "contract": "contracts/read_only_command_harness.json",
       "schema": "schemas/read_only_command_harness.schema.json",
@@ -90,15 +108,23 @@
       "summary_command": "python scripts/validate_planned_future_surfaces.py --summary-only",
       "purpose": "Classify intentionally absent future files so agents do not treat planned-but-not-created surfaces as broken current work."
     },
+    "mature_repo_migration": {
+      "guide": "docs/MIGRATING_MATURE_REPO.md",
+      "schema": "schemas/mature_repo_migration_packet.schema.json",
+      "validator": "scripts/validate_mature_repo_migration_packet.py",
+      "command_template": "python scripts/validate_mature_repo_migration_packet.py <packet> --summary-only",
+      "purpose": "Require an explicit migration packet before applying this template to an existing mature repo with its own authority surfaces."
+    },
     "beginner_docs": {
       "start_here": "START_HERE.md",
       "new_agent_prompt": "PROMPT_FOR_NEW_AGENT.md",
       "release_checklist": "RELEASE_CHECKLIST.md",
+      "mature_repo_migration": "docs/MIGRATING_MATURE_REPO.md",
       "glossary": "docs/GLOSSARY.md",
       "troubleshooting": "docs/TROUBLESHOOTING.md",
       "decision_tree": "docs/NEXT_ACTION_DECISION_TREE.md",
       "annotated_slice_packet": "docs/ANNOTATED_SLICE_PACKET.md",
-      "purpose": "Give non-agent experts a plain-language first path, copy-paste handoff prompt, release checklist, term map, failure guide, next-action chooser, and field-by-field packet example."
+      "purpose": "Give non-agent experts a plain-language first path, copy-paste handoff prompt, release checklist, mature-repo migration guard, term map, failure guide, next-action chooser, and field-by-field packet example."
     },
     "local_make_targets": {
       "check": "make check",

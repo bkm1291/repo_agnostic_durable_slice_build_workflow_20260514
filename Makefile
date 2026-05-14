@@ -20,6 +20,8 @@ validate-examples:
 	$(PYTHON) scripts/validate_source_read_register.py --summary-only
 	$(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --summary-only
+	$(PYTHON) scripts/build_command_map.py --summary-only
+	$(PYTHON) scripts/validate_command_map.py --summary-only
 	$(PYTHON) scripts/validate_read_only_commands.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --root examples/small_config_tool_repo --summary-only
 	$(PYTHON) scripts/validate_slice_packet.py examples/minimal_repo/plans/slices/slice_001_packet.json --summary-only
@@ -29,6 +31,7 @@ validate-examples:
 release-check:
 	$(PYTHON) -m json.tool repo_agnostic_durable_slice_build_workflow_methodology_20260514.json >/dev/null
 	$(PYTHON) -m json.tool contracts/low_token_workflow_contract.json >/dev/null
+	$(PYTHON) -m json.tool contracts/command_map_contract.json >/dev/null
 	$(PYTHON) -m json.tool plans/source_read_register.json >/dev/null
 	$(PYTHON) -m json.tool plans/planned_future_surfaces.json >/dev/null
 	$(PYTHON) -m json.tool schemas/methodology.schema.json >/dev/null
@@ -36,6 +39,8 @@ release-check:
 	$(PYTHON) -m json.tool schemas/refresh_decision.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/low_token_workflow_contract.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/repo_file_index.schema.json >/dev/null
+	$(PYTHON) -m json.tool schemas/command_map.schema.json >/dev/null
+	$(PYTHON) -m json.tool schemas/mature_repo_migration_packet.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/read_only_command_harness.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/source_read_register.schema.json >/dev/null
 	$(PYTHON) -m json.tool schemas/planned_future_surfaces.schema.json >/dev/null
@@ -59,6 +64,8 @@ bootstrap-smoke:
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_source_read_register.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/build_repo_file_index.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/build_command_map.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_command_map.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_read_only_commands.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) -m pytest -q tests

@@ -21,6 +21,8 @@ python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
+python scripts/build_command_map.py --summary-only
+python scripts/validate_command_map.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
@@ -29,6 +31,23 @@ python -m pytest -q tests
 
 If they pass, customize `plans/repo_roadmap.json` and
 `plans/slices/slice_001_packet.json` for the real first slice.
+
+## This Is An Existing Mature Repo
+
+Do not copy template files yet.
+
+Read:
+
+```bash
+docs/MIGRATING_MATURE_REPO.md
+```
+
+Create a mature-repo migration packet and validate it before changing the target
+repo:
+
+```bash
+python scripts/validate_mature_repo_migration_packet.py <packet> --summary-only
+```
 
 ## There Is No Roadmap
 

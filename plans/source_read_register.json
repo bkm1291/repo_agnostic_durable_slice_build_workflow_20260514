@@ -53,6 +53,26 @@
       "owner_slice": "slice_001",
       "evidence_ref": "scripts/validate_planned_future_surfaces.py",
       "summary": "Dependency-free validator proving future-surface ids, paths, owner slices, statuses, and activation packet references."
+    },
+    {
+      "read_id": "command_map_validator",
+      "surface": "scripts/validate_command_map.py",
+      "surface_type": "validator",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/validate_command_map.py",
+      "summary": "Dependency-free validator proving command/helper map structure, side-effect classification, read-only harness safety, and command summary counts."
+    },
+    {
+      "read_id": "mature_repo_migration_validator",
+      "surface": "scripts/validate_mature_repo_migration_packet.py",
+      "surface_type": "validator",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/validate_mature_repo_migration_packet.py",
+      "summary": "Dependency-free validator proving mature-repo adoption packets preserve local authority, protect high-risk paths, and require explicit operator approval."
     }
   ]
 }

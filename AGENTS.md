@@ -69,6 +69,8 @@ expanding owner files, generated outputs, external access, or future surfaces.
 
 Use `contracts/low_token_workflow_contract.json` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. In this template, `scripts/build_repo_file_index.py` and `scripts/query_repo_file_index.py` are the starter exact-path inventory tools. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
 
+Use `scripts/build_command_map.py` and `scripts/validate_command_map.py` to discover command/helper roles, compact modes, side effects, owner refs, validators, and tests before inventing new command surfaces.
+
 If a targeted read is insufficient, state:
 
 `Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
@@ -87,7 +89,9 @@ staleness.
 Do not persist secrets, tokenized URLs, credential values, private endpoint URLs,
 or copied proprietary source unless the repo has an explicit licensed-source
 policy. Do not mutate donor repos, vendor repos, or external data roots unless
-the task explicitly authorizes it. Do not weaken tests to make a change pass.
+the task explicitly authorizes it. Do not adopt this template into a mature repo
+without validating a migration packet through `scripts/validate_mature_repo_migration_packet.py`.
+Do not weaken tests to make a change pass.
 
 ## Closeout
 

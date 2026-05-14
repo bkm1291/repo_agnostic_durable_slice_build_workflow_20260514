@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/mature_repo_migration_packet.schema.json",
+  "title": "Mature Repo Migration Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "migration_id",
+    "status",
+    "target_repo_path",
+    "operator_goal",
+    "adoption_mode",
+    "existing_authority_surfaces",
+    "protected_paths",
+    "allowed_mutation_roots",
+    "planned_template_surfaces",
+    "required_preflight_commands",
+    "validation_commands",
+    "risk_register",
+    "approval"
+  ],
+  "properties": {
+    "schema_version": { "const": "v1.repo_agnostic_mature_repo_migration_packet.1" },
+    "migration_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ready", "blocked", "adopted"]
+    },
+    "target_repo_path": { "type": "string", "minLength": 1 },
+    "operator_goal": { "type": "string", "minLength": 16 },
+    "adoption_mode": {
+      "type": "string",
+      "enum": ["reference_only", "copy_subset", "adapt_in_place", "full_template_migration"]
+    },
+    "existing_authority_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "authority_class",
+          "status",
+          "migration_action",
+          "evidence_ref"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "authority_class": {
+            "type": "string",
+            "enum": [
+              "agent_rules",
+              "skill",
+              "readme",
+              "roadmap",
+              "ci",
+              "release",
+              "schema",
+              "contract",
+              "script",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["keep", "adapt", "supersede", "do_not_touch"]
+          },
+          "migration_action": {
+            "type": "string",
+            "enum": ["keep", "adapt", "supersede", "do_not_touch"]
+          },
+          "evidence_ref": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "protected_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "allowed_mutation_roots": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "planned_template_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_path",
+          "target_path",
+          "action",
+          "overwrite_allowed",
+          "reason"
+        ],
+        "properties": {
+          "source_path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "target_path": {
+            "type": "string",
+            "pattern": "^(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["copy", "adapt", "skip"]
+          },
+          "overwrite_allowed": { "type": "boolean" },
+          "reason": { "type": "string", "minLength": 16 }
+        }
+      }
+    },
+    "required_preflight_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "risk_register": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 8 }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "explicit_operator_approval_required",
+        "approval_scope"
+      ],
+      "properties": {
+        "explicit_operator_approval_required": { "const": true },
+        "approval_scope": { "type": "string", "minLength": 16 }
+      }
+    }
+  }
+}

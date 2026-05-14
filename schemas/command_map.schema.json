@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/command_map.schema.json",
+  "title": "Command Map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "map_id",
+    "status",
+    "generated_by",
+    "contract_ref",
+    "authority_rule",
+    "summary",
+    "commands"
+  ],
+  "properties": {
+    "schema_version": { "const": "v1.repo_agnostic_command_map.1" },
+    "map_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+$"
+    },
+    "status": { "type": "string", "enum": ["active", "draft"] },
+    "generated_by": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+    },
+    "contract_ref": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+    },
+    "authority_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_authority",
+        "python_validator_authority",
+        "conflict_rule"
+      ],
+      "properties": {
+        "schema_authority": { "type": "string", "minLength": 16 },
+        "python_validator_authority": { "type": "string", "minLength": 16 },
+        "conflict_rule": { "type": "string", "minLength": 16 }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["command_count", "entry_type_counts", "side_effect_counts"],
+      "properties": {
+        "command_count": { "type": "integer", "minimum": 1 },
+        "entry_type_counts": { "type": "object" },
+        "side_effect_counts": { "type": "object" }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "command_id",
+          "entry_type",
+          "path",
+          "argv_template",
+          "purpose",
+          "side_effect_class",
+          "compact_mode_supported",
+          "writer_mode_requires_explicit_intent",
+          "owner_area",
+          "owner_refs",
+          "validator_refs",
+          "test_refs",
+          "safe_to_run_in_read_only_harness"
+        ],
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+$"
+          },
+          "entry_type": {
+            "type": "string",
+            "enum": ["command", "helper", "validator", "builder", "writer", "test"]
+          },
+          "path": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+              },
+              { "const": "none" }
+            ]
+          },
+          "argv_template": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 8 },
+          "side_effect_class": {
+            "type": "string",
+            "enum": [
+              "read_only",
+              "read_only_summary",
+              "write_explicit",
+              "test_runner",
+              "external_access",
+              "unknown"
+            ]
+          },
+          "compact_mode_supported": { "type": "boolean" },
+          "writer_mode_requires_explicit_intent": { "type": "boolean" },
+          "owner_area": { "type": "string", "minLength": 1 },
+          "owner_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "validator_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "test_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "safe_to_run_in_read_only_harness": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

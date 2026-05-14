@@ -1,0 +1,50 @@
+{
+  "schema_version": "v1.repo_agnostic_command_map_contract.1",
+  "contract_id": "repo_agnostic_command_map_contract_20260514",
+  "status": "active",
+  "purpose": "Define the durable command/helper map layer so agents can discover safe commands, side effects, owner refs, validators, and tests without guessing.",
+  "authority_rule": {
+    "schema_authority": "schemas define JSON shape, required fields, allowed enum values, and portable structural constraints",
+    "python_validator_authority": "Python validators define semantic rules, cross-file rules, side-effect rules, read-only checks, and local adoption safety",
+    "conflict_rule": "When a schema accepts a document but the Python validator rejects it, the validator rejection blocks closeout until the schema or document is intentionally updated."
+  },
+  "entry_types": [
+    "command",
+    "helper",
+    "validator",
+    "builder",
+    "writer",
+    "test"
+  ],
+  "side_effect_classes": [
+    "read_only",
+    "read_only_summary",
+    "write_explicit",
+    "test_runner",
+    "external_access",
+    "unknown"
+  ],
+  "required_entry_fields": [
+    "command_id",
+    "entry_type",
+    "path",
+    "argv_template",
+    "purpose",
+    "side_effect_class",
+    "compact_mode_supported",
+    "writer_mode_requires_explicit_intent",
+    "owner_area",
+    "owner_refs",
+    "validator_refs",
+    "test_refs",
+    "safe_to_run_in_read_only_harness"
+  ],
+  "rules": [
+    "Every mapped command must have a stable command_id.",
+    "Every mapped command must name a repo-relative path or explicit none.",
+    "Writer commands must be marked write_explicit and must require explicit intent.",
+    "Read-only harness commands must be compact and must not be classified as write_explicit.",
+    "Validators and builders must name at least one validator or test ref unless they are themselves the owning validator.",
+    "Generated command maps are discovery evidence, not behavior proof."
+  ]
+}

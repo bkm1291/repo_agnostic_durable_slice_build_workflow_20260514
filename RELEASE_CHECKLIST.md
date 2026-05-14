@@ -20,6 +20,8 @@ python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
+python scripts/build_command_map.py --summary-only
+python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 make check
 make bootstrap-smoke
@@ -101,6 +103,8 @@ python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
+python scripts/build_command_map.py --summary-only
+python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests

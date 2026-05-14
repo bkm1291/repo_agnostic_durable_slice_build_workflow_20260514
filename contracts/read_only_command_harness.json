@@ -93,6 +93,32 @@
       "compact_mode": true
     },
     {
+      "command_id": "build_command_map_summary",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/build_command_map.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_command_map",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_command_map.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
       "command_id": "validate_source_read_register",
       "cwd": ".",
       "argv": [

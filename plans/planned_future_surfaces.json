@@ -23,6 +23,15 @@
       "reason": "Useful after helper and command count grows beyond what README and packet evidence can route."
     },
     {
+      "surface_id": "helper_map",
+      "path": "manifests/helper_map.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_003_helper_catalog",
+      "activation_packet": "plans/slices/slice_003_helper_catalog_packet.json",
+      "reason": "A separate helper map can split from command_map after helper reuse grows enough to justify its own surface."
+    },
+    {
       "surface_id": "artifact_output_map",
       "path": "manifests/artifact_output_map.json",
       "surface_type": "generated_index",

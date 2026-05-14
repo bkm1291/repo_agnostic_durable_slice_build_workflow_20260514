@@ -34,6 +34,8 @@ python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
+python scripts/build_command_map.py --summary-only
+python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
@@ -50,6 +52,9 @@ Read these before changing the new repo:
 - `plans/slices/slice_001_packet.json`: the first slice packet
 
 Use `docs/GLOSSARY.md` if a term is unfamiliar.
+
+If you are adapting this workflow into an existing repo instead of a new repo,
+stop and read `docs/MIGRATING_MATURE_REPO.md` before copying files.
 
 ### 4. Pick The Smallest First Slice
 
@@ -113,3 +118,4 @@ Only refresh generated indexes afterward if the packet says a refresh is needed.
 - If the packet fields feel abstract, read `docs/ANNOTATED_SLICE_PACKET.md`.
 - If you are handing this repo to a fresh agent, fill in `PROMPT_FOR_NEW_AGENT.md`.
 - If you are tagging or publishing, follow `RELEASE_CHECKLIST.md`.
+- If you are adopting the template into an existing repo, read `docs/MIGRATING_MATURE_REPO.md`.

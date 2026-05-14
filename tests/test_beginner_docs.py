@@ -16,6 +16,7 @@ def test_beginner_docs_exist_and_cross_link() -> None:
         "PROMPT_FOR_NEW_AGENT.md",
         "RELEASE_CHECKLIST.md",
         "docs/GLOSSARY.md",
+        "docs/MIGRATING_MATURE_REPO.md",
         "docs/TROUBLESHOOTING.md",
         "docs/NEXT_ACTION_DECISION_TREE.md",
         "docs/ANNOTATED_SLICE_PACKET.md",
@@ -32,6 +33,7 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "docs/ANNOTATED_SLICE_PACKET.md" in start_here
     assert "PROMPT_FOR_NEW_AGENT.md" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
+    assert "docs/MIGRATING_MATURE_REPO.md" in start_here
 
 
 def test_new_agent_prompt_is_copy_paste_ready() -> None:
@@ -45,6 +47,8 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "plans/slices/slice_001_packet.json",
         "boundary_rules",
         "refresh_decision",
+        "build_command_map.py",
+        "MIGRATING_MATURE_REPO.md",
         "git status --short",
     ]:
         assert required_text in prompt
@@ -57,6 +61,7 @@ def test_release_checklist_has_exact_release_commands() -> None:
         "make check",
         "make bootstrap-smoke",
         "make read-only-check",
+        "build_command_map.py",
         "git diff --check",
         "git commit -m",
         "git tag -a",
@@ -78,8 +83,23 @@ def test_troubleshooting_mentions_validator_failure_codes() -> None:
         "REFRESH_REQUIRED_WITH_SKIP_TIMING",
         "READ_ONLY_COMMAND_MODIFIED_PATHS",
         "READ_ONLY_COMMAND_SECRET_OUTPUT",
+        "COMMAND_MAP_WRITER_WITHOUT_EXPLICIT_INTENT",
+        "MIGRATION_HIGH_RISK_AUTHORITY_UNCLASSIFIED",
     ]:
         assert failure_code in troubleshooting
+
+
+def test_mature_repo_migration_doc_explains_guardrails() -> None:
+    migration_doc = read("docs/MIGRATING_MATURE_REPO.md")
+
+    for required_text in [
+        "validate_mature_repo_migration_packet.py",
+        "existing_authority_surfaces",
+        "protected_paths",
+        "adoption_mode",
+        "Schema-Vs-Validator Authority",
+    ]:
+        assert required_text in migration_doc
 
 
 def test_annotated_packet_covers_required_fields() -> None:

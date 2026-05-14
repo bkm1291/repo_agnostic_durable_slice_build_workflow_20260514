@@ -43,13 +43,18 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "scripts/validate_source_read_register.py --summary-only" in rendered
     assert "scripts/validate_planned_future_surfaces.py --summary-only" in rendered
     assert "scripts/build_repo_file_index.py --summary-only" in rendered
+    assert "scripts/build_command_map.py --summary-only" in rendered
+    assert "scripts/validate_command_map.py --summary-only" in rendered
     assert "scripts/validate_read_only_commands.py --summary-only" in rendered
     assert "START_HERE.md" in rendered
     assert "PROMPT_FOR_NEW_AGENT.md" in rendered
     assert "RELEASE_CHECKLIST.md" in rendered
+    assert "docs/MIGRATING_MATURE_REPO.md" in rendered
     assert "docs/GLOSSARY.md" in rendered
     assert "docs/TROUBLESHOOTING.md" in rendered
     assert "docs/NEXT_ACTION_DECISION_TREE.md" in rendered
     assert "docs/ANNOTATED_SLICE_PACKET.md" in rendered
     assert "plans/source_read_register.json" in rendered
     assert "plans/planned_future_surfaces.json" in rendered
+    assert "Schema Vs Validator Authority" in rendered
+    assert "validate_mature_repo_migration_packet.py" in rendered

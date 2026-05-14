@@ -154,6 +154,39 @@ or secret assignment.
 Do not paste the raw output into reports. Fix the command to redact sensitive
 values before it is allowed in the read-only harness.
 
+## `COMMAND_MAP_WRITER_WITHOUT_EXPLICIT_INTENT`
+
+The command map found a writer command that does not require explicit writer
+intent.
+
+Mark the command as `write_explicit` and set
+`writer_mode_requires_explicit_intent` to true, or remove write flags from the
+command.
+
+## `COMMAND_MAP_HARNESS_WRITER_UNSAFE`
+
+A command marked safe for the read-only harness is also classified as a writer.
+
+Writers do not belong in the read-only harness. Move the command to an explicit
+writer workflow or change it to a true summary/check mode.
+
+## `MIGRATION_HIGH_RISK_AUTHORITY_UNCLASSIFIED`
+
+A mature-repo migration packet did not classify one of the target repo's
+high-risk authority files such as `AGENTS.md`, `SKILL.md`, `README.md`, or
+`pyproject.toml`.
+
+Read that file in the target repo and add it to
+`existing_authority_surfaces` before migration.
+
+## `MIGRATION_TEMPLATE_SURFACE_OVERWRITES_PROTECTED_PATH`
+
+The migration packet allows a template file to overwrite a protected target
+path.
+
+Either change the target path, set `overwrite_allowed` to false, or get exact
+operator approval and update the packet scope.
+
 ## First Debug Command
 
 When unsure, run:
