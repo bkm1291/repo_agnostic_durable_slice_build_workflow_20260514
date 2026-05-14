@@ -1,0 +1,214 @@
+{
+  "schema_version": "v1.repo_agnostic_workflow_weakness_audit.1",
+  "report_id": "repo_agnostic_workflow_weakness_audit_20260514",
+  "created_at_utc": "2026-05-14T19:45:00Z",
+  "status": "complete",
+  "purpose": "Audit the copied vbtprobuild Wave 1-11 workflow reports against this repo's current starter template and identify where this repo is weak as a durable build-governance program.",
+  "scope": {
+    "target_repo": "/home/benji/Desktop/repo_agnostic_durable_slice_build_workflow_20260514",
+    "source_evidence_manifest": "evidence/vbtprobuild_wave_1_11_20260514/manifest.json",
+    "primary_workflow_reports": [
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_index_receipt_note_evidence_chain_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_index_refresh_logic_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_current_wave_alignment_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison_20260514.json"
+    ],
+    "supporting_audit_reports": [
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_full_index_audit_20260513.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_full_index_fix_plan_20260513.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_every_repo_assist_script_scrutiny_20260513.json"
+    ]
+  },
+  "wave_1_11_baseline": {
+    "core_loop": [
+      "readiness question",
+      "targeted prep only when needed",
+      "owner-surface implementation",
+      "future-wave notes only when actionable",
+      "focused validator and pytest proof",
+      "implementation commit",
+      "conditional index refresh",
+      "no head-only staleness chasing"
+    ],
+    "evidence_rule": "Focused validators and focused tests prove ordinary owner behavior; generated indexes, receipts, checkpoints, and reports are discovery or closeout evidence and need explicit ownership.",
+    "refresh_rule": "Refresh broad indexes only for explicit discovery/reconciliation work, stale discovery blockers, real next-wave dependency, closeout gates, or operator request.",
+    "receipt_rule": "Do not write per-wave receipts by default; reserve receipts/checkpoints for writers, generators, materializers, external actions, irreversible decisions, and real closeout gates."
+  },
+  "target_repo_strengths": [
+    {
+      "id": "strength_001",
+      "summary": "The canonical doctrine now captures the Wave 1-11 cadence: owner bundle, focused proof, implementation commit, conditional generated refresh, and no head chasing.",
+      "evidence_refs": [
+        "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
+        "AGENTS.md",
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "strength_002",
+      "summary": "The starter slice packet validator enforces owner files, required source reads, owning validator, focused tests, boundary rules, structured refresh decision, and commit plan.",
+      "evidence_refs": [
+        "scripts/validate_slice_packet.py",
+        "schemas/slice_packet.schema.json"
+      ]
+    },
+    {
+      "id": "strength_003",
+      "summary": "The repo has useful first-tier starter tools: low-token contract validation, source-read register validation, planned-future-surface validation, repo file inventory, command map, read-only command harness, release validation, and bootstrap smoke tests.",
+      "evidence_refs": [
+        "Makefile",
+        "scripts/build_repo_file_index.py",
+        "scripts/build_command_map.py",
+        "scripts/validate_read_only_commands.py",
+        "scripts/validate_release_package.py"
+      ]
+    }
+  ],
+  "weaknesses": [
+    {
+      "id": "weakness_001",
+      "severity": "P1",
+      "title": "The template promises a mature control-plane surface set that it does not implement.",
+      "workflow_report_basis": "Wave 1-11 succeeded because helpers, validators, indexes, read-only commands, worktree noise, and evidence surfaces became explicit owner surfaces when needed. The repo-assist audits show stale or incomplete helper/script catalogs create routing misses and duplicated or unsafe behavior.",
+      "target_repo_evidence": [
+        "pyproject.toml declares minimum helpers including query_authority, repo map validation, config/schema/contract map, helper catalog, validator map, artifact output map, worktree cleanliness, no-secret persistence, protected-surface guard, output post-hooks, refresh indexes, and repo health gate.",
+        "The current scripts directory only implements the starter subset: slice packet, low-token, source-read, planned-future-surfaces, repo file index, command map, read-only harness, mature migration, release, bootstrap, and rendering."
+      ],
+      "risk": "A new repo can read the methodology and believe it has more machine enforcement than it actually has. Agents may treat prose-only guarantees as validated guarantees.",
+      "recommended_next_slice": "Add an authority-map or implemented-surface matrix that distinguishes implemented starter controls from planned controls, and make release/bootstrap checks fail if promised controls are listed as active but no script/schema/test exists."
+    },
+    {
+      "id": "weakness_002",
+      "severity": "P1",
+      "title": "No plan-note or authority index exists, even though the workflow depends on distinguishing active authority from evidence-only notes.",
+      "workflow_report_basis": "The Wave 1-11 evidence chain says the active crack-repair plan was the running ledger, plan-note outputs moved when plan/future details changed, and active/historical/evidence-only status prevented superseded notes from controlling next action.",
+      "target_repo_evidence": [
+        "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json describes a plan_note_and_slice_packet_index and plan_note_index responsibilities.",
+        "There is no scripts/build_plan_note_index.py, scripts/query_plan_note_index.py, schemas/plan_note_index.schema.json, manifests/plan_note_index.json, or root active-set artifact.",
+        "bootstrap_local_repo.py creates plans/repo_roadmap.json and plans/slices/slice_001_packet.json, but creates no plan-note index or active-set file."
+      ],
+      "risk": "As soon as more reports, packets, and future notes exist, future agents must infer current authority manually. That is exactly the failure mode Wave 1-11 repaired.",
+      "recommended_next_slice": "Implement a small JSON plan-note index over plans, packets, reports, and source-read refs with fields for path, status, authority_class, selected_next_action, supersession, and validation refs."
+    },
+    {
+      "id": "weakness_003",
+      "severity": "P1",
+      "title": "Evidence artifacts are not first-class indexed outputs; imported evidence is currently classified as source by the file inventory.",
+      "workflow_report_basis": "Wave 1-11 treats reports, receipts, checkpoints, and generated outputs as evidence that must be distinguishable from source authority and generated noise.",
+      "target_repo_evidence": [
+        "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json describes an artifact_evidence_index with artifact kind, writer/generator, source commit/run id, checksums, secret-safe status, receipt/checkpoint refs, and validation refs.",
+        "plans/planned_future_surfaces.json marks artifact_output_map as planned_not_created.",
+        "scripts/build_repo_file_index.py classifies only manifests, reports, and receipts as generated_or_evidence; the new evidence/ directory and checkpoints are classified as source."
+      ],
+      "risk": "The copied Wave 1-11 reports are durable, but this repo cannot query them by evidence role, authority boundary, source hash, receipt relation, or secret-safe status. Future agents can also mistake imported evidence JSON for source-truth configuration.",
+      "recommended_next_slice": "Implement artifact_output_map for reports, evidence, receipts, checkpoints, manifests, and generated outputs; update repo_file_index classification so evidence/ and checkpoints/ are evidence, not source."
+    },
+    {
+      "id": "weakness_004",
+      "severity": "P1",
+      "title": "Worktree noise classification is doctrine-only.",
+      "workflow_report_basis": "Wave 1-11 closeout depended on classifying stale index, exact-path, scanner, handoff, and superseded-plan findings as evidence unless paired with a required validator/test/safety failure.",
+      "target_repo_evidence": [
+        "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json names worktree_cleanliness_classifier as a required script architecture role.",
+        "pyproject.toml declares validate_worktree_cleanliness, but no scripts/validate_worktree_cleanliness.py or policy/schema/test exists.",
+        "The read-only harness compares before/after snapshots for configured commands, but it does not classify the current dirty worktree into generated drift, raw evidence, user changes, protected mutations, or action-required dirt."
+      ],
+      "risk": "Agents can still overreact to untracked evidence, stale generated indexes, or user edits, or underreact to protected mutations. The no-head-chasing rule remains largely procedural.",
+      "recommended_next_slice": "Add a read-only worktree cleanliness classifier with a JSON policy for generated evidence, raw scratch, protected paths, user changes, and action-required dirt."
+    },
+    {
+      "id": "weakness_005",
+      "severity": "P2",
+      "title": "Secret and private-material checks do not scan persisted report/evidence content.",
+      "workflow_report_basis": "The Wave 1-11 closeout and index audits explicitly checked that secrets and tokenized private URLs were not persisted, and they kept private docs endpoints symbolic.",
+      "target_repo_evidence": [
+        "contracts/read_only_command_harness.json enables stdout/stderr secret scanning for commands.",
+        "scripts/validate_read_only_commands.py scans command stdout/stderr, not tracked repository file content.",
+        "scripts/validate_release_package.py blocks secret-like path names but does not scan file contents for tokenized URLs or secret assignments.",
+        "The copied evidence currently uses symbolic private endpoint refs and no assignment-like credential values were found by a narrow scan, but the repo has no validator that enforces this for future reports."
+      ],
+      "risk": "A future imported report, receipt, or generated index could persist a credential-like value while release checks still pass if the path name is benign.",
+      "recommended_next_slice": "Add validate_no_secrets_persisted.py covering reports, evidence, receipts, checkpoints, manifests, docs, and generated outputs, with allowlisted symbolic refs."
+    },
+    {
+      "id": "weakness_006",
+      "severity": "P2",
+      "title": "Receipt and checkpoint semantics are documented but not represented by schema, validator, or starter writer.",
+      "workflow_report_basis": "Wave 1-11 avoided status-confetti receipts by writing receipts/checkpoints only for generated index runs and post-Wave-11 closeout proof.",
+      "target_repo_evidence": [
+        "AGENTS.md and SKILL.md state the receipt/checkpoint rule.",
+        "There is no schemas/receipt.schema.json, schemas/checkpoint.schema.json, scripts/validate_receipts.py, scripts/write_closeout_receipt.py, or reports/receipts policy binding.",
+        "plans/planned_future_surfaces.json does not include a receipt/checkpoint schema or validator activation slice."
+      ],
+      "risk": "Different users or agents can interpret receipts inconsistently: either writing status spam or skipping meaningful closeout evidence when a writer/generator/materializer actually needs proof.",
+      "recommended_next_slice": "Define minimal receipt/checkpoint schemas and a validator that rejects status-only receipts while accepting writer/generator/materializer/closeout receipts."
+    },
+    {
+      "id": "weakness_007",
+      "severity": "P2",
+      "title": "The repo has conditional refresh doctrine but no generated-refresh orchestrator or post-output hook surface.",
+      "workflow_report_basis": "Wave 1-11 refreshed repo/script/config/output indexes only when a packet or closeout gate required it, then committed generated outputs once and stopped.",
+      "target_repo_evidence": [
+        "The slice packet validator checks structured refresh_decision fields.",
+        "pyproject.toml declares run_output_post_hooks and refresh_indexes roles, but no corresponding scripts, schemas, contracts, or tests exist.",
+        "Makefile has repo-index and repo-index-check, but no plan-note index, artifact map, config inventory, output schema, or post-output hook commands."
+      ],
+      "risk": "A packet can say refresh is required, but the template has no common runner that maps refresh_decision flags to exact safe commands, validation, and generated-refresh commit boundaries.",
+      "recommended_next_slice": "Add a small refresh decision executor or command map extension that names which generated surfaces exist locally, which flags they satisfy, and which validation commands prove them."
+    },
+    {
+      "id": "weakness_008",
+      "severity": "P3",
+      "title": "Release validation can pass while newly imported evidence remains untracked or unclassified.",
+      "workflow_report_basis": "Wave 1-11 used committed evidence and targeted index extracts so future agents could find the proof chain without chat memory.",
+      "target_repo_evidence": [
+        "The current audit import leaves evidence/ untracked until explicitly committed.",
+        "scripts/validate_release_package.py reads git ls-files for tracked/package checks, so untracked evidence is invisible to release validation.",
+        "make check passed after evidence import because no release rule requires new evidence reports to be tracked, indexed, or source-read registered beyond the manual source_read_register update."
+      ],
+      "risk": "Important imported workflow evidence can sit outside git or outside generated indexes even while the repo reports healthy.",
+      "recommended_next_slice": "Extend release or health validation to warn when source_read_register evidence refs point at untracked files, and require promoted evidence reports to appear in artifact_output_map once that map exists."
+    }
+  ],
+  "recommended_slice_order": [
+    {
+      "order": 1,
+      "slice": "implemented_surface_matrix",
+      "goal": "Separate active starter controls from planned controls so users do not overtrust prose-only guarantees."
+    },
+    {
+      "order": 2,
+      "slice": "plan_note_authority_index",
+      "goal": "Make active roadmap, packets, evidence-only reports, and superseded notes queryable."
+    },
+    {
+      "order": 3,
+      "slice": "artifact_evidence_index",
+      "goal": "Index reports, evidence, receipts, checkpoints, manifests, hashes, source refs, and secret-safe status."
+    },
+    {
+      "order": 4,
+      "slice": "worktree_cleanliness_classifier",
+      "goal": "Classify generated drift, raw evidence, protected mutations, user changes, and action-required dirt."
+    },
+    {
+      "order": 5,
+      "slice": "persisted_secret_scan",
+      "goal": "Scan repo artifacts, reports, receipts, checkpoints, and docs for secret-like or tokenized private material."
+    },
+    {
+      "order": 6,
+      "slice": "receipt_checkpoint_contract",
+      "goal": "Make meaningful receipts/checkpoints enforceable without status-confetti artifacts."
+    },
+    {
+      "order": 7,
+      "slice": "conditional_refresh_executor",
+      "goal": "Map refresh_decision flags to concrete local generated-surface commands and validation."
+    }
+  ],
+  "bottom_line": "This repo is strong as a portable doctrine and starter bootstrap, but weak as a self-auditing build-governance control plane. The highest leverage fix is to stop letting pyproject and methodology list planned controls as if they were active, then add the missing authority/evidence/worktree/secret indexes one small validator-led slice at a time."
+}

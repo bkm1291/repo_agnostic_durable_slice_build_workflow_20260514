@@ -1,0 +1,633 @@
+{
+  "schema_version": "1.0",
+  "plan_id": "vbtprobuild_audit_fix_strategy_plan_20260513",
+  "created_at_utc": "2026-05-13T06:39:13Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "head_at_planning": "489101759e4d99520c1cde00fb8936700c638c5a",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "purpose": "Convert the deep vbtprobuild helper, validator, automator, config, schema, script, VBT Pro MCP/API, source-acquisition, and overlay audit reports into a strategic implementation plan.",
+  "report_count_reconciliation": {
+    "operator_phrase": "8 reports",
+    "planning_interpretation": "The drill chain has eight user-facing layers when the dependency graph is treated as the final checkpoint. There is also one baseline full helper/config/schema/script audit report that feeds the chain. This plan includes the baseline plus the eight-layer drill chain so no crack IDs are lost.",
+    "included_report_count": 9
+  },
+  "source_reports": [
+    {
+      "layer": 0,
+      "report_ref": "tmp/reports/production/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+      "role": "baseline full helper, validator, automator, config, schema, contract, script, and index audit",
+      "finding_ids": [
+        "F01_helper_catalog_stale_and_incomplete",
+        "F02_index_rebuilds_self_invalidate_on_tracked_outputs",
+        "F03_validation_coverage_too_narrow_for_current_config_schema_contract_estate",
+        "F04_bad_pattern_scanners_fail_and_include_false_positive_patterns",
+        "F05_archived_foundation_reference_guard_fails",
+        "F06_exact_path_references_missing_or_archive_internal",
+        "F07_summary_only_and_read_only_semantics_are_inconsistent_across_scripts",
+        "F08_valueinvesting_only_retired_historical_refs_remain"
+      ],
+      "strategic_read": "The repo has strong tooling but stale helper/catalog/index surfaces. The most dangerous baseline issue is not a single bad script; it is that routing metadata and validation coverage lag the repo's current script and config estate."
+    },
+    {
+      "layer": 1,
+      "report_ref": "tmp/reports/production/vbtprobuild_every_repo_assist_script_scrutiny_20260513.json",
+      "role": "all scripts/*.py scrutiny against helper manifest, script policy, write behavior, network behavior, exact refs, and VBT portfolio evidence",
+      "key_counts": {
+        "script_count": 266,
+        "helper_manifest_missing_count": 83,
+        "script_surface_policy_unclassified_count": 49,
+        "summary_write_risk_count": 180,
+        "default_write_no_flag_count": 15,
+        "query_writer_count": 16,
+        "network_unrouted_review_count": 3
+      },
+      "strategic_read": "Automation cannot yet safely dispatch repo helpers at scale because script roles, active/archive state, read-only guarantees, and credential routing are inconsistent."
+    },
+    {
+      "layer": 2,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_repo_assist_audit_20260513.json",
+      "role": "VBT Pro API lane audit across Overview, Analysis, Data, Indicators, Intelligence, Optimization, Performance, Portfolio, and Productivity",
+      "key_findings": [
+        "Every lane has useful scripts but also helper-manifest gaps, unclassified helpers, and summary-write risks.",
+        "Data and Portfolio are highest-risk because they sit on live/provider/runtime/native VBT boundaries.",
+        "VBT642 indexes valuable native surfaces but parks many of them as runtime-sensitive reference-only.",
+        "Portfolio policy is narrower than native VBT Pro capability.",
+        "Data acquisition lacks a first-class VBT Data bridge decision."
+      ],
+      "strategic_read": "The nine active source lanes are not blocked by missing knowledge; they are blocked by missing mode-aware authority and helper hygiene."
+    },
+    {
+      "layer": 3,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_deep_drilldown_20260513.json",
+      "role": "second-pass lane checkpoint and MCP/native capability reconciliation",
+      "finding_ids": [
+        "DD-P1-001",
+        "DD-P1-002",
+        "DD-P1-003",
+        "DD-P1-004",
+        "DD-P2-005",
+        "DD-P2-006",
+        "DD-P2-007"
+      ],
+      "strategic_read": "The strongest leverage points are read-only semantics, helper catalog repair, VBT Data bridge, Portfolio research modes, private research sweep classification, MCP/docs helper classification, and scanner precision."
+    },
+    {
+      "layer": 4,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+      "role": "activation-gap and cross-policy contradiction drilldown",
+      "finding_ids": [
+        "BD-P1-001",
+        "BD-P1-002",
+        "BD-P1-003",
+        "BD-P1-004",
+        "BD-P1-005",
+        "BD-P1-006",
+        "BD-P2-007",
+        "BD-P2-008",
+        "BD-P2-009",
+        "BD-P2-010",
+        "BD-P3-011"
+      ],
+      "strategic_read": "Private full-real activation exists, but VBT tools, VBT642, source registry readiness, MCP helper boundaries, and repo indexes do not reconcile that activation into one machine-readable answer."
+    },
+    {
+      "layer": 5,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+      "role": "schema and validator depth check",
+      "finding_ids": [
+        "VL-P1-001",
+        "VL-P1-002",
+        "VL-P1-003",
+        "VL-P1-004",
+        "VL-P1-005",
+        "VL-P2-006",
+        "VL-P2-007",
+        "VL-P2-008",
+        "VL-P2-009",
+        "VL-P2-010"
+      ],
+      "strategic_read": "The activation schema is shallow, VBT tool schemas are strict on old catalog blockers but permissive on new overlay shape, source registry lacks current binding refs, and validators pass isolated surfaces instead of the active workflow."
+    },
+    {
+      "layer": 6,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+      "role": "builder, fixture, queue, and duplicated-validator root-cause drilldown",
+      "finding_ids": [
+        "G6-P1-001",
+        "G6-P1-002",
+        "G6-P1-003",
+        "G6-P1-004",
+        "G6-P1-005",
+        "G6-P1-006",
+        "G6-P2-007",
+        "G6-P2-008"
+      ],
+      "strategic_read": "Catalog-only semantics are generated and tested, not merely hand-authored. A durable fix must change builders, schemas, validators, and fixtures, with catalog mode kept intact."
+    },
+    {
+      "layer": 7,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513.json",
+      "role": "test and validator gap drilldown",
+      "finding_ids": [
+        "T7-P1-001",
+        "T7-P1-002",
+        "T7-P1-003",
+        "T7-P1-004",
+        "T7-P1-005",
+        "T7-P2-006",
+        "T7-P2-007",
+        "T7-P2-008"
+      ],
+      "strategic_read": "The test suite is strong for catalog-closed behavior and sparse for activated private research behavior. Fix by adding mode-specific tests, not by weakening existing fail-closed tests."
+    },
+    {
+      "layer": 8,
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json",
+      "role": "root-cause graph and fix-wave checkpoint",
+      "root_cause_ids": [
+        "RC1_private_runtime_activation_not_machine_enforced",
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+        "RC4_cross_policy_overlay_validator_missing",
+        "RC5_generated_index_and_read_only_semantics_are_noisy",
+        "RC6_queue_and_risk_metadata_are_not_authoritative"
+      ],
+      "strategic_read": "The core is identified. More drilling should be targeted while Wave 1 and Wave 2 fixes start, not used to delay root-cause repair."
+    }
+  ],
+  "root_cause_map": [
+    {
+      "root_cause_id": "RC1_private_runtime_activation_not_machine_enforced",
+      "severity": "P1",
+      "problem": "Private full-real activation is policy intent, but it is not enforced by a nested schema, the validator does not run jsonschema, and no focused pytest covers it.",
+      "primary_symptoms": [
+        "Activation passes even when nested runtime lanes are corrupted.",
+        "Research-difficulty validator passes while missing activation overlay blockers.",
+        "Downstream tools can ignore activation because no authoritative machine contract exists."
+      ],
+      "must_fix_before": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+        "RC4_cross_policy_overlay_validator_missing"
+      ]
+    },
+    {
+      "root_cause_id": "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+      "severity": "P1",
+      "problem": "VBT tool schemas/modules, VBT642 builder, VBT642 validator, tool preflight, catalog-extension validators, and fixtures treat catalog no-runtime as the only valid state.",
+      "primary_symptoms": [
+        "VBT Data, Portfolio, and PortfolioOptimizer native surfaces are indexed but not executable under current matrix authority.",
+        "Tool schemas and modules const false on provider/materialization/runtime flags.",
+        "Existing tests assert runtime false as the positive invariant."
+      ],
+      "must_fix_after": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ]
+    },
+    {
+      "root_cause_id": "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+      "severity": "P1",
+      "problem": "source_registry top-level readiness fields and source_acquisition_policy live/historical flags can contradict each other, and source_registry lacks current schema/contract/validator refs for acquisition semantics.",
+      "primary_symptoms": [
+        "FlatFiles rows advertise supports_live and ready_for_live while live_pull_allowed is false.",
+        "Tests preserve the contradiction instead of rejecting or defining it.",
+        "Live source tests emphasize blocked paths without proving easy configured acquisition success paths."
+      ],
+      "must_fix_after": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ]
+    },
+    {
+      "root_cause_id": "RC4_cross_policy_overlay_validator_missing",
+      "severity": "P1",
+      "problem": "Validators prove isolated files, but no validator reconciles activation, source acquisition, VBT642, VBT tools, MCP/runtime helper precedence, resource policy, output route authority, and receipts as one private research workflow.",
+      "primary_symptoms": [
+        "Tool preflight names activation refs but only validates catalog aggregation.",
+        "MCP policy allows runtime helper precedence in text but does not reconcile VBT tool and VBT642 conflicts.",
+        "No single command answers which native VBT exports are allowed under current private activation."
+      ],
+      "must_fix_after": [
+        "RC1_private_runtime_activation_not_machine_enforced",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ]
+    },
+    {
+      "root_cause_id": "RC5_generated_index_and_read_only_semantics_are_noisy",
+      "severity": "P2",
+      "problem": "Some status, query, summary-only, validator, and test flows mutate committed artifacts or make generated-index freshness look like a blocker.",
+      "primary_symptoms": [
+        "Repo index and script-import index self-invalidate through generated tracked artifacts.",
+        "Summary-only can still write receipts/indexes/reports.",
+        "Tests can rebuild committed sweep artifacts."
+      ],
+      "must_fix_in_parallel": true
+    },
+    {
+      "root_cause_id": "RC6_queue_and_risk_metadata_are_not_authoritative",
+      "severity": "P2",
+      "problem": "VBT642 risk flags, operator-decision status, and ranked queue names are useful evidence but not authoritative enough for implementation planning.",
+      "primary_symptoms": [
+        "Records can carry risk_flags while operator_decision_required is false.",
+        "The topology_jit_chunking queue count includes dependency-expanded utility symbols beyond the native area count.",
+        "Query output can be misread as lane coverage."
+      ],
+      "must_fix_after": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ]
+    }
+  ],
+  "strategic_fix_waves": [
+    {
+      "wave": 0,
+      "name": "audit_hygiene_and_plan_tracking",
+      "priority": "P1",
+      "goal": "Keep the audit evidence valid, secret-clean, and easy to route before implementation starts.",
+      "target_artifacts": [
+        "tmp/reports/production/vbtprobuild_*_20260513.json"
+      ],
+      "tasks": [
+        "Validate every changed audit and plan JSON with python -m json.tool.",
+        "Scan audit/plan files for private-token URL patterns and secret-like values.",
+        "Do not fold unrelated dirty generated index artifacts into plan/report commits unless explicitly authorized."
+      ],
+      "acceptance": [
+        "JSON validation passes.",
+        "Secret/token pattern scan has no matches.",
+        "git diff --check passes."
+      ]
+    },
+    {
+      "wave": 1,
+      "name": "activation_schema_validator_tests",
+      "priority": "P1",
+      "goal": "Make private full-real activation an enforceable machine contract.",
+      "root_causes": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ],
+      "target_artifacts": [
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ],
+      "tasks": [
+        "Add nested required keys and additionalProperties controls for operator_intent, activation_scope, enabled_private_runtime_lanes, licensed source rules, private boundaries, legacy blocker translation, authority_refs, receipt_policy, and validation refs.",
+        "Run Draft202012Validator inside scripts/v2_validate_private_full_real_testing_activation.py before custom semantic checks.",
+        "Add positive pytest for the committed policy and negative pytests for missing lanes, non-string/non-path authority refs, missing receipt redaction, malformed legacy translation, and production-claim leakage.",
+        "Keep production readiness explicitly false or separate from private research activation."
+      ],
+      "acceptance": [
+        "Focused activation pytest passes.",
+        "Activation validator reports schema failures separately from semantic failures.",
+        "A corrupted nested activation policy no longer passes schema validation."
+      ],
+      "blocked_until_done": [
+        "Do not make VBT tools or VBT642 honor runtime activation until this wave is complete."
+      ]
+    },
+    {
+      "wave": 2,
+      "name": "source_registry_acquisition_semantics",
+      "priority": "P1",
+      "goal": "Make live and historical repo-source acquisition easy while giving every readiness field one meaning.",
+      "root_causes": [
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ],
+      "target_artifacts": [
+        "configs/v2/source_registry.json",
+        "schemas/v2/source_registry.schema.json",
+        "contracts/v2/source_registry_acquisition_contract.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_promotion_policy.py",
+        "tests/v2/source_intelligence/test_production_data_pull_rule_sheet.py"
+      ],
+      "tasks": [
+        "Bind source_registry.json to current schema_ref, contract_ref, and validator_ref fields.",
+        "Define separate historical_pull_ready, live_subscription_ready, and acquisition_route_ready semantics or equivalent mode-specific readiness fields.",
+        "Resolve FlatFiles semantics so historical backfill readiness does not masquerade as live subscription readiness.",
+        "Extend source registry validation to compare supports_live, ready/readiness fields, historical_pull_allowed, live_pull_allowed, delivery_surface, endpoint/auth, raw landing, and receipt requirements.",
+        "Add no-network negative tests for contradictory readiness/acquisition combinations.",
+        "Add mocked positive acquisition tests that prove configured registered source acquisition can proceed without leaking secrets or claiming production readiness."
+      ],
+      "acceptance": [
+        "FlatFiles historical routes are explicitly easy to acquire and no longer ambiguous as live subscriptions.",
+        "Source registry tests cover supports_live and readiness-by-mode semantics.",
+        "Live/historical acquisition success path is tested with mocked network/credentials and receipt redaction."
+      ]
+    },
+    {
+      "wave": 3,
+      "name": "private_runtime_research_overlay_validator",
+      "priority": "P1",
+      "goal": "Create the missing cross-policy validator without weakening catalog-reference surfaces.",
+      "root_causes": [
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/private_runtime_research_overlay_policy.json",
+        "schemas/v2/private_runtime_research_overlay.schema.json",
+        "contracts/v2/private_runtime_research_overlay_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "tasks": [
+        "Add an additive overlay policy that declares catalog_reference and activated_private_runtime as separate states.",
+        "Load private full-real activation, repo source acquisition, production IO authority, topology/resource policy, receipt policy, VBT642 matrix, VBT tool policies, tool phase preflight policy, MCP integration policy, and knowledge automation policy.",
+        "Report conflicts with exact paths and field names rather than broad blocker language.",
+        "Make overlay success mean private research route validity only, not production readiness.",
+        "Add negative fixtures for missing activation, source mismatch, VBT642 mode conflict, VBT tool mode conflict, MCP precedence conflict, missing receipt policy, missing output route, and production-claim leakage."
+      ],
+      "acceptance": [
+        "One command answers which private runtime research lanes are coherent right now.",
+        "Catalog-only validator success is no longer confused with activated overlay success.",
+        "Overlay validator has focused positive and negative pytest coverage."
+      ]
+    },
+    {
+      "wave": 4,
+      "name": "vbt_data_acquisition_bridge",
+      "priority": "P1",
+      "goal": "Make native VBT Data acquisition/load/update/persistence usable through repo-owned source, IO, topology, and receipt authority.",
+      "root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/vbt_data_acquisition_bridge_policy.json",
+        "schemas/v2/vbt_data_acquisition_bridge.schema.json",
+        "contracts/v2/vbt_data_acquisition_bridge_contract.json",
+        "scripts/v2_validate_vbt_data_acquisition_bridge.py",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_configured_dataframe_to_vbt_data_adapter.py",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_saver_persistence_route_adapter.py"
+      ],
+      "tasks": [
+        "Define when a source lane uses repo-native provider pulls, local/preacquired data, VBT Data.from_* loading, VBT Data.update, or VBT Data.to_* persistence.",
+        "Require VBT_DOTENV_PATH and production_io_authority for credentialed pulls.",
+        "Require schema identity, source lineage, output organization, no secret values, redacted credential source names, and receipts.",
+        "Keep materialization, replay, and promotion as separate downstream authorities unless explicitly activated.",
+        "Add dry-run, mocked-network, and local-preacquired positive tests."
+      ],
+      "acceptance": [
+        "A configured source can produce a VBT Data-compatible object/path plan without hand-entered secrets.",
+        "Historical and live paths are mode-specific and receipt-backed.",
+        "Bridge validator fails if output routes, receipt policy, or source readiness are missing."
+      ]
+    },
+    {
+      "wave": 5,
+      "name": "portfolio_and_optimizer_research_modes",
+      "priority": "P1",
+      "goal": "Allow native Portfolio and PortfolioOptimizer research modes without changing production replay defaults.",
+      "root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/production_portfolio_runtime_policy.json",
+        "configs/v2/private_portfolio_research_modes_policy.json",
+        "schemas/v2/private_portfolio_research_modes.schema.json",
+        "contracts/v2/private_portfolio_research_modes_contract.json",
+        "src/vbtpro_strategy_v2/production/portfolio_runtime_policy.py",
+        "tests/v2/research_factory/test_private_portfolio_research_modes.py"
+      ],
+      "tasks": [
+        "Keep production execution mode centered on the current approved constructor unless separately changed.",
+        "Add private research modes for Portfolio.from_orders, Portfolio.from_order_func, Portfolio.from_optimizer, and selected PortfolioOptimizer constructors.",
+        "Require PIT-safe inputs, mode-specific native surface allowlists, records/metrics extraction boundaries, resource policy, and receipts.",
+        "Add tests proving production mode remains narrow while private research mode can authorize broader native constructors."
+      ],
+      "acceptance": [
+        "Portfolio.from_signals remains valid for production/replay defaults.",
+        "Private research modes can use broader native surfaces only when overlay authority and receipts exist.",
+        "Production-ready claims remain blocked without promotion evidence."
+      ]
+    },
+    {
+      "wave": 6,
+      "name": "vbt642_mode_aware_matrix_and_queue_metadata",
+      "priority": "P1",
+      "goal": "Preserve the catalog-reference matrix while adding mode-aware overlay output and authoritative risk/queue metadata.",
+      "root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC6_queue_and_risk_metadata_are_not_authoritative"
+      ],
+      "target_artifacts": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+        "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json",
+        "manifests/v2/v7_2_5_vbtpro_642_export_ranked_build_queues.json",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_accepts_valid_fixture.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_rejects_false_claims.py"
+      ],
+      "tasks": [
+        "Move runtime-sensitive term lists and risk-to-operator-decision rules from Python constants into policy.",
+        "Add schema definitions for export record required fields, classification enums, boundary fields, queue metadata, and overlay records.",
+        "Keep catalog_reference records runtime false.",
+        "Generate an activated_private_runtime overlay or derived view instead of hand-editing catalog rows.",
+        "Add queue metadata showing source area, dependency expansion, source_area_count, queue_count, dependency_area_counts, and source rule.",
+        "Promote selected risk flags into operator-decision or overlay-required status."
+      ],
+      "acceptance": [
+        "Catalog fixture tests still reject runtime true claims.",
+        "Activated overlay fixture tests allow selected runtime fields only with activation, source, topology, and receipt refs.",
+        "topology_jit_chunking area count and dependency-expanded queue count are clearly distinct."
+      ]
+    },
+    {
+      "wave": 7,
+      "name": "vbt_tool_shared_boundary_helper",
+      "priority": "P1",
+      "goal": "Remove duplicated hard-coded no-runtime semantics from 25 VBT tool schemas/modules by introducing a shared mode-aware boundary.",
+      "root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ],
+      "target_artifacts": [
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_*.py",
+        "schemas/v2/v7_2_5_vbt_tool_*.schema.json",
+        "scripts/v2_validate_v7_2_5_vbt_tool_*.py",
+        "tests/v2/research_factory/test_v7_2_5_vbt_tool_*"
+      ],
+      "tasks": [
+        "Create a shared tool-boundary helper that validates catalog_reference and activated_private_runtime modes.",
+        "Use a shared schema fragment or consistent schema pattern with additionalProperties false inside runtime overlay objects.",
+        "Preserve catalog-mode false const behavior where it is still the declared mode.",
+        "Migrate Data, Portfolio, optimizer, indicator, and persistence-related tools first, then lower-risk catalog tools.",
+        "Add tests that prove each tool rejects runtime fields in catalog mode and accepts only properly authorized runtime overlay fields."
+      ],
+      "acceptance": [
+        "The 25 tool surfaces no longer diverge by copied validator logic.",
+        "Runtime activation can be represented without weakening catalog mode.",
+        "Tool-specific validators use shared boundary semantics."
+      ]
+    },
+    {
+      "wave": 8,
+      "name": "helper_manifest_and_script_surface_reconciliation",
+      "priority": "P1",
+      "goal": "Make repo helper routing complete and trustworthy for all current scripts.",
+      "root_causes": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "target_artifacts": [
+        "reference/repo_helpers/index.json",
+        "reference/repo_helpers/repo_script_manifest_20260511.json",
+        "configs/v2/script_surface_usage_policy.json",
+        "scripts/v2_validate_script_structural_family_cookbook.py",
+        "scripts/v2_query_script_import_architecture_index.py"
+      ],
+      "tasks": [
+        "Regenerate or reconcile the script manifest against all 266 scripts.",
+        "Classify every current script as active allowlist, query-only, generator, validator, run surface, live/probe-capable surface, or logical archive.",
+        "Add drift validation that fails when filesystem scripts are missing from helper manifest or script surface policy.",
+        "Classify private research sweep, VBT642, VBT tool, MCP docs, and high-value docs index helpers first."
+      ],
+      "acceptance": [
+        "helper_manifest_missing_count is zero or explicitly justified.",
+        "script_surface_policy_unclassified_count is zero.",
+        "Helper selection workflows can route every current repo-assist script."
+      ]
+    },
+    {
+      "wave": 9,
+      "name": "mcp_and_knowledge_runtime_precedence",
+      "priority": "P2",
+      "goal": "Align MCP/docs/runtime helper policy with private activation, overlay validation, and secret-safe usage.",
+      "root_causes": [
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/vectorbtpro_mcp_integration_policy.json",
+        "schemas/v2/vectorbtpro_mcp_integration.schema.json",
+        "scripts/v2_validate_vectorbtpro_mcp_integration.py",
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json",
+        "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py",
+        "tests/v2/research_factory/test_vectorbtpro_mcp_runtime_precedence.py"
+      ],
+      "tasks": [
+        "Rename confusing forbidden_runtime_behaviors sections or split default_forbidden flags from gated_runtime_allowances.",
+        "Add tests for default read-only MCP/docs lookup, gated runtime helper behavior, and private activation overlay behavior.",
+        "Require no private endpoint URL or token persistence in reports, policies, receipts, or logs.",
+        "Ensure run_code remains explicitly activated, not default-enabled."
+      ],
+      "acceptance": [
+        "runtime_helper_precedence has pytest coverage.",
+        "MCP validators fail when runtime helper behavior lacks activation or receipt/resource boundaries.",
+        "Secret/token scan remains clean."
+      ]
+    },
+    {
+      "wave": 10,
+      "name": "read_only_index_and_mutation_cleanup",
+      "priority": "P2",
+      "goal": "Remove false workflow blockers and mutation surprises from status, query, summary-only, and pytest flows.",
+      "root_causes": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "target_artifacts": [
+        "scripts/v2_repo_index.py",
+        "scripts/v2_repo_hygiene_status.py",
+        "scripts/v2_validate_solthera_ml_stack_cross_environment_proof.py",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+        "tests/v2/research_factory/test_private_research_vbt_sweep_result_index_accepts_valid_fixture.py"
+      ],
+      "tasks": [
+        "Make --summary-only read-only for validators and query/status commands.",
+        "Add explicit --write, --rebuild, or --output intent for any mutation.",
+        "Route tests that rebuild artifacts through tmp_path or read-only fixtures.",
+        "Classify generated-index freshness drift as nonblocking evidence while preserving failures for missing/corrupt active authority files."
+      ],
+      "acceptance": [
+        "Representative summary-only commands leave git diff unchanged for owned outputs.",
+        "Repo-index status distinguishes nonblocking generated freshness from missing/corrupt index states.",
+        "No pytest flow rewrites committed manifests, receipts, checkpoints, or sqlite artifacts by default."
+      ]
+    },
+    {
+      "wave": 11,
+      "name": "scanner_exact_path_and_legacy_authority_cleanup",
+      "priority": "P2",
+      "goal": "Reduce audit noise without hiding real authority problems.",
+      "root_causes": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "target_artifacts": [
+        "scripts/check_v2_archived_foundation_reference_guard.py",
+        "configs/v2/repo_index_query_profiles.json",
+        "configs/v2/data_estate_authority.json",
+        "scripts/v2_validate_*",
+        "manifests/v2/data_estate_writer_route_audit.json"
+      ],
+      "tasks": [
+        "Separate real scanner violations from literal pattern fixtures and validator string literals.",
+        "Normalize archive-internal and proposal-only exact path refs as evidence-only metadata.",
+        "Keep ValueInvesting retired from active source surfaces and avoid chasing historical doc-only references unless search hygiene requires it.",
+        "Preserve current-authority boundary by fixing active source/config/test references that still point at archived foundation proof paths."
+      ],
+      "acceptance": [
+        "Bad-pattern scanner outputs contain fewer false positives and still catch real violations.",
+        "Exact path lookup no longer treats archive-member evidence as missing runtime surfaces.",
+        "Active current-authority files do not leak obsolete foundation authority."
+      ]
+    }
+  ],
+  "execution_strategy": {
+    "first_commit_candidate": {
+      "scope": "Wave 0 report/plan hygiene only",
+      "reason": "Captures the audit map before protected implementation work starts.",
+      "stage_exact_paths_only": [
+        "tmp/reports/production/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+        "tmp/reports/production/vbtprobuild_every_repo_assist_script_scrutiny_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_repo_assist_audit_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_deep_drilldown_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513.json",
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json",
+        "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json"
+      ]
+    },
+    "implementation_start": {
+      "first_protected_fix": "Wave 1 activation_schema_validator_tests",
+      "reason": "It is the root that allows downstream mode-aware runtime work to be machine-enforced.",
+      "do_not_start_before": [
+        "Focused activation schema semantics are defined.",
+        "Tests are added before broad downstream changes.",
+        "Preflight remains done for protected edits."
+      ]
+    },
+    "parallel_research_allowed": [
+      "Layer 9 source acquisition implementation path audit can run while Wave 1 is implemented.",
+      "Layer 10 VBT tool shared-boundary migration inventory can run while Wave 2 and Wave 3 are implemented.",
+      "Layer 11 read-only/index mutation inventory can run in parallel with lower-risk cleanup."
+    ]
+  },
+  "non_negotiable_constraints": [
+    "Do not persist private endpoint tokens or secret values.",
+    "Use credentialed_vectorbtpro_api_docs_endpoint in durable repo files.",
+    "Use VBT_DOTENV_PATH and configs/v2/production_io_authority.json for credentialed source work.",
+    "Keep catalog_reference fail-closed tests intact.",
+    "Private research activation is not production readiness.",
+    "Do not delete, move, or re-root data without an explicit operator-approved delete/move manifest.",
+    "Do not revert unrelated dirty generated artifacts.",
+    "Stage exact paths only when committing."
+  ],
+  "validation_baseline": [
+    "python -m json.tool on every changed JSON plan/report/config/schema/contract",
+    "secret-token-pattern scan on changed durable artifacts",
+    "focused pytest for each wave before broad validation",
+    "relevant validator command for each changed policy/schema/contract/script surface",
+    "git diff --check"
+  ],
+  "strategic_bottom_line": {
+    "core_identified": true,
+    "more_drilling_needed_before_wave_1": false,
+    "more_drilling_value": "Additional layers should be targeted implementation audits, not broad discovery. The broad root causes are already identified.",
+    "recommended_next_action": "Commit report/plan hygiene if desired, then implement Wave 1 activation schema, validator, and tests."
+  }
+}

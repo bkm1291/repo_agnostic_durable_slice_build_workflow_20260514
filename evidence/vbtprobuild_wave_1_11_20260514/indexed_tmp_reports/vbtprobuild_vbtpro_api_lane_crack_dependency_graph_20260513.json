@@ -1,0 +1,510 @@
+{
+  "schema_version": "v2.vbtprobuild_vbtpro_api_lane_crack_dependency_graph.1",
+  "report_id": "vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513",
+  "created_at_utc": "2026-05-13T06:30:06Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "checkpoint_report_refs": [
+    "tmp/reports/production/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513.json"
+  ],
+  "this_layer": 8,
+  "purpose": "Track the current crack chain reaction as a dependency graph so implementation can fix roots first and avoid patching symptoms in the wrong order.",
+  "tracked_crack_sources": [
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+      "crack_count": 8,
+      "crack_ids": [
+        "F01_helper_catalog_stale_and_incomplete",
+        "F02_index_rebuilds_self_invalidate_on_tracked_outputs",
+        "F03_validation_coverage_too_narrow_for_current_config_schema_contract_estate",
+        "F04_bad_pattern_scanners_fail_and_include_false_positive_patterns",
+        "F05_archived_foundation_reference_guard_fails",
+        "F06_exact_path_references_missing_or_archive_internal",
+        "F07_summary_only_and_read_only_semantics_are_inconsistent_across_scripts",
+        "F08_valueinvesting_only_retired_historical_refs_remain"
+      ]
+    },
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_full_index_audit_20260513.json",
+      "crack_count": 10,
+      "crack_ids": [
+        "P1_repo_index_false_freshness",
+        "P1_source_acquisition_remaining_massive_lanes",
+        "P1_vbt_real_data_smoke_stale_policy_count",
+        "P2_script_import_index_stale_head",
+        "P2_summary_only_mutation_semantics",
+        "P2_output_schema_identity_gap",
+        "P2_private_research_artifact_warning_noise",
+        "P2_private_vbt_sweep_missing_output",
+        "P3_plan_note_metadata_coverage",
+        "P3_mcp_private_docs_url_output"
+      ],
+      "status": "already_committed_or_preexisting_report_ref"
+    },
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+      "crack_count": 11,
+      "crack_ids": [
+        "BD-P1-001",
+        "BD-P1-002",
+        "BD-P1-003",
+        "BD-P1-004",
+        "BD-P1-005",
+        "BD-P1-006",
+        "BD-P2-007",
+        "BD-P2-008",
+        "BD-P2-009",
+        "BD-P2-010",
+        "BD-P3-011"
+      ]
+    },
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+      "crack_count": 10,
+      "crack_ids": [
+        "VL-P1-001",
+        "VL-P1-002",
+        "VL-P1-003",
+        "VL-P1-004",
+        "VL-P1-005",
+        "VL-P2-006",
+        "VL-P2-007",
+        "VL-P2-008",
+        "VL-P2-009",
+        "VL-P2-010"
+      ]
+    },
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+      "crack_count": 8,
+      "crack_ids": [
+        "G6-P1-001",
+        "G6-P1-002",
+        "G6-P1-003",
+        "G6-P1-004",
+        "G6-P1-005",
+        "G6-P1-006",
+        "G6-P2-007",
+        "G6-P2-008"
+      ]
+    },
+    {
+      "report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513.json",
+      "crack_count": 8,
+      "crack_ids": [
+        "T7-P1-001",
+        "T7-P1-002",
+        "T7-P1-003",
+        "T7-P1-004",
+        "T7-P1-005",
+        "T7-P2-006",
+        "T7-P2-007",
+        "T7-P2-008"
+      ]
+    }
+  ],
+  "root_cause_nodes": [
+    {
+      "root_cause_id": "RC1_private_runtime_activation_not_machine_enforced",
+      "severity": "P1",
+      "summary": "Private full-real activation exists as policy intent, but its schema is shallow, its validator does not run schema validation, and no focused pytest covers it.",
+      "depends_on": [],
+      "drives_crack_ids": [
+        "BD-P1-001",
+        "BD-P1-002",
+        "VL-P1-001",
+        "VL-P1-003",
+        "T7-P1-001",
+        "T7-P1-002"
+      ],
+      "owning_surface_candidates": [
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "contracts/v2/private_full_real_testing_activation_contract.json",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ],
+      "fix_prerequisites": [
+        "Define exact nested activation schema semantics.",
+        "Add focused activation positive and negative tests.",
+        "Run jsonschema validation before custom semantic checks."
+      ]
+    },
+    {
+      "root_cause_id": "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+      "severity": "P1",
+      "summary": "VBT tool schemas/modules, VBT642 builder, VBT642 validator, and tool preflight all treat no-runtime as the only valid mode instead of a catalog_reference mode.",
+      "depends_on": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ],
+      "drives_crack_ids": [
+        "BD-P1-004",
+        "BD-P1-005",
+        "BD-P1-006",
+        "BD-P2-008",
+        "BD-P2-009",
+        "VL-P1-002",
+        "VL-P1-003",
+        "VL-P2-006",
+        "VL-P2-008",
+        "G6-P1-001",
+        "G6-P1-002",
+        "G6-P1-005",
+        "G6-P1-006",
+        "G6-P2-007",
+        "G6-P2-008",
+        "T7-P1-003",
+        "T7-P1-004",
+        "T7-P2-008"
+      ],
+      "owning_surface_candidates": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+        "configs/v2/v7_2_5_tool_phase_preflight_policy.json",
+        "scripts/v2_validate_v7_2_5_tool_phase_preflight.py",
+        "schemas/v2/v7_2_5_vbt_tool_*.schema.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_*.py",
+        "scripts/v2_validate_v7_2_5_batch_*_catalog_extension.py"
+      ],
+      "fix_prerequisites": [
+        "Introduce explicit mode field with catalog_reference and activated_private_runtime states.",
+        "Keep existing fail-closed tests for catalog_reference mode.",
+        "Add activated-mode fixtures that require activation, source acquisition, resource policy, and receipt refs."
+      ]
+    },
+    {
+      "root_cause_id": "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+      "severity": "P1",
+      "summary": "source_registry readiness fields and source_acquisition_policy live/historical flags are accepted in contradictory combinations, and source registry lacks direct schema/contract/validator refs for current acquisition semantics.",
+      "depends_on": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ],
+      "drives_crack_ids": [
+        "BD-P1-003",
+        "VL-P1-004",
+        "VL-P1-005",
+        "T7-P1-005",
+        "T7-P2-007",
+        "P1_source_acquisition_remaining_massive_lanes"
+      ],
+      "owning_surface_candidates": [
+        "configs/v2/source_registry.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "contracts/v2/source_registry_auth_no_network_contract.json",
+        "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ],
+      "fix_prerequisites": [
+        "Define live readiness versus historical readiness explicitly.",
+        "Bind current source registry schema/contract/validator refs.",
+        "Add negative tests for contradictory readiness/acquisition fields."
+      ]
+    },
+    {
+      "root_cause_id": "RC4_cross_policy_overlay_validator_missing",
+      "severity": "P1",
+      "summary": "Existing validators pass each surface in isolation, but none validates private activation against source acquisition, VBT642, VBT tools, MCP runtime helper policy, tool preflight, and tests as one coherent overlay.",
+      "depends_on": [
+        "RC1_private_runtime_activation_not_machine_enforced",
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ],
+      "drives_crack_ids": [
+        "BD-P1-002",
+        "VL-P1-003",
+        "VL-P2-007",
+        "T7-P1-002",
+        "T7-P2-006"
+      ],
+      "owning_surface_candidates": [
+        "configs/v2/private_runtime_research_overlay_policy.json",
+        "schemas/v2/private_runtime_research_overlay.schema.json",
+        "contracts/v2/private_runtime_research_overlay_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "fix_prerequisites": [
+        "Create additive overlay policy/schema/contract instead of weakening catalog-only surfaces directly.",
+        "The overlay validator must load every dependent policy and report conflicts with exact paths.",
+        "Do not claim production readiness from overlay success."
+      ]
+    },
+    {
+      "root_cause_id": "RC5_generated_index_and_read_only_semantics_are_noisy",
+      "severity": "P2",
+      "summary": "Some validators/builders mutate artifacts in summary-only or routine flows, and repo-index freshness can look stale because generated index artifacts changed.",
+      "depends_on": [],
+      "drives_crack_ids": [
+        "F02_index_rebuilds_self_invalidate_on_tracked_outputs",
+        "F07_summary_only_and_read_only_semantics_are_inconsistent_across_scripts",
+        "P1_repo_index_false_freshness",
+        "P2_script_import_index_stale_head",
+        "P2_summary_only_mutation_semantics",
+        "BD-P2-007",
+        "BD-P2-010",
+        "VL-P2-010"
+      ],
+      "owning_surface_candidates": [
+        "scripts/v2_repo_index.py",
+        "scripts/v2_validate_solthera_ml_stack_cross_environment_proof.py",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+        "tests/v2/research_factory/test_private_research_vbt_sweep_result_index_accepts_valid_fixture.py",
+        "scripts/v2_repo_hygiene_status.py"
+      ],
+      "fix_prerequisites": [
+        "Classify status-only stale generated artifacts as evidence, not blockers.",
+        "Make summary-only read-only across validators.",
+        "Route tests that rebuild artifacts to tmp_path or read-only fixtures."
+      ]
+    },
+    {
+      "root_cause_id": "RC6_queue_and_risk_metadata_are_not_authoritative",
+      "severity": "P2",
+      "summary": "VBT642 queue names, risk flags, and ranked build metadata are useful planning evidence but currently easy to misread as one-to-one lane authority or as active risk enforcement.",
+      "depends_on": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ],
+      "drives_crack_ids": [
+        "VL-P2-009",
+        "G6-P1-003",
+        "G6-P1-004"
+      ],
+      "owning_surface_candidates": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "manifests/v2/v7_2_5_vbtpro_642_export_ranked_build_queues.json",
+        "docs/v2/production/v7_2_5_script_structural_family_cookbook_20260511.json"
+      ],
+      "fix_prerequisites": [
+        "Add queue metadata for source area, dependency expansion, and queue construction rule.",
+        "Promote selected risk flags into operator-decision or overlay-required status.",
+        "Update query output labels so area_count and queue_count are distinct."
+      ]
+    }
+  ],
+  "fix_waves": [
+    {
+      "wave": 0,
+      "name": "audit_hygiene_and_tracking",
+      "goal": "Keep all crack reports valid, secret-clean, and organized before implementation.",
+      "status": "in_progress",
+      "target_artifacts": [
+        "tmp/reports/production/vbtprobuild_vbtpro_api_lane_*_20260513.json"
+      ],
+      "validation": [
+        "python -m json.tool on changed reports",
+        "secret-token-pattern scan on tmp/reports/production",
+        "git diff --check"
+      ]
+    },
+    {
+      "wave": 1,
+      "name": "activation_policy_schema_validator_tests",
+      "goal": "Make private full-real activation enforceable and tested before downstream tools honor it.",
+      "unlocks_root_causes": [
+        "RC1_private_runtime_activation_not_machine_enforced"
+      ],
+      "target_artifacts": [
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ],
+      "must_not_do": [
+        "Do not weaken secret redaction requirements.",
+        "Do not treat activation success as production readiness."
+      ],
+      "validation": [
+        "activation positive/negative pytest",
+        "scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only"
+      ]
+    },
+    {
+      "wave": 2,
+      "name": "source_registry_acquisition_semantics",
+      "goal": "Make live/historical source acquisition easy while making field meanings unambiguous.",
+      "unlocks_root_causes": [
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ],
+      "target_artifacts": [
+        "configs/v2/source_registry.json",
+        "schemas/v2/source_registry.schema.json",
+        "contracts/v2/source_registry_acquisition_contract.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ],
+      "must_not_do": [
+        "Do not persist secrets.",
+        "Do not make fixture parity a prerequisite for research acquisition if the acquisition policy says it is evidence for promotion only.",
+        "Do not delete or re-root source data."
+      ],
+      "validation": [
+        "source registry positive/negative pytest",
+        "live source promotion mocked positive path",
+        "production data pull rule sheet tests"
+      ]
+    },
+    {
+      "wave": 3,
+      "name": "private_runtime_research_overlay_validator",
+      "goal": "Create the missing cross-policy validator without weakening catalog-reference validators.",
+      "unlocks_root_causes": [
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/private_runtime_research_overlay_policy.json",
+        "schemas/v2/private_runtime_research_overlay.schema.json",
+        "contracts/v2/private_runtime_research_overlay_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "must_not_do": [
+        "Do not mark broker/live production behavior ready.",
+        "Do not bypass topology/resource policy.",
+        "Do not use hand-entered credentials."
+      ],
+      "validation": [
+        "overlay validator positive fixture",
+        "overlay negative fixtures for missing activation, source acquisition mismatch, VBT642 mode conflict, VBT tool mode conflict, MCP precedence conflict, and receipt-policy missing"
+      ]
+    },
+    {
+      "wave": 4,
+      "name": "vbt642_mode_aware_matrix_and_tests",
+      "goal": "Preserve catalog-reference matrix while adding an activated runtime overlay or mode-aware generated output.",
+      "unlocks_root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC6_queue_and_risk_metadata_are_not_authoritative"
+      ],
+      "target_artifacts": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_accepts_valid_fixture.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_rejects_false_claims.py"
+      ],
+      "must_not_do": [
+        "Do not change catalog_reference tests to accept runtime true.",
+        "Do not make risk_flags decorative once overlay mode exists."
+      ],
+      "validation": [
+        "VBT642 catalog fixture suite",
+        "VBT642 activated overlay fixture suite",
+        "query smoke for top100, top300, runtime-sensitive, operator-decision, topology queue metadata"
+      ]
+    },
+    {
+      "wave": 5,
+      "name": "vbt_tool_boundary_shared_helper",
+      "goal": "Remove repeated no-runtime semantics from 25 static VBT tool schemas/modules by adding a shared mode-aware boundary helper.",
+      "unlocks_root_causes": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ],
+      "target_artifacts": [
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_*.py",
+        "schemas/v2/v7_2_5_vbt_tool_*.schema.json",
+        "scripts/v2_validate_v7_2_5_vbt_tool_*.py",
+        "tests/v2/research_factory/test_v7_2_5_vbt_tool_*"
+      ],
+      "must_not_do": [
+        "Do not hand-edit one tool and leave the others semantically different.",
+        "Do not allow runtime writes without receipt and output route authority."
+      ],
+      "validation": [
+        "tool-specific catalog-mode validators",
+        "shared boundary helper tests",
+        "activated mode tests for selected Data, Portfolio, and optimizer surfaces"
+      ]
+    },
+    {
+      "wave": 6,
+      "name": "mcp_and_knowledge_runtime_precedence_tests",
+      "goal": "Align MCP runtime helper precedence with private activation and overlay validator expectations.",
+      "unlocks_root_causes": [
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "target_artifacts": [
+        "configs/v2/vectorbtpro_mcp_integration_policy.json",
+        "schemas/v2/vectorbtpro_mcp_integration.schema.json",
+        "scripts/v2_validate_vectorbtpro_mcp_integration.py",
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json",
+        "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py",
+        "tests/v2/research_factory/test_vectorbtpro_mcp_runtime_precedence.py"
+      ],
+      "must_not_do": [
+        "Do not persist private endpoint URLs or tokens.",
+        "Do not default-enable run_code runtime helpers."
+      ],
+      "validation": [
+        "MCP default read-only positive test",
+        "MCP gated runtime positive test with activation refs",
+        "MCP missing-receipt or missing-boundary negative tests"
+      ]
+    },
+    {
+      "wave": 7,
+      "name": "read_only_and_index_status_cleanup",
+      "goal": "Reduce false workflow blockers from stale generated outputs and summary-only mutations.",
+      "unlocks_root_causes": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "target_artifacts": [
+        "scripts/v2_repo_index.py",
+        "scripts/v2_repo_hygiene_status.py",
+        "scripts/v2_validate_solthera_ml_stack_cross_environment_proof.py",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+        "tests/v2/research_factory/test_private_research_vbt_sweep_result_index_accepts_valid_fixture.py"
+      ],
+      "must_not_do": [
+        "Do not hide real missing/corrupt index states.",
+        "Do not rewrite committed artifacts from read-only tests."
+      ],
+      "validation": [
+        "summary-only commands leave git diff unchanged for owned outputs",
+        "repo-index status distinguishes non-blocking generated freshness from missing/corrupt index"
+      ]
+    }
+  ],
+  "implementation_rules": [
+    "Fix roots before symptoms: activation schema/tests first, source semantics second, overlay validator third, then VBT642/VBT tools.",
+    "Use additive mode-aware surfaces before mutating protected catalog-only semantics.",
+    "Keep catalog_reference fail-closed tests intact.",
+    "Every activated runtime allowance must cite activation policy, source acquisition policy when data is involved, topology/resource policy, receipt policy, and output route authority.",
+    "Private research success is not production readiness.",
+    "No secret values or tokenized private docs endpoints may be written to repo artifacts."
+  ],
+  "stop_conditions_for_drilling": [
+    "Every P1 crack maps to exactly one root cause and one fix wave.",
+    "Every fix wave has at least one focused positive and one focused negative validation path.",
+    "No validator named repo-wide or overlay-wide passes without loading all surfaces it claims to reconcile.",
+    "Source acquisition fields have non-overlapping live and historical semantics.",
+    "VBT642 and VBT tool surfaces can represent both catalog_reference and activated_private_runtime without weakening catalog mode.",
+    "Summary-only and read-only commands do not mutate committed artifacts."
+  ],
+  "current_bottom_status": {
+    "hit_bottom": false,
+    "reason": "The crack graph is sufficient to begin root-cause fixes, but the audit has not yet inspected every generated builder/test pair after these roots. Additional drilling should continue in parallel with wave 1 and wave 2 implementation.",
+    "next_drill_layers": [
+      {
+        "layer": 9,
+        "focus": "source acquisition implementation paths and mocked positive live/historical pull receipts"
+      },
+      {
+        "layer": 10,
+        "focus": "VBT tool shared-boundary migration plan across all 25 static tool surfaces"
+      },
+      {
+        "layer": 11,
+        "focus": "read-only/index status cleanup and mutation-free validator inventory"
+      }
+    ]
+  }
+}

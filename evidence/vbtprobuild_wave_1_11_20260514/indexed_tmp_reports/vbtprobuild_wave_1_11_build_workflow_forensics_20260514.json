@@ -1,0 +1,311 @@
+{
+  "artifact_type": "vbtprobuild_wave_1_11_build_workflow_forensics",
+  "schema_version": "v2.vbtprobuild_wave_1_11_build_workflow_forensics.1",
+  "report_id": "vbtprobuild_wave_1_11_build_workflow_forensics_20260514",
+  "created_at_utc": "2026-05-14T08:57:28Z",
+  "status": "durable_evidence_for_build_mode_protocol",
+  "purpose": "Study the completed crack-repair Waves 1-11 and extract the exact build workflow that should be copied for future implementation waves.",
+  "source_authority_refs": [
+    "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+    "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+    "git log --reverse --oneline 6d8f2312^..3483511c",
+    "git show --name-only for Wave 1-11 implementation and prep commits"
+  ],
+  "repo_index_status_during_forensics": {
+    "status": "stale_head_mismatch_only",
+    "classification": "evidence_not_blocker",
+    "reason": "Current repo-index staleness was caused by the committed build protocol update and had no missing tracked files or hash drift requiring discovery refresh for this forensic pass."
+  },
+  "core_conclusion": "The successful Waves 1-11 workflow was not automatic index refresh after every wave. The stable pattern was readiness/prep when ambiguity existed, owner-surface implementation, focused owner validation and pytest, implementation commit, and conditional index refresh only for discovery/reconciliation waves or closeout gates.",
+  "golden_wave_loop": [
+    {
+      "step": 1,
+      "name": "readiness_question",
+      "rule": "Before implementation, ask whether the selected wave is ready or whether a small prep note would make future slices easier.",
+      "wave_1_11_evidence": "The operator repeatedly used readiness prompts before Waves 3-11. Prep commits were created only when they narrowed ambiguity or captured future-wave requirements."
+    },
+    {
+      "step": 2,
+      "name": "targeted_prep_when_needed",
+      "rule": "If readiness review finds ambiguity, update the active owner plan with compact preimplementation notes and rebuild plan-note index once. Do not create broad architecture reports.",
+      "wave_1_11_evidence": [
+        "e5ec079d Record Wave 3 overlay taxonomy plan",
+        "cae85bca Record Wave 4 bridge boundaries",
+        "551caa55 Record Wave 5 research mode boundaries",
+        "f0463545 Record Wave 6 VBT642 mode plan",
+        "a31f2b97 Record future wave repair details",
+        "2e1bb0f5 Detail Wave 7 helper plan",
+        "11f018fd Record Wave 8 refresh safety sequence",
+        "58e5052f Document Wave 10 reusable no-write harness",
+        "4d563266 Add post Wave 11 closeout plan",
+        "9dbd6a35 Add post Wave 11 closeout checklist"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "owner_surface_implementation",
+      "rule": "Implement the thin owner slice named by the plan: config/policy, schema, contract, module when needed, validator, and focused tests. Keep runtime-affecting values in config.",
+      "wave_1_11_evidence": "Waves 1-7 and 9-11 each committed a coherent owner bundle. Wave 8 was explicitly a helper/index reconciliation bundle."
+    },
+    {
+      "step": 4,
+      "name": "future_wave_notes_at_closeout",
+      "rule": "During implementation closeout, record only discoveries that affect later waves: implementation order, owner files, validators, full-read requirements, safety boundaries, index requirements, or activation gates.",
+      "wave_1_11_evidence": "Each completed wave in the repair execution plan carries future_wave_details or future_wave_implementation_details that guided later waves without reopening broad planning."
+    },
+    {
+      "step": 5,
+      "name": "focused_proof",
+      "rule": "Prove the wave with changed JSON parse, the owning validator, focused pytest, read-only/worktree checks where relevant, and git diff --check. Do not treat index freshness as slice proof unless the wave owns index/reconciliation.",
+      "wave_1_11_evidence": "The post-Wave-11 receipt recorded 19 focused validation commands, 9 focused pytest groups, 87 focused tests, a 24-command read-only harness, and no new root problem."
+    },
+    {
+      "step": 6,
+      "name": "implementation_commit",
+      "rule": "Stage exact intended paths and commit the coherent owner implementation after focused proof passes.",
+      "wave_1_11_evidence": [
+        "976e0cde Implement Wave 1 activation enforcement",
+        "377d6b6b Implement Wave 2 source acquisition semantics",
+        "eb3f3707 Implement Wave 3 runtime research overlay",
+        "a69d2cea Implement private VBT Data bridge wave",
+        "59d1c66e Implement private portfolio optimizer research modes",
+        "b714f9fe Implement VBT642 mode-aware matrix",
+        "f8399d3a Add shared VBT tool boundary helper",
+        "44987788 Reconcile Wave 8 helper and index discovery",
+        "a2c31d7c Add Wave 9 MCP runtime precedence gate",
+        "e1d27aba Add Wave 10 read-only command harness",
+        "413b07fc Implement Wave 11 legacy authority cleanup"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "conditional_index_refresh",
+      "rule": "Refresh repo/script/config/output indexes only when the selected wave owns discovery/reconciliation, stale discovery blocks the next action, the next wave truly depends on fresh discovery, a release/closeout gate requires freshness, or the operator asks.",
+      "wave_1_11_evidence": [
+        "Wave 8 explicitly owned helper manifest and script surface reconciliation, so it refreshed script-import, config inventory, output schema, and repo-index outputs.",
+        "Wave 10 and Wave 11 used discovery refreshes because their work was read-only/index mutation cleanup and scanner/exact-path cleanup.",
+        "Post-Wave-11 closeout refreshed full discovery indexes as a closeout gate."
+      ]
+    },
+    {
+      "step": 8,
+      "name": "do_not_chase_generated_index_head_staleness",
+      "rule": "After a generated-index commit, treat head-only index staleness as evidence unless another required freshness condition exists.",
+      "wave_1_11_evidence": "Wave 10 explicitly told Wave 11 to treat repo-index and script-import head-only staleness as evidence until an explicit index-refresh task was requested."
+    }
+  ],
+  "per_wave_evidence": [
+    {
+      "wave": 1,
+      "title": "Activation schema, validator, and tests",
+      "implementation_commit": "976e0cde",
+      "prep_commit": null,
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/private_full_real_testing_activation_policy.json",
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ],
+      "workflow_lesson": "Direct implementation was acceptable because the active crack-repair plan already contained enough detail. Future-wave notes were saved in the active plan during implementation."
+    },
+    {
+      "wave": 2,
+      "title": "Source registry live and historical acquisition semantics",
+      "implementation_commit": "377d6b6b",
+      "prep_commit": null,
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+        "contracts/v2/repo_source_data_acquisition_policy_contract.json",
+        "configs/v2/source_registry.json",
+        "configs/v2/live_source_promotion_policy.json",
+        "configs/v2/production_data_pull_rule_sheet.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "src/vbtpro_strategy_v2/data/live_promotion.py",
+        "scripts/v2_operational_materialization_run.py",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_rest_download_receipt.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ],
+      "workflow_lesson": "A broader source-acquisition slice still stayed coherent because ownership was explicit and tests were focused around no-network/live-source semantics."
+    },
+    {
+      "wave": 3,
+      "title": "Cross-policy private runtime research overlay validator",
+      "prep_commit": "e5ec079d",
+      "implementation_commit": "eb3f3707",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "schemas/v2/private_runtime_research_overlay_policy.schema.json",
+        "contracts/v2/private_runtime_research_overlay_policy_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "workflow_lesson": "When semantics were subtle, a prep taxonomy was saved before code. The implementation then used hard_failure/research_gap/warning/pass classifications instead of vague blockers."
+    },
+    {
+      "wave": 4,
+      "title": "VBT Data acquisition bridge",
+      "prep_commit": "cae85bca",
+      "implementation_commit": "a69d2cea",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json",
+        "contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json",
+        "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+        "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+        "tests/v2/data/test_private_vbt_data_acquisition_bridge.py"
+      ],
+      "workflow_lesson": "Prep captured boundaries, then implementation kept the bridge thin and avoided provider execution, portfolios, and promotion claims."
+    },
+    {
+      "wave": 5,
+      "title": "Portfolio and optimizer private research modes",
+      "prep_commit": "551caa55",
+      "implementation_commit": "59d1c66e",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+        "schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json",
+        "contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+        "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+        "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py"
+      ],
+      "workflow_lesson": "Prep emphasized status separation. Implementation avoided implying production readiness and kept acquisition, promotion, portfolio, and optimizer statuses separate."
+    },
+    {
+      "wave": 6,
+      "title": "VBT642 mode-aware matrix and queue metadata",
+      "prep_commits": [
+        "f0463545",
+        "a31f2b97"
+      ],
+      "implementation_commit": "b714f9fe",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+        "schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json",
+        "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py"
+      ],
+      "workflow_lesson": "Extra prep was useful before a matrix-wide semantic change. The implementation still stayed on the owner bundle and focused tests."
+    },
+    {
+      "wave": 7,
+      "title": "Shared VBT tool boundary helper",
+      "prep_commit": "2e1bb0f5",
+      "implementation_commit": "f8399d3a",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+        "schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json",
+        "contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py",
+        "scripts/v2_validate_shared_vbt_tool_boundary_helper.py",
+        "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py"
+      ],
+      "workflow_lesson": "Shared helper work was planned only after Waves 3-6 proved repeated semantics. It did not start with a premature generic abstraction."
+    },
+    {
+      "wave": 8,
+      "title": "Helper manifest and script surface reconciliation",
+      "prep_commit": "11f018fd",
+      "implementation_commit": "44987788",
+      "index_refresh_commit": "44987788",
+      "owner_surfaces": [
+        "reference/repo_helpers/index.json",
+        "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json",
+        "manifests/v2/repo_index_summary.json",
+        "manifests/v2/script_import_architecture_index_summary.json",
+        "manifests/v2/production/config_variable_inventory.json",
+        "tests/v2/test_repo_worktree_cleanliness.py"
+      ],
+      "workflow_lesson": "Index refresh was correct here because Wave 8 owned helper/script reconciliation and future waves needed fresh discovery baselines."
+    },
+    {
+      "wave": 9,
+      "title": "MCP/runtime precedence tests",
+      "prep_commit": null,
+      "implementation_commit": "a2c31d7c",
+      "index_refresh_commit": null,
+      "owner_surfaces": [
+        "configs/v2/mcp_runtime_precedence_policy_20260513.json",
+        "schemas/v2/mcp_runtime_precedence_policy.schema.json",
+        "contracts/v2/mcp_runtime_precedence_policy_contract.json",
+        "scripts/v2_validate_mcp_runtime_precedence.py",
+        "tests/v2/research_factory/test_mcp_runtime_precedence.py"
+      ],
+      "workflow_lesson": "Wave 9 reused the Wave 8 discovery baseline and focused on runtime precedence rather than refreshing indexes again."
+    },
+    {
+      "wave": 10,
+      "title": "Read-only and index mutation cleanup",
+      "prep_commit": "58e5052f",
+      "implementation_commit": "e1d27aba",
+      "index_refresh_commit": "ecb65996",
+      "owner_surfaces": [
+        "configs/v2/read_only_command_harness_policy_20260513.json",
+        "schemas/v2/read_only_command_harness_policy.schema.json",
+        "contracts/v2/read_only_command_harness_policy_contract.json",
+        "scripts/v2_validate_read_only_command_harness.py",
+        "tests/v2/test_read_only_command_harness.py",
+        "configs/v2/script_surface_usage_policy.json"
+      ],
+      "workflow_lesson": "Read-only harness semantics were planned before implementation. Discovery refresh was reasonable because the next scanner/exact-path wave depended on current script/index evidence."
+    },
+    {
+      "wave": 11,
+      "title": "Scanner, exact-path, and legacy authority cleanup",
+      "prep_commits": [
+        "4d563266",
+        "9dbd6a35"
+      ],
+      "implementation_commit": "413b07fc",
+      "index_refresh_commit": "8fc52383",
+      "owner_surfaces": [
+        "configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json",
+        "schemas/v2/scanner_exact_path_legacy_authority_policy.schema.json",
+        "contracts/v2/scanner_exact_path_legacy_authority_policy_contract.json",
+        "scripts/v2_validate_scanner_exact_path_legacy_authority.py",
+        "tests/v2/test_scanner_exact_path_legacy_authority.py",
+        "configs/v2/script_surface_usage_policy.json"
+      ],
+      "workflow_lesson": "Scanner/exact-path cleanup correctly treated stale evidence as warnings unless a focused validator/test failed. It ended with planned closeout rather than inventing Wave 12."
+    }
+  ],
+  "closeout_evidence": {
+    "focused_validation_command_count": 19,
+    "focused_pytest_group_count": 9,
+    "focused_pytest_test_count": 87,
+    "read_only_harness_command_count": 24,
+    "post_refresh_status_checks": "passed",
+    "new_root_problem_found": false,
+    "create_wave_12": false,
+    "future_follow_up_policy": "Create a separate tracked follow-up only for a new root problem with owner surfaces, required validators, and focused tests."
+  },
+  "rules_to_copy_for_future_waves": [
+    "Start each wave with a readiness check and read the full active owner plan for that wave chain.",
+    "Create a prep note only when it narrows ambiguity or carries future-wave implementation details.",
+    "Implement one coherent owner bundle rather than mixing future placeholders into the slice.",
+    "Use focused owner validator and focused pytest as proof; index freshness is not proof unless index/reconciliation is the wave.",
+    "Record future-wave details at closeout only when they change order, owners, validators, full-read requirements, safety boundaries, index requirements, or activation gates.",
+    "Refresh indexes only for explicit discovery/reconciliation work, closeout gates, stale discovery blockers, true next-wave dependency, or operator request.",
+    "If indexes are refreshed, batch all required generated indexes from the same implementation HEAD and commit generated outputs once.",
+    "Do not chase head-only staleness caused by the generated-index commit."
+  ],
+  "workflow_to_avoid": [
+    "Creating a repo-index refresh commit after every plan or packet edit.",
+    "Refreshing script-import and repo-index in alternating commits without a real discovery dependency.",
+    "Using index status as the proof that a source/runtime wave is correct.",
+    "Running broad validators repeatedly when the owning validator and focused pytest already prove the slice.",
+    "Leaving future-wave discoveries only in chat."
+  ]
+}

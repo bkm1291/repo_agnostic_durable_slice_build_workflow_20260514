@@ -1,0 +1,1777 @@
+{
+  "schema_version": "v2.plan_note.1",
+  "plan_id": "v7_2_4_vbtprobuild_crack_repair_execution_plan_20260513",
+  "title": "VBTProbuild Crack Repair Execution Plan",
+  "status": "active",
+  "scope": "vbtprobuild_crack_repair_control_plane",
+  "created_at_utc": "2026-05-13T07:20:32Z",
+  "updated_at_utc": "2026-05-13T20:01:43Z",
+  "supersedes": [
+    "v7_2_4_slice_01_19_v2_addition_overlay_polish_20260507"
+  ],
+  "superseded_by": null,
+  "direction_change_reason": "VBTProbuild crack-repair execution plan is the current repo-native repair authority; the Slice 01-19 overlay polish plan is preserved as historical lineage and no longer controls current repair workflow routing.",
+  "protected_surface_impact": {
+    "touches_existing_src": true,
+    "touches_existing_configs": true,
+    "touches_existing_contracts": true,
+    "exact_files": [
+      "AGENTS.md",
+      "SKILL.md",
+      "configs/v2/production_guidance_authority_map.json",
+      "configs/v2/plan_note_authority_classification_policy.json",
+      "configs/v2/repo_worktree_cleanliness_policy.json",
+      "configs/v2/worktree_noise_classification_policy_20260513.json",
+      "configs/v2/private_full_real_testing_activation_policy.json",
+      "schemas/v2/private_full_real_testing_activation.schema.json",
+      "scripts/v2_validate_private_full_real_testing_activation.py",
+      "tests/v2/research_factory/test_private_full_real_testing_activation.py",
+      "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+      "manifests/v2/plan_note_supersession_register_20260513.json",
+      "plans/v7_2_4/slice_01_19_v2_addition_overlay_polish_20260507.json",
+      "manifests/v2/plan_note_active_set.json",
+      "manifests/v2/plan_note_compiled.json",
+      "manifests/v2/plan_note_index.json",
+      "manifests/v2/plan_note_index.sqlite",
+      "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+      "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+      "contracts/v2/repo_source_data_acquisition_policy_contract.json",
+      "configs/v2/source_registry.json",
+      "configs/v2/live_source_promotion_policy.json",
+      "configs/v2/production_data_pull_rule_sheet.json",
+      "src/vbtpro_strategy_v2/data/source_registry.py",
+      "src/vbtpro_strategy_v2/data/live_promotion.py",
+      "scripts/v2_operational_materialization_run.py",
+      "tests/v2/data/test_source_registry_no_network.py",
+      "tests/v2/data/test_live_source_rest_download_receipt.py",
+      "tests/v2/data/test_live_source_promotion_policy.py",
+      "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+      "schemas/v2/private_runtime_research_overlay_policy.schema.json",
+      "contracts/v2/private_runtime_research_overlay_policy_contract.json",
+      "scripts/v2_validate_private_runtime_research_overlay.py",
+      "tests/v2/research_factory/test_private_runtime_research_overlay.py",
+      "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+      "schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json",
+      "contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json",
+      "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+      "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+      "tests/v2/data/test_private_vbt_data_acquisition_bridge.py",
+      "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+      "schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json",
+      "contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json",
+      "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+      "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+      "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py",
+      "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+      "schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json",
+      "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+      "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+      "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+      "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+      "schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json",
+      "contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json",
+      "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py",
+      "scripts/v2_validate_shared_vbt_tool_boundary_helper.py",
+      "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py",
+      "reference/repo_helpers/index.json",
+      "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json",
+      "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+      "manifests/v2/output_schema_index.json",
+      "manifests/v2/production/config_variable_inventory.json",
+      "manifests/v2/repo_index_hot.json",
+      "manifests/v2/repo_index_summary.json",
+      "manifests/v2/script_import_architecture_index.sqlite",
+      "manifests/v2/script_import_architecture_index_manifest.json",
+      "manifests/v2/script_import_architecture_index_summary.json",
+      "receipts/v2/repo_index_receipts.jsonl",
+      "receipts/v2/script_import_architecture_index_receipt.json",
+      "tests/v2/fixtures/repo_worktree_cleanliness/positive_generated_index_noise_nonblocking.json",
+      "tests/v2/fixtures/repo_worktree_cleanliness/positive_wave8_helper_reference_update_nonblocking.json",
+      "tests/v2/test_repo_worktree_cleanliness.py",
+      "configs/v2/script_surface_usage_policy.json",
+      "configs/v2/read_only_command_harness_policy_20260513.json",
+      "schemas/v2/read_only_command_harness_policy.schema.json",
+      "contracts/v2/read_only_command_harness_policy_contract.json",
+      "scripts/v2_validate_read_only_command_harness.py",
+      "tests/v2/test_read_only_command_harness.py",
+      "configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json",
+      "schemas/v2/scanner_exact_path_legacy_authority_policy.schema.json",
+      "contracts/v2/scanner_exact_path_legacy_authority_policy_contract.json",
+      "scripts/v2_validate_scanner_exact_path_legacy_authority.py",
+      "tests/v2/test_scanner_exact_path_legacy_authority.py",
+      "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+      "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json"
+    ]
+  },
+  "required_authority_reads": [
+    "AGENTS.md",
+    "SKILL.md",
+    "configs/v2/production_guidance_authority_map.json",
+    "configs/v2/plan_note_authority_classification_policy.json",
+    "configs/v2/repo_worktree_cleanliness_policy.json",
+    "configs/v2/worktree_noise_classification_policy_20260513.json",
+    "configs/v2/read_only_command_harness_policy_20260513.json",
+    "manifests/v2/plan_note_active_set.json",
+    "manifests/v2/plan_note_compiled.json",
+    "manifests/v2/plan_note_index.sqlite",
+    "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+    "tmp/reports/production/vbtprobuild_root_control_file_crack_alignment_audit_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json"
+  ],
+  "validation_commands": [
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool manifests/v2/plan_note_supersession_register_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/worktree_noise_classification_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/private_full_real_testing_activation_policy.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/private_full_real_testing_activation.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_full_real_testing_activation.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest tests/v2/research_factory/test_private_full_real_testing_activation.py -q",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_repo_worktree_cleanliness.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --rebuild --compact",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --status --compact --no-auto-refresh",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --active --compact",
+    "git diff --check",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/repo_source_data_acquisition_policy_20260512.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/repo_source_data_acquisition_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/repo_source_data_acquisition_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/source_registry.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/live_source_promotion_policy.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/production_data_pull_rule_sheet.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/data/test_source_registry_no_network.py tests/v2/data/test_live_source_rest_download_receipt.py tests/v2/data/test_live_source_promotion_policy.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/private_runtime_research_overlay_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/private_runtime_research_overlay_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/private_runtime_research_overlay_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_runtime_research_overlay.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_runtime_research_overlay.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_runtime_research_overlay.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_vbt_data_acquisition_bridge.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_vbt_data_acquisition_bridge.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/data/test_private_vbt_data_acquisition_bridge.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_portfolio_optimizer_research_modes.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_portfolio_optimizer_research_modes.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_shared_vbt_tool_boundary_helper.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_shared_vbt_tool_boundary_helper.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/mcp_runtime_precedence_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/mcp_runtime_precedence_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/mcp_runtime_precedence_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_mcp_runtime_precedence.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_mcp_runtime_precedence.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_mcp_runtime_precedence.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/read_only_command_harness_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/read_only_command_harness_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/read_only_command_harness_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group summary_only_validators --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group repo_corpus_validators --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group no_network_pytest_flows --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_read_only_command_harness.py",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/scanner_exact_path_legacy_authority_policy.schema.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/scanner_exact_path_legacy_authority_policy_contract.json >/dev/null",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_scanner_exact_path_legacy_authority.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_scanner_exact_path_legacy_authority.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_scanner_exact_path_legacy_authority.py"
+  ],
+  "current_decision": "Waves 1-11 and the post-Wave-11 closeout checks completed. This plan remains the current closeout authority so future work does not accidentally revive superseded blocker semantics.",
+  "next_action": "No repair implementation wave remains open. Future work should start from a new tracked follow-up only if a new root problem is discovered; evidence-only scanner, stale-index, exact-path, handoff, or superseded-plan findings do not create a new wave by themselves.",
+  "format_policy": {
+    "durable_format": "json",
+    "non_json_allowed_only_when_required_by_tool_or_repo_contract": true
+  },
+  "purpose": {
+    "summary": "Promote the crack-repair workflow into repo-native execution authority and give future agents a tracked bridge from audit evidence to implementation order.",
+    "why_now": "The deep audit identified reusable foundation plus contradictory blocker semantics in root controls, active plans, VBT/VBT642 catalogs, source acquisition policy, helper routing, and read-only/index behavior. A repo-native plan is needed before implementation waves mutate those surfaces."
+  },
+  "source_reports": [
+    {
+      "path": "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+      "role": "source_strategy_report",
+      "authority_use": "Strategic root-cause map, implementation waves, constraints, and stop condition for broad drilling."
+    },
+    {
+      "path": "tmp/reports/production/vbtprobuild_root_control_file_crack_alignment_audit_20260513.json",
+      "role": "control_file_repair_justification",
+      "authority_use": "Justifies AGENTS.md, SKILL.md, pyproject.toml, and repo-truth reconciliation changes."
+    },
+    {
+      "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json",
+      "role": "dependency_graph_evidence",
+      "authority_use": "Evidence backbone for VBT Pro API lane dependencies and crack propagation."
+    }
+  ],
+  "implementation_shape": [
+    {
+      "step": 1,
+      "action": "Add this repo-native active repair plan.",
+      "target": "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 2,
+      "action": "Add a supersession register.",
+      "target": "manifests/v2/plan_note_supersession_register_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 3,
+      "action": "Reference the committed audit strategy, root-control audit, and VBTPro crack dependency graph reports.",
+      "target": "source_reports",
+      "status": "completed"
+    },
+    {
+      "step": 4,
+      "action": "Update active plan routing only where the current structure supports a surgical transition.",
+      "target": "plan-note active set and supersession metadata",
+      "status": "completed"
+    },
+    {
+      "step": 5,
+      "action": "Run plan-note index rebuild/status, JSON validation, and diff checks.",
+      "target": "validation_commands",
+      "status": "completed"
+    },
+    {
+      "step": 6,
+      "action": "Add worktree noise classification semantics for crack-repair research waves.",
+      "target": "configs/v2/worktree_noise_classification_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 7,
+      "action": "Complete Wave 1 activation schema, validator, and focused tests.",
+      "target": "configs/v2/private_full_real_testing_activation_policy.json",
+      "status": "completed"
+    },
+    {
+      "step": 8,
+      "action": "Complete Wave 2 source registry live and historical acquisition semantics.",
+      "target": "repo source acquisition policy, source registry, live-source proof helpers, operational materialization authorization, and focused data tests",
+      "status": "completed"
+    },
+    {
+      "step": 9,
+      "action": "Save Wave 3 decision taxonomy and implementation map before writing overlay validator logic.",
+      "target": "execution_order.wave_3",
+      "status": "completed"
+    },
+    {
+      "step": 10,
+      "action": "Complete Wave 3 cross-policy private runtime research overlay policy, schema, contract, validator, and focused tests.",
+      "target": "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 11,
+      "action": "Save Wave 4 VBT Data acquisition bridge preimplementation boundaries before bridge coding.",
+      "target": "execution_order.wave_4",
+      "status": "completed"
+    },
+    {
+      "step": 12,
+      "action": "Complete Wave 4 private VBT Data acquisition bridge policy, schema, contract, descriptor module, validator, and focused tests.",
+      "target": "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 13,
+      "action": "Save Wave 5 portfolio and optimizer private research mode boundaries before implementation.",
+      "target": "execution_order.wave_5",
+      "status": "completed"
+    },
+    {
+      "step": 14,
+      "action": "Complete Wave 5 private portfolio and optimizer research mode policy, schema, contract, descriptor module, validator, and focused tests.",
+      "target": "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 15,
+      "action": "Save Wave 6 VBT642 mode-aware matrix and queue metadata boundaries before implementation.",
+      "target": "execution_order.wave_6",
+      "status": "completed"
+    },
+    {
+      "step": 16,
+      "action": "Save Wave 8 repo-index, helper manifest, and script-surface refresh ownership before Wave 6 implementation.",
+      "target": "execution_order.wave_8",
+      "status": "completed"
+    },
+    {
+      "step": 17,
+      "action": "Save Waves 7, 9, 10, and 11 carry-forward details from Waves 1-5 before Wave 6 implementation.",
+      "target": "execution_order.wave_7_9_10_11",
+      "status": "completed"
+    },
+    {
+      "step": 18,
+      "action": "Complete Wave 6 VBT642 mode-aware matrix policy, schema, contract, module, validator, and focused tests.",
+      "target": "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 19,
+      "action": "Complete Wave 7 shared VBT tool boundary helper policy, schema, contract, module, validator, and focused tests.",
+      "target": "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 20,
+      "action": "Complete Wave 8 helper manifest and script surface reconciliation with index-refresh ownership.",
+      "target": "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 21,
+      "action": "Complete Wave 9 MCP/runtime precedence policy, schema, contract, validator, and focused tests.",
+      "target": "configs/v2/mcp_runtime_precedence_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 22,
+      "action": "Complete Wave 10 read-only command harness policy, schema, contract, validator, and focused tests.",
+      "target": "configs/v2/read_only_command_harness_policy_20260513.json",
+      "status": "completed"
+    },
+    {
+      "step": 23,
+      "action": "Complete Wave 11 scanner, exact-path, legacy authority, default query-profile, and script-surface cleanup.",
+      "target": "configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json",
+      "status": "completed"
+    }
+  ],
+  "discovery_protocol": [
+    {
+      "step": 1,
+      "method": "Query the active routing map.",
+      "inputs": [
+        "configs/v2/production_guidance_authority_map.json"
+      ],
+      "accuracy_reason": "Shows which plan and note surfaces are supposed to be current authority."
+    },
+    {
+      "step": 2,
+      "method": "Read active plan indexes.",
+      "inputs": [
+        "manifests/v2/plan_note_active_set.json",
+        "manifests/v2/plan_note_compiled.json",
+        "manifests/v2/plan_note_index.sqlite"
+      ],
+      "accuracy_reason": "Prevents filename guessing and captures normalized status, authority class, and decision-field authority."
+    },
+    {
+      "step": 3,
+      "method": "Query plan-note and repo indexes for crack terms.",
+      "terms": [
+        "blocked",
+        "no runtime",
+        "catalog only",
+        "not ready",
+        "authority_only",
+        "summary-only",
+        "production readiness",
+        "ValueInvesting",
+        "private runtime",
+        "VBT642",
+        "source readiness",
+        "live data",
+        "historical data",
+        "read-only",
+        "exact-path"
+      ],
+      "accuracy_reason": "Finds candidate conflicts without making keyword hits decisive by themselves."
+    },
+    {
+      "step": 4,
+      "method": "Cross-check each candidate against the committed crack graph.",
+      "root_causes": [
+        "RC1_private_runtime_activation_not_machine_enforced",
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+        "RC4_cross_policy_overlay_validator_missing",
+        "RC5_generated_index_and_read_only_semantics_are_noisy",
+        "RC6_queue_and_risk_metadata_are_not_authoritative"
+      ],
+      "accuracy_reason": "Distinguishes old wording from an actual blocker-semantics conflict."
+    },
+    {
+      "step": 5,
+      "method": "Classify each hit manually after index discovery.",
+      "statuses": [
+        "active_compatible",
+        "historical_only",
+        "superseded",
+        "candidate_merge",
+        "needs_manual_review"
+      ],
+      "accuracy_reason": "Avoids bulk archiving or keyword-only supersession."
+    },
+    {
+      "step": 6,
+      "method": "Require evidence for supersession.",
+      "rule": "Mark a plan or note superseded only when it conflicts with the repair strategy and is active or likely to mislead future agents.",
+      "accuracy_reason": "Keeps historical lineage intact."
+    },
+    {
+      "step": 7,
+      "method": "Preserve uncertain items.",
+      "rule": "If a plan or note is unclear, classify it as needs_manual_review instead of archiving it.",
+      "accuracy_reason": "Prevents false cleanup from destroying useful lineage."
+    }
+  ],
+  "classification_statuses": {
+    "active_compatible": "Current or prior authority that remains compatible with crack-repair execution.",
+    "historical_only": "Useful lineage or evidence that must not provide current next_action, current_decision, handoff state, or blocker authority.",
+    "superseded": "Former authority directly replaced by this repair plan or a later repair artifact.",
+    "candidate_merge": "Contains useful detail that should be merged into a wave implementation or validator before being superseded.",
+    "needs_manual_review": "Candidate conflict found by indexes but not proven safe to supersede."
+  },
+  "non_goals": [
+    "No bulk archive sweep.",
+    "No deletion of old plans or notes.",
+    "No raw report dump beyond the committed distilled reports and dependency graph.",
+    "No blind replacement of old lineage.",
+    "No promotion of research artifacts to production-ready or live-trading-ready claims."
+  ],
+  "first_action": "Build manifests/v2/plan_note_supersession_register_20260513.json from active plan routing, compiled plan-note records, crack-term index hits, and the committed crack graph.",
+  "success_criteria": [
+    "This repair execution plan exists as a valid v2.plan_note.1 JSON file.",
+    "The supersession register exists and references the three committed reports.",
+    "The prior Slice 01-19 active plan is preserved as historical lineage and no longer controls current repair workflow routing.",
+    "The worktree noise classification policy exists and routes generated index/checkpoint/receipt churn plus raw tmp audit reports to nonblocking evidence semantics unless the current wave owns them.",
+    "Wave 1 activation schema, validator, and focused tests enforce private full-real research activation, explicit modes, live/historical acquisition intent, VBT/MCP/private runtime boundaries, redaction, authority refs, and summary-only read-only behavior.",
+    "No uncertain plan or note is archived without a specific evidence row.",
+    "Plan-note active status points at the repair plan after rebuild.",
+    "JSON validation, plan-note rebuild/status, active query, and git diff checks pass.",
+    "Wave 2 source acquisition policy schema enforces readiness/acquisition separation, fixture parity as promotion evidence, surface-specific acquisition modes, and gap evidence continuation.",
+    "Source registry rows expose source_readiness diagnostics and explicit source_acquisition_policy.allowed_acquisition_modes/default_requested_mode fields for rest, flatfiles, and websocket lanes.",
+    "Live-source proof helpers record missing fixture parity as gap evidence without blocking acquisition when credentials and scope resolve, while promotion_status remains blocked without fixture evidence.",
+    "Operational materialization authorization uses surface default acquisition modes instead of requiring live and historical acquisition simultaneously.",
+    "Wave 3 implementation plan defines the decision taxonomy hard_failure, research_gap, warning, and pass before validator code is added.",
+    "Wave 3 validator fails only on hard_failure findings; research_gap and warning findings remain evidence unless a separate required validator or test fails.",
+    "Wave 3 overlay policy/schema/contract/validator/tests are the owner surfaces for cross-policy private runtime research coherence.",
+    "Wave 3 overlay validation passes with hard_failure_count 0 while recording production-readiness absence as a research_gap.",
+    "Wave 3 focused tests prove missing activation/acquisition refs and MCP runtime without activation fail as hard_failure, while source readiness and fixture parity gaps remain nonblocking research_gap evidence.",
+    "Wave 4 preimplementation boundaries define the minimum VBT Data bridge, no-network first path, live/historical mode handling, receipt/lineage requirements, and out-of-scope provider rewrite limits.",
+    "Wave 5 policy/schema/contract/module/validator/tests preserve acquisition_status, portfolio_result_status, optimizer_result_status, and promotion_status as separate private research fields and reject production-ready, public-claim, promotion, replay-safe, formal-probability, or broker/live-order implications.",
+    "Wave 6 policy/schema/contract/module/validator/tests map all 642 VBT642 export records through mode-aware metadata, keep catalog_reference from becoming a broad blocker, classify 106 risk-flagged rows as evidence until matching activation, and reject production/public/broker/private-token claims.",
+    "Wave 7 shared VBT tool boundary helper policy/schema/contract/module/validator/tests provide one reusable classification API for hard_failure, research_gap, warning, and pass so VBT tool surfaces can share catalog_reference, gap, stale-index, and unsafe-claim semantics."
+  ],
+  "execution_order": [
+    {
+      "wave": 0,
+      "title": "Plan and supersession control plane",
+      "role": "Create tracked repair authority and supersession register."
+    },
+    {
+      "wave": 1,
+      "title": "Activation schema, validator, and tests",
+      "role": "Make private full-real research activation machine-enforced before downstream runtime semantics.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T08:05:00Z",
+      "artifact_refs": [
+        "configs/v2/private_full_real_testing_activation_policy.json",
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ],
+      "future_wave_details": [
+        "Wave 2 should treat data_acquisition_intent as activation-level intent only and still split source_registry readiness into live acquisition, historical acquisition, and gap evidence.",
+        "Wave 3 overlay validation should require this activation policy together with source acquisition, VBT642 mode metadata, MCP policy, resource policy, route, and receipt authority before runtime claims.",
+        "Wave 4 VBT Data bridge can rely on live/historical acquisition being allowed only through registered repo sources with run-scoped outputs and redacted receipts.",
+        "Wave 5 portfolio/optimizer modes remain private research modes and must not imply production readiness.",
+        "Wave 6 and Wave 7 should map old catalog-only/no-runtime fields to catalog_reference mode unless this activation or a more specific policy activates private_runtime_research."
+      ]
+    },
+    {
+      "wave": 2,
+      "title": "Source registry live and historical acquisition semantics",
+      "role": "Separate readiness, live acquisition, historical acquisition, and evidence gaps.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T08:33:15Z",
+      "artifact_refs": [
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+        "contracts/v2/repo_source_data_acquisition_policy_contract.json",
+        "configs/v2/source_registry.json",
+        "configs/v2/live_source_promotion_policy.json",
+        "configs/v2/production_data_pull_rule_sheet.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "src/vbtpro_strategy_v2/data/live_promotion.py",
+        "scripts/v2_operational_materialization_run.py",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_rest_download_receipt.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ],
+      "future_wave_details": [
+        "Wave 3 overlay validation must require the Wave 1 activation policy and Wave 2 source acquisition policy together before any private runtime research route is treated as coherent.",
+        "Wave 3 should use source_readiness as diagnostic evidence only; acquisition permission is owned by source_acquisition_policy.allowed_acquisition_modes, live_pull_allowed, and historical_pull_allowed.",
+        "Wave 4 VBT Data acquisition bridge can use acquisition_requirements_for_source and registered_source_acquisition_authorization to choose live or historical mode without requiring both by default.",
+        "Wave 5 portfolio and optimizer research modes should consume acquired data as research artifacts and keep promotion_status separate from acquisition_status.",
+        "Wave 8 helper/script reconciliation should ensure helper catalogs expose the repo_source_data_acquisition_policy schema/contract/source_registry validator path and the live_promotion fixture-gap behavior.",
+        "Wave 10 read-only cleanup should watch live-source tests for accidental credentialed dotenv loading or raw receipt writes; focused tests now pass explicit empty credential keys where no network is intended."
+      ]
+    },
+    {
+      "wave": 3,
+      "title": "Cross-policy private runtime research overlay validator",
+      "role": "Reconcile activation, source acquisition, VBT642, VBT tools, MCP/runtime precedence, resources, routes, and receipts.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T09:20:50Z",
+      "artifact_refs": [
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "schemas/v2/private_runtime_research_overlay_policy.schema.json",
+        "contracts/v2/private_runtime_research_overlay_policy_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "validation_summary": {
+        "validator_summary_status": "passed",
+        "validator_repo_corpus_status": "passed",
+        "hard_failure_count": 0,
+        "research_gap_count": 1,
+        "research_gap_reason": "Production-readiness evidence is absent by design for private research overlay.",
+        "focused_test_count": 9,
+        "focused_tests_status": "passed"
+      },
+      "decision_taxonomy": {
+        "hard_failure": {
+          "definition": "A safety, schema, authority, secret, activation, route, or contract violation that must fail the overlay validator.",
+          "examples": [
+            "invalid overlay policy schema",
+            "missing Wave 1 activation policy reference",
+            "missing Wave 2 source acquisition policy reference",
+            "requested acquisition mode not allowed by source_acquisition_policy",
+            "secret value or tokenized private URL persisted in durable output",
+            "runtime route enabled without private full-real activation",
+            "MCP runtime precedence conflicts with activation or MCP policy",
+            "required receipt route or redaction rule missing"
+          ]
+        },
+        "research_gap": {
+          "definition": "Incomplete research evidence that must be recorded without failing the overlay validator.",
+          "examples": [
+            "source readiness evidence incomplete",
+            "fixture parity evidence missing",
+            "promotion evidence absent",
+            "production-readiness evidence absent",
+            "optional live or historical counterpart unavailable for a valid selected mode",
+            "real-data smoke absent for a route that is not making a data-backed promotion claim"
+          ]
+        },
+        "warning": {
+          "definition": "Nonblocking repo hygiene, freshness, or optional-evidence condition that should be reported but not fail the overlay validator.",
+          "examples": [
+            "repo index stale after current commit",
+            "helper catalog not refreshed for the new surface",
+            "optional evidence unavailable",
+            "generated index or raw audit evidence noise classified by worktree noise policy"
+          ]
+        },
+        "pass": {
+          "definition": "A required cross-policy coherence check that succeeded.",
+          "examples": [
+            "Wave 1 activation policy validates",
+            "Wave 2 source acquisition policy validates",
+            "source acquisition mode is allowed",
+            "private runtime boundary is activated and receipt-bound",
+            "secret persistence is disabled",
+            "production-ready claim remains false"
+          ]
+        }
+      },
+      "failure_semantics": {
+        "validator_status_failed_when": "hard_failure_count > 0",
+        "research_gap_does_not_fail_overlay": true,
+        "warning_does_not_fail_overlay": true,
+        "production_readiness_absence_is_research_gap": true,
+        "source_readiness_gap_is_research_gap": true,
+        "fixture_parity_gap_is_research_gap": true,
+        "secret_or_token_persistence_is_hard_failure": true,
+        "research_acquisition_must_not_imply_production_readiness": true
+      },
+      "planned_artifact_refs": [
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "schemas/v2/private_runtime_research_overlay_policy.schema.json",
+        "contracts/v2/private_runtime_research_overlay_policy_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ],
+      "required_policy_refs": [
+        "configs/v2/private_full_real_testing_activation_policy.json",
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "contracts/v2/private_full_real_testing_activation_contract.json",
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+        "contracts/v2/repo_source_data_acquisition_policy_contract.json",
+        "configs/v2/source_registry.json",
+        "configs/v2/vectorbtpro_mcp_integration_policy.json",
+        "contracts/v2/vectorbtpro_mcp_integration_contract.json",
+        "configs/v2/production_io_authority.json",
+        "configs/v2/production_resource_wrapper_policy.json",
+        "configs/v2/production_data_pull_rule_sheet.json"
+      ],
+      "implementation_flow": [
+        "Load and schema-validate private_runtime_research_overlay_policy_20260513.json first.",
+        "Load Wave 1 activation policy and require private runtime research activation for runtime routes.",
+        "Load Wave 2 source acquisition policy and source registry; treat source_readiness as diagnostic evidence only.",
+        "Load MCP/runtime/resource/IO/receipt refs and verify symbolic private docs refs plus redaction requirements.",
+        "Classify every finding using the saved decision_taxonomy.",
+        "Return failed only when hard_failure findings exist; otherwise return passed with research_gap_count and warning_count.",
+        "Keep --summary-only and --repo-corpus read-only: no receipts, indexes, checkpoints, or reports are written by the validator."
+      ],
+      "required_tests": [
+        "committed overlay policy passes",
+        "missing Wave 1 activation ref fails as hard_failure",
+        "missing Wave 2 acquisition ref fails as hard_failure",
+        "source readiness gap is research_gap and does not fail",
+        "missing fixture parity is research_gap and does not fail",
+        "missing production-readiness evidence is research_gap and does not fail",
+        "persisted private URL or token fails as hard_failure",
+        "MCP runtime enabled without activation fails as hard_failure",
+        "CLI summary-only does not write receipts or artifacts"
+      ],
+      "future_wave_details": [
+        "Wave 4 should consume acquisition_requirements_for_source and registered_source_acquisition_authorization after Wave 3 proves activation plus source acquisition coherence.",
+        "Wave 5 should consume acquired data as private research artifacts and keep promotion_status separate from acquisition_status.",
+        "Wave 6 should map VBT642 catalog-only records to catalog_reference mode unless private_runtime_research is activated.",
+        "Wave 7 should reuse the Wave 3 taxonomy in the shared VBT tool boundary helper.",
+        "Wave 8 should expose the private_runtime_research_overlay policy, schema, contract, validator, and tests in helper/script reconciliation instead of duplicating cross-policy checks.",
+        "Wave 9 should assert this overlay as the expected MCP/runtime precedence layer, especially for symbolic private docs refs and activated run_code/runtime helper behavior.",
+        "Wave 10 should preserve summary-only read-only behavior and no-credential/no-receipt-write test safety for overlay and live-source validators."
+      ]
+    },
+  {
+    "wave": 4,
+    "title": "VBT Data acquisition bridge",
+    "role": "Connect registered repo source acquisition to VBT Data surfaces under research artifact semantics.",
+    "status": "completed",
+    "completed_at_utc": "2026-05-13T12:18:00Z",
+    "artifact_refs": [
+      "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+      "schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json",
+      "contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json",
+      "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+      "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+      "tests/v2/data/test_private_vbt_data_acquisition_bridge.py"
+    ],
+    "validation_summary": {
+      "validator_repo_corpus_status": "passed",
+      "overlay_gate_status": "passed",
+      "hard_failure_count": 0,
+      "research_gap_count": 0,
+      "focused_test_count": 7,
+      "focused_tests_status": "passed",
+      "json_parse_status": "passed"
+    },
+    "preimplementation_notes_saved_at_utc": "2026-05-13T09:40:28Z",
+      "bridge_boundary": {
+        "does_not_invent_new_provider_pull_logic": true,
+        "must_call_wave_3_overlay_validator_first": true,
+        "uses_wave_2_source_acquisition_helpers": [
+          "acquisition_requirements_for_source",
+          "registered_source_acquisition_authorization"
+        ],
+        "output_artifact_status": "private_research_vbt_data_artifact",
+        "output_is_promotion_evidence": false,
+        "live_and_historical_provider_pulls_allowed_only_through_source_registry_policy_and_receipts": true,
+        "no_network_local_fixture_path_first": true
+      },
+      "owner_surfaces_to_inspect_first": [
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "configs/v2/source_registry.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "src/vbtpro_strategy_v2/data/live_promotion.py",
+        "configs/v2/production_data_pull_rule_sheet.json",
+        "configs/v2/production_io_authority.json",
+        "manifests/v2/source_fixture_manifest.json",
+        "configs/v2/private_research_artifact_index_policy.json",
+        "schemas/v2/private_research_artifact_index.schema.json",
+        "contracts/v2/private_research_artifact_index_contract.json",
+        "scripts/query_v2_vectorbtpro_docs.py",
+        "scripts/query_v2_machine_library.py",
+        "scripts/v2_static_lookup_index.py"
+      ],
+      "minimum_bridge_definition": {
+        "flow": "source_registry source -> acquisition authorization -> raw/fixture/local frame descriptor -> VBT Data-compatible private research artifact descriptor",
+        "input_authority": "configs/v2/source_registry.json",
+        "authorization_owner": "src/vbtpro_strategy_v2/data/source_registry.py",
+        "coherence_gate": "scripts/v2_validate_private_runtime_research_overlay.py --repo-corpus --summary-only",
+        "first_data_path": "no_network_fixture_or_local_descriptor",
+        "artifact_semantics": "research_only_not_production_ready",
+        "lineage_required": true,
+        "receipt_or_descriptor_required": true,
+        "secret_redaction_required": true
+      },
+      "live_historical_mode_handling": {
+        "rest_default_requested_mode": "historical",
+        "flatfiles_allowed_modes": [
+          "historical"
+        ],
+        "websocket_allowed_modes": [
+          "live"
+        ],
+        "invalid_requested_mode_classification": "hard_failure",
+        "live_and_historical_not_required_together_by_default": true,
+        "mode_source": "source_acquisition_policy.allowed_acquisition_modes/default_requested_mode"
+      },
+      "expected_new_or_changed_surfaces": [
+        "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json",
+        "contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json",
+        "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+        "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+        "tests/v2/data/test_private_vbt_data_acquisition_bridge.py"
+      ],
+      "required_tests": [
+        "Wave 3 overlay validator passes before bridge validation",
+        "REST source defaults to historical acquisition mode",
+        "flatfiles source allows historical mode only",
+        "websocket source allows live mode only",
+        "invalid requested acquisition mode fails",
+        "no-network fixture or local descriptor becomes a VBT Data bridge descriptor",
+        "descriptor carries source_id, provider, delivery_surface, acquisition_mode, schema_ref, source_lineage, and authority refs",
+        "descriptor records research_only/private_research_vbt_data_artifact status and production_claim_allowed false",
+        "summary-only bridge validation writes no receipts, indexes, checkpoints, reports, provider files, or VBT artifacts"
+      ],
+      "out_of_scope_for_wave_4": [
+        "new provider client implementation",
+        "provider endpoint expansion",
+        "broad data backfill",
+        "live websocket session execution",
+        "portfolio optimization",
+        "replay or sweep execution",
+        "broker live order routing",
+        "production-ready or public performance claims",
+        "helper catalog reconciliation outside bridge-owned surfaces"
+      ],
+    "future_wave_details": [
+      "Wave 5 should consume private_vbt_data_bridge_descriptor as private research data input only and keep acquisition_status, promotion_status, portfolio_result_status, and optimizer_result_status separate.",
+      "Wave 5 should treat descriptor status private_research_vbt_data_artifact as enough for research-mode portfolio/optimizer experiments, but not as production, public, replay-safe, or promotion evidence.",
+      "Wave 6 should map this bridge as private_runtime_research_descriptor mode; VBT642 catalog-only rows remain catalog_reference until explicitly activated.",
+      "Wave 7 should reuse bridge_boundaries and descriptor_contract fields in the shared VBT tool boundary helper.",
+      "Wave 8 should add the bridge policy/schema/contract/validator/module/test surfaces to helper/script reconciliation.",
+      "Wave 9 should verify MCP/runtime precedence when VBT docs or VBT native lookup are used to move from descriptor mode to runtime object construction.",
+      "Wave 10 should preserve no-network summary-only behavior for bridge validation and prevent accidental artifact writes in tests."
+    ]
+  },
+    {
+      "wave": 5,
+      "title": "Portfolio and optimizer private research modes",
+      "role": "Enable research-mode execution without implying promotion or live readiness.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T13:05:00Z",
+      "artifact_refs": [
+        "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+        "schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json",
+        "contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+        "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+        "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py"
+      ],
+      "validation_summary": {
+        "validator_summary_status": "passed",
+        "validator_repo_corpus_status": "passed",
+        "overlay_gate_status": "passed",
+        "bridge_gate_status": "passed",
+        "hard_failure_count": 0,
+        "research_gap_count": 0,
+        "focused_test_count": 7,
+        "focused_tests_status": "passed",
+        "json_parse_status": "passed"
+      },
+      "preimplementation_notes_saved_at_utc": "2026-05-13T12:35:00Z",
+      "accepted_inputs": {
+        "primary_input_artifact_type": "private_vbt_data_bridge_descriptor",
+        "primary_input_schema_version": "v2.private_vbt_data_bridge_descriptor.1",
+        "required_input_status": "private_research_vbt_data_artifact",
+        "input_owner": "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+        "input_policy_ref": "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "input_validator_ref": "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+        "accepted_as": "private_research_data_input_only",
+        "not_accepted_as": [
+          "promotion_evidence",
+          "production_readiness_evidence",
+          "public_performance_claim",
+          "replay_safe_evidence",
+          "broker_or_live_order_authorization"
+        ]
+      },
+      "required_status_separation": {
+        "acquisition_status": {
+          "owner": "Wave 4 bridge descriptor and source acquisition authorization",
+          "allowed_research_value": "private_research_vbt_data_artifact",
+          "must_not_control": [
+            "promotion_status",
+            "portfolio_result_status",
+            "optimizer_result_status",
+            "production_readiness_status"
+          ]
+        },
+        "portfolio_research_status": {
+          "owner": "Wave 5 portfolio research mode policy or module",
+          "allowed_values": [
+            "not_run",
+            "private_research_portfolio_result",
+            "portfolio_research_gap",
+            "portfolio_research_invalid"
+          ],
+          "production_claim_allowed": false
+        },
+        "optimizer_research_status": {
+          "owner": "Wave 5 optimizer research mode policy or module",
+          "allowed_values": [
+            "not_run",
+            "private_research_optimizer_result",
+            "optimizer_research_gap",
+            "optimizer_research_invalid"
+          ],
+          "production_claim_allowed": false
+        },
+        "promotion_status": {
+          "owner": "separate PIT-safe promotion route",
+          "wave_5_default": "not_promotion_evidence",
+          "wave_5_must_not_emit": [
+            "production_ready",
+            "production_candidate",
+            "public_claim_ready"
+          ]
+        }
+      },
+      "hard_boundaries": {
+        "portfolio_or_optimizer_result_implies_production_readiness": false,
+        "portfolio_or_optimizer_result_implies_promotion_evidence": false,
+        "portfolio_or_optimizer_result_implies_public_claim": false,
+        "portfolio_or_optimizer_result_implies_replay_safe_claim": false,
+        "portfolio_or_optimizer_result_implies_broker_live_order_authorization": false,
+        "acquisition_status_implies_portfolio_or_optimizer_success": false,
+        "runtime_object_construction_requires_private_runtime_activation": true,
+        "vbt_runtime_or_mcp_runtime_must_pass_wave_3_overlay_precedence": true,
+        "summary_only_and_repo_corpus_validation_must_be_read_only": true,
+        "secret_values_or_tokenized_private_urls_are_hard_failures": true
+      },
+      "output_semantics": {
+        "artifact_type": "private_portfolio_optimizer_research_mode_result",
+        "artifact_status": "private_research_artifact",
+        "portfolio_result_status": "private_research_portfolio_result",
+        "optimizer_result_status": "private_research_optimizer_result",
+        "promotion_status": "not_promotion_evidence",
+        "production_claim_allowed": false,
+        "public_claim_allowed": false,
+        "broker_live_order_allowed": false,
+        "formal_probability_claim_allowed": false,
+        "run_scoped_outputs_required_if_runtime_executes": true,
+        "receipt_or_descriptor_required": true,
+        "source_lineage_required": true,
+        "vbt_data_bridge_descriptor_ref_required": true
+      },
+      "owner_surfaces_to_inspect_first": [
+        "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+        "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "configs/v2/production_portfolio_runtime_policy.json",
+        "contracts/v2/replay_portfolio_records_metrics_contract.json",
+        "contracts/v2/private_research_vbt_sweep_runner_contract.json",
+        "schemas/v2/private_research_vbt_sweep_runner.schema.json",
+        "scripts/v2_validate_private_research_vbt_sweep_runner.py",
+        "src/vbtpro_strategy_v2/replay/portfolio_adapter.py",
+        "src/vbtpro_strategy_v2/replay/records_metrics.py",
+        "tests/v2/replay/test_vbtpro_portfolio_reuse.py",
+        "tests/v2/test_production_portfolio_runtime_policy.py"
+      ],
+      "candidate_new_or_changed_surfaces_to_confirm": [
+        "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+        "schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json",
+        "contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+        "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+        "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py"
+      ],
+      "required_tests": [
+        "Wave 3 overlay validator passes before runtime-capable portfolio or optimizer mode validation",
+        "Wave 4 bridge validator passes before descriptor-backed portfolio or optimizer mode validation",
+        "valid private_vbt_data_bridge_descriptor is accepted as research input",
+        "missing bridge descriptor fails as hard_failure",
+        "invalid bridge descriptor fails as hard_failure",
+        "descriptor with production_claim_allowed true fails as hard_failure",
+        "portfolio result attempting production_ready, production_candidate, public claim, or promotion evidence fails as hard_failure",
+        "optimizer result attempting production_ready, production_candidate, public claim, or promotion evidence fails as hard_failure",
+        "portfolio_result_status and optimizer_result_status remain separate from acquisition_status and promotion_status",
+        "summary-only validation writes no receipts, indexes, checkpoints, reports, provider files, VBT runtime objects, portfolio outputs, or optimizer outputs"
+      ],
+      "out_of_scope_for_wave_5": [
+        "broker live order routing",
+        "public performance claims",
+        "production-ready promotion",
+        "formal probability claims",
+        "ungated replay-safe claims",
+        "broad VBT sweeps without separate activation",
+        "provider client implementation or data backfill",
+        "new source endpoint expansion",
+        "helper catalog reconciliation outside Wave 5 owned surfaces"
+      ],
+      "future_wave_details": [
+        "Wave 6 should consume Wave 5 status fields when making the VBT642 matrix mode-aware and should keep catalog_reference separate from private_runtime_research_descriptor and private_research_portfolio_result modes.",
+        "Wave 7 should reuse the Wave 5 status separation in the shared VBT tool boundary helper so tool surfaces do not collapse research results into promotion claims.",
+        "Wave 8 should reconcile any Wave 5 policy, schema, contract, validator, module, and tests into helper/script manifests.",
+        "Wave 9 should test that MCP/runtime precedence requires Wave 3 overlay and Wave 4 descriptor coherence before any VBT Portfolio or optimizer runtime expansion.",
+        "Wave 10 should preserve summary-only read-only behavior and prevent portfolio/optimizer validators from writing receipts, indexes, checkpoints, reports, or VBT artifacts."
+      ]
+    },
+    {
+      "wave": 6,
+      "title": "VBT642 mode-aware matrix and queue metadata",
+      "role": "Stop catalog-only records from acting as universal no-runtime blockers.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T11:10:00Z",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T13:20:00Z",
+      "artifact_refs": [
+        "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+        "schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json",
+        "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py"
+      ],
+      "validation_summary": {
+        "validator_summary_status": "passed",
+        "validator_repo_corpus_status": "passed",
+        "thin_import_gate_status": "passed",
+        "overlay_gate_status": "passed",
+        "bridge_gate_status": "passed",
+        "portfolio_optimizer_gate_status": "passed",
+        "hard_failure_count": 0,
+        "research_gap_count": 0,
+        "mode_aware_records_validated": 642,
+        "catalog_reference_count": 642,
+        "risk_flagged_count": 106,
+        "focused_test_count": 7,
+        "focused_tests_status": "passed",
+        "json_parse_status": "passed",
+        "summary_only_read_only_status": "passed"
+      },
+      "owner_surfaces_to_inspect_first": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json",
+        "contracts/v2/v7_2_5_vbtpro_642_export_thin_import_contract.json",
+        "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json",
+        "manifests/v2/v7_2_5_vbtpro_642_export_ranked_build_queues.json",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+        "configs/v2/v7_2_5_vbtpro_top300_import_smoke_policy.json",
+        "configs/v2/v7_2_5_vbtpro_other300_import_smoke_policy.json",
+        "docs/v2/production/v7_2_5_vbtpro_top300_mcp_index_pipeline_use_map_20260512.json",
+        "docs/v2/production/v7_2_5_vbtpro_other300_mcp_index_pipeline_use_map_20260512.json",
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+        "configs/v2/vectorbtpro_mcp_integration_policy.json"
+      ],
+      "mode_taxonomy": {
+        "catalog_reference": {
+          "definition": "A VBT642 export row is documented, indexed, ranked, and safe to cite or plan against without executing VectorBT Pro runtime or dispatch.",
+          "required_input_signals": [
+            "runtime_execution_allowed is false",
+            "dispatch_allowed is false",
+            "import_reference_allowed is true",
+            "thin_import_authority_allowed or catalog_record_required is true"
+          ],
+          "does_not_mean": [
+            "research blocked forever",
+            "private runtime research forbidden",
+            "portfolio or optimizer result invalid"
+          ]
+        },
+        "private_runtime_research_descriptor": {
+          "definition": "A catalog row may be used to describe a private runtime research path when Wave 3 overlay and Wave 4 VBT Data descriptor coherence pass.",
+          "required_gate_refs": [
+            "scripts/v2_validate_private_runtime_research_overlay.py --repo-corpus --summary-only",
+            "scripts/v2_validate_private_vbt_data_acquisition_bridge.py --repo-corpus --summary-only"
+          ],
+          "claim_boundary": "research_descriptor_only_not_runtime_output_not_promotion_evidence"
+        },
+        "private_research_portfolio_result": {
+          "definition": "A Wave 5 portfolio research result mode that consumes private research data artifacts while remaining separate from acquisition_status and promotion_status.",
+          "required_gate_refs": [
+            "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json"
+          ],
+          "claim_boundary": "not_production_ready_not_public_not_promotion_evidence"
+        },
+        "private_research_optimizer_result": {
+          "definition": "A Wave 5 optimizer research result mode that consumes private research data artifacts while remaining separate from acquisition_status and promotion_status.",
+          "required_gate_refs": [
+            "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json"
+          ],
+          "claim_boundary": "not_production_ready_not_public_not_promotion_evidence"
+        }
+      },
+      "field_reinterpretation_rules": {
+        "runtime_execution_allowed_false": "Map to catalog_reference by default; do not treat as a broad blocker for activated future private runtime research.",
+        "dispatch_allowed_false": "Map to catalog_reference or descriptor-only planning; do not block docs lookup, schema design, queue classification, or private research descriptors.",
+        "thin_wrapper_required_true": "Means a thin import/catalog authority record is needed before repo wrapper exposure; it is not a permanent no-runtime policy.",
+        "catalog_record_required_true": "Means catalog_reference metadata must exist before stronger claims; it is an evidence requirement, not a research stop.",
+        "risk_flags_present": "Risk flags are evidence and routing metadata. They become hard gates only when the current task activates the specific risk lane, such as provider pull, materialization, replay, VBT sweep, production claim, broker live routing, or side-effect execution.",
+        "next_safe_action": "Recommendation for the next scoped action only; it must not override Wave 3 overlay, Wave 4 bridge, or Wave 5 status separation.",
+        "operator_decision_required_true": "Manual-review metadata for the specific export row; it must not create repo-wide research blocking semantics."
+      },
+      "required_mode_aware_overlay_fields": [
+        "export_name",
+        "native_module",
+        "native_qualified_name",
+        "export_kind",
+        "source_mode",
+        "mode_reason",
+        "mode_authority_refs",
+        "catalog_reference_status",
+        "private_runtime_research_descriptor_status",
+        "portfolio_result_status",
+        "optimizer_result_status",
+        "promotion_status",
+        "queue_memberships",
+        "rank_global",
+        "build_phase",
+        "dependency_tier",
+        "importance",
+        "risk_flags",
+        "risk_treatment",
+        "required_activation_for_risks",
+        "runtime_execution_allowed_effective",
+        "dispatch_allowed_effective",
+        "production_claim_allowed",
+        "public_claim_allowed",
+        "broker_live_order_allowed",
+        "private_endpoint_ref",
+        "status_separation",
+        "mode_inputs"
+      ],
+      "expected_new_or_changed_surfaces_to_confirm": [
+        "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+        "schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json",
+        "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py"
+      ],
+      "required_tests": [
+        "catalog-only VBT642 row maps to catalog_reference and does not fail solely because runtime_execution_allowed or dispatch_allowed is false",
+        "risk_flags remain evidence until the matching risk lane is activated by explicit policy and operator task scope",
+        "Wave 4 private VBT Data bridge descriptor can map to private_runtime_research_descriptor only when Wave 3 and Wave 4 validators pass",
+        "Wave 5 portfolio_result_status and optimizer_result_status remain separate from acquisition_status and promotion_status",
+        "production_ready, production_candidate, public claim, broker live order, provider pull, materialization, replay, or VBT sweep claims fail unless the matching explicit authority exists",
+        "tokenized private VectorBT Pro documentation URLs and secret values fail if persisted",
+        "summary-only validation writes no receipts, indexes, checkpoints, reports, VBT runtime objects, provider outputs, portfolio outputs, or optimizer outputs"
+      ],
+      "out_of_scope_for_wave_6": [
+        "executing VectorBT Pro runtime imports beyond safe import-smoke authority",
+        "provider client implementation or data backfill",
+        "broad VBT sweeps",
+        "replay execution",
+        "broker live order routing",
+        "production-ready or public performance claims",
+        "helper catalog reconciliation outside Wave 6 owned surfaces"
+      ],
+      "preimplementation_validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py --repo-corpus --summary-only"
+      ],
+      "postimplementation_validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py"
+      ],
+      "future_wave_details": [
+        "Wave 7 should reuse the Wave 6 mode_taxonomy, field_reinterpretation_rules, risk_treatment, status_separation, and validate_vbt642_mode_aware_record helper instead of re-encoding VBT642 blocker semantics in each tool surface.",
+        "Wave 7 should treat runtime_execution_allowed=false, dispatch_allowed=false, thin_wrapper_required=true, catalog_record_required=true, and operator_decision_required=true as catalog_reference evidence unless a specific activated risk lane hard-fails.",
+        "Wave 8 should reconcile the Wave 6 policy, schema, contract, module, validator, and tests into helper/script manifests and refresh repo/script indexes only after Wave 7 surfaces are complete or intentionally staged.",
+        "Wave 9 should assert MCP/runtime precedence before any row moves from catalog_reference to runtime-capable private research behavior and should keep credentialed_vectorbtpro_api_docs_endpoint symbolic.",
+        "Wave 10 should preserve summary-only read-only behavior, avoid regenerating VBT642 matrices or queues during validator-only flows, and keep negative token tests sentinel-backed so repo files never persist token-shaped private URLs."
+      ]
+    },
+    {
+      "wave": 7,
+      "title": "Shared VBT tool boundary helper",
+      "role": "Remove repeated blocker semantics across VBT tool surfaces.",
+      "status": "completed",
+      "completed_at_utc": "2026-05-13T11:31:00Z",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T11:22:00Z",
+      "artifact_refs": [
+        "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+        "schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json",
+        "contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py",
+        "scripts/v2_validate_shared_vbt_tool_boundary_helper.py",
+        "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py"
+      ],
+      "validation_summary": {
+        "validator_summary_status": "passed",
+        "validator_repo_corpus_status": "passed",
+        "wave6_mode_aware_gate_status": "passed",
+        "hard_failure_count": 0,
+        "focused_test_count": 8,
+        "focused_tests_status": "passed",
+        "json_parse_status": "passed",
+        "summary_only_read_only_status": "passed"
+      },
+      "carry_forward_from_waves_1_to_5": {
+        "wave_3_taxonomy_to_reuse": [
+          "hard_failure",
+          "research_gap",
+          "warning",
+          "pass"
+        ],
+        "catalog_only_no_runtime_mode": "catalog_reference",
+        "source_readiness_gap_classification": "research_gap",
+        "fixture_parity_gap_classification": "research_gap",
+        "production_readiness_absence_classification": "research_gap",
+        "secret_or_token_persistence_classification": "hard_failure",
+        "summary_only_write_classification": "hard_failure_when_validator_or_query_claims_read_only"
+      },
+      "wave_6_inputs_to_reuse": {
+        "mode_aware_policy": "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+        "mode_aware_contract": "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+        "mode_aware_module": "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+        "mode_aware_validator": "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --repo-corpus --summary-only",
+        "required_helper_behavior": [
+          "Reuse catalog_reference, private_runtime_research_descriptor, private_research_portfolio_result, and private_research_optimizer_result modes.",
+          "Reuse Wave 6 risk_treatment so risk flags remain evidence until the matching risk lane is explicitly activated.",
+          "Reuse status_separation so catalog_reference, acquisition_status, portfolio_result_status, optimizer_result_status, and promotion_status remain independent.",
+          "Call or mirror validate_vbt642_mode_aware_record for VBT642-backed surfaces instead of re-encoding blocker semantics.",
+          "Keep tokenized private VectorBT Pro docs URL tests sentinel-backed; no repo file should persist token-shaped private URLs."
+        ],
+        "wave_6_validation_facts": {
+          "mode_aware_records_validated": 642,
+          "catalog_reference_count": 642,
+          "risk_flagged_count": 106,
+          "hard_failure_count": 0,
+          "coherence_gates": [
+            "thin_import_gate_status=passed",
+            "overlay_gate_status=passed",
+            "bridge_gate_status=passed",
+            "portfolio_optimizer_gate_status=passed"
+          ]
+        }
+      },
+      "candidate_helper_api_shape": {
+        "policy_loader": "load_shared_vbt_tool_boundary_helper_policy(root=None, config_path=None) -> dict",
+        "surface_classifier": "classify_vbt_tool_boundary_surface(surface_id, evidence, *, root=None, policy=None, mode_record=None) -> dict",
+        "result_validator": "validate_shared_vbt_tool_boundary_result(result, *, root=None, policy=None) -> dict",
+        "finding_summary": "summarize_shared_vbt_tool_boundary_findings(findings, mode) -> dict",
+        "result_required_fields": [
+          "artifact_type",
+          "schema_version",
+          "surface_id",
+          "classification",
+          "source_mode",
+          "mode_reason",
+          "mode_authority_refs",
+          "risk_flags",
+          "risk_treatment",
+          "required_activation_for_risks",
+          "status_separation",
+          "hard_failure_reasons",
+          "research_gap_reasons",
+          "warning_reasons",
+          "pass_reasons",
+          "claim_boundaries"
+        ]
+      },
+      "classification_table": {
+        "hard_failure": [
+          "secret value persisted",
+          "tokenized private docs URL persisted",
+          "production-ready or public claim without explicit authority",
+          "broker-live order claim without explicit authority",
+          "provider-pull, materialization, replay, or VBT-sweep claim without matching activated policy",
+          "donor-repo mutation",
+          "summary-only command writes when the validator/query claims read-only behavior",
+          "focused required validator or test fails"
+        ],
+        "research_gap": [
+          "source readiness absent or incomplete",
+          "fixture parity absent",
+          "real-data smoke absent",
+          "production-readiness evidence absent",
+          "portfolio or optimizer result not run",
+          "private runtime descriptor not requested"
+        ],
+        "warning": [
+          "stale repo-index evidence",
+          "stale script import architecture index evidence",
+          "helper manifest missing a current filesystem surface before Wave 8 reconciliation",
+          "operator_decision_required metadata on a catalog row without activated runtime scope",
+          "exact-path or scanner miss contradicted by current filesystem truth"
+        ],
+        "pass": [
+          "catalog_reference row is valid for docs lookup, schema design, queue classification, and private research planning",
+          "private_runtime_research_descriptor passes Wave 3 and Wave 4 coherence",
+          "private portfolio or optimizer research result preserves Wave 5 status separation",
+          "claim boundaries remain false and private endpoint reference remains symbolic"
+        ]
+      },
+      "early_adoption_candidates_after_helper_lands": [
+        "scripts/v2_validate_v7_2_5_vbt_tool_*.py validators that currently classify catalog-only or no-runtime evidence independently",
+        "scripts/v2_validate_v7_2_5_tool_real_data_smoke.py for real-data-smoke absence as research_gap unless a required smoke test fails",
+        "scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py and scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py for import-smoke versus runtime-claim separation",
+        "scripts/v2_validate_vectorbtpro_mcp_integration.py and Wave 9 MCP/runtime precedence tests after Wave 7 helper semantics are stable",
+        "Wave 10 read-only/index mutation cleanup when finding validators that still turn research_gap or warning evidence into blockers"
+      ],
+      "out_of_scope_until_later_waves": [
+        "Do not refresh repo or script indexes in Wave 7; Wave 8 owns helper manifest and index reconciliation.",
+        "Do not retrofit every VBT tool validator in Wave 7; build the shared helper, policy, schema, contract, validator, and focused tests first.",
+        "Do not add provider pulls, materialization, replay, VBT sweeps, broker-live routing, or production-ready claims.",
+        "Do not copy private VectorBT Pro source or persist private docs URLs; keep endpoint refs symbolic.",
+        "Do not convert research_gap or warning findings into V7 handoff blockers unless a required focused validator/test fails."
+      ],
+      "helper_boundary_requirements": [
+        "Classify catalog-only and no-runtime VBT tool/VBT642 surfaces as catalog_reference unless a current activated policy promotes them to private_runtime_research_descriptor.",
+        "Preserve Wave 5 status separation: acquisition_status, portfolio_result_status, optimizer_result_status, and promotion_status must not collapse into one readiness flag.",
+        "Route source readiness, fixture parity, production-readiness absence, real-data smoke absence, and stale index evidence to research_gap or warning unless a focused required validator/test fails.",
+        "Keep production-ready, public-claim, broker-live, replay, provider-pull, materialization, VBT-sweep, secret persistence, tokenized private URL, and donor-mutation violations as hard_failure.",
+        "Expose a single shared classification helper for VBT tool surfaces so individual validators stop reimplementing blocker semantics."
+      ],
+      "expected_new_or_changed_surfaces_to_confirm": [
+        "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+        "schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json",
+        "contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py",
+        "scripts/v2_validate_shared_vbt_tool_boundary_helper.py",
+        "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py"
+      ],
+      "required_tests": [
+        "catalog-only/no-runtime surface returns catalog_reference instead of hard_failure",
+        "source readiness gap returns research_gap and does not fail by itself",
+        "fixture parity gap returns research_gap and does not fail by itself",
+        "production-readiness absence returns research_gap and does not fail by itself",
+        "secret value or tokenized private docs URL returns hard_failure",
+        "production-ready, public-claim, broker-live, replay, provider-pull, materialization, or VBT-sweep claim without explicit authority returns hard_failure",
+        "Wave 5 acquisition_status, portfolio_result_status, optimizer_result_status, and promotion_status remain separate in helper output",
+        "summary-only validation for the helper is read-only"
+      ],
+      "future_wave_details": [
+        "Wave 8 should add the shared helper policy, schema, contract, module, validator, and tests to repo helper manifests, script import architecture discovery, config variable inventory, and repo-index discovery.",
+        "Wave 8 should run the shared helper validator before index refresh and classify any new generated sqlite, manifest, summary, checkpoint, receipt, or config-inventory churn as Wave 8-owned only when produced by the refresh commands.",
+        "Wave 9 should use classify_vbt_tool_boundary_surface when testing MCP/runtime precedence so stale index, helper manifest lag, operator_decision_required, and exact-path/scanner misses remain warnings unless a focused runtime gate fails.",
+        "Wave 10 should use the shared helper to find validators that still turn research_gap or warning evidence into blockers or write artifacts during summary-only flows."
+      ]
+    },
+    {
+      "wave": 8,
+      "title": "Helper manifest and script surface reconciliation",
+      "role": "Align helper catalogs, repo indexes, script indexes, and generated discovery truth with current filesystem truth.",
+      "status": "completed",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T13:25:00Z",
+      "completed_at_utc": "2026-05-13T13:55:00Z",
+      "refresh_ownership": {
+        "full_repo_index_refresh_owner": "wave_8",
+        "script_import_architecture_index_refresh_owner": "wave_8",
+        "helper_manifest_reconciliation_owner": "wave_8",
+        "config_variable_inventory_refresh_owner": "wave_8",
+        "generated_checkpoint_receipt_churn_owner": "wave_8_when_refresh_commands_write_them",
+        "stale_repo_index_before_wave_8": "nonblocking_evidence_unless_a_required_focused_test_or_validator_fails"
+      },
+      "surfaces_to_reconcile": [
+        "manifests/v2/repo_index.sqlite",
+        "manifests/v2/repo_index_summary.json",
+        "receipts/v2/repo_index_receipts.jsonl",
+        "reference/repo_helpers/index.json",
+        "reference/repo_helpers/repo_script_manifest_20260511.json",
+        "manifests/v2/script_import_architecture_index.sqlite",
+        "manifests/v2/script_import_architecture_index_manifest.json",
+        "manifests/v2/script_import_architecture_index_summary.json",
+        "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+        "receipts/v2/script_import_architecture_index_receipt.json",
+        "manifests/v2/production/config_variable_inventory.json",
+        "configs/v2/output_generator_post_run_index_hooks_policy.json",
+        "scripts/v2_refresh_indexes.py",
+        "scripts/v2_repo_index.py",
+        "scripts/v2_query_script_import_architecture_index.py",
+        "scripts/v2_run_output_generator_post_run_index_hooks.py",
+        "scripts/write_v2_config_variable_inventory.py",
+        "scripts/v2_validate_output_generator_post_run_index_hooks.py"
+      ],
+      "wave_1_to_7_surface_classes_to_add_to_discovery": [
+        "private_full_real_testing_activation policy/schema/validator/tests",
+        "repo_source_data_acquisition policy/schema/contract/source_registry/live_promotion/materialization/tests",
+        "private_runtime_research_overlay policy/schema/contract/validator/tests",
+        "private_vbt_data_acquisition_bridge policy/schema/contract/module/validator/tests",
+        "private_portfolio_optimizer_research_modes policy/schema/contract/module/validator/tests",
+        "vbtpro_642_mode_aware_matrix policy/schema/contract/module/validator/tests",
+        "shared_vbt_tool_boundary_helper policy/schema/contract/module/validator/tests"
+      ],
+      "refresh_sequence": [
+        "Run focused validators for Wave 1-7 owner surfaces before broad index refresh.",
+        "Run the script import architecture index refresh or validator command that owns script/module discovery.",
+        "Run the full repo-index refresh only after Wave 1-7 surfaces are committed or otherwise intentionally staged for Wave 8.",
+        "Run helper manifest reconciliation so new policies, schemas, contracts, modules, validators, scripts, tests, and receipts are discoverable.",
+        "Run config variable inventory refresh through the configured post-output hook rather than ad hoc filesystem edits.",
+        "Classify generated checkpoint, receipt, summary, sqlite, and inventory diffs as Wave 8 owned outputs only when produced by these refresh commands.",
+        "Commit generated refresh artifacts only as a Wave 8 reconciliation commit with exact-path staging and validation evidence."
+      ],
+      "pre_refresh_safety_sequence": [
+        "Record the pre-refresh worktree status before running any refresh writer so existing generated index, checkpoint, receipt, and config-inventory dirt remains distinguishable from Wave 8-owned output.",
+        "Run Wave 1-7 focused validators before regenerating broad indexes so Wave 8 refreshes only reconcile already-valid owner surfaces.",
+        "Regenerate script, repo, helper, and config discovery indexes from current committed source rather than treating pre-existing dirty generated artifacts as authoritative.",
+        "Use the final post-refresh diff to identify Wave 8-owned generated outputs; leave unrelated raw audit reports and any non-refresh dirt unstaged."
+      ],
+      "nonblocking_before_wave_8": [
+        "repo-index stale status",
+        "index head mismatch from Wave 1-7 commits",
+        "new Wave 1-7 tracked files missing from the old repo-index snapshot",
+        "script import architecture index freshness drift",
+        "generated config variable inventory drift",
+        "raw tmp audit reports already classified as tmp_audit_evidence"
+      ],
+      "hard_failures_even_before_wave_8": [
+        "required focused test failure",
+        "required validator hard_failure",
+        "invalid JSON in committed policy/schema/contract/plan surfaces",
+        "secret value or tokenized private docs URL persisted",
+        "unrelated dirty work overwritten or staged",
+        "production-ready, public-claim, broker-live, replay, provider-pull, materialization, or VBT-sweep claim without matching explicit authority"
+      ],
+      "minimum_validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_output_generator_post_run_index_hooks.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_repo_worktree_cleanliness.py --summary-only",
+        "git diff --check"
+      ],
+      "future_wave_details": [
+        "Wave 9 MCP/runtime precedence tests should run after Wave 8 refresh so new Wave 1-7 authority surfaces are discoverable by index-backed lookups.",
+        "Wave 10 read-only cleanup should use the Wave 8 refreshed index to find validators or tests that still mutate receipts, checkpoints, indexes, or generated summaries.",
+        "Wave 11 scanner and exact-path cleanup should use the Wave 8 refreshed repo-index state as its baseline, not the stale pre-Wave-8 index."
+      ],
+      "artifact_refs": [
+        "reference/repo_helpers/index.json",
+        "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json",
+        "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+        "manifests/v2/output_schema_index.json",
+        "manifests/v2/production/config_variable_inventory.json",
+        "manifests/v2/repo_index_hot.json",
+        "manifests/v2/repo_index_summary.json",
+        "manifests/v2/script_import_architecture_index.sqlite",
+        "manifests/v2/script_import_architecture_index_manifest.json",
+        "manifests/v2/script_import_architecture_index_summary.json",
+        "receipts/v2/repo_index_receipts.jsonl",
+        "receipts/v2/script_import_architecture_index_receipt.json",
+        "configs/v2/repo_worktree_cleanliness_policy.json",
+        "configs/v2/worktree_noise_classification_policy_20260513.json",
+        "tests/v2/fixtures/repo_worktree_cleanliness/positive_generated_index_noise_nonblocking.json",
+        "tests/v2/fixtures/repo_worktree_cleanliness/positive_wave8_helper_reference_update_nonblocking.json",
+        "tests/v2/test_repo_worktree_cleanliness.py"
+      ],
+      "validation_summary": {
+        "pre_refresh_worktree_classifier_status": "passed",
+        "pre_refresh_generated_index_refresh_required_count": 8,
+        "pre_refresh_tmp_audit_evidence_count": 8,
+        "wave_1_to_7_json_parse_status": "passed",
+        "wave_1_to_7_validator_status": "passed",
+        "focused_pytest_status": "passed",
+        "focused_pytest_file_count": 10,
+        "helper_overlay_json_status": "passed",
+        "script_import_architecture_rebuild_status": "passed",
+        "script_import_architecture_python_files_indexed": 938,
+        "script_import_architecture_tracked_files_indexed": 3463,
+        "script_import_architecture_symbols_indexed": 8706,
+        "config_variable_inventory_hook_status": "passed",
+        "config_variable_inventory_tracked_config_count": 229,
+        "repo_index_refresh_status": "passed",
+        "repo_index_refreshed_file_count": 26590,
+        "repo_index_refreshed_symbol_count": 9717,
+        "worktree_cleanliness_policy_wave8_path_coverage_status": "expanded_for_output_schema_repo_hot_and_wave8_helper_reference_surfaces",
+        "worktree_cleanliness_final_status": "passed",
+        "precommit_status_note": "Before the Wave 8 generated outputs are committed, script/repo index status may still report tracked_file_hash_changed for generated summaries, receipts, sqlite indexes, and hot-path outputs. That is Wave 8-owned generated output drift, not missing Wave 1-7 source coverage."
+      },
+      "future_wave_implementation_details": [
+        "Wave 9 should query reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json when MCP/runtime precedence needs the exact Wave 1-7 helper surface map.",
+        "Wave 9 should use refreshed repo-index and script-import-index path lookups as the current baseline; old pre-Wave-8 missing-file hits are historical only.",
+        "Wave 10 should distinguish self-generated index output dirt from true summary-only mutation by checking whether the current task explicitly ran an index writer.",
+        "Wave 11 scanner and exact-path cleanup should compare findings against the Wave 8 helper overlay before marking helper/script surfaces missing or stale."
+      ]
+    },
+    {
+      "wave": 9,
+      "title": "MCP/runtime precedence tests",
+      "role": "Lock private docs/source/runtime precedence without persisting private URLs or secrets.",
+      "status": "implemented",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T13:30:00Z",
+      "implemented_at_utc": "2026-05-13T14:40:00Z",
+      "implemented_surfaces": [
+        "configs/v2/mcp_runtime_precedence_policy_20260513.json",
+        "schemas/v2/mcp_runtime_precedence_policy.schema.json",
+        "contracts/v2/mcp_runtime_precedence_policy_contract.json",
+        "scripts/v2_validate_mcp_runtime_precedence.py",
+        "tests/v2/research_factory/test_mcp_runtime_precedence.py"
+      ],
+      "required_precedence_chain": [
+        "Wave 1 private full-real activation policy must be valid before runtime expansion is considered.",
+        "Wave 3 private runtime research overlay validator must pass before MCP run_code or runtime helper behavior is allowed.",
+        "Wave 4 private VBT Data bridge descriptor must pass before VBT Data-backed runtime descriptors are accepted.",
+        "Wave 5 portfolio/optimizer research modes must keep private research result status separate from acquisition and promotion status.",
+        "Wave 6 VBT642 mode-aware metadata must classify catalog_reference versus private_runtime_research_descriptor before runtime expansion.",
+        "Wave 7 shared VBT tool boundary helper must classify findings before MCP/runtime tests decide pass, warning, research_gap, or hard_failure."
+      ],
+      "private_docs_boundary": {
+        "durable_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+        "tokenized_private_url_persistence_allowed": false,
+        "secret_value_persistence_allowed": false,
+        "allowed_mcp_order": [
+          "search_or_find",
+          "resolve_refnames",
+          "get_source_or_get_attrs",
+          "run_code_only_when_explicit_runtime_policy_receipt_and_operator_activation_exist"
+        ]
+      },
+      "required_tests": [
+        "MCP docs/search lookup with symbolic credentialed endpoint ref is allowed as catalog/reference evidence",
+        "tokenized private VectorBT Pro URL in a durable file fails",
+        "MCP run_code/runtime behavior without Wave 1 activation fails",
+        "MCP run_code/runtime behavior without Wave 3 overlay coherence fails",
+        "VBT Data-backed runtime descriptor without Wave 4 bridge coherence fails",
+        "portfolio/optimizer runtime expansion that collapses Wave 5 promotion_status into result status fails",
+        "catalog_reference rows do not become runtime-capable without explicit activation",
+        "summary-only MCP/runtime precedence validation is read-only"
+      ],
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/mcp_runtime_precedence_policy_20260513.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/mcp_runtime_precedence_policy.schema.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/mcp_runtime_precedence_policy_contract.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_mcp_runtime_precedence.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_mcp_runtime_precedence.py"
+      ],
+      "future_wave_details": [
+        "Wave 10 should audit scripts/v2_validate_mcp_runtime_precedence.py for accidental writes during summary-only, repo-corpus, and pytest flows.",
+        "Wave 10 should include tokenized private VectorBT Pro URL and secret-value absence in generated receipt/report/checkpoint scans.",
+        "Wave 11 should treat MCP exact-path, stale helper, and pre-Wave-8 index misses as warning evidence unless scripts/v2_validate_mcp_runtime_precedence.py reports a hard failure.",
+        "Future runtime expansion must keep MCP run_code behind explicit operator activation plus repo-owned config, contract, schema, validator, topology/resource policy, and receipt authority."
+      ]
+    },
+    {
+      "wave": 10,
+      "title": "Read-only and index mutation cleanup",
+      "role": "Stop summary-only/status/test flows from mutating committed artifacts.",
+      "status": "implemented",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T13:30:00Z",
+      "implemented_at_utc": "2026-05-13T14:35:00Z",
+      "read_only_scope": [
+        "--summary-only validator commands",
+        "--repo-corpus validator commands",
+        "status-only query commands",
+        "pytest flows for validators and fixture acceptance tests",
+        "no-network fixture tests for live-source, VBT Data bridge, portfolio/optimizer research modes, VBT642 mode-aware matrix, shared tool boundaries, and MCP precedence"
+      ],
+      "writer_scope_requires_explicit_authority": [
+        "materializers",
+        "output generators",
+        "repo-index refresh",
+        "script import architecture index refresh",
+        "config variable inventory refresh",
+        "receipt writers",
+        "checkpoint writers",
+        "provider pulls",
+        "VBT sweeps",
+        "replay runs",
+        "broker/live routing"
+      ],
+      "carry_forward_safety_tests": [
+        "Wave 1 activation validator summary-only does not rewrite receipts or configs",
+        "Wave 2 live-source tests preserve no-credential/no-network fixture behavior unless explicitly activated",
+        "Wave 3 overlay validator summary-only and repo-corpus modes remain read-only",
+        "Wave 4 VBT Data bridge validator summary-only and repo-corpus modes write no descriptors, receipts, provider files, indexes, or checkpoints",
+        "Wave 5 portfolio/optimizer validator summary-only and repo-corpus modes write no VBT runtime objects, portfolio outputs, optimizer outputs, receipts, reports, indexes, or checkpoints",
+        "Wave 6 VBT642 mode-aware validator does not regenerate matrices or queues in summary-only mode",
+        "Wave 7 shared tool boundary validator does not mutate helper manifests in summary-only mode",
+        "Wave 9 MCP/runtime precedence validator does not call runtime execution or write artifacts in summary-only mode"
+      ],
+      "required_tests": [
+        "summary-only validator command preserves git porcelain output before and after",
+        "repo-corpus validator command preserves git porcelain output before and after",
+        "pytest no-network fixture flow preserves git porcelain output before and after",
+        "generated index/checkpoint/receipt writes are accepted only in explicit writer/refresh commands owned by Wave 8 or later refresh tasks",
+        "secret values and tokenized private docs URLs are absent from all generated receipts/reports/checkpoints"
+      ],
+      "reusable_harness_requirements": {
+        "owner_surface_expectation": "Implement as a small shared test/helper module unless implementation evidence shows a config policy is needed.",
+        "no_write_harness": [
+          "Wrap each command with before/after git porcelain capture and fail on unexpected tracked or untracked mutations.",
+          "Use data-driven command groups so future waves can add commands without rewriting the check logic.",
+          "Treat generated index/checkpoint/receipt/report/summary writes as allowed only when the command is declared in an explicit writer or refresh allowlist.",
+          "Do not infer writer authority from generated dirt alone."
+        ],
+        "command_groups": {
+          "summary_only_validators": "Validator commands that pass --summary-only and must not write artifacts.",
+          "repo_corpus_validators": "Validator commands that pass --repo-corpus --summary-only and must not write artifacts.",
+          "no_network_pytest_flows": "Pytest targets that use fixture/no-credential behavior and must not write artifacts, load live credentials, or pull live data."
+        },
+        "secret_scan_scope": [
+          "receipts",
+          "reports",
+          "checkpoints",
+          "generated summaries"
+        ],
+        "reuse_requirement": "Wave 11 and future writer/materializer waves should reuse the harness instead of creating one-off mutation checks."
+      },
+      "implementation_outputs": {
+        "policy": "configs/v2/read_only_command_harness_policy_20260513.json",
+        "schema": "schemas/v2/read_only_command_harness_policy.schema.json",
+        "contract": "contracts/v2/read_only_command_harness_policy_contract.json",
+        "validator": "scripts/v2_validate_read_only_command_harness.py",
+        "tests": [
+          "tests/v2/test_read_only_command_harness.py"
+        ],
+        "script_surface_allowlist_updated": "configs/v2/script_surface_usage_policy.json"
+      },
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/read_only_command_harness_policy_20260513.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/read_only_command_harness_policy.schema.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/read_only_command_harness_policy_contract.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --skip-commands --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group summary_only_validators --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group repo_corpus_validators --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --command-group no_network_pytest_flows --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_read_only_command_harness.py"
+      ],
+      "future_wave_details": [
+        "Wave 11 should use Wave 10 read-only results to distinguish stale scanner evidence from actual mutating helper defects.",
+        "Wave 11 should treat repo-index and script-import index head-only staleness after this Wave 10 commit as evidence until an explicit index-refresh task is requested.",
+        "Wave 11 should prefer scripts/v2_validate_read_only_command_harness.py over one-off git status checks when proving scanner or helper commands are read-only.",
+        "Any future writer/materializer wave must declare its writer surfaces before running commands that mutate receipts, checkpoints, indexes, reports, or provider outputs."
+      ]
+    },
+    {
+      "wave": 11,
+      "title": "Scanner, exact-path, and legacy authority cleanup",
+      "role": "Ensure stale scanner/index misses are evidence rather than blockers.",
+      "status": "implemented",
+      "preimplementation_notes_saved_at_utc": "2026-05-13T13:30:00Z",
+      "implemented_at_utc": "2026-05-13T15:25:00Z",
+      "legacy_evidence_rules": {
+        "stale_exact_path_miss": "evidence_only_unless_current_filesystem_lookup_and_required_validator_confirm_missing",
+        "scanner_miss": "evidence_only_unless_current_owner_surface_and_required_test_confirm_missing",
+        "old_repo_index_miss": "evidence_only_until_wave_8_refreshed_index_baseline_exists",
+        "controller_next_action": "historical_only_unless_current_active_repair_plan_routes_it",
+        "handoff_status_text": "evidence_only_unless_required_validator_or_focused_test_fails",
+        "archived_or_superseded_plan_claim": "historical_only_unless_supersession_register_marks_candidate_merge"
+      },
+      "cleanup_targets": [
+        "legacy scanner rules that convert missing helper/index hits into blockers",
+        "exact-path validators that fail without checking current filesystem truth",
+        "query profiles that hide script/symbol results needed for low-token default lookup",
+        "controller or handoff notes that still advertise stale next_action authority",
+        "archive or superseded plan references that imply current blocker semantics"
+      ],
+      "required_tests": [
+        "stale exact-path miss is reported as warning or evidence when current filesystem path exists",
+        "scanner miss is reported as warning or evidence when current focused validator passes",
+        "old repo-index miss is nonblocking when Wave 8 refreshed index baseline is unavailable or stale",
+        "superseded controller next_action cannot override active crack-repair plan next_action",
+        "archived blocker language cannot fail a current workflow unless a required focused validator/test fails",
+        "default repo-index query profile remains broad enough to return script, symbol, config, and authority results"
+      ],
+      "stop_condition": [
+        "Scanner, exact-path, stale-index, archived-plan, and handoff-note evidence cannot block research by themselves.",
+        "Hard safety invariants and required focused validator/test failures still block the specific unsafe action.",
+        "Wave 11 cleanup leaves repo discovery strict enough to find real missing surfaces without reviving broad blocker semantics."
+      ],
+      "implementation_outputs": {
+        "policy": "configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json",
+        "schema": "schemas/v2/scanner_exact_path_legacy_authority_policy.schema.json",
+        "contract": "contracts/v2/scanner_exact_path_legacy_authority_policy_contract.json",
+        "validator": "scripts/v2_validate_scanner_exact_path_legacy_authority.py",
+        "tests": [
+          "tests/v2/test_scanner_exact_path_legacy_authority.py"
+        ],
+        "read_only_harness_updated": "configs/v2/read_only_command_harness_policy_20260513.json",
+        "script_surface_allowlist_updated": "configs/v2/script_surface_usage_policy.json"
+      },
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool configs/v2/scanner_exact_path_legacy_authority_policy_20260513.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool schemas/v2/scanner_exact_path_legacy_authority_policy.schema.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m json.tool contracts/v2/scanner_exact_path_legacy_authority_policy_contract.json >/dev/null",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_scanner_exact_path_legacy_authority.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_scanner_exact_path_legacy_authority.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_scanner_exact_path_legacy_authority.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --skip-commands --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_script_surface_usage_policy.py tests/v2/test_read_only_command_harness.py"
+      ],
+      "future_wave_details": [
+        "Potential future waves should reuse scripts/v2_validate_scanner_exact_path_legacy_authority.py before treating stale scanner, exact-path, repo-index, handoff, or superseded-plan evidence as blockers.",
+        "The default repo-index all profile is now protected as broad lookup; authority-filtered discovery must use named profiles such as authority_config or active_authority.",
+        "Script-surface policy now classifies all repo scripts found during Wave 11; future added scripts should update configs/v2/script_surface_usage_policy.json in the same change.",
+        "Real blockers remain hard safety invariant failures, required validator failures, and focused test failures; evidence-only scanner/index/handoff findings should route to follow-up notes or warnings.",
+        "The closeout pass should refresh repo/script/config indexes because Wave 11 added new policy, schema, contract, script, and test surfaces."
+      ]
+    }
+  ],
+  "post_wave_11_closeout": {
+    "status": "completed",
+    "completed_at_utc": "2026-05-13T20:01:43Z",
+    "closeout_checkpoint_ref": "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+    "closeout_receipt_ref": "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+    "purpose": "Close the crack-repair execution plan after Wave 11 unless Wave 11 discovers a new root problem that requires a separately tracked follow-up.",
+    "execution_checklist_saved_at_utc": "2026-05-13T15:40:00Z",
+    "execution_checklist": {
+      "pre_status_snapshot_commands": [
+        "git status --short",
+        "git rev-parse HEAD",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --status --compact --no-auto-refresh"
+      ],
+      "refresh_commands": [
+        {
+          "surface": "output_schema_and_full_repo_index",
+          "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_refresh_indexes.py --compact --summary-only",
+          "expected_writes": [
+            "manifests/v2/output_schema_index.json",
+            "manifests/v2/repo_index.sqlite",
+            "manifests/v2/repo_index_hot.json",
+            "manifests/v2/repo_index_summary.json",
+            "receipts/v2/repo_index_receipts.jsonl"
+          ]
+        },
+        {
+          "surface": "script_import_architecture_index",
+          "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_build_script_import_architecture_index.py --rebuild --summary-only --compact",
+          "expected_writes": [
+            "manifests/v2/script_import_architecture_index.sqlite",
+            "manifests/v2/script_import_architecture_index_manifest.json",
+            "manifests/v2/script_import_architecture_index_summary.json",
+            "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+            "receipts/v2/script_import_architecture_index_receipt.json"
+          ]
+        },
+        {
+          "surface": "config_variable_inventory",
+          "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/write_v2_config_variable_inventory.py --write --summary-only --tracked-only",
+          "expected_writes": [
+            "manifests/v2/production/config_variable_inventory.json"
+          ]
+        }
+      ],
+      "focused_validation_bundle": [
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_full_real_testing_activation.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/data/test_source_registry_no_network.py tests/v2/data/test_live_source_rest_download_receipt.py tests/v2/data/test_live_source_promotion_policy.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_runtime_research_overlay.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_runtime_research_overlay.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_vbt_data_acquisition_bridge.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/data/test_private_vbt_data_acquisition_bridge.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_portfolio_optimizer_research_modes.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_shared_vbt_tool_boundary_helper.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_output_generator_post_run_index_hooks.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_mcp_runtime_precedence.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_mcp_runtime_precedence.py",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_read_only_command_harness.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_scanner_exact_path_legacy_authority.py --repo-corpus --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/test_scanner_exact_path_legacy_authority.py tests/v2/test_script_surface_usage_policy.py tests/v2/test_read_only_command_harness.py"
+      ],
+      "post_refresh_status_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/write_v2_config_variable_inventory.py --check --summary-only --tracked-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/write_v2_output_schema_index.py --check --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --status --compact --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_repo_worktree_cleanliness.py --summary-only",
+        "git diff --check"
+      ],
+      "pass_fail_rules": [
+        "required focused validator failure is a real blocker",
+        "focused pytest failure is a real blocker",
+        "hard safety invariant failure is a real blocker",
+        "secret or tokenized private docs URL persistence is a real blocker",
+        "repo-index, script-import, exact-path, scanner, handoff, or superseded-plan evidence-only findings are warnings unless paired with a required validator/test/safety failure",
+        "head-only or generated-hash staleness after refresh is evidence until the refresh outputs are committed, then must be rechecked"
+      ],
+      "commit_rules": [
+        "commit generated refresh outputs only after the refresh commands and focused validation bundle pass",
+        "stage exact paths only",
+        "do not stage raw tmp audit reports unless a later plan explicitly promotes one",
+        "after committing refresh outputs, rerun repo-index status, script-import status, plan-note status, worktree cleanliness, and git diff --check"
+      ],
+      "completion_rules": [
+        "if no new root problem is found and closeout checks pass after the refresh commit, mark this crack-repair execution plan complete",
+        "if a new root problem is found, create a separate tracked follow-up with owner surfaces, required validators, and focused tests",
+        "do not create Wave 12 for evidence-only scanner, stale-index, exact-path, handoff, or superseded-plan findings"
+      ]
+    },
+    "required_closeout_checks": [
+      "run the final focused validation bundle for Waves 1-11 owner surfaces",
+      "run scripts/v2_validate_read_only_command_harness.py --summary-only",
+      "run repo-index, script-import index, config inventory, and plan-note status checks",
+      "run scripts/v2_validate_repo_worktree_cleanliness.py --summary-only",
+      "run git diff --check"
+    ],
+    "closeout_result": {
+      "status": "passed",
+      "final_head_before_closeout_artifacts": "e0fd13d9c5491d08beacba50dd494ac76c6ce0f6",
+      "refresh_commit": "e0fd13d9c5491d08beacba50dd494ac76c6ce0f6",
+      "focused_validation_bundle_status": "passed",
+      "focused_validation_command_count": 19,
+      "focused_pytest_group_count": 9,
+      "focused_pytest_test_count": 87,
+      "read_only_harness_status": "passed",
+      "read_only_harness_command_count": 24,
+      "secret_scan_status": "passed",
+      "secret_scan_finding_count": 0,
+      "post_refresh_status": {
+        "repo_index_status": "passed_fresh",
+        "script_import_architecture_index_status": "passed_fresh",
+        "config_variable_inventory_status": "passed",
+        "output_schema_index_status": "passed_fresh",
+        "plan_note_index_status": "passed_fresh",
+        "worktree_cleanliness_status": "passed",
+        "git_diff_check_status": "passed"
+      },
+      "new_root_problem_found": false,
+      "residual_nonblocking_evidence": [
+        "eight untracked tmp/reports/production drilldown reports remain classified as tmp_audit_evidence by the worktree cleanliness policy"
+      ]
+    },
+    "follow_up_policy": [
+      "new root problems discovered during Wave 11 must be recorded as a new tracked follow-up with owner surfaces and required validators",
+      "evidence-only scanner/index/handoff findings do not create new waves by themselves",
+      "if no new root problem is found and closeout checks pass, mark the crack-repair execution plan complete"
+    ],
+    "completion_state": "crack_repair_execution_complete_after_wave_11_and_closeout_checks_pass"
+  },
+  "implementation_rules": [
+    "Use the repo indexes and current files together; do not let stale index status become an independent blocker.",
+    "Keep secrets and tokenized private URLs out of repo files; refer to the private docs route only as credentialed_vectorbtpro_api_docs_endpoint.",
+    "Keep older plans and notes as lineage unless the supersession register proves a direct conflict.",
+    "Treat production-named files as operational namespace unless a separate PIT-safe promotion route proves production readiness.",
+    "Use configs/v2/worktree_noise_classification_policy_20260513.json before treating generated index churn, stale index status, or raw tmp audit reports as blockers.",
+    "Stage exact paths only and preserve unrelated generated index or raw audit report churn."
+  ]
+}

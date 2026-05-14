@@ -1,0 +1,184 @@
+{
+  "schema_version": "v2.vbtprobuild_vbtpro_api_lane_generator_drilldown_report.1",
+  "report_id": "vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513",
+  "created_at_utc": "2026-05-13T06:30:06Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "checkpoint_report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+  "checkpoint_layer": 5,
+  "this_layer": 6,
+  "audit_scope": {
+    "focus": "generator, builder, policy-template, queue-builder, fixture-builder, and catalog-batch origins of the active no-runtime/no-acquisition chain reaction",
+    "method": [
+      "read VBT642 export/import matrix builder, policy, schema, contract, and fixture builder logic",
+      "read batch 00 and batch 01 catalog-extension validators as representatives and scanned all nine batch validators",
+      "summarized all batch catalog-extension policies for blocklists and runtime/provider boundary semantics",
+      "compared VBT642 area counts with ranked queue construction rules",
+      "checked whether VBT tool schemas/modules appear to have a current builder owner"
+    ]
+  },
+  "new_cracks": [
+    {
+      "id": "G6-P1-001",
+      "severity": "P1",
+      "title": "VBT642 builder hard-codes no-runtime semantics in Python and output receipts",
+      "summary": "The VBT642 builder is not just reading a catalog-only policy; it writes runtime_execution_allowed false, dispatch_allowed false, and no-runtime receipt/checkpoint fields directly into every generated matrix. That makes the generated authority structurally catalog-only even after private runtime activation exists elsewhere.",
+      "evidence": [
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:50 through 67 defines RUNTIME_SENSITIVE_TERMS in Python rather than reading them from policy.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:210 through 220 classifies runtime-sensitive records as reference-only only for data_provider_pit and portfolio_execution.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:296 through 300 writes dispatch_allowed false and runtime_execution_allowed false on every export record.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:312 writes next_safe_action as create_thin_catalog_import_authority_record_without_runtime_execution.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:411 writes the matrix boundary from policy forbidden_behaviors.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:441 through 449 writes receipt fields native_vectorbtpro_execution_allowed false, provider_pull_allowed false, materialization_allowed false, replay_allowed false, vbt_sweep_allowed false, and runtime_import_execution_allowed false.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:462 through 464 writes checkpoint next_smallest_action without runtime execution and runtime_execution_allowed false."
+      ],
+      "impact": "Any rebuild regenerates catalog-only semantics. Fixing downstream matrix rows by hand would be overwritten by the builder.",
+      "fix_direction": "Make the builder mode-aware and policy-driven: catalog_reference mode should preserve current behavior; private_runtime_overlay mode should emit a separate overlay or merged view with explicit activation refs, receipt requirements, allowed native surfaces, and runtime limits."
+    },
+    {
+      "id": "G6-P1-002",
+      "severity": "P1",
+      "title": "VBT642 schema is too shallow to own the matrix contract",
+      "summary": "The VBT642 schema only validates top-level artifact shape, total_exports const 642, export_records minItems, and production flags. It does not require export record fields, queue membership, false runtime flags, classification values, risk flags, or boundary flags.",
+      "evidence": [
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json:3 sets additionalProperties true.",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json:8 through 10 defines boundary only as object.",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json:11 through 17 defines export_records as array of objects with minItems 642, but no required fields for each record.",
+        "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json:27 through 29 consts total_exports to 642.",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py:114 through 155 contains the actual semantic checks in Python, not in the schema."
+      ],
+      "impact": "The schema cannot protect the generated matrix contract or future runtime overlays. Custom validator logic is doing all real enforcement and is currently hard-coded to no-runtime.",
+      "fix_direction": "Promote the matrix record contract into schema definitions with explicit export record requirements, boundary definitions, classification enum, queue membership metadata, and mode-aware runtime overlay definitions."
+    },
+    {
+      "id": "G6-P1-003",
+      "severity": "P1",
+      "title": "VBT642 risk flags are collected but do not drive operator-decision classification",
+      "summary": "The builder collects risk_flags from script-index evidence but only operator_decision_required from classification_for. In the current matrix, 68 records have risk_flags while operator_decision_required is false.",
+      "evidence": [
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:259 through 264 collects risk_flags from matched files.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:254 receives operator_decision_required only from classification_for.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:217 through 220 only returns runtime_sensitive_reference_only when runtime-sensitive terms occur in data_provider_pit or portfolio_execution.",
+        "Computed matrix audit: risk_flags_non_operator_count 68.",
+        "Computed by_area for those 68 records: base_array_indexing 20, indicator_signal_core 24, records_metrics_returns 8, split_validation_research 6, topology_jit_chunking 6, knowledge_llm_docs 1, utils_config_runtime 3.",
+        "Example: Chunked has area topology_jit_chunking, repo_match_classification src_reference_candidate, operator_decision_required false, and risk_flags including provider_pull_risk, materialization_risk, replay_risk, vbt_sweep_risk, broker_live_risk, and production_claim_risk."
+      ],
+      "impact": "Risk evidence is visible but not authoritative. A future implementation queue could treat risk-bearing native surfaces as ordinary wrapper candidates unless another validator catches them.",
+      "fix_direction": "Define which risk flags require operator decisions, runtime overlays, or separate validators. Then have the builder and validator enforce that policy instead of only storing risk_flags as passive metadata."
+    },
+    {
+      "id": "G6-P1-004",
+      "severity": "P1",
+      "title": "Ranked queue construction conflates area lanes with dependency-expanded build queues",
+      "summary": "The ranked queue builder appends each record to a queue named by lane_rules. The policy maps utils_config_runtime into topology_jit_chunking, so the topology queue becomes a dependency-expanded work queue while the matrix area_count remains the narrower native area count.",
+      "evidence": [
+        "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json:111 through 123 maps utils_config_runtime to topology_jit_chunking.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:338 through 357 builds queues from top rank, importance bucket, lane_rules, classification, and operator_decision_required.",
+        "Computed matrix area topology_jit_chunking count is 50.",
+        "Computed ranked queue topology_jit_chunking count is 198.",
+        "Computed queue_minus_area_count is 148."
+      ],
+      "impact": "A queue name that looks like an area can actually include a much broader dependency set. That matters when using the queue to plan runtime/JIT work or to claim coverage.",
+      "fix_direction": "Add queue metadata for source_rule, dependency_expanded true/false, source_area_count, queue_count, and dependency_area_counts. Rename expanded queues where needed."
+    },
+    {
+      "id": "G6-P1-005",
+      "severity": "P1",
+      "title": "Catalog-extension batch validators duplicate no-runtime logic across nine scripts without schema validation",
+      "summary": "All nine batch catalog-extension validators hard-code provider/runtime forbidden checks, none use jsonschema for their batch surfaces, and most duplicate the same helper function structure. This makes semantic updates expensive and easy to apply inconsistently.",
+      "evidence": [
+        "Batch validator scan found 9 scripts: scripts/v2_validate_v7_2_5_batch_00_catalog_extension.py through scripts/v2_validate_v7_2_5_batch_08_catalog_extension.py.",
+        "All 9 scripts contain provider forbidden and runtime forbidden issue-code logic.",
+        "Schema validation scan: jsonschema/Draft usage was false for all 9 batch validators.",
+        "Line counts range from 242 to 332 lines per batch validator.",
+        "Function lists are nearly identical across batches: _json, _issue, _load_policy, _catalog_record_present, validate_record, validate_fixture, validate_fixture_suite, validate_repo_corpus, summarize, parse_args, and main."
+      ],
+      "impact": "The repo has nine places to update when the catalog-only boundary needs to become evidence-only or overlay-aware. That is a high-risk path for partial fixes.",
+      "fix_direction": "Factor the shared catalog-extension validator behavior into a common module and route batch-specific checks through JSON policy. Add schema validation before custom semantic validation."
+    },
+    {
+      "id": "G6-P1-006",
+      "severity": "P1",
+      "title": "Batch 04 through 08 retained parallel/runtime blocklists without the evidence-only exception used by earlier batches",
+      "summary": "Batch 00 through 03 policies include parallel_layer_existing_path_semantics that say existing repo-corpus matches are evidence, not blockers. Batch 04 through 08 policies do not include that exception while retaining per-tool runtime tree blocklists.",
+      "evidence": [
+        "configs/v2/v7_2_5_batch_00_catalog_extension_policy.json, batch_01, batch_02, and batch_03 include parallel_layer_existing_path_semantics.repo_corpus_existing_matches_are_evidence_not_blockers true.",
+        "configs/v2/v7_2_5_batch_04_catalog_extension_policy.json, batch_05, batch_06, batch_07, and batch_08 have existing_semantics null in the policy summary.",
+        "All nine batch policies retain blocklists for configs/v2/vbt_tools, contracts/v2/vbt_tools, schemas/v2/vbt_tools, src/vbtpro_strategy_v2/vbt_tools, tests/v2/vbt_tools, and scripts/v2_validate_vbt_tool_ variants."
+      ],
+      "impact": "Later batches can still behave like hard blockers for future activated tool paths, while earlier batches were softened to evidence-only for existing paths. That inconsistency can stop or misclassify runtime research work.",
+      "fix_direction": "Normalize every batch policy to the same evidence-only semantics for existing paths, and move future-path blocking into a mode-aware validator that only applies during catalog_reference mode."
+    },
+    {
+      "id": "G6-P2-007",
+      "severity": "P2",
+      "title": "VBT642 fixtures and tests lock in runtime false as the passing state",
+      "summary": "The VBT642 builder writes fixtures from the generated matrix, and the tests assert that every positive export record has runtime_execution_allowed false and dispatch_allowed false. The negative tests are useful for catalog mode, but they also lock the old behavior as the only valid shape.",
+      "evidence": [
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:492 through 557 writes positive and negative fixtures from the current matrix.",
+        "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py:536 through 547 generates negative fixtures that treat runtime, provider pull, materialization, replay, VBT sweep, source copy, and production flags as false-claim failures.",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_accepts_valid_fixture.py:72 asserts all export records have runtime_execution_allowed false and dispatch_allowed false.",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_rejects_false_claims.py:37 through 56 asserts runtime/source/provider/materialization/replay/sweep true flags fail."
+      ],
+      "impact": "A correct activated runtime overlay will fail existing tests unless tests are split into catalog-mode expectations and activated-mode expectations.",
+      "fix_direction": "Keep the existing negative tests for catalog_reference mode and add separate activated overlay fixtures where allowed runtime fields must be true only when activation, source acquisition, topology/resource policy, and receipt refs are present."
+    },
+    {
+      "id": "G6-P2-008",
+      "severity": "P2",
+      "title": "No current VBT tool surface builder owner was found for the 25 static tool schema/module surfaces",
+      "summary": "Targeted searches found validators and existing VBT tool policy/schema/module files, but no active builder that owns the full set of v7_2_5_vbt_tool_* schema/module surfaces. Bulk semantic correction would therefore require either careful manual edits across many files or a new generator.",
+      "evidence": [
+        "Search for build/write/generator terms over scripts found scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py, batch validators, and individual VBT tool validators, but no builder that regenerates all v7_2_5_vbt_tool_* schemas/modules.",
+        "There are 25 schemas/v2/v7_2_5_vbt_tool_*.schema.json files and 25 src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_*.py modules in the audited set.",
+        "The 25 schemas and 25 modules share no-runtime/read-only enforcement patterns but appear as static committed surfaces."
+      ],
+      "impact": "The repo has a broad repeated pattern without a clear single generation point. Fixing it safely needs a new common helper or generator to avoid drift.",
+      "fix_direction": "Introduce a shared tool-boundary schema fragment and validator helper, then migrate the 25 static surfaces in a controlled batch with focused tests."
+    }
+  ],
+  "validated_commands": [
+    {
+      "command": "python -m json.tool tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+      "status": "passed"
+    },
+    {
+      "command": "secret-token-pattern scan on tmp/reports/production",
+      "status": "passed_no_matches"
+    },
+    {
+      "command": "batch validator structure scan",
+      "status": "passed",
+      "batch_validator_count": 9,
+      "all_provider_forbidden": true,
+      "all_runtime_forbidden": true,
+      "all_without_jsonschema_validation": true
+    },
+    {
+      "command": "VBT642 risk flag/operator-decision matrix scan",
+      "status": "passed",
+      "risk_flags_non_operator_count": 68
+    },
+    {
+      "command": "VBT642 queue versus area count scan",
+      "status": "passed",
+      "area_topology_count": 50,
+      "queue_topology_count": 198,
+      "queue_minus_area_count": 148
+    }
+  ],
+  "root_cause_update": {
+    "current_assessment": "The chain reaction is caused by adding private runtime/source acquisition activation beside existing catalog-only generators and validators, rather than routing the activation through the generator, schema, validator, fixture, and test surfaces that still own the no-runtime contract.",
+    "fix_implication": "Do not fix individual symptoms first. Add a mode-aware overlay contract and validator, then update builders/tests to emit and validate catalog_reference and activated_private_runtime as separate states."
+  },
+  "bottom_status": {
+    "hit_bottom": false,
+    "reason": "Layer 6 found generator and fixture-builder root causes; Layer 7 must map the tests and validators that keep passing despite these contradictions.",
+    "next_layer_seed_questions": [
+      "Which test files mention private full-real activation, and are any absent?",
+      "Which validators check research difficulty but omit private activation, VBT642, and VBT tool overlay compatibility?",
+      "Which live/source tests still assert blocked_not_ready semantics after repo source acquisition was made standing-active?",
+      "Which validator names imply runtime activation compatibility while only checking catalog-reference mode?"
+    ]
+  }
+}

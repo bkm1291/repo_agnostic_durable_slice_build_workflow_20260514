@@ -1,0 +1,340 @@
+{
+  "schema_version": "repo_agnostic.audit.v1",
+  "report_id": "vbtprobuild_wave_1_11_planning_build_persistence_audit_20260514",
+  "created_at_local_date": "2026-05-14",
+  "audit_mode": "read_only_source_repo_audit_with_local_report_persistence",
+  "source_repo": "/home/benji/vbtprobuild",
+  "target_repo": "/home/benji/Desktop/repo_agnostic_durable_slice_build_workflow_20260514",
+  "purpose": "Audit the planning structure, build structure, notes, reports, audits, commit history, and build progression of vbtprobuild crack-repair Waves 1-11 so the repo-agnostic workflow can persist the exact governance logic without copying chat prompts as authority.",
+  "source_refs": {
+    "git_commit_range_reviewed": "6d8f2312^..f06d07fd",
+    "first_authority_commit": "6d8f2312 Promote crack repair plan authority",
+    "final_wave_1_11_closeout_visibility_commit": "f06d07fd Refresh indexes after closeout commit",
+    "copied_evidence_manifest": "evidence/vbtprobuild_wave_1_11_20260514/manifest.json",
+    "source_authority_plan": "evidence/vbtprobuild_wave_1_11_20260514/source_authority/plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "source_closeout_checkpoint": "evidence/vbtprobuild_wave_1_11_20260514/source_authority/checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+    "source_closeout_receipt": "evidence/vbtprobuild_wave_1_11_20260514/source_authority/receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+    "source_wave_8_helper_reconciliation": "evidence/vbtprobuild_wave_1_11_20260514/source_authority/reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json",
+    "indexed_forensics_reports": [
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_index_receipt_note_evidence_chain_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_index_refresh_logic_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_current_wave_alignment_audit_20260514.json",
+      "evidence/vbtprobuild_wave_1_11_20260514/indexed_tmp_reports/vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison_20260514.json"
+    ]
+  },
+  "core_conclusion": {
+    "summary": "Waves 1-11 were not a prompt-driven build. They were a repo-native governance loop: promote one active authority plan, save only actionable preimplementation notes, implement a named owner bundle, prove it with focused validators/tests, commit implementation separately from generated discovery refreshes, and close out with checkpoint/receipt proof only at real gates.",
+    "most_important_pattern": "Codex reasoning was retained by writing decisions into durable authority artifacts at the moment they affected future work, while evidence-only reports and generated indexes stayed queryable but non-authoritative.",
+    "notable_negative_rule": "Broad reports, index freshness, stale scanner output, handoff notes, and head-only generated-index drift were not treated as behavioral proof or new work by themselves."
+  },
+  "planning_structure_audit": {
+    "single_active_plan_authority": {
+      "pattern": "The crack-repair execution plan became the running ledger for the entire wave chain.",
+      "evidence": [
+        "6d8f2312 promoted the crack repair plan and supersession register.",
+        "The plan_note_active_set contained one active plan after closeout.",
+        "The old overlay plan was classified historical_non_authoritative and superseded by the crack repair plan."
+      ],
+      "current_decision_after_wave_11": "Waves 1-11 and the post-Wave-11 closeout checks completed. The plan remains the current closeout authority so future work does not accidentally revive superseded blocker semantics.",
+      "next_action_after_wave_11": "No repair implementation wave remains open; future work starts from a new tracked follow-up only if a new root problem is discovered."
+    },
+    "prep_note_commits": {
+      "pattern": "Prep notes were committed only when they narrowed ambiguity or changed future wave order, owners, validators, full-read needs, safety boundaries, index requirements, or activation gates.",
+      "commits": [
+        "e5ec079d Record Wave 3 overlay taxonomy plan",
+        "cae85bca Record Wave 4 bridge boundaries",
+        "551caa55 Record Wave 5 research mode boundaries",
+        "f0463545 Record Wave 6 VBT642 mode plan",
+        "a31f2b97 Record future wave repair details",
+        "2e1bb0f5 Detail Wave 7 helper plan",
+        "11f018fd Record Wave 8 refresh safety sequence",
+        "58e5052f Document Wave 10 reusable no-write harness",
+        "4d563266 Add post Wave 11 closeout plan",
+        "9dbd6a35 Add post Wave 11 closeout checklist"
+      ],
+      "why_it_worked": "The notes were compact and attached to the active plan. They prevented broad replanning while still preserving Codex's reasoning for later waves."
+    },
+    "plan_note_projection": {
+      "pattern": "manifests/v2/plan_note_compiled.json was refreshed when active plan notes changed, making the reasoning discoverable without treating every report as authority.",
+      "risk_to_port": "The projection is large and noisy in diffs. A repo-agnostic port should keep the same authority semantics but prefer compact queryable indexes where possible."
+    },
+    "report_and_audit_role": {
+      "pattern": "Tmp reports and audits were promoted as durable evidence, indexed by output schema and plan-note indexes, but most were not active authority.",
+      "authority_boundary": "The active plan/checkpoint/receipt controlled next action; reports explained why but did not override the plan."
+    },
+    "stale_output_classification": {
+      "pattern": "Generated output, scanner, exact-path, handoff, and superseded-plan findings were evidence unless paired with a required validator failure, focused test failure, or hard safety invariant failure.",
+      "closeout_effect": "No Wave 12 was opened for evidence-only findings."
+    }
+  },
+  "build_structure_audit": {
+    "owner_bundle_shape": {
+      "common_surfaces": [
+        "config or policy JSON",
+        "schema JSON",
+        "contract JSON when cross-surface semantics needed it",
+        "thin src module or helper only when runtime/domain behavior was owned",
+        "owning validator script",
+        "focused pytest coverage",
+        "active plan update",
+        "plan-note projection update"
+      ],
+      "implementation_rule": "Each implementation commit owned one coherent bundle and avoided mixing unrelated future placeholders into the slice.",
+      "proof_rule": "Focused validators and focused tests were behavioral proof. Index freshness was proof only for waves that owned generated discovery or closeout gates."
+    },
+    "per_wave_build_progression": [
+      {
+        "wave": 1,
+        "role": "Activation enforcement",
+        "prep_commit": null,
+        "implementation_commit": "976e0cde",
+        "owner_shape": "private full-real activation config, schema, validator, focused test",
+        "logic": "Direct implementation was acceptable because the authority plan already had enough detail."
+      },
+      {
+        "wave": 2,
+        "role": "Source acquisition semantics",
+        "prep_commit": null,
+        "implementation_commit": "377d6b6b",
+        "owner_shape": "source acquisition policy, source registry, live promotion policy, production pull rules, src helpers, operational materialization runner, focused no-network/live-source tests",
+        "logic": "This was broader than later waves but still coherent because the source-readiness boundary was explicit."
+      },
+      {
+        "wave": 3,
+        "role": "Runtime research overlay taxonomy",
+        "prep_commit": "e5ec079d",
+        "implementation_commit": "eb3f3707",
+        "owner_shape": "overlay policy, schema, contract, validator, focused test",
+        "logic": "The prep note defined hard_failure, research_gap, warning, and pass classifications before coding."
+      },
+      {
+        "wave": 4,
+        "role": "Private VBT Data bridge",
+        "prep_commit": "cae85bca",
+        "implementation_commit": "a69d2cea",
+        "owner_shape": "bridge policy, schema, contract, thin data bridge module, validator, focused test",
+        "logic": "The bridge stayed thin and avoided provider execution, portfolio construction, and production promotion claims."
+      },
+      {
+        "wave": 5,
+        "role": "Portfolio and optimizer research modes",
+        "prep_commit": "551caa55",
+        "implementation_commit": "59d1c66e",
+        "owner_shape": "research mode policy, schema, contract, src helper, validator, focused test",
+        "logic": "Research, acquisition, promotion, portfolio, and optimizer statuses remained separate."
+      },
+      {
+        "wave": 6,
+        "role": "VBT642 mode-aware matrix",
+        "prep_commit": "f0463545 and a31f2b97",
+        "implementation_commit": "b714f9fe",
+        "owner_shape": "mode-aware matrix policy, schema, contract, src helper, validator, focused test",
+        "logic": "Catalog-only records stopped being universal no-runtime blockers; mode fields carried the exact allowed state."
+      },
+      {
+        "wave": 7,
+        "role": "Shared VBT tool boundary helper",
+        "prep_commit": "2e1bb0f5",
+        "implementation_commit": "f8399d3a",
+        "owner_shape": "boundary helper policy, schema, contract, src helper, validator, focused test",
+        "logic": "Repeated blocker semantics moved into one helper instead of being duplicated across validators."
+      },
+      {
+        "wave": 8,
+        "role": "Helper and generated discovery reconciliation",
+        "prep_commit": "11f018fd",
+        "implementation_commit": "44987788",
+        "owner_shape": "helper reference reconciliation, helper/script/repo/config/output index refreshes, checkpoint and index receipts, worktree-noise fixture updates",
+        "logic": "This wave owned discovery reconciliation, so generated refresh outputs were part of the implementation bundle instead of incidental noise."
+      },
+      {
+        "wave": 9,
+        "role": "MCP runtime precedence gate",
+        "prep_commit": null,
+        "implementation_commit": "a2c31d7c",
+        "owner_shape": "MCP runtime precedence policy, schema, contract, validator, focused test",
+        "logic": "Private docs/source/runtime precedence was made explicit without persisting private URLs or secrets."
+      },
+      {
+        "wave": 10,
+        "role": "Reusable read-only command harness",
+        "prep_commit": "58e5052f",
+        "preimplementation_refresh_commit": "ecb65996",
+        "implementation_commit": "e1d27aba",
+        "owner_shape": "read-only harness policy, schema, contract, validator, harness script, tests, script surface usage policy update",
+        "logic": "A discovery refresh happened before implementation because Wave 9 surfaces had to be visible for read-only/no-write cleanup."
+      },
+      {
+        "wave": 11,
+        "role": "Legacy scanner and exact-path authority cleanup",
+        "prep_commits": "4d563266 and 9dbd6a35",
+        "preimplementation_refresh_commit": "8fc52383",
+        "implementation_commit": "413b07fc",
+        "closeout_refresh_commit": "e0fd13d9",
+        "closeout_commit": "3483511c",
+        "final_visibility_refresh_commit": "f06d07fd",
+        "owner_shape": "scanner exact-path policy, schema, contract, validator, tests, script surface policy updates, closeout checkpoint and receipt",
+        "logic": "Stale index misses and legacy scanner findings became evidence-only unless a real validator/test/safety failure existed."
+      }
+    ]
+  },
+  "commit_history_pattern": {
+    "authority_bootstrap": [
+      "6d8f2312 Promote crack repair plan authority",
+      "458fe7d6 Classify crack repair worktree noise",
+      "cd8bace0 Add worktree noise regression fixture",
+      "9ec0af4f Refresh active plan-note index"
+    ],
+    "implementation_commits": [
+      "976e0cde Implement Wave 1 activation enforcement",
+      "377d6b6b Implement Wave 2 source acquisition semantics",
+      "eb3f3707 Implement Wave 3 runtime research overlay",
+      "a69d2cea Implement private VBT Data bridge wave",
+      "59d1c66e Implement private portfolio optimizer research modes",
+      "b714f9fe Implement VBT642 mode-aware matrix",
+      "f8399d3a Add shared VBT tool boundary helper",
+      "44987788 Reconcile Wave 8 helper and index discovery",
+      "a2c31d7c Add Wave 9 MCP runtime precedence gate",
+      "e1d27aba Add Wave 10 read-only command harness",
+      "413b07fc Implement Wave 11 legacy authority cleanup"
+    ],
+    "generated_refresh_commits": [
+      "9ec0af4f Refresh active plan-note index",
+      "ecb65996 Refresh Wave 10 discovery indexes",
+      "8fc52383 Refresh Wave 11 discovery indexes",
+      "e0fd13d9 Refresh indexes for post Wave 11 closeout",
+      "f06d07fd Refresh indexes after closeout commit"
+    ],
+    "closeout_commits": [
+      "4d563266 Add post Wave 11 closeout plan",
+      "9dbd6a35 Add post Wave 11 closeout checklist",
+      "3483511c Complete post Wave 11 closeout"
+    ],
+    "observed_commit_boundary_rule": "Plan-note prep, implementation, generated refresh, and closeout proof were usually separate commits. Wave 8 is the intentional exception because its owner behavior was generated discovery reconciliation."
+  },
+  "index_refresh_and_receipt_logic": {
+    "refresh_triggers_that_were_used": [
+      "active plan authority or plan-note projection changed",
+      "the selected wave owned helper/index/generated discovery reconciliation",
+      "future wave discovery depended on newly added surfaces",
+      "a closeout gate required fresh discovery before final validation",
+      "new closeout checkpoint/receipt artifacts needed to become discoverable"
+    ],
+    "refresh_triggers_rejected": [
+      "habitual end-of-wave freshness",
+      "head-only generated-index staleness after an index commit",
+      "scanner or exact-path evidence with no validator/test/safety failure"
+    ],
+    "receipt_logic": {
+      "per_wave_receipts_default": false,
+      "receipts_written_for": [
+        "generated index writers",
+        "script import architecture index writer",
+        "post-Wave-11 closeout proof"
+      ],
+      "closeout_proof_snapshot": {
+        "focused_validation_commands": 19,
+        "focused_pytest_groups": 9,
+        "focused_pytest_tests": 87,
+        "read_only_harness_status": "passed",
+        "production_readiness_claim": false,
+        "secret_or_tokenized_private_url_persisted": false
+      }
+    }
+  },
+  "repeatable_governance_loop": [
+    {
+      "step": 1,
+      "name": "select_or_create_authority",
+      "rule": "Use one active roadmap/plan/packet as next-action authority and classify older notes as implemented, superseded, draft, historical, or evidence-only."
+    },
+    {
+      "step": 2,
+      "name": "readiness_question",
+      "rule": "Before implementation, decide whether the slice is ready or whether a compact prep note is needed to preserve future-affecting reasoning."
+    },
+    {
+      "step": 3,
+      "name": "targeted_prep_note_when_needed",
+      "rule": "Persist only actionable discoveries about order, owners, validators, full reads, safety boundaries, index requirements, activation gates, or closeout criteria."
+    },
+    {
+      "step": 4,
+      "name": "owner_bundle_implementation",
+      "rule": "Implement only the packet or plan owner bundle: policy/config, schema, contract when useful, helper/module when owned, validator, and focused tests."
+    },
+    {
+      "step": 5,
+      "name": "focused_proof",
+      "rule": "Run JSON parse checks, owning validator, focused tests, relevant read-only/worktree checks, and diff checks. Do not use broad index status as behavioral proof."
+    },
+    {
+      "step": 6,
+      "name": "implementation_commit",
+      "rule": "Commit the coherent owner bundle after proof, with exact intended paths."
+    },
+    {
+      "step": 7,
+      "name": "conditional_generated_refresh",
+      "rule": "Refresh generated discovery outputs only for explicit ownership, stale discovery blockers, future-wave dependency, closeout gates, or operator request."
+    },
+    {
+      "step": 8,
+      "name": "generated_refresh_commit_once",
+      "rule": "If generated outputs are refreshed, batch the required surfaces from the same implementation head and commit them once."
+    },
+    {
+      "step": 9,
+      "name": "no_head_chasing",
+      "rule": "After a generated-index commit, do not refresh again merely because the index now describes its parent commit."
+    },
+    {
+      "step": 10,
+      "name": "closeout_gate_only_when_real",
+      "rule": "Write checkpoint/receipt artifacts only for writers, generators, materializers, external actions, irreversible decisions, or real closeout gates."
+    }
+  ],
+  "persistence_patterns_to_port_into_repo_agnostic_program": [
+    {
+      "pattern": "Git and GitHub tracking should be structural, not optional.",
+      "port_rule": "The workflow should define commit boundaries for planning prep, implementation, generated refresh, and closeout proof, and should make each slice packet name the expected commit plan."
+    },
+    {
+      "pattern": "Authority must be queryable.",
+      "port_rule": "Implement or require a plan-note/packet authority index with active_eligible, authority_class, supersedes, superseded_by, current_decision, next_action, validation refs, and protected surface impacts."
+    },
+    {
+      "pattern": "Evidence must stay distinct from authority.",
+      "port_rule": "Reports, audits, copied external evidence, receipts, checkpoints, manifests, and generated indexes need an artifact/evidence index with source path, checksum, writer/generator, secret-safe status, and authority boundary."
+    },
+    {
+      "pattern": "Validators own behavior.",
+      "port_rule": "A slice is not ready until it names the owning validator or the exact validator extension. Broad status commands are navigation evidence only."
+    },
+    {
+      "pattern": "Runtime-affecting values belong outside hidden code.",
+      "port_rule": "Packets should force config, policy, contract, schema, or explicit operator selection for runtime values."
+    },
+    {
+      "pattern": "Generated refresh needs a decision object.",
+      "port_rule": "Slice packets should carry a structured refresh_decision naming whether refresh is skipped or required, why, exact surfaces, commands, validation, and commit boundary."
+    },
+    {
+      "pattern": "Receipt semantics need enforcement.",
+      "port_rule": "A repo-agnostic receipt/checkpoint validator should reject status-only receipts and allow receipts tied to writers, generators, materializers, external actions, irreversible decisions, or closeout gates."
+    },
+    {
+      "pattern": "Worktree noise is a policy surface.",
+      "port_rule": "Untracked reports, generated artifacts, stale indexes, and external evidence should be classified by policy so they do not silently become blockers or authority."
+    }
+  ],
+  "porting_cautions": [
+    "Do not copy vbtprobuild's domain-specific VBT policies into repo-agnostic doctrine; copy the governance roles and proof boundaries.",
+    "Do not turn prep notes into mandatory bureaucracy. The observed rule was conditional: write a prep note only when it preserves actionable future reasoning.",
+    "Do not make every wave write receipts. The successful pattern avoided status-confetti artifacts.",
+    "Do not make generated indexes a universal proof gate. They were routing evidence except when the selected wave or closeout gate owned generated discovery.",
+    "Do not rely on chat memory or prompt text as durable reasoning. Persist decisions in plan, packet, register, contract, validator, report, receipt, or checkpoint artifacts."
+  ],
+  "audit_result": "The vbtprobuild Wave 1-11 build progression is a strong source model for repo-agnostic build governance. The transferable core is the authority/evidence separation plus commit-boundary discipline: plan or packet controls the slice, focused validators/tests prove behavior, generated refreshes are conditional, and closeout artifacts are written only when they prove a real gate."
+}

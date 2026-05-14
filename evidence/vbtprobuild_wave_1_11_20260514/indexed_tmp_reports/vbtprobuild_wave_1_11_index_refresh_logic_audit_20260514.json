@@ -1,0 +1,247 @@
+{
+  "schema_version": "v2.vbtprobuild_index_refresh_logic_audit.1",
+  "report_id": "vbtprobuild_wave_1_11_index_refresh_logic_audit_20260514",
+  "created_at_utc": "2026-05-14T10:05:00Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "status": "passed",
+  "question": "Track exactly why the Wave 1-11 and current build-prep index refreshes happened, especially why targeted validators were not always active-indexed immediately.",
+  "summary": {
+    "core_logic": "Implementation waves were proven by owning validators and focused tests. Broad repo/script indexes were refreshed only when a later discovery/reconciliation/closeout step needed them.",
+    "main_finding": "Wave 1-7 validators were intentionally not globally routed or active-indexed immediately. Wave 8 owned helper/script/index reconciliation, so Wave 1-7 validators first became indexed tracked files there. They became active dispatch surfaces later when Wave 11 updated configs/v2/script_surface_usage_policy.json and the post-Wave-11 closeout refresh rebuilt the indexes.",
+    "current_state": "The current durable protocol now makes this explicit: new wave validators are direct owner-proof surfaces first; refresh repo/script indexes only when future discovery or another explicit refresh condition requires it.",
+    "not_a_current_crack": true
+  },
+  "mechanics": {
+    "generated_index_commit_model": "Generated refresh commits index their parent implementation head. The script-import summary head and repo-index receipt git_head_before/git_head_after point to the parent commit, not the generated-output commit itself.",
+    "why_head_only_staleness_appears": "After a generated-output commit is created, the committed generated artifacts necessarily describe the parent head. That can create head-only staleness if treated mechanically. The current protocol classifies that as evidence and says not to chase it unless a real refresh condition applies.",
+    "script_import_active_meaning": "A script can be indexed as a tracked file but still have active_allowlist_member=0 and dispatch_allowed=0 until configs/v2/script_surface_usage_policy.json routes it as keep/active. The index reflects the policy state of the captured head."
+  },
+  "refresh_events": [
+    {
+      "refresh_commit": "44987788ca808e36c5ff3fdd97d4459e8fd0faba",
+      "subject": "Reconcile Wave 8 helper and index discovery",
+      "captured_head": "11f018fd61a7df1c2947c445f2d82eb44dca7359",
+      "captured_head_subject": "Record Wave 8 refresh safety sequence",
+      "why_refresh_happened": "Wave 8 explicitly owned helper manifest, script-surface, repo-index, script-index, config-inventory, and generated discovery reconciliation after Waves 1-7 had added new owner surfaces.",
+      "plan_evidence": [
+        "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json#/execution_order/8/role = Align helper catalogs, repo indexes, script indexes, and generated discovery truth with current filesystem truth.",
+        "execution_order.8.refresh_sequence says to run Wave 1-7 focused validators, refresh script import architecture discovery, refresh full repo-index after Wave 1-7 surfaces are committed, refresh config inventory, and commit generated refresh artifacts only as Wave 8 reconciliation output.",
+        "execution_order.8.nonblocking_before_wave_8 says repo-index stale status, new Wave 1-7 tracked files missing from the old repo-index snapshot, and script import architecture freshness drift are nonblocking before Wave 8."
+      ],
+      "generated_outputs": [
+        "manifests/v2/output_schema_index.json",
+        "manifests/v2/production/config_variable_inventory.json",
+        "manifests/v2/repo_index_hot.json",
+        "manifests/v2/repo_index_summary.json",
+        "manifests/v2/script_import_architecture_index.sqlite",
+        "manifests/v2/script_import_architecture_index_manifest.json",
+        "manifests/v2/script_import_architecture_index_summary.json",
+        "receipts/v2/repo_index_receipts.jsonl",
+        "receipts/v2/script_import_architecture_index_receipt.json"
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-13T12:00:47Z",
+        "python_files_indexed": 938,
+        "active_allowlist_files_represented": 158,
+        "cli_surfaces_indexed": 273,
+        "script_policy_membership": 391,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "Wave 1-7 validator files existed in the script index as tracked scripts, but they were not yet active_allowlist_member=1 or dispatch_allowed=1 because script_surface_usage_policy had not yet globally routed them."
+    },
+    {
+      "refresh_commit": "ecb659963323caab7a90e631b8c8e83374e2e230",
+      "subject": "Refresh Wave 10 discovery indexes",
+      "captured_head": "a2c31d7c9714fc630038027a8ef98e0ff051d0a5",
+      "captured_head_subject": "Add Wave 9 MCP runtime precedence gate",
+      "why_refresh_happened": "Wave 9 added a new MCP/runtime validator and policy surfaces. The next plan action was Wave 10 read-only/index mutation cleanup, which needed to discover and audit the Wave 9 validator for no-write behavior.",
+      "plan_evidence": [
+        "At captured head a2c31d7c, next_action says: Prepare Wave 10; include the Wave 9 MCP/runtime precedence validator in summary-only, repo-corpus, and pytest no-write audits.",
+        "execution_order.9.future_wave_details says Wave 10 should audit scripts/v2_validate_mcp_runtime_precedence.py for accidental writes during summary-only, repo-corpus, and pytest flows.",
+        "execution_order.8.future_wave_details says Wave 10 should use the refreshed index to find validators or tests that still mutate receipts, checkpoints, indexes, or generated summaries."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-13T12:35:58Z",
+        "python_files_indexed": 940,
+        "active_allowlist_files_represented": 158,
+        "cli_surfaces_indexed": 274,
+        "script_policy_membership": 391,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "The Wave 9 validator became discoverable as an indexed tracked script, but it was not active allowlisted yet because the global script policy had not added it."
+    },
+    {
+      "refresh_commit": "8fc523833ac4eadebb70b833402a573340e35bcb",
+      "subject": "Refresh Wave 11 discovery indexes",
+      "captured_head": "e1d27aba3eda9ecbb7065eed094f9ddc3806a7d9",
+      "captured_head_subject": "Add Wave 10 read-only command harness",
+      "why_refresh_happened": "Wave 10 added the reusable read-only command harness and routed it in script_surface_usage_policy. Wave 11 scanner/exact-path cleanup needed the fresh harness and discovery baseline.",
+      "plan_evidence": [
+        "At captured head e1d27aba, next_action says: Prepare Wave 11; use the Wave 10 read-only command harness to distinguish stale scanner/index evidence from actual helper mutation defects.",
+        "execution_order.10.future_wave_details says Wave 11 should use Wave 10 read-only results to distinguish stale scanner evidence from actual mutating helper defects and prefer scripts/v2_validate_read_only_command_harness.py over one-off git status checks."
+      ],
+      "script_policy_evidence": [
+        "Commit e1d27aba added scripts/v2_validate_read_only_command_harness.py to configs/v2/script_surface_usage_policy.json."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-13T13:09:33Z",
+        "python_files_indexed": 942,
+        "active_allowlist_files_represented": 159,
+        "cli_surfaces_indexed": 275,
+        "script_policy_membership": 392,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "The active allowlist count rose by one because the Wave 10 read-only harness was globally routed before this refresh."
+    },
+    {
+      "refresh_commit": "e0fd13d9c5491d08beacba50dd494ac76c6ce0f6",
+      "subject": "Refresh indexes for post Wave 11 closeout",
+      "captured_head": "9dbd6a358d2479ce31ce15c8ce4d673df3b2aa6b",
+      "captured_head_subject": "Add post Wave 11 closeout checklist",
+      "why_refresh_happened": "The closeout checklist explicitly required repo/script/config index refreshes, then focused Waves 1-11 validation and post-refresh status checks. This was the decisive refresh that rebuilt script-import indexes after Wave 11 had globally routed the Wave 1-11 validators.",
+      "plan_evidence": [
+        "At captured head 9dbd6a35, next_action says to execute post_wave_11_closeout.execution_checklist: snapshot status, refresh repo/script/config indexes, run Waves 1-11 focused validators and read-only harness, run status/cleanliness/diff checks, then commit generated refresh outputs if clean.",
+        "post_wave_11_closeout.execution_checklist.refresh_commands names output_schema_and_full_repo_index, script_import_architecture_index, and config_variable_inventory refresh commands.",
+        "post_wave_11_closeout.pass_fail_rules classify repo-index, script-import, exact-path, scanner, handoff, or superseded-plan evidence-only findings as warnings unless paired with a required validator/test/safety failure."
+      ],
+      "script_policy_evidence": [
+        "Commit 413b07fc added scripts/v2_validate_scanner_exact_path_legacy_authority.py and routed Wave 1, Wave 3, Wave 4, Wave 5, Wave 6, Wave 7, and Wave 9 validators in configs/v2/script_surface_usage_policy.json.",
+        "The script-import active_allowlist_files_represented count jumped from 159 to 215 after this policy expansion was captured."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-13T19:52:55Z",
+        "python_files_indexed": 944,
+        "active_allowlist_files_represented": 215,
+        "cli_surfaces_indexed": 276,
+        "script_policy_membership": 448,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "All Wave 1-11 validators became active allowlist and dispatch surfaces here because the captured head included the Wave 11 script_surface_usage_policy expansion."
+    },
+    {
+      "refresh_commit": "f06d07fd1945ee81dd899013d4a178a272313ec9",
+      "subject": "Refresh indexes after closeout commit",
+      "captured_head": "3483511c29e5e5e5c6fea4455ee31ae5b167b70b",
+      "captured_head_subject": "Complete post Wave 11 closeout",
+      "why_refresh_happened": "The closeout commit added checkpoint and receipt artifacts and marked the crack-repair plan complete. This final refresh indexed those closeout artifacts and confirmed the Wave 1-11 validator routing stayed active.",
+      "plan_evidence": [
+        "Commit 3483511c added checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json and receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json.",
+        "The closeout plan said that after committing refresh outputs, status checks should be rerun and the plan marked complete only if no new root problem was found."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-13T20:09:51Z",
+        "python_files_indexed": 944,
+        "active_allowlist_files_represented": 215,
+        "cli_surfaces_indexed": 276,
+        "script_policy_membership": 448,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "No new Wave 1-11 validator routing change; this confirmed stability after adding closeout artifacts."
+    },
+    {
+      "refresh_commit": "9e5b9bba5bf6e85383231f6369943d48ceb0dc43",
+      "subject": "Refresh discovery indexes for Wave 04A build",
+      "captured_head": "46a5cdb6f390e3ed0d27916df7c7af35055ef7e9",
+      "captured_head_subject": "Tighten build wave routing and validation protocol",
+      "why_refresh_happened": "The captured head changed top-level build routing, guidance-map routing, script_surface_usage_policy, reference/repo_helpers/index.json, production_authority_index, and scripts/v2_validate_build_wave_protocol.py. Wave 04A build readiness depended on fresh discovery of these rule and validator surfaces.",
+      "evidence": [
+        "Commit 46a5cdb6 added scripts/v2_validate_build_wave_protocol.py to configs/v2/script_surface_usage_policy.json.",
+        "Commit 46a5cdb6 added scripts/v2_validate_build_wave_protocol.py to reference/repo_helpers/index.json recommended_build_mode_helper_set.",
+        "Commit 46a5cdb6 updated AGENTS.md, SKILL.md, production_guidance_authority_map, production_authority_index, the durable protocol, and the Wave 02-08 roadmap."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-14T09:43:40Z",
+        "python_files_indexed": 957,
+        "active_allowlist_files_represented": 222,
+        "cli_surfaces_indexed": 283,
+        "script_policy_membership": 455,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "The build-wave protocol validator became discoverable, active allowlisted, and dispatch allowed for the Wave 04A start gate."
+    },
+    {
+      "refresh_commit": "fffba4bea0289ff20973af49d6aa0149c77c6605",
+      "subject": "Refresh indexes for validator protocol hardening",
+      "captured_head": "c2ec62965041464e0dca371cf51e95d4064ee656",
+      "captured_head_subject": "Harden targeted validator indexing protocol",
+      "why_refresh_happened": "The captured head added the explicit targeted_validator_indexing_policy to the durable protocol and roadmap, updated AGENTS.md/SKILL.md, and changed the build-wave validator/tests that enforce the policy. Because these are top-level workflow and discovery rules, a closeout refresh was justified so future agents find the hardened rule through indexes.",
+      "evidence": [
+        "Commit c2ec6296 added the explicit rule that a new wave validator proves its wave when named in the compact slice packet and run directly, without immediate repo/script index refresh.",
+        "Commit c2ec6296 added validator enforcement that the durable protocol must mention compact slice packet, focused validation, future discovery, configs/v2/script_surface_usage_policy.json, and reference/repo_helpers/index.json."
+      ],
+      "script_import_summary": {
+        "status": "passed",
+        "created_at_utc": "2026-05-14T10:00:40Z",
+        "python_files_indexed": 957,
+        "active_allowlist_files_represented": 222,
+        "cli_surfaces_indexed": 283,
+        "script_policy_membership": 455,
+        "validation_findings": 0
+      },
+      "validator_indexing_effect": "No active allowlist count change; the refresh captured updated validator symbols and protocol references."
+    }
+  ],
+  "active_allowlist_transition": [
+    {
+      "commit": "44987788",
+      "count": 158,
+      "meaning": "Wave 1-7 validators indexed as files but not globally routed."
+    },
+    {
+      "commit": "ecb65996",
+      "count": 158,
+      "meaning": "Wave 9 validator indexed as a file but not globally routed."
+    },
+    {
+      "commit": "8fc52383",
+      "count": 159,
+      "meaning": "Wave 10 read-only harness was routed in script_surface_usage_policy."
+    },
+    {
+      "commit": "e0fd13d9",
+      "count": 215,
+      "meaning": "Wave 11 script_surface_usage_policy expansion routed Wave 1-11 validator surfaces."
+    },
+    {
+      "commit": "f06d07fd",
+      "count": 215,
+      "meaning": "Closeout artifact refresh preserved Wave 1-11 routing."
+    },
+    {
+      "commit": "9e5b9bba",
+      "count": 222,
+      "meaning": "Build-mode validator and related route updates were captured for Wave 04A."
+    },
+    {
+      "commit": "fffba4be",
+      "count": 222,
+      "meaning": "Targeted validator indexing hardening changed symbols/protocol text, not route count."
+    }
+  ],
+  "logic_chain": [
+    "Waves 1-7 prioritized owner behavior correctness and focused validators/tests. Index freshness was evidence only until Wave 8.",
+    "Wave 8 was the first deliberate reconciliation wave, so it refreshed discovery after the foundational surfaces were present.",
+    "Wave 9 introduced MCP/runtime precedence, and Wave 10 needed a fresh enough discovery baseline to audit no-write behavior across that new validator.",
+    "Wave 10 introduced the reusable read-only harness, and Wave 11 needed that harness indexed and routed for scanner/exact-path cleanup.",
+    "Wave 11 globally routed the prior wave validators in script_surface_usage_policy, and the post-Wave-11 closeout refresh made those routes active in the script-import index.",
+    "The final closeout refresh indexed the closeout checkpoint/receipt and confirmed stability.",
+    "The current Wave 04A/pre-build refreshes happened because top-level protocol, routing, helper, and validator surfaces changed and future discovery depends on them."
+  ],
+  "current_policy_reinforcement": {
+    "root_rule": "AGENTS.md and SKILL.md now say new wave validators are direct owner-proof surfaces first and should be indexed only when future discovery or another durable refresh condition requires it.",
+    "durable_rule": "plans/v7_2_5/vbtprobuild_repo_health_durable_turn_protocol_20260513.json#/build_mode_efficiency_protocol/targeted_validator_indexing_policy",
+    "enforcer": "scripts/v2_validate_build_wave_protocol.py validates that the targeted validator indexing policy exists and names compact slice packet, focused validation, future discovery, script_surface_usage_policy, and repo_helpers boundaries.",
+    "test": "tests/v2/research_factory/test_build_wave_protocol.py rejects missing or weakened targeted validator indexing policy."
+  },
+  "conclusion": {
+    "was_there_a_logic": true,
+    "logic_quality": "Coherent. The earlier behavior was not random; it followed a staged pattern of direct focused proof first, discovery reconciliation later when downstream waves needed it.",
+    "remaining_risk": "Low. The risk was that future agents might over-refresh or expect immediate active indexing for every new validator. That risk is now mitigated by root rules, durable protocol, roadmap language, validator enforcement, tests, and fresh indexes."
+  }
+}

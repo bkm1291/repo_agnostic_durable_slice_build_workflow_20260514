@@ -1,0 +1,382 @@
+{
+  "schema_version": "v2.vbtprobuild_vbtpro_api_lane_bottom_drilldown_report.1",
+  "report_id": "vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513",
+  "created_at_utc": "2026-05-13T06:55:00Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "checkpoint_report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_deep_drilldown_20260513.json",
+  "checkpoint_layer": 3,
+  "this_layer": 4,
+  "audit_scope": {
+    "request": "drill one layer deeper from the third report checkpoint and keep looking for cracks",
+    "lanes": [
+      "Overview",
+      "Analysis",
+      "Data",
+      "Indicators",
+      "Intelligence",
+      "Optimization",
+      "Performance",
+      "Portfolio",
+      "Productivity"
+    ],
+    "methods": [
+      "rechecked checkpoint queues against concrete policy/script surfaces",
+      "used VectorBT Pro MCP refname and attribute discovery for native capability evidence",
+      "cross-checked source/data acquisition semantics against source registry validators and tests",
+      "cross-checked private full-real activation semantics against VBT tool policy boundaries",
+      "queried active repo/script/VBT indexes where relevant"
+    ]
+  },
+  "vbtpro_mcp_evidence": {
+    "refname_resolution": {
+      "vbt.Data": "vectorbtpro.data.base.Data",
+      "vbt.Portfolio": "vectorbtpro.portfolio.base.Portfolio",
+      "vbt.PortfolioOptimizer": "vectorbtpro.portfolio.pfopt.base.PortfolioOptimizer",
+      "vbt.IndicatorFactory": "vectorbtpro.indicators.factory.IndicatorFactory",
+      "vbt.Splitter": "vectorbtpro.generic.splitting.base.Splitter",
+      "vbt.ReturnsAccessor": "vectorbtpro.returns.accessors.ReturnsAccessor",
+      "vbt.Records": "vectorbtpro.records.base.Records",
+      "vbt.Param": "vectorbtpro.utils.params.Param",
+      "vbt.Task": "vectorbtpro.utils.execution.Task"
+    },
+    "data_capabilities_seen": [
+      "Data.download",
+      "Data.fetch",
+      "Data.from_data",
+      "Data.from_csv",
+      "Data.from_parquet",
+      "Data.from_sql",
+      "Data.from_duckdb",
+      "Data.from_arcticdb",
+      "Data.update",
+      "Data.to_parquet",
+      "Data.to_duckdb",
+      "Data.align_index",
+      "Data.align_columns"
+    ],
+    "portfolio_capabilities_seen": [
+      "Portfolio.from_signals",
+      "Portfolio.from_orders",
+      "Portfolio.from_order_func",
+      "Portfolio.from_def_order_func",
+      "Portfolio.from_optimizer",
+      "Portfolio.from_holding",
+      "Portfolio.from_random_signals",
+      "Portfolio.orders",
+      "Portfolio.trades",
+      "Portfolio.logs",
+      "Portfolio.allocations",
+      "Portfolio.returns",
+      "Portfolio.drawdowns"
+    ],
+    "optimizer_capabilities_seen": [
+      "PortfolioOptimizer.from_allocate_func",
+      "PortfolioOptimizer.from_allocations",
+      "PortfolioOptimizer.from_filled_allocations",
+      "PortfolioOptimizer.from_initial",
+      "PortfolioOptimizer.from_optimize_func",
+      "PortfolioOptimizer.from_pypfopt",
+      "PortfolioOptimizer.from_riskfolio",
+      "PortfolioOptimizer.from_uniform",
+      "PortfolioOptimizer.from_random",
+      "PortfolioOptimizer.from_universal_algo"
+    ],
+    "indicator_capabilities_seen": [
+      "IndicatorFactory.from_expr",
+      "IndicatorFactory.from_ta",
+      "IndicatorFactory.from_talib",
+      "IndicatorFactory.from_pandas_ta",
+      "IndicatorFactory.from_technical",
+      "IndicatorFactory.from_wqa101",
+      "IndicatorFactory.list_indicators",
+      "IndicatorFactory.register_custom_indicator"
+    ]
+  },
+  "new_cracks": [
+    {
+      "id": "BD-P1-001",
+      "severity": "P1",
+      "title": "Private full-real activation is not reconciled with VBT tool policies",
+      "summary": "The repo now has an active private full-real activation policy that enables provider pulls, materialization, feature/label generation, replay, VBT sweeps, and runtime execution, but the VBT tool policy layer still records those same lanes as false almost everywhere. The activation validator passes because it only validates the activation policy itself, not the surfaces that continue to carry no-runtime/no-provider semantics.",
+      "evidence": [
+        "configs/v2/private_full_real_testing_activation_policy.json:29 enables local VectorBT runtime execution, provider_probe, provider_pull, live_data_subscription, raw_landing_write, materialization, feature/label generation, replay, portfolio_replay, order/trade ledger generation, VBT sweeps, and runtime receipts.",
+        "configs/v2/private_full_real_testing_activation_policy.json:71 translates catalog-extension no-runtime/no-provider/no-materialization/no-replay/no-sweep flags as default catalog boundaries superseded for runtime tasks.",
+        "scripts/v2_validate_private_full_real_testing_activation.py:39 only requires lanes in the activation policy to be true.",
+        "scripts/v2_validate_private_full_real_testing_activation.py:160 only checks legacy translation flags inside the activation policy.",
+        "A scan of configs/v2/v7_2_5_vbt_tool_*.json found 25 of 25 with provider_pull_allowed false, 25 of 25 with materialization_allowed false, 25 of 25 with vbt_sweep_allowed false, 24 of 25 with replay_allowed false, and 24 of 25 with runtime_implementation_allowed false."
+      ],
+      "impact": "Agents, validators, and scripts reading the VBT tool policy layer can still conclude runtime/data/replay/sweep work is blocked even when the current activation policy says the work is allowed under configured authority.",
+      "fix_direction": "Add an activation-overlay validator that loads private_full_real_testing_activation_policy plus all VBT tool policies and classifies no-runtime/no-provider flags as catalog-only unless a tool-specific runtime policy intentionally overrides or denies them."
+    },
+    {
+      "id": "BD-P1-002",
+      "severity": "P1",
+      "title": "Research difficulty validator passes while missing the largest current blockers",
+      "summary": "The repo has a dedicated research-difficulty semantic validator, and it passes, but it does not scan the VBT tool policies, source-registry live/historical cross-fields, helper-manifest drift, or default-write builders that this drilldown found.",
+      "evidence": [
+        "scripts/v2_validate_research_difficulty_semantics.py:40 limits source gate string scanning to 11 SOURCE_GATE_PATHS.",
+        "scripts/v2_validate_research_difficulty_semantics.py:86 validates status translations and selected config flags.",
+        "scripts/v2_validate_research_difficulty_semantics.py:186 checks only one private sweep worker flag for maximum useful configured workers.",
+        "The command PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_research_difficulty_semantics.py --repo-corpus --summary-only returned status passed with issue_count 0.",
+        "The validator does not inspect configs/v2/v7_2_5_vbt_tool_*.json, does not compare source_registry supports_live/ready_for_live to source_acquisition_policy, and does not verify helper manifest/policy coverage for active research scripts."
+      ],
+      "impact": "The repo can report research continuation semantics as clean while the practical work surfaces still contain stale read-only/no-runtime/no-provider semantics.",
+      "fix_direction": "Extend the validator into a cross-policy semantic validator: activation overlay vs VBT tool policies, source registry top-level vs acquisition policy, helper manifest/script surface coverage, and read-only command write behavior."
+    },
+    {
+      "id": "BD-P1-003",
+      "severity": "P1",
+      "title": "Flatfiles live semantics are internally contradictory",
+      "summary": "Flatfiles are configured as historical-pull surfaces, but two flatfile source registry rows still advertise supports_live and ready_for_live as true. Validators accept this because they only require flatfiles historical pulls and never compare the top-level live flags with delivery-surface policy.",
+      "evidence": [
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json:49 says flatfiles historical_pull_allowed true and live_pull_allowed false.",
+        "configs/v2/production_data_pull_rule_sheet.json:166 says flatfiles historical_pull_allowed true and live_pull_allowed false.",
+        "configs/v2/source_registry.json:138 marks massive_flatfiles_stocks_daily supports_live true and ready_for_live true while source_acquisition_policy.live_pull_allowed is false at line 147.",
+        "configs/v2/source_registry.json:206 marks massive_flatfiles_stocks_minute supports_live true and ready_for_live true while source_acquisition_policy.live_pull_allowed is false at line 215.",
+        "src/vbtpro_strategy_v2/data/source_registry.py:48 validates source_acquisition_policy fields but does not reject supports_live true with live_pull_allowed false.",
+        "tests/v2/data/test_source_registry_no_network.py:109 asserts flatfiles source_acquisition_policy.live_pull_allowed false but does not assert top-level supports_live false."
+      ],
+      "impact": "Downstream selection and audit code can treat flatfiles as live-ready even though the authoritative delivery-surface policy says they are historical backfill surfaces.",
+      "fix_direction": "Rename or split top-level readiness fields into acquisition_route_ready, historical_pull_ready, and live_subscription_ready, then add validator/tests that flatfiles cannot advertise live subscription support unless a future policy explicitly allows it."
+    },
+    {
+      "id": "BD-P1-004",
+      "severity": "P1",
+      "title": "VBT Data bridge exists only as dry-run/read-only adapters",
+      "summary": "The repo has VBT Data adapter, update, and persistence policy files, but each one forbids the native action it describes. This is useful for catalog validation, but it is not an executable bridge from configured source acquisition into native VBT Data construction/update/persistence.",
+      "evidence": [
+        "configs/v2/v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter_policy.json:9 implemented_scope is read_only_configured_dataframe_adapter_plan_only and line 10 says vbt_data_construction_status not_authorized.",
+        "configs/v2/v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter_policy.json:49 forbids provider_pull, materialization, VBT Data construction, and adapter output writes.",
+        "configs/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner_policy.json:9 implemented_scope is read_only_data_updater_dry_run_plan_only and line 10 says vbt_data_update_status not_authorized.",
+        "configs/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner_policy.json:42 forbids provider pull/probe, raw landing, materialization, VBT update, and update writes.",
+        "configs/v2/v7_2_5_vbt_tool_010_data_saver_persistence_route_adapter_policy.json:9 implemented_scope is read_only_persistence_route_adapter_plan_only and line 10 says data_saver_execution_status not_authorized.",
+        "configs/v2/v7_2_5_tool_real_data_smoke_policy.json:15 forbids provider_pull, materialization, replay, and vbt_sweep in real-data smoke.",
+        "MCP evidence shows native vbt.Data supports Data.download, Data.fetch, Data.from_data, Data.from_parquet, Data.update, and Data.to_parquet."
+      ],
+      "impact": "Data is easier to discover than before, but it is still not easy to acquire into a native VBT Data workflow through repo-owned executable bridges.",
+      "fix_direction": "Add a runtime-enabled VBT Data acquisition bridge policy that explicitly composes source_registry acquisition, production IO authority, VBT Data construction/update/persistence, receipts, and focused validation."
+    },
+    {
+      "id": "BD-P1-005",
+      "severity": "P1",
+      "title": "Portfolio research is still clamped to from_signals",
+      "summary": "Native VectorBT Pro exposes multiple portfolio constructors and optimizer entrypoints, but the repo production portfolio runtime policy and validator hard-require Portfolio.from_signals only.",
+      "evidence": [
+        "configs/v2/production_portfolio_runtime_policy.json:16 sets native_surfaces.portfolio_constructor to vectorbtpro.portfolio.Portfolio.from_signals.",
+        "src/vbtpro_strategy_v2/production/portfolio_runtime_policy.py:92 validates required native surfaces.",
+        "src/vbtpro_strategy_v2/production/portfolio_runtime_policy.py:105 errors unless the constructor equals vectorbtpro.portfolio.Portfolio.from_signals.",
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:66 references Portfolio and Portfolio.from_signals plus portfolio.orders/trades/logs/stats/drawdowns, but does not require from_orders/from_order_func/from_optimizer.",
+        "MCP evidence shows Portfolio.from_orders, Portfolio.from_order_func, Portfolio.from_def_order_func, Portfolio.from_optimizer, and PortfolioOptimizer.from_allocate_func/from_optimize_func/from_pypfopt/from_riskfolio exist."
+      ],
+      "impact": "Order-level, allocation-level, optimizer, and custom order function research paths are artificially excluded even when private research/runtime activation allows broader VBT work.",
+      "fix_direction": "Split portfolio policy into production execution mode and private research modes; keep from_signals for production if desired, but authorize from_orders/from_order_func/from_optimizer under private research with separate contracts and receipts."
+    },
+    {
+      "id": "BD-P1-006",
+      "severity": "P1",
+      "title": "Helper manifest and script surface policy still lag active research scripts",
+      "summary": "The helper index still claims a 179-script filesystem/catalog world while the repo now has 266 scripts. The current script manifest contains 183 script records, missing 83 filesystem scripts, and the script surface policy leaves 49 current scripts unclassified.",
+      "evidence": [
+        "reference/repo_helpers/index.json:66 summary_counts says all_filesystem_scripts_cataloged true.",
+        "reference/repo_helpers/index.json:72 says catalog_record_count 179 and line 77 says filesystem_script_count 179.",
+        "reference/repo_helpers/repo_script_manifest_20260511.json:15 begins canonical lane lists, and the file has script_count 183 / script_records 183.",
+        "Filesystem scan found 266 scripts/*.py.",
+        "Manifest diff found 83 scripts missing from reference/repo_helpers/repo_script_manifest_20260511.json.",
+        "Script surface policy diff found 49 filesystem scripts not classified by active_allowlist or logical_archive_by_category.",
+        "Missing/unclassified samples include VBT642 import matrix builders/query validators, VectorBT Pro private docs high-value index builders/query validators, private research sweep builders/runners/query validators, script import architecture index builders/query validators, and VBT tool validators."
+      ],
+      "impact": "Future agents can fail duplicate-prevention and helper-selection workflows exactly where the repo is most actively growing: VBT tooling, private research, and activation validators.",
+      "fix_direction": "Regenerate/reconcile repo_helpers script manifest and script_surface_usage_policy from the actual filesystem plus current script import architecture index, then add a validator that fails on count drift."
+    },
+    {
+      "id": "BD-P2-007",
+      "severity": "P2",
+      "title": "VectorBT private docs high-value index builder writes even in summary-only mode",
+      "summary": "The docs high-value index builder has --summary-only, but it always builds and writes the output before printing the summary. This contradicts the expected read-only behavior for summary/status flows.",
+      "evidence": [
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py:551 defines arguments --policy, --output, and --summary-only but no --write or --rebuild flag.",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py:558 chooses the output path.",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py:559 calls build_index(policy_path, output) unconditionally.",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py:542 writes JSON output inside build_index.",
+        "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py:571 only changes what is printed, not whether the index is written."
+      ],
+      "impact": "Read-only validation or summary inspection can dirty committed index artifacts and invalidate repo/script indexes.",
+      "fix_direction": "Make default behavior dry-run/read-only, add explicit --write or --rebuild for index writes, and keep --summary-only as print-only."
+    },
+    {
+      "id": "BD-P2-008",
+      "severity": "P2",
+      "title": "VBT642 reference-only matrix is not overlaid with current activation policy",
+      "summary": "The VBT642 matrix still marks all data-provider and portfolio-execution exports as runtime-disabled/operator-required, while current private full-real activation says runtime/provider/materialization/replay/sweep lanes are enabled. Both surfaces pass their own validators, but there is no reconciled view of which VBT exports are executable under current private activation.",
+      "evidence": [
+        "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json contains 642 export records.",
+        "Area data_provider_pit has 52 records, all P0 critical, all operator_decision_required, runtime_allowed_true 0, dispatch_allowed_true 0.",
+        "Area portfolio_execution has 36 records, 35 P0 critical and 1 P1 high, all operator_decision_required, runtime_allowed_true 0, dispatch_allowed_true 0.",
+        "configs/v2/private_full_real_testing_activation_policy.json:29 enables runtime/provider/materialization/replay/sweep lanes under private full-real testing.",
+        "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py --summary-only passes with total_exports 642 and issue_count 0."
+      ],
+      "impact": "The repo has no single machine-readable answer to 'which native VBT exports are allowed for private research execution right now?'",
+      "fix_direction": "Create a derived runtime activation overlay index that joins VBT642 export records with current activation policies, tool-specific policies, production-claim boundaries, and required validators."
+    },
+    {
+      "id": "BD-P2-009",
+      "severity": "P2",
+      "title": "Private sweep runtime is active but still local/preacquired-only and under-scoped for portfolio modes",
+      "summary": "The private VBT sweep runner is active and allows local VectorBT runtime execution plus research output writes, but it forbids provider pulls and only uses a narrow from_signals portfolio metric surface.",
+      "evidence": [
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:111 records current operator activation for bounded private research random10 VectorBT Pro sweep.",
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:181 allows bounded_vbt_sweep, local_data_read, local_vectorbtpro_runtime_execution, portfolio_metrics, research_output_write, and runtime_implementation.",
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:195 sets provider_probe_allowed false and line 196 sets provider_pull_allowed false.",
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:156 sets resource_limits.max_workers to 1, while configured_local_research later points max_workers_source to the resource wrapper.",
+        "configs/v2/private_research_vbt_sweep_runner_policy.json:66 lists native_surface_refs centered on Portfolio.from_signals and portfolio records/metrics."
+      ],
+      "impact": "The active private sweep route is useful for local smoke, but it cannot use the repo-wide easy acquisition semantics or the broader VBT portfolio modes without another policy layer.",
+      "fix_direction": "Add separate run profiles for local smoke, acquired-data research, and portfolio-mode research; read workers from resource policy for research profiles and compose provider acquisition through repo_source_data_acquisition_policy."
+    },
+    {
+      "id": "BD-P2-010",
+      "severity": "P2",
+      "title": "Repo/script index freshness remains noisy during audit/report work",
+      "summary": "The active repo index, plan-note index, and script import architecture index all report stale states during this audit pass, mostly due generated index artifacts and new report artifacts. This should be evidence-only, but it degrades confidence in index-backed conclusions unless the stale reasons are classified.",
+      "evidence": [
+        "scripts/v2_repo_index.py --status --summary-only --no-auto-refresh returned status stale with 8 tracked_file_hash_changed reasons.",
+        "scripts/v2_query_script_import_architecture_index.py --summary-only returned status stale with 6 tracked_file_hash_changed reasons.",
+        "scripts/v2_plan_note_index.py --status --compact --no-auto-refresh returned status stale because the new tmp/reports/production audit reports were missing from the index.",
+        "scripts/v2_static_lookup_index.py --status --summary-only returned status passed and stale false, so the VBT static lookup layer was not the stale component."
+      ],
+      "impact": "Index-stale signals can distract from real cracks or be misread as workflow blockers, especially while the audit itself is generating new report artifacts.",
+      "fix_direction": "Add an audit-report freshness classification that marks tmp report additions and generated-index self-drift as nonblocking evidence, while preserving hard failures for missing tracked authority files."
+    },
+    {
+      "id": "BD-P3-011",
+      "severity": "P3",
+      "title": "Knowledge automation policy uses confusing forbidden_runtime_behaviors naming",
+      "summary": "The knowledge automation policy has a key named forbidden_runtime_behaviors, but several runtime lanes under that key are set true when gated helper boundaries are active. The validator may intentionally allow this, but the name is hostile to automated scanning and agent interpretation.",
+      "evidence": [
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json:54 defines runtime_provider_materialization_replay_sweep_helper as allowed true but default_allowed false.",
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json:78 sets authorized_runtime_helper_boundary.enabled true.",
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json:165 uses the key forbidden_runtime_behaviors.",
+        "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json:174 through 180 set runtime_execution_allowed, provider_pull_allowed, provider_probe_allowed, materialization_allowed, replay_allowed, vbt_sweep_allowed, and broker_live_allowed to true under that key."
+      ],
+      "impact": "Scanners and future agents can report false contradictions or, worse, invert the meaning of runtime permissions.",
+      "fix_direction": "Rename the section to gated_runtime_behavior_flags or split forbidden flags from gated allowed flags."
+    }
+  ],
+  "false_positive_or_lower_priority_notes": [
+    {
+      "topic": "query_surface_has_write_ops scanner output",
+      "note": "Several query surfaces were flagged because the static scanner saw append/json.dumps/string construction, not durable file writes. These should not be treated as concrete write bugs without AST/dataflow refinement."
+    },
+    {
+      "topic": "NIM and Massive credential scanner flags",
+      "note": "NIM/Massive findings are better classified as default-network/default-write or runtime-intent issues, not proven secret persistence; credential routing/redaction exists in the inspected policy/runtime areas."
+    },
+    {
+      "topic": "flatfiles live source proof naming",
+      "note": "run_flatfiles_live_source_proof performs a historical flatfile/S3 evidence pull and raw landing write under historical authorization. The issue is semantic naming/readiness mismatch, not necessarily that the historical pull itself is wrong."
+    }
+  ],
+  "activation_gap_map": {
+    "Data": {
+      "native_capability": "VBT Data can download/fetch/from_data/from_parquet/update/to_parquet.",
+      "repo_surface": "Tools 007, 008, and 010 describe the bridge but remain dry-run/not_authorized.",
+      "gap": "No active execution bridge joins source registry acquisition to VBT Data construction/update/persistence."
+    },
+    "Portfolio": {
+      "native_capability": "Portfolio and PortfolioOptimizer support multiple construction and allocation paths.",
+      "repo_surface": "production_portfolio_runtime_policy hard-requires from_signals.",
+      "gap": "Private research modes for from_orders/from_order_func/from_optimizer are not represented."
+    },
+    "Indicators": {
+      "native_capability": "IndicatorFactory supports TA-Lib, pandas-ta, technical, WQA101, expression, and custom sources.",
+      "repo_surface": "VBT tool policies 014-020 mostly classify indicator execution/feature materialization as not_authorized or false.",
+      "gap": "Indicator catalogs exist, but feature materialization and signal generation remain broadly inactive in tool policy."
+    },
+    "Optimization": {
+      "native_capability": "PortfolioOptimizer exposes allocation, optimization, PyPortfolioOpt, Riskfolio, random, uniform, and universal-algo constructors.",
+      "repo_surface": "VBT642 marks portfolio_execution as operator decision required and runtime false; production portfolio policy does not carry optimizer modes.",
+      "gap": "Optimization lane has no current executable private research mode mapped to optimizer surfaces."
+    },
+    "Intelligence": {
+      "native_capability": "MCP/docs/source lookup is authorized for reference and gated runtime helper learning exists.",
+      "repo_surface": "MCP integration default runtime helper boundary remains disabled while knowledge automation enables gated runtime helper behavior with confusing flag names.",
+      "gap": "Runtime helper precedence is split across multiple policies and not validated as one overlay."
+    }
+  },
+  "index_status_observed": {
+    "repo_index": {
+      "status": "stale",
+      "stale_reason_count": 8,
+      "interpretation": "evidence quality warning, not a workflow blocker"
+    },
+    "plan_note_index": {
+      "status": "stale",
+      "stale_reason_count": 4,
+      "interpretation": "new audit reports missing from index; evidence quality warning"
+    },
+    "script_import_architecture_index": {
+      "status": "stale",
+      "stale_reason_count": 6,
+      "interpretation": "index-backed script conclusions need stale-reason caveat"
+    },
+    "static_lookup_index": {
+      "status": "passed",
+      "stale": false,
+      "interpretation": "native VBT static lookup evidence is fresh"
+    },
+    "vbt642_export_import_matrix": {
+      "status": "passed",
+      "total_exports": 642,
+      "top100_queue_count": 100,
+      "top300_queue_count": 300
+    }
+  },
+  "recommended_fix_order": [
+    {
+      "order": 1,
+      "workstream": "activation_overlay_validator",
+      "description": "Add a validator/report that reconciles private_full_real_testing_activation_policy, vectorbtpro_mcp_integration_policy, v7_2_5_vbt_knowledge_automation_policy, VBT642 matrix records, and all VBT tool policies."
+    },
+    {
+      "order": 2,
+      "workstream": "source_registry_cross_field_validation",
+      "description": "Fix or rename flatfiles supports_live/ready_for_live semantics and add tests tying top-level readiness to source_acquisition_policy and delivery_surface semantics."
+    },
+    {
+      "order": 3,
+      "workstream": "vbt_data_execution_bridge",
+      "description": "Create a repo-owned runtime bridge from source registry acquisition to native VBT Data construction/update/persistence with receipts and configured output routes."
+    },
+    {
+      "order": 4,
+      "workstream": "portfolio_research_modes",
+      "description": "Add private research portfolio modes for from_orders, from_order_func, from_optimizer, and PortfolioOptimizer while preserving production from_signals if needed."
+    },
+    {
+      "order": 5,
+      "workstream": "helper_manifest_and_script_surface_reconciliation",
+      "description": "Update helper manifest and script surface usage policy for all 266 scripts and add drift validation."
+    },
+    {
+      "order": 6,
+      "workstream": "summary_only_write_semantics",
+      "description": "Patch concrete summary-only write bugs first, starting with the VectorBT private docs high-value index builder."
+    },
+    {
+      "order": 7,
+      "workstream": "index_stale_evidence_classification",
+      "description": "Classify audit-report and generated-index self-drift as nonblocking evidence so drilling reports do not create misleading workflow friction."
+    }
+  ],
+  "bottom_status": {
+    "hit_bottom": false,
+    "reason": "This layer found a deeper class of cracks: validators pass each isolated policy while cross-policy activation semantics disagree. The next drill layer should inspect validator contracts/schemas for missing cross-policy requirements and then convert findings into an implementation plan.",
+    "next_layer_seed_questions": [
+      "Which validators should own activation-overlay reconciliation instead of allowing isolated pass states?",
+      "Which VBT tool policies should remain catalog-only and which should receive runtime-enabled private research variants?",
+      "Which source readiness fields are overloaded and should be renamed or split?",
+      "Which index stale states should become nonblocking evidence classifications?"
+    ]
+  }
+}

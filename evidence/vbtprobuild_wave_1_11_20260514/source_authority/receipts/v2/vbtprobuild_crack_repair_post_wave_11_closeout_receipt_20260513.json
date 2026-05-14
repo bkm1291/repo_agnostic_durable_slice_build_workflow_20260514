@@ -1,0 +1,145 @@
+{
+  "artifact_type": "vbtprobuild_crack_repair_post_wave_11_closeout_receipt",
+  "schema_version": "v1",
+  "receipt_id": "vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513",
+  "created_at_utc": "2026-05-13T20:01:43Z",
+  "status": "passed",
+  "plan_ref": "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+  "checkpoint_ref": "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+  "refresh_commit": "e0fd13d9c5491d08beacba50dd494ac76c6ce0f6",
+  "closeout_scope": "post_wave_11_crack_repair_execution_closeout",
+  "preconditions": {
+    "repo_index_status": "passed_fresh",
+    "script_import_architecture_index_status": "passed_fresh",
+    "plan_note_index_status": "passed_fresh",
+    "only_untracked_worktree_noise": "tmp_audit_evidence"
+  },
+  "focused_validation_bundle": [
+    {
+      "id": "wave1_activation_validator",
+      "status": "passed"
+    },
+    {
+      "id": "wave1_activation_pytest",
+      "status": "passed",
+      "test_count": 6
+    },
+    {
+      "id": "wave2_source_acquisition_pytest",
+      "status": "passed",
+      "test_count": 20
+    },
+    {
+      "id": "wave3_private_runtime_overlay_validator",
+      "status": "passed",
+      "hard_failure_count": 0,
+      "research_gap_count": 1
+    },
+    {
+      "id": "wave3_private_runtime_overlay_pytest",
+      "status": "passed",
+      "test_count": 9
+    },
+    {
+      "id": "wave4_private_vbt_data_bridge_validator",
+      "status": "passed",
+      "hard_failure_count": 0
+    },
+    {
+      "id": "wave4_private_vbt_data_bridge_pytest",
+      "status": "passed",
+      "test_count": 7
+    },
+    {
+      "id": "wave5_portfolio_optimizer_validator",
+      "status": "passed",
+      "hard_failure_count": 0
+    },
+    {
+      "id": "wave5_portfolio_optimizer_pytest",
+      "status": "passed",
+      "test_count": 7
+    },
+    {
+      "id": "wave6_vbt642_mode_aware_validator",
+      "status": "passed",
+      "hard_failure_count": 0
+    },
+    {
+      "id": "wave6_vbt642_mode_aware_pytest",
+      "status": "passed",
+      "test_count": 7
+    },
+    {
+      "id": "wave7_shared_vbt_tool_boundary_validator",
+      "status": "passed",
+      "hard_failure_count": 0
+    },
+    {
+      "id": "wave7_shared_vbt_tool_boundary_pytest",
+      "status": "passed",
+      "test_count": 8
+    },
+    {
+      "id": "wave8_output_generator_post_run_index_hooks_validator",
+      "status": "passed",
+      "issue_count": 0
+    },
+    {
+      "id": "wave9_mcp_runtime_precedence_validator",
+      "status": "passed",
+      "hard_failure_count": 0
+    },
+    {
+      "id": "wave9_mcp_runtime_precedence_pytest",
+      "status": "passed",
+      "test_count": 7
+    },
+    {
+      "id": "wave10_read_only_command_harness",
+      "status": "passed",
+      "command_count": 24,
+      "hard_failure_count": 0,
+      "secret_scan_finding_count": 0,
+      "secret_scan_scanned_file_count": 388
+    },
+    {
+      "id": "wave11_scanner_exact_path_legacy_authority_validator",
+      "status": "passed",
+      "hard_failure_count": 0,
+      "evidence_count": 0
+    },
+    {
+      "id": "wave11_scanner_script_read_only_pytest",
+      "status": "passed",
+      "test_count": 16
+    }
+  ],
+  "post_refresh_status_checks": {
+    "repo_index_status": "passed_fresh",
+    "script_import_architecture_index_status": "passed_fresh",
+    "config_variable_inventory_status": "passed",
+    "output_schema_index_status": "passed_fresh",
+    "plan_note_index_status": "passed_fresh",
+    "worktree_cleanliness_status": "passed",
+    "worktree_cleanliness_warn_count": 8,
+    "git_diff_check_status": "passed"
+  },
+  "closeout_decision": {
+    "new_root_problem_found": false,
+    "create_wave_12": false,
+    "mark_crack_repair_closeout_complete": true,
+    "keep_crack_repair_plan_as_active_closeout_authority": true,
+    "future_follow_up_policy": "Create a separate tracked follow-up only for a new root problem with owner surfaces, required validators, and focused tests."
+  },
+  "residual_nonblocking_evidence": [
+    {
+      "classification": "tmp_audit_evidence",
+      "path_prefix": "tmp/reports/production/",
+      "path_count": 8,
+      "blocking": false
+    }
+  ],
+  "production_readiness_claim": false,
+  "secret_or_tokenized_private_url_persisted": false
+}

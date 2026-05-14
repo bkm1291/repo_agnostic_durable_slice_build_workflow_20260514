@@ -1,0 +1,155 @@
+{
+  "artifact_type": "vbtprobuild_full_index_fix_plan",
+  "schema_version": "v1",
+  "plan_id": "vbtprobuild_full_index_fix_plan_20260513",
+  "created_at_utc": "2026-05-13T04:10:11Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "head_commit": "db5a48b467511ead81da06476587739fc22e223a",
+  "source_audit_ref": "tmp/reports/production/vbtprobuild_full_index_audit_20260513.json",
+  "status": "primary_phases_implemented_validated",
+  "operator_request": "save plan and implement",
+  "implementation_principles": [
+    "Keep ValueInvesting retirement as the active source-denominator baseline.",
+    "Fix false-green index status before relying on broad indexed lookup for later repair work.",
+    "Make read-only validation semantics reliable before running broad validators repeatedly.",
+    "Satisfy source promotion evidence for remaining Massive lanes without weakening fixture_before_live_required.",
+    "Keep private docs URLs out of persisted repo artifacts; use credentialed_vectorbtpro_api_docs_endpoint in durable files.",
+    "Preserve unrelated dirty work and stage exact paths only if a later commit is requested."
+  ],
+  "phases": [
+    {
+      "phase_id": "phase_0_preserve_current_cleanup_baseline",
+      "priority": 0,
+      "status": "completed",
+      "scope": [
+        "retired external short-data provider from active source surfaces",
+        "saved full-index audit report",
+        "synced VBT tool 002 active source count to 9"
+      ],
+      "success_criteria": [
+        "focused source/provider/VBT validations pass",
+        "no active ValueInvesting references remain in active source/config/schema/script/test surfaces",
+        "VBT real-data, top300, and other300 smokes pass"
+      ]
+    },
+    {
+      "phase_id": "phase_1_index_trust",
+      "priority": 1,
+      "status": "implemented",
+      "owned_findings": [
+        "P1_repo_index_false_freshness",
+        "P2_script_import_index_stale_head"
+      ],
+      "target_surfaces": [
+        "scripts/v2_repo_index.py",
+        "repo-index builder/query modules imported by scripts/v2_repo_index.py",
+        "scripts/v2_query_script_import_architecture_index.py",
+        "script-import architecture index builder/query modules",
+        "focused tests under tests/v2"
+      ],
+      "changes": [
+        "Compare git-tracked path set to repo-index sqlite files table.",
+        "Compare current tracked file hashes to indexed hashes for tracked files.",
+        "Compare current HEAD to index build metadata for repo and script-import indexes.",
+        "Return stale=true or failed status when tracked paths are missing, indexed tracked paths no longer exist, hashes differ, or HEAD metadata differs.",
+        "Emit precise stale reasons such as tracked_file_missing, indexed_file_missing, tracked_file_hash_changed, and index_head_mismatch."
+      ],
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --path scripts/v2_validate_research_difficulty_semantics.py --compact --no-auto-refresh",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only"
+      ]
+    },
+    {
+      "phase_id": "phase_2_summary_only_read_only",
+      "priority": 2,
+      "status": "implemented",
+      "owned_findings": [
+        "P2_summary_only_mutation_semantics"
+      ],
+      "target_surfaces": [
+        "scripts/v2_validate_data_estate_output_routes.py",
+        "scripts/v2_validate_text_event_alignment.py",
+        "scripts/validate_v2_timeframe_registry.py",
+        "scripts/v2_validate_sources.py",
+        "scripts/v2_validate_data_quality_masking.py",
+        "focused tests under tests/v2"
+      ],
+      "changes": [
+        "Treat --summary-only as read-only by default.",
+        "Add or require explicit --write, --write-report, --write-receipt, or durable output flags before writing tracked reports, manifests, receipts, or checkpoints.",
+        "Default summary-only report generation to in-memory summaries or temporary paths.",
+        "Add regression coverage that summary-only validation leaves git-tracked outputs untouched."
+      ],
+      "validation_commands": [
+        "git diff --quiet -- manifests/v2/data_estate_no_delete_cleanup_candidate_manifest.json manifests/v2/data_estate_writer_route_audit.json",
+        "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_data_estate_output_routes.py --summary-only",
+        "git diff --quiet -- manifests/v2/data_estate_no_delete_cleanup_candidate_manifest.json manifests/v2/data_estate_writer_route_audit.json"
+      ]
+    },
+    {
+      "phase_id": "phase_3_source_acquisition_coverage",
+      "priority": 3,
+      "status": "implemented",
+      "owned_findings": [
+        "P1_source_acquisition_remaining_massive_lanes"
+      ],
+      "target_sources": [
+        "massive_flatfiles_stocks_minute",
+        "massive_rest_technical_indicators",
+        "massive_websocket_quotes_live"
+      ],
+      "target_surfaces": [
+        "configs/v2/source_registry.json",
+        "configs/v2/production_data_pull_rule_sheet.json",
+        "schemas/v2/raw_landing.schema.json",
+        "source fixture receipts and raw landing lineage reports referenced by scripts/v2_validate_sources.py",
+        "focused source validation tests"
+      ],
+      "changes": [
+        "Inspect the current source validator receipt contract before adding evidence.",
+        "Add bounded fixture receipts, schema coverage, and raw landing lineage evidence for each remaining Massive lane where existing fixture/materializer helpers can generate them.",
+        "Keep websocket live quotes as research/evidence unless a live route is explicitly activated.",
+        "Do not weaken fixture_before_live_required; either satisfy it or record an explicit non-promotion research-only classification."
+      ],
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_sources.py --slice pit_price_corporate_actions_and_history_store --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_sources.py --slice pit_fundamentals_filings_news_and_short_float --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_sources.py --slice pit_feature_store_availability_gate_and_asof_joins --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_sources.py --slice source_intelligence_outcome_labels_and_scorecards --summary-only"
+      ]
+    },
+    {
+      "phase_id": "phase_4_research_index_noise_and_schema_identity",
+      "priority": 4,
+      "status": "planned_follow_up",
+      "owned_findings": [
+        "P2_private_research_artifact_warning_noise",
+        "P2_private_vbt_sweep_missing_output",
+        "P2_output_schema_identity_gap",
+        "P3_plan_note_metadata_coverage",
+        "P3_mcp_private_docs_url_output"
+      ],
+      "changes": [
+        "Separate expected historical absolute routes from actionable private research route warnings.",
+        "Add freshness/build metadata to private research indexes.",
+        "Regenerate or explicitly mark missing VBT sweep metrics summary as an expected historical gap.",
+        "Prioritize explicit schema identity for production-run outputs, receipts, manifests, checkpoints, and research datasets.",
+        "Add persisted-artifact lint coverage for tokenized private docs URLs."
+      ],
+      "validation_commands": [
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_private_research_artifact_index.py --summary-only",
+        "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_private_research_vbt_sweep_result_index.py --summary-only",
+        "jq '{missing_schema_identity_count, explicit_schema_identity_count}' manifests/v2/output_schema_index.json"
+      ]
+    }
+  ],
+  "final_validation_commands": [
+    "git diff --check",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_plan_note_index.py --status --compact --no-auto-refresh",
+    "PYTHONDONTWRITEBYTECODE=1 /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_tool_real_data_smoke.py --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py --repo-corpus --summary-only"
+  ]
+}

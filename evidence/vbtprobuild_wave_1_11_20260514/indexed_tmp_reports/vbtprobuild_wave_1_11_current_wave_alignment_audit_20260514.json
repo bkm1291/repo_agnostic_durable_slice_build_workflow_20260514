@@ -1,0 +1,203 @@
+{
+  "artifact_type": "vbtprobuild_wave_1_11_current_wave_alignment_audit",
+  "schema_version": "1.0",
+  "report_id": "vbtprobuild_wave_1_11_current_wave_alignment_audit_20260514",
+  "created_at_utc": "2026-05-14T00:00:00Z",
+  "status": "complete",
+  "purpose": "Audit the Wave 1-11 repair/build workflow, top-level notes, plans, validation rules, build protocol, and current VBTPro pipeline waves to identify missing or drifted details before starting Wave 04A implementation.",
+  "scope": {
+    "baseline_workflow": "Waves 1-11 validator-led repair chain and closeout workflow",
+    "current_wave_chain": "Full VBTPro private research pipeline Wave 02-08 roadmap with Wave 04A as the next implementation slice",
+    "surfaces_audited": [
+      "AGENTS.md",
+      "SKILL.md",
+      "configs/v2/production_guidance_authority_map.json",
+      "configs/v2/script_surface_usage_policy.json",
+      "configs/v2/read_only_command_harness_policy_20260513.json",
+      "manifests/v2/plan_note_active_set.json",
+      "plans/v7_2_5/vbtprobuild_repo_health_durable_turn_protocol_20260513.json",
+      "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+      "plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json",
+      "scripts/v2_validate_build_wave_protocol.py",
+      "tests/v2/research_factory/test_build_wave_protocol.py",
+      "tmp/reports/production/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+      "tmp/reports/production/vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison_20260514.json"
+    ]
+  },
+  "source_authority_refs": [
+    "configs/v2/production_guidance_authority_map.json",
+    "manifests/v2/production_authority_index.json",
+    "plans/v7_2_5/vbtprobuild_repo_health_durable_turn_protocol_20260513.json",
+    "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+    "plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json",
+    "tmp/reports/production/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+    "tmp/reports/production/vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison_20260514.json"
+  ],
+  "validation_snapshot": {
+    "startup_authority_query": "passed",
+    "repo_index_status": "stale_nonblocking_head_and_generated_visibility_mismatch",
+    "build_wave_protocol_validator": "passed_for_wave04a_packet",
+    "vbtpro_full_read_readiness": "passed",
+    "vectorbtpro_mcp_integration": "passed",
+    "private_vbt_data_acquisition_bridge": "passed",
+    "private_runtime_research_overlay": "passed_with_expected_research_gap",
+    "private_portfolio_optimizer_research_modes": "passed"
+  },
+  "wave_1_11_baseline": {
+    "golden_loop": [
+      "readiness_question",
+      "targeted_prep_when_needed",
+      "owner_surface_implementation",
+      "future_wave_notes_at_closeout",
+      "focused_proof",
+      "implementation_commit",
+      "conditional_index_refresh",
+      "do_not_chase_generated_index_head_staleness"
+    ],
+    "closeout_proof_shape": {
+      "focused_validation_commands": 19,
+      "focused_pytest_groups": 9,
+      "focused_pytest_tests": 87,
+      "read_only_harness_commands": 24,
+      "new_root_problem_found": false,
+      "wave_12_required": false
+    },
+    "current_adaptation": "Current VBTPro waves should copy the cadence and proof boundary of Waves 1-11, with one additional requirement: full-detail VBTPro source/read evidence before implementing code that depends on exact VBTPro runtime surfaces."
+  },
+  "current_wave_assessment": {
+    "next_slice": "wave_04a_loader_feature_semantics",
+    "readiness": "ready_if_wave04a_packet_is_used_as_start_gate",
+    "primary_owner_packet": "plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json",
+    "owning_wave_validator": "scripts/v2_validate_vbtpro_research_loader_adapter.py",
+    "owning_wave_tests": "tests/v2/data/test_vbtpro_research_loader_adapter.py",
+    "current_strengths": [
+      "Durable turn protocol now captures Build Mode, compact slice packets, conditional index refresh, and validator-led wave proof.",
+      "Wave 04A packet names the owning validator and focused test to be created during implementation.",
+      "Build-wave protocol validator enforces compact packet shape, owning validator/test inclusion, VBT read references, and stale index-refresh wording.",
+      "Wave 04A packet quarantines future placeholders so GPU ML, paper trading, LLM agents, and NVIDIA optional profiles do not leak into the loader slice."
+    ]
+  },
+  "findings": [
+    {
+      "id": "alignment_gap_001",
+      "severity": "P2",
+      "surface": "configs/v2/production_guidance_authority_map.json",
+      "evidence": "The private_vbtpro_research_pipeline route lists the roadmap, Wave 02 packet, loader semantics plan, research notes, and full-read policy/register, but does not list plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json or the build-wave protocol validator command.",
+      "impact": "Agents using the guidance map alone can find the pipeline roadmap but may miss the exact Wave 04A compact packet and start-gate validator.",
+      "blocking_status": "nonblocking_if_AGENTS_and_roadmap_are_read",
+      "recommendation": "Add the Wave 04A packet and build-wave validator command to the private_vbtpro_research_pipeline route or a child route before Wave 04A implementation."
+    },
+    {
+      "id": "alignment_gap_002",
+      "severity": "P2",
+      "surface": "configs/v2/read_only_command_harness_policy_20260513.json",
+      "evidence": "The read-only harness still covers Wave 1-11 repair validators and tests, but does not include scripts/v2_validate_build_wave_protocol.py in summary-only/repo-corpus command groups or its focused pytest.",
+      "impact": "The new start-gate validator is proven directly, but the reusable read-only harness does not yet protect it from future accidental writes.",
+      "blocking_status": "nonblocking_for_wave04a_start",
+      "recommendation": "Add the build-wave protocol validator and focused test to the read-only harness policy or schedule this in the next harness-maintenance slice."
+    },
+    {
+      "id": "alignment_gap_003",
+      "severity": "P2",
+      "surface": "configs/v2/script_surface_usage_policy.json and helper/catalog indexes",
+      "evidence": "The script surface usage policy active allowlist does not include scripts/v2_validate_build_wave_protocol.py, and helper/catalog discovery does not expose it until index/catalog refresh or reconciliation.",
+      "impact": "The validator works when called directly from the packet, but script-selection discovery can under-report the new validator.",
+      "blocking_status": "nonblocking_until_script_reconciliation_or_index_refresh",
+      "recommendation": "Register the build-wave validator in the script surface policy/catalog during the next reconciliation or index-refresh maintenance step."
+    },
+    {
+      "id": "alignment_gap_004",
+      "severity": "P2",
+      "surface": "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+      "evidence": "Wave 02 and Wave 03 objects still contain stale 'new validator/test' wording after those files were implemented. Wave 03 exact commands include the Massive OHLCV writer validator, but the required_validators list still centers the source-backed profile validator and omits the writer validator.",
+      "impact": "The roadmap is usable because exact commands and later protocol language are stronger, but duplicate sections can mislead future packet creation.",
+      "blocking_status": "nonblocking",
+      "recommendation": "Normalize implemented-wave language and make Wave 03 required_validators match the actual owner validators already used."
+    },
+    {
+      "id": "alignment_gap_005",
+      "severity": "P2",
+      "surface": "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+      "evidence": "The Wave 04 object still has descriptor-era owner surfaces while the current implementation order splits Wave 04 into Wave 04A loader/feature semantics, Wave 03 provider-completion bridge, and Wave 04B real-output loading.",
+      "impact": "A direct reader of the Wave 04 object could start descriptor/real-output work too early instead of using the Wave 04A packet.",
+      "blocking_status": "nonblocking_if_wave04a_packet_is_used",
+      "recommendation": "Add explicit Wave 04A and Wave 04B owner-surface blocks or revise the Wave 04 object to route through the Wave 04A packet first."
+    },
+    {
+      "id": "alignment_gap_006",
+      "severity": "P3",
+      "surface": "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+      "evidence": "Wave 05-08 objects rely on the future-wave template for the build-wave start gate instead of listing scripts/v2_validate_build_wave_protocol.py directly inside each wave's required_validators.",
+      "impact": "Future packet validation will catch missing start gates, but individual wave objects are less self-contained.",
+      "blocking_status": "nonblocking",
+      "recommendation": "When each future packet is created, copy the build-wave start-gate validator into that wave's explicit required validator list."
+    },
+    {
+      "id": "alignment_gap_007",
+      "severity": "P3",
+      "surface": "AGENTS.md and SKILL.md",
+      "evidence": "Top-level rules mention compact slice packets and focused validators/tests. The durable protocol has the exact owning-validator/owning-test requirement, but SKILL.md does not spell out those fields as strongly as the protocol.",
+      "impact": "Agents reading only top-level prose may understand the packet requirement but miss the exact owning validator/test naming rule until they read the durable protocol.",
+      "blocking_status": "nonblocking",
+      "recommendation": "Add one concise phrase to SKILL.md or AGENTS.md that every implementation packet must name the owning wave validator and owning focused test."
+    },
+    {
+      "id": "alignment_gap_008",
+      "severity": "P3",
+      "surface": "manifests/v2/plan_note_active_set.json",
+      "evidence": "The active plan set still points to the completed crack-repair execution plan as current active plan authority, while the VBTPro research pipeline roadmap is routed through the guidance map instead.",
+      "impact": "This is structurally acceptable, but agents using only the active plan output can land on post-Wave-11 closeout rather than the current VBTPro build route.",
+      "blocking_status": "nonblocking",
+      "recommendation": "Either leave as-is and rely on the guidance map, or add a lightweight active-route note that the crack repair chain is closed and current private VBTPro pipeline build work is routed through the private_vbtpro_research_pipeline guidance layer."
+    },
+    {
+      "id": "alignment_gap_009",
+      "severity": "P3",
+      "surface": "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+      "evidence": "The roadmap validation_matrix for the roadmap artifact does not include scripts/v2_validate_build_wave_protocol.py even though the roadmap now depends on that validator for build-mode packet proof.",
+      "impact": "Roadmap validation can pass while omitting the validator that proves future packet readiness.",
+      "blocking_status": "nonblocking",
+      "recommendation": "Add the build-wave protocol validator to the roadmap artifact validation matrix."
+    },
+    {
+      "id": "alignment_gap_010",
+      "severity": "P3",
+      "surface": "scripts/v2_validate_build_wave_protocol.py",
+      "evidence": "The validator has explicit future-boundary keyword checks for Wave 04A, but future-wave-specific not_in_scope expectations are not config-driven yet.",
+      "impact": "Wave 04A is protected, but Waves 05-08 will need their own packet-specific boundary checks when activated.",
+      "blocking_status": "nonblocking_for_wave04a",
+      "recommendation": "When creating each future packet, either extend the validator with that wave's boundary keywords or move wave-specific boundary expectations into a small config-owned policy."
+    },
+    {
+      "id": "alignment_gap_011",
+      "severity": "P3",
+      "surface": "manifests/v2/production_authority_index.json",
+      "evidence": "The code-change authority query does not directly return the durable turn protocol. AGENTS.md still requires reading it before detailed planning or protected edits.",
+      "impact": "No practical blocker if AGENTS.md is followed, but a tool-only authority query does not surface the build-mode protocol by itself.",
+      "blocking_status": "nonblocking",
+      "recommendation": "Consider adding the durable turn protocol to the production authority index for code_change scope during the next authority-index maintenance pass."
+    }
+  ],
+  "recommended_fix_package": {
+    "blocking_required_before_wave04a": false,
+    "strongest_pre_wave04a_cleanup": [
+      "Add Wave 04A packet and build-wave validator lookup to the private VBTPro pipeline guidance route.",
+      "Add build-wave protocol validator to the roadmap validation matrix.",
+      "Normalize Wave 04A/04B routing in the roadmap so direct readers do not skip the loader slice."
+    ],
+    "safe_to_defer": [
+      "Read-only harness inclusion for build-wave protocol validator.",
+      "Script surface policy/helper catalog registration.",
+      "Plan-note active-set current-route note.",
+      "Future Waves 05-08 packet-specific boundary enforcement."
+    ]
+  },
+  "conclusion": {
+    "overall_state": "strong",
+    "wave04a_ready": true,
+    "wave04a_condition": "Use the Wave 04A compact packet and build-wave protocol validator as the start gate.",
+    "missing_core_architecture": false,
+    "missing_small_alignment_details": true,
+    "summary": "The current build workflow correctly copies the Wave 1-11 validator-led cadence and adds the necessary VBTPro full-read gate. The remaining issues are small routing, discoverability, and duplicate-section drift details, not architecture blockers."
+  }
+}

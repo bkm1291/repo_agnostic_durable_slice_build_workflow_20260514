@@ -1,0 +1,56 @@
+{
+  "artifact_type": "vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint",
+  "schema_version": "v1",
+  "checkpoint_id": "vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513",
+  "created_at_utc": "2026-05-13T20:01:43Z",
+  "status": "crack_repair_execution_complete",
+  "plan_ref": "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+  "receipt_ref": "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+  "refresh_commit": "e0fd13d9c5491d08beacba50dd494ac76c6ce0f6",
+  "completed_waves": [
+    "wave_1_activation_schema_validator_tests",
+    "wave_2_source_registry_live_historical_acquisition",
+    "wave_3_cross_policy_private_runtime_overlay",
+    "wave_4_private_vbt_data_acquisition_bridge",
+    "wave_5_portfolio_optimizer_research_modes",
+    "wave_6_vbt642_mode_aware_matrix_queue_risk_metadata",
+    "wave_7_shared_vbt_tool_boundary_helper",
+    "wave_8_helper_manifest_script_surface_reconciliation",
+    "wave_9_mcp_runtime_precedence",
+    "wave_10_read_only_index_mutation_cleanup",
+    "wave_11_scanner_exact_path_legacy_authority_cleanup"
+  ],
+  "closeout_validation_state": {
+    "focused_validation_bundle_status": "passed",
+    "focused_validation_command_count": 19,
+    "focused_pytest_group_count": 9,
+    "focused_pytest_test_count": 87,
+    "read_only_harness_status": "passed",
+    "read_only_harness_command_count": 24,
+    "post_refresh_status_checks": "passed",
+    "new_root_problem_found": false
+  },
+  "plan_note_state_after_closeout": {
+    "classification_policy_ref": "configs/v2/plan_note_authority_classification_policy.json",
+    "expected_active_plan_count": 1,
+    "expected_active_plan_ids": [
+      "v7_2_4_vbtprobuild_crack_repair_execution_plan_20260513"
+    ],
+    "current_direction": "Crack-repair waves 1-11 are complete; the active closeout authority prevents superseded blocker semantics from controlling future work. Create a new tracked follow-up only for a newly discovered root problem with owner surfaces, required validators, and focused tests."
+  },
+  "residual_nonblocking_evidence": [
+    {
+      "classification": "tmp_audit_evidence",
+      "path_prefix": "tmp/reports/production/",
+      "path_count": 8,
+      "blocking": false,
+      "policy_ref": "configs/v2/worktree_noise_classification_policy_20260513.json"
+    }
+  ],
+  "next_allowed_steps": [
+    "run ordinary research or a new scoped plan from current repo authority",
+    "create a separate tracked follow-up only for a new root problem",
+    "treat scanner, stale-index, exact-path, handoff, and superseded-plan findings as evidence unless paired with a required validator, focused test, or hard safety invariant failure"
+  ],
+  "production_readiness_claim": false
+}

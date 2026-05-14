@@ -1,0 +1,210 @@
+{
+  "schema_version": "v2.vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_report.1",
+  "report_id": "vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513",
+  "created_at_utc": "2026-05-13T06:30:06Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "checkpoint_report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+  "checkpoint_layer": 6,
+  "this_layer": 7,
+  "audit_scope": {
+    "focus": "validators and tests that currently pass while private runtime/source-acquisition overlay contradictions remain",
+    "method": [
+      "searched test coverage for private activation, repo source acquisition, source readiness, VBT642, tool preflight, and MCP runtime precedence terms",
+      "read research difficulty validator and representative tests for tool preflight, VBT642 authority, source registry, and live source policy",
+      "ran the research difficulty validator to confirm it passes despite Layer 5 and Layer 6 cracks"
+    ]
+  },
+  "new_cracks": [
+    {
+      "id": "T7-P1-001",
+      "severity": "P1",
+      "title": "No test file covers private full-real activation policy by name",
+      "summary": "The policy that is supposed to supersede catalog-only blockers for activated runtime tasks has a validator, schema, and contract, but no pytest coverage mentions private_full_real_testing_activation or private_full_real_testing.",
+      "evidence": [
+        "Test search for private_full_real_testing_activation returned 0 paths.",
+        "Test search for private_full_real_testing returned 0 paths.",
+        "scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only passes with issue_count 0, but that validator is not exercised by a focused pytest.",
+        "Layer 5 proved the activation schema accepts a deeply corrupted nested policy with zero schema errors."
+      ],
+      "impact": "The highest-level activation surface can regress without the normal test loop catching it. This is the first missing test layer before any downstream runtime fix.",
+      "fix_direction": "Add positive and negative tests for the activation policy, including nested schema requirements, missing lanes, non-path authority refs, missing receipt redaction flags, and cross-policy overlay refs."
+    },
+    {
+      "id": "T7-P1-002",
+      "severity": "P1",
+      "title": "Research difficulty validator passes while omitting the current largest blocker surfaces",
+      "summary": "The validator named for repo-wide research continuation/source acquisition/blocker semantics checks selected configs and old live gate strings, but it does not validate private activation against VBT tools, VBT642, MCP runtime precedence, source readiness consistency, or batch 04 through 08 evidence-only semantics.",
+      "evidence": [
+        "scripts/v2_validate_research_difficulty_semantics.py:86 through 109 validates research continuation policy/schema/contract only.",
+        "scripts/v2_validate_research_difficulty_semantics.py:111 through 220 checks selected config flags and only loops over batch ids 00, 01, 02, and 03 for parallel_layer_existing_path_semantics.",
+        "scripts/v2_validate_research_difficulty_semantics.py:222 through 227 scans a fixed SOURCE_GATE_PATHS list for old live gate strings.",
+        "The validator does not reference private_full_real_testing_activation_policy, VBT tool policies, VBT642 matrix, tool phase preflight, source_registry ready_for_live/supports_live consistency, or batch ids 04 through 08.",
+        "scripts/v2_validate_research_difficulty_semantics.py --repo-corpus --summary-only returned status passed with issue_count 0."
+      ],
+      "impact": "A validator with a broad name gives a false sense that repo-wide research difficulty has been cleared while the main activated-runtime cracks remain outside its scope.",
+      "fix_direction": "Either narrow the validator name/contract to its actual scope or expand it into a true cross-policy overlay validator that consumes the crack surfaces identified in Layers 5 through 7."
+    },
+    {
+      "id": "T7-P1-003",
+      "severity": "P1",
+      "title": "Tool phase preflight tests explicitly lock runtime activation false",
+      "summary": "The tool phase preflight test suite proves that catalog aggregation rejects runtime_tool_activation_allowed true and that all batch validators pass. It does not test a private-runtime overlay path or prove that scope_translation refs are honored.",
+      "evidence": [
+        "tests/v2/research_factory/test_v7_2_5_tool_phase_preflight.py:20 through 27 verifies policy shape and catalog tool count.",
+        "tests/v2/research_factory/test_v7_2_5_tool_phase_preflight.py:38 through 44 asserts that runtime_tool_activation_allowed true is rejected.",
+        "tests/v2/research_factory/test_v7_2_5_tool_phase_preflight.py:47 through 54 asserts build_result passes all 18 catalog batch commands.",
+        "configs/v2/v7_2_5_tool_phase_preflight_policy.json has scope_translation refs to private activation and repo source acquisition, but the test does not assert any overlay behavior from those refs."
+      ],
+      "impact": "The preflight suite is correct for catalog mode but misleading for activated research. It enforces the old closed state as the only tested state.",
+      "fix_direction": "Keep this test as catalog_reference coverage and add a separate activated_private_runtime_preflight test suite that requires the overlay refs to be loaded and reconciled."
+    },
+    {
+      "id": "T7-P1-004",
+      "severity": "P1",
+      "title": "VBT642 tests lock runtime false as the positive fixture invariant",
+      "summary": "The VBT642 positive tests assert that every export record has runtime_execution_allowed false and dispatch_allowed false. The negative tests correctly reject false claims for catalog mode but have no activated runtime counterpart.",
+      "evidence": [
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_accepts_valid_fixture.py:64 through 72 verifies 642 exports, top100/top300 queues, and all runtime_execution_allowed/dispatch_allowed false.",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_rejects_false_claims.py:37 through 56 rejects runtime, source copy, provider pull, materialization, replay, and VBT sweep boundary true flags.",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py:119 through 122 rejects any export runtime/dispatch true in the current validator."
+      ],
+      "impact": "Future activated runtime changes will either fail the VBT642 tests or be forced into separate files with no unified validation story.",
+      "fix_direction": "Add mode-specific fixtures: catalog_reference keeps all false; activated_runtime_overlay allows selected true fields only with activation policy ref, runtime receipt policy, topology/resource policy, source acquisition ref, and native surface allowlist."
+    },
+    {
+      "id": "T7-P1-005",
+      "severity": "P1",
+      "title": "Source registry tests preserve the ready/live contradiction instead of rejecting it",
+      "summary": "The source registry tests assert all endpoint rows are ready_for_live while also asserting FlatFiles historical acquisition is allowed and FlatFiles live_pull_allowed is false. No test defines whether ready_for_live means transport/auth readiness or live pull authorization.",
+      "evidence": [
+        "tests/v2/data/test_source_registry_no_network.py:14 through 24 asserts default repo_source_acquisition mode, allow_live_without_fixture_pass true, all endpoint rows ready_for_live, and source_acquisition_policy network/raw landing/receipt true.",
+        "tests/v2/data/test_source_registry_no_network.py:109 through 130 asserts FlatFiles endpoint/auth shape, no-network validation, source_acquisition_policy historical_pull_allowed true, and live_pull_allowed false.",
+        "Test search found supports_live in 0 test files.",
+        "Layer 5 found massive_flatfiles_stocks_daily and massive_flatfiles_stocks_minute both supports_live true and ready_for_live true while source_acquisition_policy.live_pull_allowed false."
+      ],
+      "impact": "The repo cannot tell an operator whether FlatFiles are live-ready, historically-ready, or both. Tests currently encode the ambiguity as accepted behavior.",
+      "fix_direction": "Define field semantics and add negative tests for contradictory combinations. Consider replacing ready_for_live with readiness_by_mode.live and readiness_by_mode.historical."
+    },
+    {
+      "id": "T7-P2-006",
+      "severity": "P2",
+      "title": "No pytest coverage mentions MCP runtime helper precedence",
+      "summary": "The MCP policy has a runtime_helper_precedence section that allows runtime helpers when private activation or a more specific runtime policy is active, but no test mentions runtime_helper_precedence.",
+      "evidence": [
+        "Test search for runtime_helper_precedence returned 0 paths.",
+        "scripts/v2_validate_vectorbtpro_mcp_integration.py:268 through 278 validates runtime flags locally and requires authorized_runtime_helper_boundary.enabled for gated flags.",
+        "configs/v2/vectorbtpro_mcp_integration_policy.json has runtime_helper_precedence, but the validator does not load private activation or downstream VBT tool/VBT642 policies."
+      ],
+      "impact": "Runtime helper policy can drift from private activation without a failing test.",
+      "fix_direction": "Add tests for default MCP read-only mode, gated run_code runtime mode, and private-activation overlay mode. The overlay test should prove runtime helper allowance does not bypass receipt/resource/source boundaries."
+    },
+    {
+      "id": "T7-P2-007",
+      "severity": "P2",
+      "title": "Live source policy tests still emphasize blocked_not_ready without proving repo-source acquisition success paths",
+      "summary": "Live source tests verify safe blocked_not_ready behavior without credentials or live execution, but they do not assert that repo source acquisition authorization changes the gate reason or leads to successful pull paths when credentials and configured source policies are present.",
+      "evidence": [
+        "tests/v2/data/test_live_source_promotion_policy.py:56 through 61 only asserts alignment status passed.",
+        "tests/v2/data/test_live_source_promotion_policy.py:64 through 75 names the case blocks_without_live_approval and expects promotion_status blocked_not_ready, network_calls_observed 0, and receipt statuses blocked_not_ready.",
+        "tests/v2/data/test_live_source_promotion_policy.py:78 through 93 injects a REST/websocket credential alias but still expects promotion_status blocked_not_ready.",
+        "src/vbtpro_strategy_v2/data/live_promotion.py:1801 through 1804 computes acquisition_authorized from live_access_approved or any configured source acquisition check allowed.",
+        "src/vbtpro_strategy_v2/data/live_promotion.py:1811 through 1819 blocks only when neither live_access_approved nor source_acquisition is allowed."
+      ],
+      "impact": "The tests prove safe non-execution but do not prove easy acquisition through repo sources. This leaves the positive path under-tested.",
+      "fix_direction": "Add no-network/mocked-network positive tests where registered source acquisition is allowed, credentials are present, requests are mocked, and receipts prove raw landing/schema/source lineage without exposing secrets."
+    },
+    {
+      "id": "T7-P2-008",
+      "severity": "P2",
+      "title": "Batch catalog-extension tests prove old blocklists but not overlay compatibility",
+      "summary": "Batch fixture counts are substantial, but the fixtures target catalog-only negative cases. None prove that existing blocklisted paths are evidence-only for batches 04 through 08 or that activated runtime paths can be routed through an approved overlay.",
+      "evidence": [
+        "Fixture counts by batch: batch_00 11, batch_01 12, batch_02 14, batch_03 16, batch_04 17, batch_05 17, batch_06 24, batch_07 21, batch_08 26.",
+        "All nine batch validators report provider/runtime forbidden logic.",
+        "Layer 6 found only batches 00 through 03 have parallel_layer_existing_path_semantics.repo_corpus_existing_matches_are_evidence_not_blockers true.",
+        "Batch 04 through 08 policies retain runtime/per-tool blocklists without that evidence-only exception."
+      ],
+      "impact": "High fixture count can hide that the suite is testing the old mode thoroughly, not the new active mode.",
+      "fix_direction": "Add mode-specific batch fixtures and a shared validator helper. For catalog mode, keep blocking proposed parallel runtime trees. For activated mode, require explicit overlay authority instead of unconditional blocklists."
+    }
+  ],
+  "coverage_search_summary": {
+    "private_full_real_testing_activation": {
+      "test_file_count": 0,
+      "paths": []
+    },
+    "repo_source_data_acquisition": {
+      "test_file_count": 3,
+      "paths": [
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_promotion_policy.py",
+        "tests/v2/source_intelligence/test_production_data_pull_rule_sheet.py"
+      ]
+    },
+    "runtime_helper_precedence": {
+      "test_file_count": 0,
+      "paths": []
+    },
+    "source_acquisition_policy": {
+      "test_file_count": 2,
+      "paths": [
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ]
+    },
+    "ready_for_live": {
+      "test_file_count": 3,
+      "paths": [
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/research_factory/test_live_source_event_stream_control_plane_accepts_valid_fixture.py",
+        "tests/v2/research_factory/test_enterprise_factory_design_intake_accepts_valid_fixture.py"
+      ]
+    },
+    "supports_live": {
+      "test_file_count": 0,
+      "paths": []
+    },
+    "v7_2_5_tool_phase_preflight": {
+      "test_file_count": 1,
+      "paths": [
+        "tests/v2/research_factory/test_v7_2_5_tool_phase_preflight.py"
+      ]
+    },
+    "vbtpro_642_export_import": {
+      "test_file_count": 2,
+      "paths": [
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_rejects_false_claims.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_export_import_authority_accepts_valid_fixture.py"
+      ]
+    }
+  },
+  "validated_commands": [
+    {
+      "command": "scripts/v2_validate_research_difficulty_semantics.py --repo-corpus --summary-only",
+      "status": "passed",
+      "issue_count": 0
+    },
+    {
+      "command": "focused pytest term coverage scan",
+      "status": "passed",
+      "private_full_real_testing_activation_test_file_count": 0,
+      "runtime_helper_precedence_test_file_count": 0,
+      "supports_live_test_file_count": 0
+    }
+  ],
+  "root_cause_update": {
+    "current_assessment": "The test suite is not weak in general; it is strong for catalog-closed behavior and sparse for activated research behavior. The fix is mode separation, not weakening existing fail-closed tests.",
+    "fix_implication": "Before broad code edits, add activated-mode negative and positive tests around activation schema, source readiness, MCP runtime helper precedence, VBT642 overlay records, and VBT tool overlay acceptance."
+  },
+  "bottom_status": {
+    "hit_bottom": false,
+    "reason": "Layer 7 found test coverage gaps that explain why earlier cracks pass. Layer 8 should convert the crack set into a dependency graph and fix sequence.",
+    "next_layer_seed_questions": [
+      "Which cracks are root causes versus symptoms?",
+      "Which fixes unlock the largest number of downstream cracks?",
+      "What exact validator/test artifacts should be created before touching protected runtime/config surfaces?",
+      "Which existing tests should remain catalog-mode protections and which need activated-mode companions?"
+    ]
+  }
+}

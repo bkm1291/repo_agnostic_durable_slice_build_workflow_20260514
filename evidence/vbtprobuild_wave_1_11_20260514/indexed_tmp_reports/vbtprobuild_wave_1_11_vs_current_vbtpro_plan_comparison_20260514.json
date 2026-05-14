@@ -1,0 +1,144 @@
+{
+  "artifact_type": "vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison",
+  "schema_version": "v2.vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison.1",
+  "report_id": "vbtprobuild_wave_1_11_vs_current_vbtpro_plan_comparison_20260514",
+  "created_at_utc": "2026-05-14T09:04:22Z",
+  "status": "durable_evidence_for_vbtpro_build_mode",
+  "purpose": "Compare the completed Waves 1-11 crack-repair planning workflow with the current source-backed VectorBT Pro pipeline plan stack, and decide whether the planning differences change future implementation cadence.",
+  "source_authority_refs": {
+    "wave_1_11_repair_plan": "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "wave_1_11_forensics": "tmp/reports/production/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+    "current_vbtpro_guidance_route": "configs/v2/production_guidance_authority_map.json#private_vbtpro_research_pipeline",
+    "current_vbtpro_roadmap": "plans/v7_2_5/vbtprobuild_full_vbtpro_pipeline_wave_02_08_execution_roadmap_20260513.json",
+    "current_wave_04a_packet": "plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json",
+    "vbtpro_source_alignment_audit": "tmp/reports/production/vbtprobuild_full_vbtpro_pipeline_source_alignment_audit_20260514.json",
+    "vbtpro_full_read_register": "manifests/v2/vbtpro_mcp_full_read_surface_register_20260513.json",
+    "vbtpro_full_read_policy": "configs/v2/vbtpro_full_read_persistence_policy_20260513.json"
+  },
+  "core_decision": "Copy the Waves 1-11 workflow exactly at the cadence and proof-boundary level, but add a VectorBT Pro source-evidence gate before implementation for any slice that calls VBTPro runtime surfaces.",
+  "does_the_planning_difference_matter": true,
+  "how_it_matters": [
+    "The current VBTPro plan has an extra source-exactness requirement that Waves 1-11 did not have: exact VBTPro get_source/get_attrs evidence must be captured before code depends on a VBT surface.",
+    "The current VBTPro plan has more external-source and licensed-doc boundaries, so implementation must persist symbolic refs and distilled implications, not private URLs, copied source, or proprietary docs text.",
+    "The current VBTPro plan has more future placeholders: provider execution, multi-lane Massive acquisition, paper trading, GPU ML, LLM agents, and broker/live routing. These must stay out of the selected slice unless explicitly activated.",
+    "The current VBTPro plan has more data-shape risk: PIT availability, resample/realign, feature_config, Parquet/DuckDB path semantics, and non-price feature panels. Focused no-network runtime fixture tests are therefore part of proof, not optional polish.",
+    "The current VBTPro plan stack is split across architecture context, active execution roadmap, source-alignment audit, full-read register, and wave packet. Implementation must use the active roadmap and current wave packet as execution authority; umbrella plans are context only."
+  ],
+  "how_it_does_not_matter": [
+    "It does not justify broad rereads of all plans during coding.",
+    "It does not justify refreshing repo-index after every packet or implementation commit.",
+    "It does not replace owning validators and focused pytest as the proof of the slice.",
+    "It does not allow future placeholders to leak into the current implementation.",
+    "It does not require re-reading already-covered VBTPro surfaces when the full-read register and current packet satisfy the exact methods being used."
+  ],
+  "workflow_overlay": {
+    "base_cadence_from_waves_1_11": [
+      "readiness check",
+      "compact prep only when needed",
+      "coherent owner implementation",
+      "future-wave notes only for real downstream effects",
+      "owning validator plus focused pytest proof",
+      "implementation commit",
+      "conditional batched index refresh only when required"
+    ],
+    "vbtpro_extra_gate_inserted_between_readiness_and_implementation": [
+      "identify exact VectorBT Pro surfaces the slice will call",
+      "check whether current packet/register already contains full-detail get_source or get_attrs evidence for those exact surfaces",
+      "if missing, add or update a compact wave read packet before code",
+      "validate read durability with scripts/v2_validate_vbtpro_full_read_readiness.py",
+      "distill implementation implications into plan/packet fields without private URLs, copied source, or proprietary docs text"
+    ],
+    "vbtpro_extra_proof_added_to_focused_validation": [
+      "full-read readiness validator",
+      "no-network fixture tests that exercise the selected VBTPro behavior where feasible",
+      "secret/private URL absence checks when receipts, reports, checkpoints, or generated summaries are touched",
+      "read-only harness or worktree cleanliness checks when commands are summary-only or repo-corpus"
+    ]
+  },
+  "comparison_matrix": [
+    {
+      "dimension": "planning purpose",
+      "waves_1_11_pattern": "Repair contradictory repo semantics and close root cracks through local owner surfaces.",
+      "current_vbtpro_pattern": "Build a source-backed VectorBT Pro research pipeline using repo-owned artifacts plus exact VBTPro source/docs evidence.",
+      "implementation_effect": "Same cadence, but current slices must include source-read evidence before code that depends on VBTPro behavior."
+    },
+    {
+      "dimension": "prep artifact",
+      "waves_1_11_pattern": "Prep notes narrowed taxonomy, boundaries, read-only harness requirements, and closeout rules.",
+      "current_vbtpro_pattern": "Prep includes compact slice packet plus VBTPro full-read packet/register coverage.",
+      "implementation_effect": "The VBTPro read packet is the analog of a Wave 1-11 prep note. It should be compact and tactical, not a broad planning restart."
+    },
+    {
+      "dimension": "owner bundle",
+      "waves_1_11_pattern": "Policy/config, schema, contract, module when needed, validator, focused tests.",
+      "current_vbtpro_pattern": "Same owner bundle, plus VBT-facing adapter/descriptor/registry surfaces where selected.",
+      "implementation_effect": "Implement Wave 04A as registry + loader policy/schema/contract + thin adapter + validator + no-network tests."
+    },
+    {
+      "dimension": "proof of correctness",
+      "waves_1_11_pattern": "Changed JSON parse, owning validator, focused pytest, read-only/worktree checks when relevant.",
+      "current_vbtpro_pattern": "Same proof plus full-read readiness and no-network runtime fixture coverage for selected VBTPro methods.",
+      "implementation_effect": "Do not use MCP search/index hits as proof. Use the VBT read packet plus focused validator/tests."
+    },
+    {
+      "dimension": "index behavior",
+      "waves_1_11_pattern": "Refresh only for discovery/reconciliation waves, next-wave discovery dependency, closeout gates, or explicit request.",
+      "current_vbtpro_pattern": "Same. New VBT read packets/reports do not require repo-index refresh unless future discovery truly depends on it.",
+      "implementation_effect": "Wave 04A should not refresh repo-index by default; plan-note index is enough for packet/report durability."
+    },
+    {
+      "dimension": "future-wave notes",
+      "waves_1_11_pattern": "Record downstream effects only when they affect order, owners, validators, safety, index needs, or activation gates.",
+      "current_vbtpro_pattern": "Same, with one added category: full-read requirements and exact VBT surface implications for later waves.",
+      "implementation_effect": "Wave closeout notes should mention new VBT surfaces only if they change future implementation or proof."
+    },
+    {
+      "dimension": "external evidence",
+      "waves_1_11_pattern": "Mostly repo-native plans, validators, configs, and tests.",
+      "current_vbtpro_pattern": "Repo-native evidence plus VBTPro MCP/API/source, public GitHub metadata, local static lookup, and VBT full-read register.",
+      "implementation_effect": "External source reads are locators/evidence until distilled into packet/register; do not code from chat memory or search snippets."
+    },
+    {
+      "dimension": "runtime risk",
+      "waves_1_11_pattern": "Most slices validated policy semantics without executing substantial runtime objects.",
+      "current_vbtpro_pattern": "Later slices will construct VBT Data, indicators, portfolios, optimizers, splitters, and artifact loaders.",
+      "implementation_effect": "No-network runtime fixture tests become more important as the selected wave moves closer to VBT runtime object construction."
+    },
+    {
+      "dimension": "scope control",
+      "waves_1_11_pattern": "Future waves stayed out of current slices unless explicitly activated.",
+      "current_vbtpro_pattern": "Same rule is more important because paper trading, GPU ML, LLM agents, provider execution, and broker/live routing are already planned as future placeholders.",
+      "implementation_effect": "Wave 04A must not implement provider pulls, portfolio runtime, optimizer runtime, paper trading, GPU ML, or LLM control."
+    }
+  ],
+  "current_wave_04a_assessment": {
+    "status": "ready_under_wave_1_11_plus_vbtpro_source_evidence_overlay",
+    "why_ready": [
+      "The Wave 04A packet names exact owner surfaces.",
+      "The Wave 04A packet names exact VBTPro Data, ParquetData, and DuckDBData full reads.",
+      "The read requirements are marked satisfied for the loader/feature-semantics slice.",
+      "The packet's commit/index rule now follows the Wave 1-11 cadence and does not refresh indexes by default.",
+      "The selected scope excludes provider execution, portfolio runtime, optimizer runtime, paper trading, GPU ML, LLM agent execution, and promotion claims."
+    ],
+    "implementation_guardrails": [
+      "If implementation uses any VBTPro method not listed in the Wave 04A packet, stop and update the packet/register first.",
+      "If implementation discovers a downstream effect, save it only if it changes order, owners, validators, full-read requirements, safety boundaries, index requirements, or activation gates.",
+      "Do not run real provider pulls or load real provider outputs in Wave 04A.",
+      "Prove the slice through the Wave 04A owning validator, focused no-network pytest, VBT full-read readiness, JSON parse, worktree cleanliness, and git diff --check."
+    ]
+  },
+  "recommended_protocol_adjustment": {
+    "status": "persist_as_small_overlay",
+    "text": "For VBTPro implementation waves, the Wave 1-11 cadence remains authoritative, with one additional pre-code source-evidence gate: exact VBTPro surfaces used by code must be covered by the full-read register or current wave packet before implementation. This gate is prep evidence, not broad planning."
+  },
+  "validation_plan_for_this_comparison": [
+    "json.tool this comparison report",
+    "json.tool updated durable protocol and Wave 04A packet if edited",
+    "v2_plan_note_index.py --rebuild --compact",
+    "v2_plan_note_index.py --status --compact --no-auto-refresh",
+    "v2_validate_vbtpro_full_read_readiness.py --repo-corpus --summary-only",
+    "git diff --check",
+    "v2_validate_repo_worktree_cleanliness.py --summary-only after commit"
+  ],
+  "repo_index_policy_for_this_comparison": "Do not refresh repo-index. This is plan/evidence work and plan-note indexing is the appropriate durability mechanism unless the operator asks or a later implementation wave needs fresh repo-index discovery."
+}

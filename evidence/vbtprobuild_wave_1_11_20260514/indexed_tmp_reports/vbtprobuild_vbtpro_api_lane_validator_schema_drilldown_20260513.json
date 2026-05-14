@@ -1,0 +1,378 @@
+{
+  "schema_version": "v2.vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_report.1",
+  "report_id": "vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513",
+  "created_at_utc": "2026-05-13T06:25:32Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "checkpoint_report_ref": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+  "checkpoint_layer": 4,
+  "this_layer": 5,
+  "audit_scope": {
+    "focus": "validator, schema, contract, source-registry, VBT tool, VBT642, MCP-policy, and index semantics that can hide active research/runtime cracks",
+    "method": [
+      "reused the fourth drilldown report as the checkpoint",
+      "queried active repo authority and repo index status",
+      "read exact schema, contract, validator, source-registry, VBT tool, and VBT642 surfaces",
+      "used VectorBT Pro MCP attributes for Data, Portfolio, and PortfolioOptimizer as native API evidence",
+      "ran focused validators and tests that should expose the contradictions"
+    ],
+    "operator_intent_context": "The repo has been moved toward private full-real research and easier registered source acquisition, so catalog-only blockers should not silently shadow active runtime/acquisition authority."
+  },
+  "authority_and_index_evidence": {
+    "required_authority_query": {
+      "command": "scripts/query_v2_production_authority_index.py --scope code_change --summary-only",
+      "status": "passed",
+      "required_paths": [
+        "AGENTS.md",
+        "SKILL.md",
+        "docs/v2/production/vbtpro_lab_big_run_topology_catalog_20260430.json",
+        "contracts/v2/foundation_authority_decoupling_contract.json"
+      ]
+    },
+    "repo_index_status": {
+      "command": "scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+      "status": "stale",
+      "exit_code": 1,
+      "stale_reason_count": 8,
+      "stale_reasons": [
+        "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json",
+        "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json",
+        "tracked_file_hash_changed:manifests/v2/repo_index_summary.json",
+        "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite",
+        "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json",
+        "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json",
+        "tracked_file_hash_changed:receipts/v2/repo_index_receipts.jsonl",
+        "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+      ],
+      "interpretation": "The active index is still usable for targeted reads, but status-only stale evidence remains noisy during audit/report work and should not be treated as a research blocker."
+    },
+    "guidance_map_lookup": {
+      "command": "scripts/v2_repo_index.py --path configs/v2/production_guidance_authority_map.json --compact --no-auto-refresh",
+      "status": "passed",
+      "is_protected": true,
+      "authority_layer": "source_truth"
+    }
+  },
+  "vbtpro_mcp_evidence": {
+    "tool_order_used": [
+      "tool discovery",
+      "get_attrs"
+    ],
+    "native_data_surface_summary": {
+      "refname": "vbt.Data",
+      "observed_attrs": [
+        "download",
+        "fetch",
+        "pull",
+        "update",
+        "from_parquet",
+        "from_sql",
+        "from_duckdb",
+        "from_arcticdb",
+        "to_parquet",
+        "to_sql",
+        "to_duckdb",
+        "to_arcticdb"
+      ],
+      "audit_relevance": "The private runtime/acquisition workflow has native VBT data pull, update, load, and persistence surfaces available, while repo VBT tool and VBT642 policies still validate them as not-authorized/reference-only."
+    },
+    "native_portfolio_surface_summary": {
+      "refname": "vbt.Portfolio",
+      "observed_attrs": [
+        "from_signals",
+        "from_orders",
+        "from_order_func",
+        "from_def_order_func",
+        "from_optimizer",
+        "orders",
+        "trades",
+        "logs",
+        "allocations",
+        "returns",
+        "drawdowns"
+      ],
+      "audit_relevance": "The repo's current portfolio research lane is under-scoped if it only treats from_signals as the actionable portfolio construction surface."
+    },
+    "native_optimizer_surface_summary": {
+      "refname": "vbt.PortfolioOptimizer",
+      "observed_attrs": [
+        "from_allocate_func",
+        "from_allocations",
+        "from_filled_allocations",
+        "from_initial",
+        "from_optimize_func",
+        "from_pypfopt",
+        "from_riskfolio",
+        "from_uniform",
+        "from_random",
+        "from_universal_algo"
+      ],
+      "audit_relevance": "Optimization-native construction surfaces exist and should be separately classified from simple signal-only backtests."
+    }
+  },
+  "new_cracks": [
+    {
+      "id": "VL-P1-001",
+      "severity": "P1",
+      "title": "Private full-real activation schema is top-level only and cannot enforce its own nested runtime contract",
+      "summary": "The activation policy schema requires the top-level objects but leaves all nested runtime lanes, authority refs, receipt rules, and legacy blocker translations as unconstrained object values. A deliberately corrupted policy with empty enabled lanes, non-path authority refs, and arbitrary legacy translation passes Draft 2020-12 schema validation with zero errors.",
+      "evidence": [
+        "schemas/v2/private_full_real_testing_activation.schema.json:5 requires the major top-level sections.",
+        "schemas/v2/private_full_real_testing_activation.schema.json:33, 36, 39, 42, 45, 48, 51, 54, and 57 type each critical section only as object.",
+        "schemas/v2/private_full_real_testing_activation.schema.json:61 ends without nested required keys or additionalProperties controls.",
+        "Mutation proof: Draft202012Validator returned mutated_schema_error_count 0 after enabled_private_runtime_lanes was emptied, legacy_blocker_translation was replaced with arbitrary data, and authority_refs was set to a non-path value.",
+        "scripts/v2_validate_private_full_real_testing_activation.py:180 validates repo corpus by loading policy, schema, and contract JSON, then calling validate_policy.",
+        "scripts/v2_validate_private_full_real_testing_activation.py:188 calls validate_policy but never validates the policy against the JSON schema.",
+        "scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only returned status passed with issue_count 0."
+      ],
+      "impact": "Schema-driven consumers can believe the activation contract is enforced while only the custom validator catches some policy details. Cross-policy overlay requirements remain invisible to schema validation.",
+      "fix_direction": "Make the activation schema authoritative for nested required keys, boolean consts, authority-ref string/path shape, and additionalProperties boundaries. Then update the validator to run jsonschema first and to report schema failures separately from semantic overlay failures."
+    },
+    {
+      "id": "VL-P1-002",
+      "severity": "P1",
+      "title": "VBT tool schemas and modules hard-code catalog-only semantics that conflict with active private runtime research",
+      "summary": "All 25 VBT tool schemas use const-false catalog/runtime boundaries and all 25 VBT tool modules enforce false or read-only behavior in code. This makes the current tools useful as catalog references but structurally unable to accept private full-real runtime activation without creating parallel policy surfaces or changing the semantics.",
+      "evidence": [
+        "Schema scan: vbt_tool_schema_count 25, schema_const_false_count 25, schema_not_authorized_count 13, schema_read_only_count 15.",
+        "Module scan: vbt_tool_module_count 25, module_with_forbidden_boundary_count 25.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:38 consts implemented_scope to read_only_data_updater_dry_run_plan_only.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:41 consts vbt_data_update_status to not_authorized.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:59 through 75 const provider pull, provider probe, raw landing write, materialization, VBT data update, and update-output write to false.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:98 through 123 const provider, materialization, VBT update, runtime implementation, production candidate, and production ready flags to false.",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py:45 requires read_only_data_updater_dry_run_plan_only.",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py:47 requires not_authorized.",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py:54 through 66 require provider/materialization/update/write validation flags to match catalog-only values.",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py:68 through 88 rejects any true runtime/provider/materialization/sweep boundary flag.",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_data_updater_dry_run_planner.py:111 through 114 requires native Data.update to stay reference_only_not_dispatched."
+      ],
+      "impact": "Research workflow activation can pass separately while the concrete helper tools still reject the same runtime behavior. This creates a hidden dead end for live data pulls, historical pulls, VBT updates, materialization, and replay work.",
+      "fix_direction": "Split VBT tool policies into catalog_reference mode and activated_private_runtime mode, or introduce overlay-aware schemas/modules that read private activation and repo-source acquisition policy before rejecting runtime flags."
+    },
+    {
+      "id": "VL-P1-003",
+      "severity": "P1",
+      "title": "Tool phase preflight names activation policies but still validates only no-runtime catalog aggregation",
+      "summary": "The tool phase preflight policy carries scope_translation refs to private full-real activation and repo source data acquisition, but its own boundary requires every runtime/provider/materialization flag to remain false and the validator only aggregates batch catalog-extension validators.",
+      "evidence": [
+        "configs/v2/v7_2_5_tool_phase_preflight_policy.json:83 through 87 contains scope_translation refs to private_full_real_testing_activation_policy and repo_source_data_acquisition_policy.",
+        "configs/v2/v7_2_5_tool_phase_preflight_policy.json:88 through 99 requires runtime_tool_activation_allowed, provider_pull_allowed, provider_probe_allowed, materialization_allowed, replay_allowed, vbt_sweep_allowed, broker_live_behavior_allowed, production_candidate, and production_ready to be false.",
+        "scripts/v2_validate_v7_2_5_tool_phase_preflight.py:48 through 85 validates the policy and only checks that all boundary values are false.",
+        "scripts/v2_validate_v7_2_5_tool_phase_preflight.py:88 through 124 runs child batch validators.",
+        "scripts/v2_validate_v7_2_5_tool_phase_preflight.py:127 through 160 builds a passing result from policy issues and child validator issues.",
+        "scripts/v2_validate_v7_2_5_tool_phase_preflight.py --summary-only returned status passed with batch_count 9, command_count 18, passed_command_count 18, and issue_count 0."
+      ],
+      "impact": "A preflight that looks connected to activation authority is actually proving only catalog integrity. Operators can mistake a clean preflight for activation compatibility.",
+      "fix_direction": "Rename or split the preflight output so catalog-only success is explicit, and add a second overlay preflight that reconciles private activation, repo source acquisition, VBT tool policies, and VBT642 runtime-sensitive records."
+    },
+    {
+      "id": "VL-P1-004",
+      "severity": "P1",
+      "title": "Source registry has no direct schema, contract, or validator refs and still relies on an old no-network contract",
+      "summary": "source_registry.json is now central to repo-wide source acquisition, but its top-level config has no schema_ref, contract_ref, or validator_ref. The nearby contract is an auth/no-network contract that requires supports_live and ready_for_live but does not define the newer live/historical acquisition semantics.",
+      "evidence": [
+        "configs/v2/source_registry.json top-level keys are allow_live_without_fixture_pass, default_mode, registry_version, repo_source_data_acquisition_policy_ref, schema_version, source_retirements, source_selection_policy, and sources.",
+        "configs/v2/source_registry.json has no top-level schema_ref, contract_ref, or validator_ref.",
+        "contracts/v2/source_registry_auth_no_network_contract.json:7 states the purpose is secret-safe auth by env var name and no-network validation.",
+        "contracts/v2/source_registry_auth_no_network_contract.json:10 through 28 requires source fields including supports_live and ready_for_live.",
+        "contracts/v2/source_registry_auth_no_network_contract.json:34 through 39 defines FlatFiles auth/location requirements but says live object reads belong to slice-owned live-source promotion proof."
+      ],
+      "impact": "The repo's main source registry can drift into new acquisition semantics without a machine-readable contract that owns those semantics, and older readiness fields can survive as ambiguous compatibility leftovers.",
+      "fix_direction": "Create or bind a current source_registry schema/contract that defines source_acquisition_policy, top-level readiness fields, delivery-surface live/historical semantics, and exact validator ownership."
+    },
+    {
+      "id": "VL-P1-005",
+      "severity": "P1",
+      "title": "Source/live alignment checks endpoints and auth but not readiness or live-historical acquisition consistency",
+      "summary": "The source registry alignment function compares delivery surface, auth names, endpoint paths, FlatFiles bucket/prefix/object templates, and websocket surface names. It does not compare supports_live, ready_for_live, live_pull_allowed, historical_pull_allowed, or the relationship between those fields.",
+      "evidence": [
+        "src/vbtpro_strategy_v2/data/source_registry.py:342 through 424 implements validate_live_policy_source_registry_alignment.",
+        "src/vbtpro_strategy_v2/data/source_registry.py:355 through 358 checks delivery surface drift.",
+        "src/vbtpro_strategy_v2/data/source_registry.py:360 through 372 checks auth env var drift.",
+        "src/vbtpro_strategy_v2/data/source_registry.py:374 through 423 checks endpoint, bucket, prefix, object key, secret env var, and websocket surface drift.",
+        "No branch in validate_live_policy_source_registry_alignment checks supports_live, ready_for_live, source_acquisition_policy.live_pull_allowed, or source_acquisition_policy.historical_pull_allowed.",
+        "configs/v2/source_registry.json currently has massive_flatfiles_stocks_daily and massive_flatfiles_stocks_minute with supports_live true and ready_for_live true while source_acquisition_policy.live_pull_allowed is false and historical_pull_allowed is true.",
+        "tests/v2/data/test_source_registry_no_network.py:20 asserts all endpoint rows are ready_for_live.",
+        "tests/v2/data/test_source_registry_no_network.py:127 through 130 asserts FlatFiles no-network validation, historical pull allowed, and live pull false but does not reject top-level ready_for_live/supports_live true.",
+        "Focused pytest for tests/v2/data/test_source_registry_no_network.py and tests/v2/source_intelligence/test_production_data_pull_rule_sheet.py completed 21 tests successfully."
+      ],
+      "impact": "Registered source acquisition can be both 'ready/live-supported' and 'live-pull false' without a failing validator. That weakens operator trust in source readiness fields and can misroute live versus historical pulls.",
+      "fix_direction": "Add explicit field definitions and negative tests: ready_for_live should either mean transport/auth ready regardless of pull mode, or it should match source_acquisition_policy.live_pull_allowed. Add delivery-surface-specific invariants for FlatFiles, REST, and websocket."
+    },
+    {
+      "id": "VL-P2-006",
+      "severity": "P2",
+      "title": "VBT642 authority validator hard-requires runtime false even for native surfaces now needed by private research",
+      "summary": "The VBT642 export/import validator still treats runtime execution and dispatch as universally forbidden across all exports. MCP evidence shows the native Data, Portfolio, and PortfolioOptimizer surfaces exist and are relevant to the active research workflow, but the matrix records keep them runtime_sensitive_reference_only with runtime_execution_allowed false.",
+      "evidence": [
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py:119 through 122 rejects any export whose dispatch_allowed or runtime_execution_allowed is not false.",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py:139 through 151 rejects native runtime, provider pull/probe, materialization, replay, VBT sweep, source copy, and production flags at the boundary.",
+        "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py --summary-only returned status passed with total_exports 642, top100_queue_count 100, and top300_queue_count 300.",
+        "Matrix record Data: area data_provider_pit, repo_match_classification runtime_sensitive_reference_only, runtime_execution_allowed false, dispatch_allowed false, operator_decision_required true.",
+        "Matrix record Portfolio: area portfolio_execution, repo_match_classification runtime_sensitive_reference_only, runtime_execution_allowed false, dispatch_allowed false, operator_decision_required true.",
+        "Matrix record PortfolioOptimizer: area portfolio_execution, repo_match_classification runtime_sensitive_reference_only, runtime_execution_allowed false, dispatch_allowed false, operator_decision_required true.",
+        "VectorBT Pro MCP get_attrs for vbt.Data exposed download, fetch, pull, update, from_sql, from_duckdb, from_parquet, to_sql, to_duckdb, and to_parquet.",
+        "VectorBT Pro MCP get_attrs for vbt.Portfolio exposed from_signals, from_orders, from_order_func, from_def_order_func, and from_optimizer.",
+        "VectorBT Pro MCP get_attrs for vbt.PortfolioOptimizer exposed from_optimize_func, from_pypfopt, from_riskfolio, and from_universal_algo."
+      ],
+      "impact": "The VBT642 matrix remains useful as a catalog and risk map, but it cannot currently represent private activated runtime without failing its own authority validator.",
+      "fix_direction": "Add an overlay layer or versioned runtime matrix that keeps catalog records immutable while representing operator-activated runtime allowances, required receipts, resource policy, and allowed native surfaces."
+    },
+    {
+      "id": "VL-P2-007",
+      "severity": "P2",
+      "title": "MCP integration and knowledge validators pass in isolation without checking activation precedence against tool schemas",
+      "summary": "The MCP policy allows runtime helpers when private full-real testing or a more specific runtime policy is active, but the default authorized runtime helper boundary is disabled. The validator passes in isolation and does not reconcile this precedence against VBT tool const-false schemas or the VBT642 runtime-false authority.",
+      "evidence": [
+        "configs/v2/vectorbtpro_mcp_integration_policy.json:131 through 145 defines authorized_runtime_helper_boundary with enabled false and default_allowed false while listing runtime/provider/materialization/replay/sweep domains.",
+        "configs/v2/vectorbtpro_mcp_integration_policy.json:147 through 153 defines runtime_helper_precedence and says runtime helper is allowed when private_full_real_testing or a more specific runtime policy is active.",
+        "contracts/v2/vectorbtpro_mcp_integration_contract.json:36 through 43 says provider pull, provider probe, materialization, replay, VBT sweep, runtime implementation, and broker live are allowed when gated.",
+        "schemas/v2/vectorbtpro_mcp_integration.schema.json:248 through 290 names the object forbidden_runtime_behaviors while allowing runtime behavior fields to be generic booleans and only consting production_candidate and production_ready false.",
+        "scripts/v2_validate_vectorbtpro_mcp_integration.py --repo-corpus --summary-only returned status passed with issue_count 0.",
+        "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py --repo-corpus --summary-only returned status passed with issue_count 0."
+      ],
+      "impact": "MCP/runtime helper policy can look ready for gated runtime work while concrete tool validators and VBT642 validators still reject runtime behavior. The naming also makes allowed-when-gated runtime flags look forbidden.",
+      "fix_direction": "Add a cross-policy validator for MCP precedence versus private activation, VBT tool policies, and VBT642 matrix records. Rename forbidden_runtime_behaviors or split it into default_forbidden_runtime_behaviors and gated_runtime_allowances."
+    },
+    {
+      "id": "VL-P2-008",
+      "severity": "P2",
+      "title": "VBT tool schemas are simultaneously strict on old blockers and permissive on new overlay shape",
+      "summary": "Every VBT tool schema contains additionalProperties true while also consting critical provider/runtime/materialization flags to false. This combination blocks the fields the new research workflow needs but allows unrelated or misspelled overlay fields to pass unless a custom validator happens to catch them.",
+      "evidence": [
+        "Schema scan: schema_additional_properties_true_count 25 across 25 VBT tool schemas.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:6 sets additionalProperties true.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:59 through 75 consts provider/materialization/update/write validation flags to false.",
+        "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json:95 through 126 defines boundary properties but no boundary required list or additionalProperties false inside the boundary object."
+      ],
+      "impact": "Schema validation is brittle in the wrong direction: it preserves old no-runtime blockers as hard schema facts while leaving future overlay semantics under-specified.",
+      "fix_direction": "For each tool family, make the schema mode-aware. Catalog mode can retain false consts; activated mode should have explicit required fields, allowed native surfaces, receipt refs, and additionalProperties false for the runtime overlay object."
+    },
+    {
+      "id": "VL-P2-009",
+      "severity": "P2",
+      "title": "Topology JIT chunking ranked queue name conflates an area with a much broader utility queue",
+      "summary": "The VBT642 matrix area topology_jit_chunking contains 50 exports, but the ranked queue with the same name contains 198 names, including many general utility/config/caching symbols outside that area. This may be intentional build ordering, but the naming makes area coverage and queue coverage easy to confuse during audit and implementation planning.",
+      "evidence": [
+        "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json area_count for topology_jit_chunking is 50.",
+        "manifests/v2/v7_2_5_vbtpro_642_export_ranked_build_queues.json queue topology_jit_chunking count is 198.",
+        "Computed queue_minus_area_count is 148.",
+        "First queue names outside the topology_jit_chunking area include Annotatable, AsyncJob, AtomicConfig, CAQuery, Cacheable, Config, HybridConfig, Param, ProgressBar, deep_getattr, file_exists, flat_merge_dicts, and combine_params."
+      ],
+      "impact": "Agents can overestimate topology/JIT native coverage or under-prioritize utility symbols if they interpret queue names as one-to-one area names.",
+      "fix_direction": "Rename the ranked queue to topology_jit_chunking_and_dependencies or add queue metadata that explains dependency expansion and separates area_count from queue_count."
+    },
+    {
+      "id": "VL-P2-010",
+      "severity": "P2",
+      "title": "Repo-index stale status is still noisy enough to masquerade as a workflow failure",
+      "summary": "The repo-index status command exits stale because generated index/checkpoint/receipt artifacts have changed, while summary_stale is false and the index head matches current HEAD. This should remain evidence, not a blocking state for research drilldown work.",
+      "evidence": [
+        "scripts/v2_repo_index.py --status --summary-only --no-auto-refresh exited 1 with status stale.",
+        "The status output reported summary_stale false, index_head_mismatch false, indexed_head 489101759e4d, and current_head 489101759e4d.",
+        "Stale reasons are generated index/checkpoint/receipt artifacts rather than missing active authority files."
+      ],
+      "impact": "Agents can pause or rebuild indexes unnecessarily during audit-only work, dirtying the worktree further and slowing research.",
+      "fix_direction": "Add an audit-mode status classifier that distinguishes blocking missing/corrupt indexes from non-blocking generated-artifact freshness drift."
+    }
+  ],
+  "validated_commands": [
+    {
+      "command": "python -m json.tool tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+      "status": "passed",
+      "purpose": "Confirmed the fourth checkpoint report was valid JSON before drilling."
+    },
+    {
+      "command": "secret-token-pattern scan on tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+      "status": "passed_no_matches",
+      "purpose": "Confirmed the fourth checkpoint report did not persist tokenized private URLs."
+    },
+    {
+      "command": "scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only",
+      "status": "passed",
+      "issue_count": 0
+    },
+    {
+      "command": "scripts/v2_validate_vectorbtpro_mcp_integration.py --repo-corpus --summary-only",
+      "status": "passed",
+      "issue_count": 0
+    },
+    {
+      "command": "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py --repo-corpus --summary-only",
+      "status": "passed",
+      "issue_count": 0
+    },
+    {
+      "command": "scripts/v2_validate_v7_2_5_tool_phase_preflight.py --summary-only",
+      "status": "passed",
+      "batch_count": 9,
+      "command_count": 18,
+      "passed_command_count": 18,
+      "issue_count": 0
+    },
+    {
+      "command": "python -m pytest -q -p no:cacheprovider tests/v2/data/test_source_registry_no_network.py tests/v2/source_intelligence/test_production_data_pull_rule_sheet.py",
+      "status": "passed",
+      "test_count": 21
+    },
+    {
+      "command": "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py --summary-only",
+      "status": "passed",
+      "issue_count": 0,
+      "total_exports": 642,
+      "top100_queue_count": 100,
+      "top300_queue_count": 300
+    }
+  ],
+  "recommended_fix_order": [
+    {
+      "order": 1,
+      "fix_area": "activation schema and validator",
+      "reason": "It is the top-level policy that claims runtime activation, so its schema and validator must become authoritative before downstream tools can safely honor it.",
+      "crack_ids": [
+        "VL-P1-001"
+      ]
+    },
+    {
+      "order": 2,
+      "fix_area": "cross-policy activation overlay preflight",
+      "reason": "The repo needs a single validator that checks private activation against VBT tools, VBT642, MCP runtime helper policy, and source acquisition policy.",
+      "crack_ids": [
+        "VL-P1-002",
+        "VL-P1-003",
+        "VL-P2-006",
+        "VL-P2-007",
+        "VL-P2-008"
+      ]
+    },
+    {
+      "order": 3,
+      "fix_area": "source registry acquisition semantics",
+      "reason": "Live and historical acquisition should be easy, but fields must have one meaning and validators must catch contradictions.",
+      "crack_ids": [
+        "VL-P1-004",
+        "VL-P1-005"
+      ]
+    },
+    {
+      "order": 4,
+      "fix_area": "VBT642 ranked queue metadata and index status classifier",
+      "reason": "These are planning and workflow clarity fixes that reduce misrouting and avoid false blockers.",
+      "crack_ids": [
+        "VL-P2-009",
+        "VL-P2-010"
+      ]
+    }
+  ],
+  "bottom_status": {
+    "hit_bottom": false,
+    "reason": "This layer found more cracks in schema/validator cross-policy semantics, so another drilldown is warranted before declaring the audit exhausted.",
+    "next_layer_seed_questions": [
+      "Which generated builders create the VBT tool schemas and modules, and do they hard-code no-runtime semantics from a single template?",
+      "Does any validator compare private_full_real_testing_activation_policy against repo_source_data_acquisition_policy, VBT642 matrix records, and tool phase preflight results in one pass?",
+      "Which scripts write or refresh source_registry.json, and can they attach schema_ref, contract_ref, and validator_ref without hand-editing the registry?",
+      "Are there negative tests proving that contradictory source readiness fields fail, or only positive tests proving the current contradiction remains accepted?",
+      "Does the ranked queue builder intentionally expand topology_jit_chunking with dependencies, and if so where is that expansion documented?"
+    ]
+  }
+}

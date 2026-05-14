@@ -1,0 +1,213 @@
+[
+  {
+    "authority_boundary": "Repair evidence; current closeout authority remains the committed crack-repair plan/checkpoint/receipt.",
+    "classification": [
+      "superseded_by_distilled_plan",
+      "durable_evidence_only"
+    ],
+    "current_git_state": "committed",
+    "key_conclusions_to_fold_into_plan": [
+      "Waves 1-11 repair order and dependencies.",
+      "Activation, source acquisition, overlay, VBT bridge, portfolio/optimizer modes, helper reconciliation, MCP precedence, read-only cleanup, and scanner cleanup were the root repair sequence."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+    "primary_use": "Historical crack-repair strategy evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_audit_fix_strategy_plan_20260513"
+  },
+  {
+    "authority_boundary": "Evidence backbone; not current runtime authority.",
+    "classification": [
+      "superseded_by_distilled_plan",
+      "durable_evidence_only"
+    ],
+    "current_git_state": "committed",
+    "key_conclusions_to_fold_into_plan": [
+      "Cracks were coupled through activation semantics, source acquisition ambiguity, VBT642 no-runtime defaults, tool boundary duplication, helper/index drift, and read-only mutation noise."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json",
+    "primary_use": "Evidence graph for the repaired VBT/API lane crack chain.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513"
+  },
+  {
+    "authority_boundary": "Evidence for root instruction compaction; not a second rulebook.",
+    "classification": [
+      "superseded_by_distilled_plan",
+      "durable_evidence_only"
+    ],
+    "current_git_state": "committed",
+    "key_conclusions_to_fold_into_plan": [
+      "Root control files should stay concise bootstrap surfaces and route detailed doctrine to JSON authority.",
+      "Repo rules are evidence to reconcile against current tests, validators, crack repair, and operator direction."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_root_control_file_crack_alignment_audit_20260513.json",
+    "primary_use": "Evidence for AGENTS.md, SKILL.md, and repo-truth compaction.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_root_control_file_crack_alignment_audit_20260513"
+  },
+  {
+    "authority_boundary": "Index evidence only.",
+    "classification": [
+      "durable_evidence_only"
+    ],
+    "current_git_state": "committed",
+    "key_conclusions_to_fold_into_plan": [
+      "Repo-index and generated freshness states must be classified as evidence unless required validators or hard safety invariants fail."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_full_index_audit_20260513.json",
+    "primary_use": "Repo-index audit evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_full_index_audit_20260513"
+  },
+  {
+    "authority_boundary": "Index maintenance evidence only.",
+    "classification": [
+      "durable_evidence_only"
+    ],
+    "current_git_state": "committed",
+    "key_conclusions_to_fold_into_plan": [
+      "Index refreshes and generated artifacts should be explicit and classified instead of treated as blockers by default."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_full_index_fix_plan_20260513.json",
+    "primary_use": "Historical repo-index fix evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_full_index_fix_plan_20260513"
+  },
+  {
+    "authority_boundary": "Large drilldown evidence; future fixes must use current owner plans/configs/tests.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "Read-only summary/status paths, helper manifest coverage, VBT Data bridge semantics, portfolio research modes, optimization helper classification, MCP/docs helper classification, and credential-route scanner precision were the high-leverage cracks.",
+      "The chain reaction was policy/generator/test mode mismatch, not a lack of source material."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_deep_drilldown_20260513.json",
+    "primary_use": "Deep VBT API lane audit evidence across Analysis, Data, Indicators, Intelligence, Optimization, Performance, Portfolio, Productivity, and Overview.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_deep_drilldown_20260513"
+  },
+  {
+    "authority_boundary": "Large lane evidence only; not an active helper manifest or script policy.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "Each VBTPro lane depended on helper scripts, validators, query surfaces, indexes, and policies that needed classification.",
+      "The report preserves broad lane coverage that is expensive to rediscover manually."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_repo_assist_audit_20260513.json",
+    "primary_use": "Repo-assist script/helper/VBT lane audit evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_repo_assist_audit_20260513"
+  },
+  {
+    "authority_boundary": "Large script-audit evidence only; not an active allowlist.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "The audit scrutinized 266 scripts and found helper manifest gaps, script-surface policy gaps, summary-only write risks, missing exact-path refs, and credential-route review items.",
+      "Future helper reconciliation should use this as evidence, then validate against the current script import architecture index."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_every_repo_assist_script_scrutiny_20260513.json",
+    "primary_use": "Every repo-assist script scrutiny evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_every_repo_assist_script_scrutiny_20260513"
+  },
+  {
+    "authority_boundary": "Audit evidence only.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "Helper, validator, automator, config, schema, and script surfaces needed owner-boundary reconciliation and read-only/no-mutation discipline.",
+      "Future edits should use exact owner surfaces and validators rather than broad hand-editing."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513.json",
+    "primary_use": "Fine-grained helper/validator/automator/config/schema/script audit evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513"
+  },
+  {
+    "authority_boundary": "Layered audit evidence only.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "The drill reached activation/source/overlay/VBT642/tool-boundary root causes and a concrete fix order.",
+      "Later waves should preserve the repaired semantics instead of reviving catalog-only blockers."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513.json",
+    "primary_use": "Bottom-layer VBT API crack evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_bottom_drilldown_20260513"
+  },
+  {
+    "authority_boundary": "Generator audit evidence only.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "Several generated surfaces locked old no-runtime semantics through builders, schemas, fixtures, and tests.",
+      "Mode-aware catalog-reference and activated-private-runtime overlays are the correct pattern."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513.json",
+    "primary_use": "Generator/builder root-cause evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_generator_drilldown_20260513"
+  },
+  {
+    "authority_boundary": "Validator/schema audit evidence only.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "Schema depth, activated-mode validation, cross-policy overlay validation, and VBT tool schema mode-awareness were necessary safeguards.",
+      "AdditionalProperties and false consts needed to align with mode-specific semantics."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513.json",
+    "primary_use": "Validator/schema gap evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_validator_schema_drilldown_20260513"
+  },
+  {
+    "authority_boundary": "Test-gap audit evidence only.",
+    "classification": [
+      "raw_working_evidence_promoted",
+      "durable_evidence_only",
+      "do_not_use_for_execution"
+    ],
+    "current_git_state": "promote_now_from_untracked",
+    "key_conclusions_to_fold_into_plan": [
+      "The suite was strong for catalog-closed behavior and sparse for activated research behavior.",
+      "Mode-specific positive and negative tests were required for activation schema, source readiness, MCP precedence, VBT642 overlays, and VBT tool overlay acceptance."
+    ],
+    "path": "tmp/reports/production/vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513.json",
+    "primary_use": "Validator/test coverage gap evidence.",
+    "promotion_register_section": "promoted_reports",
+    "report_id": "vbtprobuild_vbtpro_api_lane_validator_test_gap_drilldown_20260513"
+  }
+]

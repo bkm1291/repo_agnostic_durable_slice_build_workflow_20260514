@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0",
+  "report_id": "vbtprobuild_root_control_file_crack_alignment_audit_20260513",
+  "created_at_utc": "2026-05-13T07:04:43Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "head_at_audit": "489101759e4d99520c1cde00fb8936700c638c5a",
+  "private_docs_endpoint_ref": "credentialed_vectorbtpro_api_docs_endpoint",
+  "purpose": "Fine-grained audit of AGENTS.md, SKILL.md, and pyproject.toml against the known crack graph so root instructions route future fixes through reconciled repo truth instead of stale or over-broad repo logic.",
+  "audited_files": [
+    "AGENTS.md",
+    "SKILL.md",
+    "pyproject.toml",
+    "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json"
+  ],
+  "source_crack_graph": {
+    "strategy_plan_ref": "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+    "root_causes": [
+      "RC1_private_runtime_activation_not_machine_enforced",
+      "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+      "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings",
+      "RC4_cross_policy_overlay_validator_missing",
+      "RC5_generated_index_and_read_only_semantics_are_noisy",
+      "RC6_queue_and_risk_metadata_are_not_authoritative"
+    ]
+  },
+  "audit_method": [
+    "Read current AGENTS.md, SKILL.md, and pyproject.toml.",
+    "Compared root instructions against crack-graph root causes and fix waves.",
+    "Searched for blocking language around production readiness, stale index status, summary-only behavior, helper manifests, VBT642 catalog-only mode, MCP/runtime precedence, source readiness, and evidence semantics.",
+    "Patched root control files to encode repo-truth reconciliation, not blind obedience to stale repo surfaces."
+  ],
+  "findings_and_repairs": [
+    {
+      "id": "CF-P1-001",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC4_cross_policy_overlay_validator_missing",
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "title": "Root files treated repo guidance as decisive authority without an explicit crack-graph reconciliation layer.",
+      "risk_before_patch": "Agents could follow stale helper manifests, query profiles, VBT642 catalog-only policies, scanner findings, or index status as blockers even when the current audit proved those surfaces need repair.",
+      "repair": [
+        "Added AGENTS.md Repo Truth Reconciliation section.",
+        "Added SKILL.md reconciliation rules.",
+        "Added pyproject.toml [tool.vbtprobuild.repo_truth_reconciliation]."
+      ],
+      "optimized_fix_plan_effect": "Every future fix wave now starts from a reconciled evidence graph: hard safety invariants remain hard, but stale status/audit/catalog-only surfaces are evidence until focused tests or validators fail."
+    },
+    {
+      "id": "CF-P1-002",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC4_cross_policy_overlay_validator_missing"
+      ],
+      "title": "Catalog-only VBT tool and VBT642 surfaces could be read as universal no-runtime blockers.",
+      "risk_before_patch": "The root docs told agents to query VBT642/tool policies but did not warn that those surfaces currently encode catalog_reference mode as if it were the only mode.",
+      "repair": [
+        "AGENTS.md now states catalog-only/no-runtime VBT tool and VBT642 policies describe catalog_reference mode unless an activated private-runtime research overlay explicitly says otherwise.",
+        "SKILL.md now repeats the same catalog_reference versus activated_private_runtime distinction.",
+        "pyproject.toml mode_semantics records the same rule for machine-readable tooling."
+      ],
+      "optimized_fix_plan_effect": "Wave 3 overlay, Wave 6 VBT642, and Wave 7 VBT tool work can proceed without weakening catalog-mode tests or being stopped by old no-runtime semantics."
+    },
+    {
+      "id": "CF-P1-003",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ],
+      "title": "Root docs did not explicitly warn that source readiness is currently ambiguous.",
+      "risk_before_patch": "Agents could stop valid historical or registered-source acquisition routes because top-level supports_live/ready_for_live fields conflict with source_acquisition_policy live/historical flags.",
+      "repair": [
+        "AGENTS.md now directs agents to reconcile live versus historical acquisition through repo_source_data_acquisition_policy, source_registry, and production_data_pull_rule_sheet, and to record contradictions instead of stopping unrelated valid routes.",
+        "SKILL.md now states source readiness may be ambiguous until the source-acquisition repair wave lands.",
+        "pyproject.toml mode_semantics records source readiness reconciliation before blocking configured acquisition routes."
+      ],
+      "optimized_fix_plan_effect": "Wave 2 remains the semantic repair owner, while current research data acquisition can continue through valid configured routes with contradiction evidence."
+    },
+    {
+      "id": "CF-P1-004",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "title": "Stale repo-index and generated freshness states could be interpreted as hard workflow failures.",
+      "risk_before_patch": "The required preflight intentionally runs repo-index status, but the audit found generated index artifacts can make status stale even when the index head matches the current commit.",
+      "repair": [
+        "AGENTS.md now says stale generated artifact drift is evidence, not failure by itself.",
+        "SKILL.md now classifies stale index status, generated freshness drift, exact-path misses, scanner findings, and handoff text as evidence unless a required focused test or validator fails.",
+        "pyproject.toml repo_index now has status_semantics, stale_status_is_blocking false, blocking_status_conditions, and known_nonblocking_stale_reasons."
+      ],
+      "optimized_fix_plan_effect": "Wave 10 read-only/index cleanup can fix the root behavior, but preflight/status noise no longer halts unrelated valid work."
+    },
+    {
+      "id": "CF-P1-005",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "title": "Audit-only commit rule was too absolute for a repo whose repair sequencing is driven by distilled crack graphs.",
+      "risk_before_patch": "A useful architecture/crack-graph commit could be rejected as audit-only even when it materially changes future workflow and prevents repeated repo resets.",
+      "repair": [
+        "AGENTS.md now says to avoid index-only/audit-only/status-only commits unless the commit is a distilled architectural decision artifact that materially changes repair sequencing or future workflow.",
+        "SKILL.md and pyproject.toml now encode the same distinction between distilled architecture/crack graphs and raw audit-log churn."
+      ],
+      "optimized_fix_plan_effect": "The strategy plan and crack graph can become durable route evidence without opening the door to noisy raw report dumps."
+    },
+    {
+      "id": "CF-P1-006",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC5_generated_index_and_read_only_semantics_are_noisy"
+      ],
+      "title": "Helper catalog usage was too trusting despite known helper-manifest drift.",
+      "risk_before_patch": "Agents could stop or duplicate work because the helper catalog lacks current scripts and script_surface_usage_policy leaves current scripts unclassified.",
+      "repair": [
+        "AGENTS.md now says to prefer helper/builder/validator scripts when the helper catalog is current for that surface.",
+        "AGENTS.md and SKILL.md now say to verify current files and the script import architecture index when helper metadata is missing or stale, then repair the catalog or make the smallest owner-surface edit."
+      ],
+      "optimized_fix_plan_effect": "Wave 8 remains responsible for full helper reconciliation, but missing helper catalog entries no longer stop Wave 1 through Wave 7 work."
+    },
+    {
+      "id": "CF-P1-007",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ],
+      "title": "Real-data smoke language could be read as a blocker for research design and overlay implementation.",
+      "risk_before_patch": "The docs said real-data smoke is required before treating a VBT tool as useful beyond catalog/import authority, which could block docs lookup, schema design, dry-run planning, or overlay work.",
+      "repair": [
+        "SKILL.md now says real-data smoke is required before treating a VBT tool as proven for data-backed research claims beyond catalog/import authority.",
+        "SKILL.md now says missing smoke is an evidence gap, not a blocker for docs lookup, schema design, dry-run planning, or overlay implementation."
+      ],
+      "optimized_fix_plan_effect": "VBT Data bridge, portfolio modes, VBT642 overlay, and VBT tool boundary work can be designed and tested before real-data smoke promotes any data-backed claim."
+    },
+    {
+      "id": "CF-P1-008",
+      "severity": "P1",
+      "root_cause_links": [
+        "RC1_private_runtime_activation_not_machine_enforced",
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware"
+      ],
+      "title": "pyproject.toml did not declare jsonschema despite active validators/tests using Draft202012Validator.",
+      "risk_before_patch": "Wave 1 activation schema enforcement and existing validators rely on jsonschema, but the project dependency list only declared fastjsonschema in optional indexing dependencies.",
+      "repair": [
+        "Added jsonschema>=4.22 to project dependencies."
+      ],
+      "optimized_fix_plan_effect": "Wave 1 can use Draft202012Validator as a first-class project dependency instead of relying on incidental environment packages."
+    },
+    {
+      "id": "CF-P2-009",
+      "severity": "P2",
+      "root_cause_links": [
+        "RC2_catalog_only_vbt_tool_and_vbt642_surfaces_not_mode_aware",
+        "RC3_source_readiness_and_acquisition_fields_have_overloaded_meanings"
+      ],
+      "title": "Root docs still used production wording in ways that could confuse research artifact boundaries.",
+      "risk_before_patch": "Users and agents could confuse production namespace names with production-ready claims.",
+      "repair": [
+        "AGENTS.md and SKILL.md now define production-in-paths as historical namespace or operational-control wording, not readiness.",
+        "SKILL.md title changed from Production Skill to Operational Research Skill.",
+        "pyproject.toml project description changed from controlled salvage rebuild root to operational research rebuild root.",
+        "Qdrant/native lookup language now says required evidence for the specific research/runtime/data-acquisition/promotion claim, not generic production evidence."
+      ],
+      "optimized_fix_plan_effect": "Portfolio/optimizer and VBT Data outputs are now clearly research artifacts until a separate promotion route proves otherwise."
+    }
+  ],
+  "remaining_control_file_risks": [
+    {
+      "id": "RISK-CF-001",
+      "severity": "P2",
+      "description": "AGENTS.md and SKILL.md still contain many historical paths and command names with production in them. This is acceptable after the namespace clarification, but future renaming would be a larger compatibility project.",
+      "owner_wave": "Wave 11 scanner_exact_path_and_legacy_authority_cleanup"
+    },
+    {
+      "id": "RISK-CF-002",
+      "severity": "P2",
+      "description": "pyproject.toml now encodes stale-index semantics, but repo-index scripts do not yet enforce those semantics. That remains implementation work.",
+      "owner_wave": "Wave 10 read_only_index_and_mutation_cleanup"
+    },
+    {
+      "id": "RISK-CF-003",
+      "severity": "P2",
+      "description": "Root docs now point at the strategy plan under tmp/reports/production. If the plan is not committed, future agents may not see it. Either commit the distilled plan or move it to an approved durable plan root during Wave 0.",
+      "owner_wave": "Wave 0 audit_hygiene_and_plan_tracking"
+    },
+    {
+      "id": "RISK-CF-004",
+      "severity": "P3",
+      "description": "Root docs classify catalog_reference versus activated_private_runtime, but the actual VBT642/tool schemas and validators are not mode-aware yet.",
+      "owner_wave": "Wave 3 through Wave 7"
+    }
+  ],
+  "optimized_fix_plan_adjustments": [
+    {
+      "change": "Promote Wave 0 from optional hygiene to required before committing root control-file changes.",
+      "reason": "The control files now reference the distilled strategy plan; that plan should either be committed with these edits or moved to a durable plan root."
+    },
+    {
+      "change": "Keep Waves 1, 2, and 3 as the locked sequential foundation.",
+      "reason": "Root instructions now explicitly route activation, source acquisition, and overlay contradictions through those waves."
+    },
+    {
+      "change": "Allow Wave 8 and Wave 10 to run in parallel when they stop creating false blockers for Waves 1 through 7.",
+      "reason": "Helper drift and stale-index noise are now classified as evidence, but the underlying scripts still need cleanup."
+    },
+    {
+      "change": "Treat real-data smoke as claim evidence, not design permission.",
+      "reason": "VBT Data bridge, VBT642 overlay, and VBT tool boundary design should not wait for live or historical pulls; smoke is required before claiming the tool is proven on data."
+    }
+  ],
+  "validation_performed": [
+    {
+      "command": "Read AGENTS.md, SKILL.md, pyproject.toml",
+      "status": "passed"
+    },
+    {
+      "command": "Preflight authority query and guidance map lookup",
+      "status": "passed"
+    },
+    {
+      "command": "Repo-index status",
+      "status": "stale_expected_nonblocking",
+      "stale_reason_count": 8
+    },
+    {
+      "command": "pyproject tomllib parse after first-pass patch",
+      "status": "passed"
+    }
+  ],
+  "next_validation_required": [
+    "tomllib parse after final patch",
+    "python -m json.tool on changed JSON reports/plans",
+    "secret-token-pattern scan on changed root/report files",
+    "git diff --check"
+  ],
+  "bottom_line": {
+    "root_control_files_are_now_aligned_with_crack_graph": true,
+    "implementation_plan_ready_to_optimize_wave_specs": true,
+    "start_wave": "Wave 1 activation_schema_validator_tests after committing or otherwise preserving Wave 0 strategy/control-file evidence"
+  }
+}

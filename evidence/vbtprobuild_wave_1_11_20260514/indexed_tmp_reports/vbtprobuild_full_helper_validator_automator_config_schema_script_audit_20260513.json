@@ -1,0 +1,2047 @@
+{
+  "report_id": "vbtprobuild_full_helper_validator_automator_config_schema_script_audit_20260513",
+  "created_at_utc": "2026-05-13T05:55:02Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "branch": "slice/final-foundation-audit-and-release-gate",
+  "head": "489101759e4d99520c1cde00fb8936700c638c5a",
+  "scope": {
+    "scripts": 266,
+    "configs_v2_json": 223,
+    "schemas_v2_json": 167,
+    "contracts_v2_json": 197,
+    "json_files_sampled_for_refs": "configs/schemas/contracts/plans/manifests/receipts/checkpoints/reference helper surfaces",
+    "indexes_used": [
+      "manifests/v2/repo_index.sqlite",
+      "manifests/v2/script_import_architecture_index.sqlite",
+      "manifests/v2/plan_note_index.sqlite",
+      "manifests/v2/static_lookup_indexes/vectorbtpro_static_lookup.sqlite",
+      "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json",
+      "reference/repo_helpers/index.json"
+    ]
+  },
+  "index_status": {
+    "repo_index": {
+      "cmd": "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+      "returncode": 1,
+      "json": {
+        "status": "stale",
+        "stale": true,
+        "summary_stale": false,
+        "sqlite_path": "manifests/v2/repo_index.sqlite",
+        "summary_path": "manifests/v2/repo_index_summary.json",
+        "latest_refresh": {
+          "refresh_run_id": "refresh_a26e57d245f615a89be990ff",
+          "ts_utc": "2026-05-13T05:46:33.972137Z",
+          "mode": "rebuild",
+          "status": "passed",
+          "source_digest": "a60c132447805eba11dca85163d196bbe6fce1d880908612a68b27680c9b2b44",
+          "table_count": 50,
+          "file_count": 26543
+        },
+        "counts": {
+          "files": 26543,
+          "folders": 13931,
+          "file_hashes": 26543,
+          "generated_artifacts": 15,
+          "protected_paths": 3,
+          "python_modules": 935,
+          "symbols": 9449,
+          "imports": 5833,
+          "calls": 93805,
+          "cli_flags": 2180,
+          "path_refs": 2829,
+          "json_nodes": 3275812,
+          "yaml_nodes": 299,
+          "schema_ids": 1701,
+          "contract_ids": 198,
+          "config_values": 2735191,
+          "notes": 324,
+          "plans": 179,
+          "artifacts": 479,
+          "receipts": 2,
+          "runtime_outputs": 11518,
+          "evidence_tiers": 4,
+          "graph_nodes": 38916,
+          "graph_edges": 9449,
+          "impact_cache": 1,
+          "authority_terms": 5,
+          "ownership": 3,
+          "edit_rules": 3,
+          "git_commits": 1,
+          "git_file_changes": 0,
+          "stale_records": 0,
+          "semantic_chunks": 43160,
+          "external_authorities": 3,
+          "external_authority_records": 28427,
+          "vector_indexes": 1,
+          "embedding_runs": 1,
+          "projection_manifests": 9,
+          "donor_index_sources": 4,
+          "query_events": 821,
+          "path_access_events": 13320,
+          "hot_path_scores": 2125,
+          "query_result_cache": 689,
+          "refresh_runs": 1,
+          "refresh_events": 0,
+          "fts_files": 26543,
+          "fts_symbols": 9449,
+          "fts_notes": 324,
+          "fts_configs": 2735191,
+          "fts_contracts": 1899,
+          "fts_external_authorities": 28427
+        },
+        "freshness": {
+          "stale": true,
+          "stale_reason_count": 8,
+          "stale_reasons": [
+            "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json",
+            "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json",
+            "tracked_file_hash_changed:manifests/v2/repo_index_summary.json",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json",
+            "tracked_file_hash_changed:receipts/v2/repo_index_receipts.jsonl",
+            "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+          ],
+          "tracked_file_missing_count": 0,
+          "indexed_tracked_file_missing_count": 0,
+          "tracked_file_hash_changed_count": 8,
+          "index_head_mismatch": false,
+          "indexed_head": "489101759e4d",
+          "current_head": "489101759e4d",
+          "accepted_parent_head": "db5a48b46751"
+        }
+      }
+    },
+    "script_import_architecture_index": {
+      "cmd": "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only",
+      "returncode": 1,
+      "json": {
+        "classes_indexed": 52,
+        "cli_surfaces_indexed": 268,
+        "freshness": {
+          "accepted_parent_head": "db5a48b467511ead81da06476587739fc22e223a",
+          "current_head": "489101759e4d99520c1cde00fb8936700c638c5a",
+          "index_head_mismatch": false,
+          "indexed_head": "489101759e4d99520c1cde00fb8936700c638c5a",
+          "indexed_tracked_file_missing_count": 0,
+          "stale": true,
+          "stale_reason_count": 6,
+          "stale_reasons": [
+            "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json",
+            "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json",
+            "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json",
+            "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+          ],
+          "tracked_file_hash_changed_count": 6,
+          "tracked_file_missing_count": 0
+        },
+        "functions_indexed": 8401,
+        "imports_indexed": 7412,
+        "issue_count": 6,
+        "issues": [
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json"
+          },
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json"
+          },
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite"
+          },
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json"
+          },
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json"
+          },
+          {
+            "code": "SCRIPT_IMPORT_INDEX_STALE",
+            "message": "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+          }
+        ],
+        "mode": "summary",
+        "modules_indexed": 923,
+        "python_files_indexed": 923,
+        "record_count": 26,
+        "risk_flagged_files": 2666,
+        "stale": true,
+        "status": "stale",
+        "symbols_indexed": 8453,
+        "table_count": 26,
+        "top100_exports_matched": 100,
+        "top100_exports_missing_direct_match": 0,
+        "tracked_files_indexed": 3427
+      }
+    },
+    "note": "Both indexes were refreshed/rebuilt for this audit; status remains stale because tracked generated outputs changed after index content generation."
+  },
+  "validation_observations": {
+    "passed": [
+      "query_v2_production_authority_index.py --scope code_change --summary-only",
+      "v2_repo_index.py --path configs/v2/production_guidance_authority_map.json --compact --no-auto-refresh",
+      "v2_plan_note_index.py --status --compact --no-auto-refresh",
+      "v2_validate_script_structural_family_cookbook.py --repo-corpus --summary-only",
+      "v2_query_v7_2_5_vbtpro_642_export_import_matrix.py --summary-only",
+      "check_v2_master_config_preflight.py --summary-only",
+      "v2_validate_v7_schema_contract_config_catalogs.py --repo-corpus --summary-only",
+      "v2_validate_output_generator_post_run_index_hooks.py --repo-corpus --summary-only",
+      "check_v2_no_hard_coded_runtime_values.py --summary-only",
+      "check_v2_script_io_authority_adoption.py --summary-only",
+      "v2_validate_v7_2_5_vbtpro_top300_import_smoke.py --repo-corpus --summary-only",
+      "v2_validate_v7_2_5_vbtpro_other300_import_smoke.py --repo-corpus --summary-only",
+      "v2_validate_v7_2_5_tool_real_data_smoke.py --summary-only",
+      "v2_validate_v7_2_5_tool_topology_resource_smoke.py --repo-corpus --summary-only",
+      "v2_validate_repo_identity_envelope.py --summary-only"
+    ],
+    "failed_or_stale": [
+      "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/run_v2_bad_pattern_scanners.py",
+      "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/check_v2_archived_foundation_reference_guard.py --summary-only",
+      "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_repo_index.py --status --summary-only --no-auto-refresh",
+      "/home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_query_script_import_architecture_index.py --summary-only",
+      "v2_validate_repo_worktree_cleanliness.py --summary-only after audit-generated index refreshes"
+    ]
+  },
+  "inventories": {
+    "missing_from_script_manifest": [
+      "scripts/v2_allocate_private_research_run_paths.py",
+      "scripts/v2_build_private_research_artifact_index.py",
+      "scripts/v2_build_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_build_script_import_architecture_index.py",
+      "scripts/v2_build_v7_2_4_random10_multi_timeframe_smoke_bars.py",
+      "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+      "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+      "scripts/v2_guard_v7_2_5_production_claims.py",
+      "scripts/v2_lint_v7_2_5_evidence_receipts.py",
+      "scripts/v2_plan_massive_parallel_ingestion_topology.py",
+      "scripts/v2_probe_v7_2_5_optional_dependency_capabilities.py",
+      "scripts/v2_project_v7_2_4_slice13_axis_config_combos.py",
+      "scripts/v2_query_private_research_artifact_index.py",
+      "scripts/v2_query_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_query_script_import_architecture_index.py",
+      "scripts/v2_query_v7_2_5_lookup_receipt_status.py",
+      "scripts/v2_query_v7_2_5_pipeline_stage_registry.py",
+      "scripts/v2_query_v7_2_5_provider_data_type_mapper.py",
+      "scripts/v2_query_v7_2_5_script_surface_allowlist.py",
+      "scripts/v2_query_v7_2_5_vbt_tool_catalog.py",
+      "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py",
+      "scripts/v2_query_vectorbtpro_private_docs_high_value_index.py",
+      "scripts/v2_repo_hygiene_status.py",
+      "scripts/v2_run_output_generator_post_run_index_hooks.py",
+      "scripts/v2_run_private_research_vbt_sweep.py",
+      "scripts/v2_run_slice13_axis_config_combo_feature_smoke.py",
+      "scripts/v2_run_v7_2_5_gpu_feature_matrix.py",
+      "scripts/v2_run_v7_2_5_gpu_ml_experiment.py",
+      "scripts/v2_validate_enterprise_factory_base_delta_pairing.py",
+      "scripts/v2_validate_enterprise_factory_design_intake.py",
+      "scripts/v2_validate_live_source_event_stream_control_plane.py",
+      "scripts/v2_validate_market_event_store_design_policy.py",
+      "scripts/v2_validate_massive_parallel_ingestion_topology.py",
+      "scripts/v2_validate_multi_research_system_registry.py",
+      "scripts/v2_validate_output_generator_post_run_index_hooks.py",
+      "scripts/v2_validate_private_full_real_testing_activation.py",
+      "scripts/v2_validate_private_research_artifact_index.py",
+      "scripts/v2_validate_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_validate_private_research_vbt_sweep_runner.py",
+      "scripts/v2_validate_research_difficulty_semantics.py",
+      "scripts/v2_validate_script_import_architecture_index.py",
+      "scripts/v2_validate_script_structural_family_cookbook.py",
+      "scripts/v2_validate_v7_2_5_bounded_gpu_ml_research.py",
+      "scripts/v2_validate_v7_2_5_cpu_model_smoke.py",
+      "scripts/v2_validate_v7_2_5_gpu_feature_matrix.py",
+      "scripts/v2_validate_v7_2_5_gpu_ml_experiment.py",
+      "scripts/v2_validate_v7_2_5_ml_pit_workflow.py",
+      "scripts/v2_validate_v7_2_5_rl_research_environment.py",
+      "scripts/v2_validate_v7_2_5_tool_group_01_provider_data_type_mapper_authority.py",
+      "scripts/v2_validate_v7_2_5_tool_real_data_smoke.py",
+      "scripts/v2_validate_v7_2_5_tool_topology_resource_smoke.py",
+      "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_001_surface_catalog_query_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_002_provider_data_type_mapper.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_003_lookup_receipt_status.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_004_optional_dependency_capability_matrix.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_005_script_surface_allowlist.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_008_data_updater_dry_run_planner.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_010_data_saver_persistence_route_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_011_multi_timeframe_alignment_planner.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_012_ohlcv_sanity_validator.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_013_corporate_action_adjustment_boundary.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_014_indicator_catalog_compiler.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_015_indicator_execution_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_016_indicator_parameter_grid_budgeter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_018_support_resistance_range_feature_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_019_volatility_regime_indicator_stack.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_020_trend_momentum_indicator_stack.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_057_jit_numba_capability_matrix.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_070_pipeline_stage_registry.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_072_evidence_receipt_linter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_073_production_claim_guard.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_076_resampler_calendar_alignment_adapter.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_083_event_availability_guard.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_084_source_availability_pit_validator.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_097_data_quality_schema_validator.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py",
+      "scripts/v2_validate_vectorbtpro_mcp_integration.py",
+      "scripts/v2_validate_vectorbtpro_mcp_tool_inventory_smoke.py",
+      "scripts/v2_validate_vectorbtpro_private_docs_high_value_index.py"
+    ],
+    "unknown_script_surface_policy_current_scripts": [
+      "scripts/v2_allocate_private_research_run_paths.py",
+      "scripts/v2_build_private_research_artifact_index.py",
+      "scripts/v2_build_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_build_script_import_architecture_index.py",
+      "scripts/v2_build_v7_2_4_random10_multi_timeframe_smoke_bars.py",
+      "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+      "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+      "scripts/v2_plan_massive_parallel_ingestion_topology.py",
+      "scripts/v2_project_v7_2_4_slice13_axis_config_combos.py",
+      "scripts/v2_query_private_research_artifact_index.py",
+      "scripts/v2_query_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_query_script_import_architecture_index.py",
+      "scripts/v2_query_v7_2_5_vbtpro_642_export_import_matrix.py",
+      "scripts/v2_query_vectorbtpro_private_docs_high_value_index.py",
+      "scripts/v2_repo_hygiene_status.py",
+      "scripts/v2_run_output_generator_post_run_index_hooks.py",
+      "scripts/v2_run_private_research_vbt_sweep.py",
+      "scripts/v2_run_slice13_axis_config_combo_feature_smoke.py",
+      "scripts/v2_run_v7_2_5_gpu_feature_matrix.py",
+      "scripts/v2_run_v7_2_5_gpu_ml_experiment.py",
+      "scripts/v2_validate_enterprise_factory_base_delta_pairing.py",
+      "scripts/v2_validate_enterprise_factory_design_intake.py",
+      "scripts/v2_validate_live_source_event_stream_control_plane.py",
+      "scripts/v2_validate_market_event_store_design_policy.py",
+      "scripts/v2_validate_massive_parallel_ingestion_topology.py",
+      "scripts/v2_validate_multi_research_system_registry.py",
+      "scripts/v2_validate_output_generator_post_run_index_hooks.py",
+      "scripts/v2_validate_private_full_real_testing_activation.py",
+      "scripts/v2_validate_private_research_artifact_index.py",
+      "scripts/v2_validate_private_research_vbt_sweep_result_index.py",
+      "scripts/v2_validate_private_research_vbt_sweep_runner.py",
+      "scripts/v2_validate_script_import_architecture_index.py",
+      "scripts/v2_validate_script_structural_family_cookbook.py",
+      "scripts/v2_validate_v7_2_5_bounded_gpu_ml_research.py",
+      "scripts/v2_validate_v7_2_5_cpu_model_smoke.py",
+      "scripts/v2_validate_v7_2_5_gpu_feature_matrix.py",
+      "scripts/v2_validate_v7_2_5_gpu_ml_experiment.py",
+      "scripts/v2_validate_v7_2_5_ml_pit_workflow.py",
+      "scripts/v2_validate_v7_2_5_rl_research_environment.py",
+      "scripts/v2_validate_v7_2_5_tool_topology_resource_smoke.py",
+      "scripts/v2_validate_v7_2_5_vbt_knowledge_automation.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_020_trend_momentum_indicator_stack.py",
+      "scripts/v2_validate_v7_2_5_vbt_tool_057_jit_numba_capability_matrix.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_642_export_import_authority.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py",
+      "scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py",
+      "scripts/v2_validate_vectorbtpro_mcp_integration.py",
+      "scripts/v2_validate_vectorbtpro_mcp_tool_inventory_smoke.py",
+      "scripts/v2_validate_vectorbtpro_private_docs_high_value_index.py"
+    ],
+    "missing_configs_from_config_schema_registry": [
+      "configs/v2/enterprise_factory_base_delta_pairing_policy.json",
+      "configs/v2/enterprise_factory_design_intake_policy.json",
+      "configs/v2/live_source_event_stream_control_plane_policy.json",
+      "configs/v2/market_event_store_design_policy.json",
+      "configs/v2/massive_parallel_ingestion_topology_policy.json",
+      "configs/v2/multi_research_system_registry_policy.json",
+      "configs/v2/output_generator_post_run_index_hooks_policy.json",
+      "configs/v2/private_full_real_testing_activation_policy.json",
+      "configs/v2/private_research_artifact_index_policy.json",
+      "configs/v2/private_research_vbt_sweep_result_index_policy.json",
+      "configs/v2/private_research_vbt_sweep_runner_policy.json",
+      "configs/v2/repo_delete_safety_policy.json",
+      "configs/v2/repo_hygiene_status_policy.json",
+      "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+      "configs/v2/repo_worktree_cleanliness_policy.json",
+      "configs/v2/research_continuation_policy_20260512.json",
+      "configs/v2/research_run_plan_registry_policy.json",
+      "configs/v2/script_import_architecture_index_policy.json",
+      "configs/v2/script_structural_family_cookbook_policy.json",
+      "configs/v2/v7_2_4_random10_intraday_hour_massive_materializer_run_spec.json",
+      "configs/v2/v7_2_4_random10_multi_timeframe_smoke_bars_policy.json",
+      "configs/v2/v7_2_4_slice13_axis_config_combo_feature_smoke_policy.json",
+      "configs/v2/v7_2_4_slice13_axis_config_combo_projection_policy.json",
+      "configs/v2/v7_2_5_bounded_gpu_ml_research_policy.json",
+      "configs/v2/v7_2_5_cpu_model_smoke_policy.json",
+      "configs/v2/v7_2_5_gpu_feature_matrix_policy.json",
+      "configs/v2/v7_2_5_gpu_ml_experiment_policy.json",
+      "configs/v2/v7_2_5_live_provider_full_surface_smoke_massive_run_spec.json",
+      "configs/v2/v7_2_5_ml_pit_workflow_policy.json",
+      "configs/v2/v7_2_5_rl_research_environment_policy.json",
+      "configs/v2/v7_2_5_tool_group_01_provider_data_type_mapper_authority_policy.json",
+      "configs/v2/v7_2_5_tool_phase_preflight_policy.json",
+      "configs/v2/v7_2_5_tool_real_data_smoke_policy.json",
+      "configs/v2/v7_2_5_tool_topology_resource_smoke_policy.json",
+      "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_001_surface_catalog_query_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_002_provider_data_type_mapper_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_003_lookup_receipt_status_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_004_optional_dependency_capability_matrix_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_005_script_surface_allowlist_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_010_data_saver_persistence_route_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_011_multi_timeframe_alignment_planner_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_012_ohlcv_sanity_validator_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_013_corporate_action_adjustment_boundary_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_014_indicator_catalog_compiler_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_015_indicator_execution_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_016_indicator_parameter_grid_budgeter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_018_support_resistance_range_feature_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_019_volatility_regime_indicator_stack_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_020_trend_momentum_indicator_stack_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_057_jit_numba_capability_matrix_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_070_pipeline_stage_registry_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_072_evidence_receipt_linter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_073_production_claim_guard_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_076_resampler_calendar_alignment_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_083_event_availability_guard_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_084_source_availability_pit_validator_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_097_data_quality_schema_validator_policy.json",
+      "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+      "configs/v2/v7_2_5_vbtpro_other300_import_smoke_policy.json",
+      "configs/v2/v7_2_5_vbtpro_top300_import_smoke_policy.json",
+      "configs/v2/vectorbtpro_mcp_integration_policy.json",
+      "configs/v2/vectorbtpro_mcp_tool_inventory_smoke_policy.json",
+      "configs/v2/vectorbtpro_private_docs_high_value_index_policy.json"
+    ],
+    "missing_schemas_from_config_schema_registry": [
+      "schemas/v2/enterprise_factory_base_delta_pairing.schema.json",
+      "schemas/v2/enterprise_factory_design_intake.schema.json",
+      "schemas/v2/live_source_event_stream_control_plane.schema.json",
+      "schemas/v2/market_event_store_design_policy.schema.json",
+      "schemas/v2/massive_parallel_ingestion_topology.schema.json",
+      "schemas/v2/multi_research_system_registry.schema.json",
+      "schemas/v2/output_generator_post_run_index_hooks.schema.json",
+      "schemas/v2/private_full_real_testing_activation.schema.json",
+      "schemas/v2/private_research_artifact_index.schema.json",
+      "schemas/v2/private_research_vbt_sweep_result_index.schema.json",
+      "schemas/v2/private_research_vbt_sweep_runner.schema.json",
+      "schemas/v2/repo_delete_safety_manifest.schema.json",
+      "schemas/v2/repo_hygiene_status.schema.json",
+      "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+      "schemas/v2/repo_worktree_cleanliness.schema.json",
+      "schemas/v2/research_continuation_policy.schema.json",
+      "schemas/v2/research_run_plan_registry.schema.json",
+      "schemas/v2/script_import_architecture_index.schema.json",
+      "schemas/v2/script_structural_family_cookbook.schema.json",
+      "schemas/v2/v7_2_5_bounded_gpu_ml_research.schema.json",
+      "schemas/v2/v7_2_5_cpu_model_smoke.schema.json",
+      "schemas/v2/v7_2_5_gpu_feature_matrix.schema.json",
+      "schemas/v2/v7_2_5_gpu_ml_experiment.schema.json",
+      "schemas/v2/v7_2_5_label_quarantine_manifest.schema.json",
+      "schemas/v2/v7_2_5_ml_dataset_manifest.schema.json",
+      "schemas/v2/v7_2_5_ml_pit_workflow.schema.json",
+      "schemas/v2/v7_2_5_purged_split_manifest.schema.json",
+      "schemas/v2/v7_2_5_rl_action_frame.schema.json",
+      "schemas/v2/v7_2_5_rl_observation_frame.schema.json",
+      "schemas/v2/v7_2_5_rl_research_environment.schema.json",
+      "schemas/v2/v7_2_5_rl_reward_frame.schema.json",
+      "schemas/v2/v7_2_5_tool_group_01_provider_data_type_mapper_authority.schema.json",
+      "schemas/v2/v7_2_5_tool_phase_preflight.schema.json",
+      "schemas/v2/v7_2_5_tool_real_data_smoke.schema.json",
+      "schemas/v2/v7_2_5_tool_topology_resource_smoke.schema.json",
+      "schemas/v2/v7_2_5_vbt_knowledge_automation.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_001_surface_catalog_query_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_002_provider_data_type_mapper.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_003_lookup_receipt_status.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_004_optional_dependency_capability_matrix.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_005_script_surface_allowlist.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_010_data_saver_persistence_route_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_011_multi_timeframe_alignment_planner.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_012_ohlcv_sanity_validator.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_013_corporate_action_adjustment_boundary.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_014_indicator_catalog_compiler.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_015_indicator_execution_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_016_indicator_parameter_grid_budgeter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_018_support_resistance_range_feature_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_019_volatility_regime_indicator_stack.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_020_trend_momentum_indicator_stack.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_057_jit_numba_capability_matrix.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_070_pipeline_stage_registry.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_072_evidence_receipt_linter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_073_production_claim_guard.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_076_resampler_calendar_alignment_adapter.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_083_event_availability_guard.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_084_source_availability_pit_validator.schema.json",
+      "schemas/v2/v7_2_5_vbt_tool_097_data_quality_schema_validator.schema.json",
+      "schemas/v2/v7_2_5_vbtpro_642_export_thin_import.schema.json",
+      "schemas/v2/v7_2_5_vbtpro_other300_import_smoke.schema.json",
+      "schemas/v2/v7_2_5_vbtpro_top300_import_smoke.schema.json",
+      "schemas/v2/vectorbtpro_mcp_integration.schema.json",
+      "schemas/v2/vectorbtpro_mcp_tool_inventory_smoke.schema.json",
+      "schemas/v2/vectorbtpro_private_docs_high_value_index.schema.json"
+    ],
+    "missing_configs_from_master_registry": [
+      "configs/v2/comparison_cohort_registry.json",
+      "configs/v2/comparison_table_registry.json",
+      "configs/v2/cpu_xgboost_training.json",
+      "configs/v2/current_slice_context_policy.json",
+      "configs/v2/data_estate_authority.json",
+      "configs/v2/data_quality_masking_policy.json",
+      "configs/v2/enterprise_factory_base_delta_pairing_policy.json",
+      "configs/v2/enterprise_factory_design_intake_policy.json",
+      "configs/v2/event_mask_indicator_stacks.json",
+      "configs/v2/execution_entry_exit_policy.json",
+      "configs/v2/execution_indicator_stacks.json",
+      "configs/v2/finalizer_exception_policy.json",
+      "configs/v2/gpu_evaluation_policy.json",
+      "configs/v2/gpu_resource_policy.json",
+      "configs/v2/hard_run_execution_policy.json",
+      "configs/v2/lifecycle_mode.json",
+      "configs/v2/live_source_event_stream_control_plane_policy.json",
+      "configs/v2/live_source_execution_policy.json",
+      "configs/v2/live_source_promotion_policy.json",
+      "configs/v2/live_source_required_slices.json",
+      "configs/v2/market_calendar_policy.json",
+      "configs/v2/market_event_store_design_policy.json",
+      "configs/v2/market_sector_sweep_control_plane_policy.json",
+      "configs/v2/market_sector_universe_taxonomy_policy.json",
+      "configs/v2/masking_score_overlay_policy.json",
+      "configs/v2/massive_capability_probe_matrix.json",
+      "configs/v2/massive_data_organization_registry.json",
+      "configs/v2/massive_parallel_ingestion_topology_policy.json",
+      "configs/v2/massive_pull_execution_index_policy.json",
+      "configs/v2/massive_sample_capture_policy.json",
+      "configs/v2/metric_definition_registry.json",
+      "configs/v2/metric_namespace_registry.json",
+      "configs/v2/middle_level_suitability_indicator_stacks.json",
+      "configs/v2/ml_dataset_label_authority.json",
+      "configs/v2/multi_research_system_registry_policy.json",
+      "configs/v2/operational_labels_policy.json",
+      "configs/v2/operational_materialization_policy.json",
+      "configs/v2/operational_ml_dataset_policy.json",
+      "configs/v2/operational_records_metrics_policy.json",
+      "configs/v2/operational_replay_policy.json",
+      "configs/v2/output_generator_post_run_index_hooks_policy.json",
+      "configs/v2/plan_note_authority_classification_policy.json",
+      "configs/v2/pre_slice16_hard_run_policy.json",
+      "configs/v2/private_full_real_testing_activation_policy.json",
+      "configs/v2/private_research_artifact_index_policy.json",
+      "configs/v2/private_research_vbt_sweep_result_index_policy.json",
+      "configs/v2/private_research_vbt_sweep_runner_policy.json",
+      "configs/v2/production_all_execution_event_mask_32_symbol_smoke_policy.json",
+      "configs/v2/production_all_execution_timestamp_selection_3month_pipeline_policy.json",
+      "configs/v2/production_all_execution_timestamp_selection_pipeline_policy.json",
+      "configs/v2/production_calendar_event_source_registry.json",
+      "configs/v2/production_data_pull_materializer_policy.json",
+      "configs/v2/production_data_pull_rule_sheet.json",
+      "configs/v2/production_equity_discovery_batch_001_policy.json",
+      "configs/v2/production_equity_discovery_preflight_policy.json",
+      "configs/v2/production_experiment_registry.json",
+      "configs/v2/production_finra_reference_materialization_policy.json",
+      "configs/v2/production_historical_evidence_allowlist.json",
+      "configs/v2/production_indicator_correlation_sweep_candidates.json",
+      "configs/v2/production_indicator_event_probability_research_policy.json",
+      "configs/v2/production_indicator_feature_load_registry.json",
+      "configs/v2/production_io_authority.json",
+      "configs/v2/production_local_parquet_hard_run_policy.json",
+      "configs/v2/production_market_breadth_source_registry.json",
+      "configs/v2/production_masked_unmasked_price_trade_impact_policy.json",
+      "configs/v2/production_massive_materializer_policy.json",
+      "configs/v2/production_master_config_registry.json",
+      "configs/v2/production_pipeline_runner_policy.json",
+      "configs/v2/production_portfolio_runtime_policy.json",
+      "configs/v2/production_regime_event_mask_scoring_policy.json",
+      "configs/v2/production_resource_wrapper_policy.json",
+      "configs/v2/production_signal_quality_funnel_policy.json",
+      "configs/v2/production_source_family_feature_policy.json",
+      "configs/v2/production_sparse_reference_fact_materialization_policy.json",
+      "configs/v2/production_strategy_math_family_requirements.json",
+      "configs/v2/production_strategy_run_preflight_smoke.json",
+      "configs/v2/production_timestamp_selection_pipeline_policy.json",
+      "configs/v2/production_universe_readiness_policy.json",
+      "configs/v2/production_validation_path_authority.json",
+      "configs/v2/repo_delete_safety_policy.json",
+      "configs/v2/repo_hygiene_status_policy.json",
+      "configs/v2/repo_identity_namespace_policy.json",
+      "configs/v2/repo_index_query_profiles.json",
+      "configs/v2/repo_organization_map_policy.json",
+      "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+      "configs/v2/repo_worktree_cleanliness_policy.json",
+      "configs/v2/research_continuation_policy_20260512.json",
+      "configs/v2/research_run_plan_registry_policy.json",
+      "configs/v2/script_import_architecture_index_policy.json",
+      "configs/v2/script_structural_family_cookbook_policy.json",
+      "configs/v2/script_surface_usage_policy.json",
+      "configs/v2/solthera_ml_stack_cross_environment_proof_policy.json",
+      "configs/v2/solthera_ml_stack_environment_install_plan.json",
+      "configs/v2/solthera_ml_stack_rapids_pip_policy.json",
+      "configs/v2/solthera_ml_stack_runtime_smoke_policy.json",
+      "configs/v2/solthera_ml_stack_split_environment_policy.json",
+      "configs/v2/solthera_ml_stack_target_architecture.json",
+      "configs/v2/solthera_pit_model_frame_validation_policy.json",
+      "configs/v2/solthera_serving_container_runtime_policy.json",
+      "configs/v2/source_registry.json",
+      "configs/v2/strategy_family_suitability_policy.json",
+      "configs/v2/strategy_math_donor_import_policy.json",
+      "configs/v2/tmp_evidence_lifecycle_policy.json",
+      "configs/v2/top_level_regime_indicator_stacks.json",
+      "configs/v2/top_level_workflow_phrase_policy.json",
+      "configs/v2/v7_2_4_bounded_source_materialization_smoke_policy.json",
+      "configs/v2/v7_2_4_config_generation_operator_decision_loop_policy.json",
+      "configs/v2/v7_2_4_data_normalization_and_bar_smoke_policy.json",
+      "configs/v2/v7_2_4_dry_run_queue_and_dispatch_receipts_policy.json",
+      "configs/v2/v7_2_4_feature_materialization_smoke_policy.json",
+      "configs/v2/v7_2_4_label_outcome_generation_smoke_policy.json",
+      "configs/v2/v7_2_4_mask_materialization_smoke_policy.json",
+      "configs/v2/v7_2_4_operator_readiness_report_policy.json",
+      "configs/v2/v7_2_4_provider_authorization_preflight_policy.json",
+      "configs/v2/v7_2_4_random10_intraday_hour_massive_materializer_run_spec.json",
+      "configs/v2/v7_2_4_random10_multi_timeframe_smoke_bars_policy.json",
+      "configs/v2/v7_2_4_replay_portfolio_and_configured_scope_smoke_policy.json",
+      "configs/v2/v7_2_4_runtime_research_smoke_policy.json",
+      "configs/v2/v7_2_4_schema_contract_config_catalogs_validation_policy.json",
+      "configs/v2/v7_2_4_slice13_axis_config_combo_feature_smoke_policy.json",
+      "configs/v2/v7_2_4_slice13_axis_config_combo_projection_policy.json",
+      "configs/v2/v7_2_4_slice_07_11_orchestration_seam_run_spec.json",
+      "configs/v2/v7_2_4_slice_15_random10_2y_config_generation_test_policy.json",
+      "configs/v2/v7_2_4_slice_16_random10_2y_full_pipeline_dry_run_spec.json",
+      "configs/v2/v7_2_4_slice_17_random10_2y_runtime_research_smoke_run_spec.json",
+      "configs/v2/v7_2_4_source_lineage_pit_holdout_preflight_policy.json",
+      "configs/v2/v7_2_4_topology_efficiency_addendum_policy.json",
+      "configs/v2/v7_2_4_topology_observation_smoke_hard_run_policy.json",
+      "configs/v2/v7_2_4_topology_observation_smoke_run_spec.json",
+      "configs/v2/v7_2_4_v2_v4_real_pipeline_overlay_scope.json",
+      "configs/v2/v7_2_4_vbtpro_native_sweep_axis_compiler_policy.json",
+      "configs/v2/v7_2_4_vbtpro_sweep_budget_and_random_subset_policy.json",
+      "configs/v2/v7_2_5_batch_00_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_01_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_02_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_03_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_04_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_05_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_06_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_06_ml_llm_export_control_preflight_policy.json",
+      "configs/v2/v7_2_5_batch_07_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_batch_08_catalog_extension_policy.json",
+      "configs/v2/v7_2_5_bounded_gpu_ml_research_policy.json",
+      "configs/v2/v7_2_5_cpu_model_smoke_policy.json",
+      "configs/v2/v7_2_5_gpu_feature_matrix_policy.json",
+      "configs/v2/v7_2_5_gpu_ml_experiment_policy.json",
+      "configs/v2/v7_2_5_live_provider_full_surface_smoke_massive_run_spec.json",
+      "configs/v2/v7_2_5_ml_pit_workflow_policy.json",
+      "configs/v2/v7_2_5_rl_research_environment_policy.json",
+      "configs/v2/v7_2_5_tool_group_00_foundation_registry_authority_policy.json",
+      "configs/v2/v7_2_5_tool_group_01_provider_data_type_mapper_authority_policy.json",
+      "configs/v2/v7_2_5_tool_phase_preflight_policy.json",
+      "configs/v2/v7_2_5_tool_real_data_smoke_policy.json",
+      "configs/v2/v7_2_5_tool_topology_resource_smoke_policy.json",
+      "configs/v2/v7_2_5_vbt_knowledge_automation_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_001_surface_catalog_query_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_002_provider_data_type_mapper_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_003_lookup_receipt_status_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_004_optional_dependency_capability_matrix_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_005_script_surface_allowlist_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_007_configured_dataframe_to_vbt_data_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_008_data_updater_dry_run_planner_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_010_data_saver_persistence_route_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_011_multi_timeframe_alignment_planner_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_012_ohlcv_sanity_validator_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_013_corporate_action_adjustment_boundary_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_014_indicator_catalog_compiler_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_015_indicator_execution_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_016_indicator_parameter_grid_budgeter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_018_support_resistance_range_feature_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_019_volatility_regime_indicator_stack_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_020_trend_momentum_indicator_stack_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_057_jit_numba_capability_matrix_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_070_pipeline_stage_registry_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_072_evidence_receipt_linter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_073_production_claim_guard_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_076_resampler_calendar_alignment_adapter_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_083_event_availability_guard_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_084_source_availability_pit_validator_policy.json",
+      "configs/v2/v7_2_5_vbt_tool_097_data_quality_schema_validator_policy.json",
+      "configs/v2/v7_2_5_vbtpro_642_export_thin_import_policy.json",
+      "configs/v2/v7_2_5_vbtpro_other300_import_smoke_policy.json",
+      "configs/v2/v7_2_5_vbtpro_top300_import_smoke_policy.json",
+      "configs/v2/v7_2_blackwell_mig_runtime_policy.json",
+      "configs/v2/v7_2_nim_autopilot_runtime_policy.json",
+      "configs/v2/v7_capability_status_registry.json",
+      "configs/v2/v7_claim_boundary_policy.json",
+      "configs/v2/v7_feature_label_signal_boundary_map.json",
+      "configs/v2/v7_foundation_controller.json",
+      "configs/v2/v7_future_behavior_claim_catalog.json",
+      "configs/v2/v7_old_pipeline_stage_catalog.json",
+      "configs/v2/v7_old_to_new_pipeline_surface_map.json",
+      "configs/v2/v7_provider_data_type_role_bridge.json",
+      "configs/v2/v7_research_factory_alpha_vantage_api_rules.json",
+      "configs/v2/v7_research_term_crosswalk.json",
+      "configs/v2/v7_semantic_taxonomy_policy.json",
+      "configs/v2/v7_semantic_validator_suite.json",
+      "configs/v2/v7_slice_completion_gate_policy.json",
+      "configs/v2/v7_strategy_component_grammar.json",
+      "configs/v2/validation/claim_contract_registry.json",
+      "configs/v2/validation/comparison_eligibility_policy.json",
+      "configs/v2/validation/pit_honesty_contracts.json",
+      "configs/v2/validation/promotion_gate_policy.json",
+      "configs/v2/validation/status_taxonomy.json",
+      "configs/v2/validation/validation_rule_registry.json",
+      "configs/v2/validation_ladder_profiles.json",
+      "configs/v2/vbtpro_lab_helper_script_map_policy.json",
+      "configs/v2/vbtpro_lookup_context_defaults.json",
+      "configs/v2/vectorbtpro_mcp_integration_policy.json",
+      "configs/v2/vectorbtpro_mcp_tool_inventory_smoke_policy.json",
+      "configs/v2/vectorbtpro_private_docs_high_value_index_policy.json"
+    ],
+    "summary_only_writer_candidates": [
+      {
+        "path": "scripts/check_v2_no_hard_coded_runtime_values.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/finalize_v2_changed_files.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/finalize_v2_slice_proof_gate.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/materialize_v2_strategy_math_compiler_manifest.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/run_v2_slice1_bootstrap_dry_run.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/run_v2_validation_bundle.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_allocate_private_research_run_paths.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_audit_production_run_outputs.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_audit_sparse_reference_current_universe.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_audit_timestamp_selection_phase2.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_all_execution_event_mask_decisions.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_all_execution_run_quality_summary.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_data_estate_alias_lineage_map.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_data_estate_catalog.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_data_estate_rebuild_from_scratch_plan.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_data_estate_review_bundle.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_data_retention_review.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_event_mask_strategy_result_artifact.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_event_price_response_labels.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace(",
+          ".rename("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_event_response_research_dataset.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace(",
+          ".rename("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_indicator_event_probability_map.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_private_research_artifact_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_regime_event_mask_scoring_smoke.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace(",
+          ".rename("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_script_import_architecture_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_signal_quality_funnel.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_source_intelligence_holdout_metrics.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_source_intelligence_source_coverage_matrix.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_v7_2_4_random10_multi_timeframe_smoke_bars.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".rename("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_v7_2_5_vbtpro_642_export_import_matrix.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_build_vectorbtpro_private_docs_high_value_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_capture_massive_sample_payloads.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_catalog_system_data_files.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_check_compute_topology_rules.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_event_context_masking_proof.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_event_context_projection_pit_smoke.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_finalize_production_hard_run_receipts.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_massive_connectivity_smoke.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_materialize_history_fixture.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_materialize_production_universe_candidates.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_operational_materialization_run.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          "write_bytes(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_operational_records_metrics_run.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace(",
+          ".rename("
+        ]
+      },
+      {
+        "path": "scripts/v2_operational_replay_run.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_plan_note_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_pre_slice16_hard_run_gate.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_probe_massive_capabilities.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_production_hard_run_wrapped.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_production_local_parquet_hard_run.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace(",
+          ".rename(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_project_sparse_reference_current_universe.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_project_v7_2_4_slice13_axis_config_combos.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_query_data_estate_alias_lineage.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_repo_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          "os.replace(",
+          ".replace(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_repo_index_watch.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_repo_surface_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_run_slice13_axis_config_combo_feature_smoke.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".to_parquet(",
+          ".to_csv(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_run_slice_lifecycle.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_safe_parquet_probe.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_static_lookup_index.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          "write_text(",
+          ".replace(",
+          ".unlink("
+        ]
+      },
+      {
+        "path": "scripts/v2_step_resource_smoke.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_strict_pit_full_proof.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_strict_pit_regime_smoke.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_data_estate_output_routes.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_data_quality_masking.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_repo_delete_safety_manifest.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_repo_worktree_cleanliness.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_research_run_plan_registry.py",
+        "has_explicit_write_or_dry_flag_text": false,
+        "write_tokens": [
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_sources.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_text_event_alignment.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_v7_2_5_bounded_gpu_ml_research.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/v2_validate_v7_2_5_tool_phase_preflight.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/validate_v2_timeframe_registry.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/verify_no_generated_cache.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/verify_v2_package.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_config_variable_inventory.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_foundation_reference_inventory.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_output_schema_index.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_repo_organization_map.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_slice_dependency_graph.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_vbtpro_lab_helper_script_map.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text("
+        ]
+      },
+      {
+        "path": "scripts/write_v2_vbtpro_lookup_receipt.py",
+        "has_explicit_write_or_dry_flag_text": true,
+        "write_tokens": [
+          "write_text(",
+          ".replace("
+        ]
+      }
+    ],
+    "missing_exact_refs_verified_by_repo_index": [
+      {
+        "path": "configs/v2/v7_strategy_family_run_semantics_overlay.json",
+        "source": "checkpoints/v2/v7_2_4_slice_11_label_outcome_generation_smoke_checkpoint.json",
+        "repo_index_path_status": "missing"
+      },
+      {
+        "path": "configs/v2/proposals/slice_15_operator_review_queue.json",
+        "source": "checkpoints/v2/v7_2_4_slice_15_config_generation_and_operator_decision_loop_checkpoint.json",
+        "repo_index_path_status": "missing"
+      },
+      {
+        "path": "scripts/v2_run_production_pipeline_profile.py",
+        "source": "configs/v2/market_sector_sweep_control_plane_policy.json and checkpoint",
+        "repo_index_path_status": "missing"
+      },
+      {
+        "path": "reference/source_inputs/desktop_20260511/slice_19_20_21.tar.gz/v724_slice19_20_21_repo_owned_four_layer_100plus_final (1).zip",
+        "source": "configs/v2/current_slice_context_policy.json and AGENTS.md",
+        "repo_index_path_status": "missing"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "F01_helper_catalog_stale_and_incomplete",
+      "severity": "P1",
+      "title": "Helper/script/config-schema catalog is stale relative to the repo it is supposed to route",
+      "evidence": {
+        "filesystem_script_count": 266,
+        "helper_index_filesystem_script_count_claim": 179,
+        "script_manifest_script_count_field": 183,
+        "script_manifest_record_count": 183,
+        "missing_from_script_manifest_count": 83,
+        "script_surface_unknown_current_script_count": 49,
+        "config_schema_registry_config_count": 157,
+        "config_schema_registry_schema_count": 100,
+        "missing_configs_from_config_schema_registry_count": 66,
+        "missing_schemas_from_config_schema_registry_count": 67
+      },
+      "impact": "Agents following AGENTS/SKILL helper routing can miss active validators/builders and either duplicate behavior, skip necessary validators, or treat current scripts as neither active nor archived.",
+      "primary_refs": [
+        "reference/repo_helpers/index.json:66",
+        "reference/repo_helpers/repo_script_manifest_20260511.json:1",
+        "configs/v2/script_surface_usage_policy.json:52",
+        "reference/repo_helpers/config_schema_indexing_id_registry_20260511.json:13"
+      ]
+    },
+    {
+      "id": "F02_index_rebuilds_self_invalidate_on_tracked_outputs",
+      "severity": "P1",
+      "title": "Repo index and script-import index refreshes leave their own status stale/dirty",
+      "evidence": {
+        "repo_index_status_after_refresh": "stale",
+        "repo_index_stale_reasons": [
+          "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json",
+          "tracked_file_hash_changed:manifests/v2/repo_index_summary.json",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json",
+          "tracked_file_hash_changed:receipts/v2/repo_index_receipts.jsonl",
+          "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "script_import_status_after_rebuild": "stale",
+        "script_import_stale_reasons": [
+          "tracked_file_hash_changed:checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "tracked_file_hash_changed:manifests/v2/production/config_variable_inventory.json",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index.sqlite",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_manifest.json",
+          "tracked_file_hash_changed:manifests/v2/script_import_architecture_index_summary.json",
+          "tracked_file_hash_changed:receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "worktree_dirty_paths_after_audit_refresh": [
+          " M checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          " M manifests/v2/production/config_variable_inventory.json",
+          " M manifests/v2/repo_index_summary.json",
+          " M manifests/v2/script_import_architecture_index.sqlite",
+          " M manifests/v2/script_import_architecture_index_manifest.json",
+          " M manifests/v2/script_import_architecture_index_summary.json",
+          " M receipts/v2/repo_index_receipts.jsonl",
+          " M receipts/v2/script_import_architecture_index_receipt.json"
+        ]
+      },
+      "impact": "Normal index-refresh workflows can become repeat-rebuild loops or false blockers because generated/tracked summary, receipt, manifest, checkpoint, and sqlite outputs are treated as stale immediately after writing.",
+      "primary_refs": [
+        "scripts/v2_repo_index.py:2510",
+        "scripts/v2_repo_index.py:3976",
+        "scripts/v2_build_script_import_architecture_index.py:629",
+        "scripts/v2_build_script_import_architecture_index.py:726",
+        "scripts/v2_query_script_import_architecture_index.py:104"
+      ]
+    },
+    {
+      "id": "F03_validation_coverage_too_narrow_for_current_config_schema_contract_estate",
+      "severity": "P1",
+      "title": "Existing config/schema/contract validators pass while covering only a small slice of the estate",
+      "evidence": {
+        "fs_config_count": 223,
+        "fs_schema_count": 167,
+        "fs_contract_count": 197,
+        "master_registry_config_surface_count": 12,
+        "configs_missing_from_master_registry_count": 211,
+        "schema_contract_config_catalog_validator_last_observed_checked_path_count": 20,
+        "schema_contract_config_catalog_validator_last_observed_actual_config_count": 4,
+        "config_inventory_tracked_config_count": 223
+      },
+      "impact": "A passing preflight currently does not prove the 223 config files, 167 schemas, or 197 contracts are globally cataloged, bound, or validated.",
+      "primary_refs": [
+        "configs/v2/production_master_config_registry.json:5",
+        "scripts/check_v2_master_config_preflight.py:22",
+        "scripts/v2_validate_v7_schema_contract_config_catalogs.py:25",
+        "scripts/v2_validate_v7_schema_contract_config_catalogs.py:52"
+      ]
+    },
+    {
+      "id": "F04_bad_pattern_scanners_fail_and_include_false_positive_patterns",
+      "severity": "P2",
+      "title": "Bad-pattern scanners are not clean enough to serve as decisive audit gates",
+      "evidence": {
+        "secret_scanner": {
+          "hit_count": 3,
+          "hits": [
+            {
+              "path": "scripts/v2_validate_live_source_event_stream_control_plane.py",
+              "pattern": "api_key="
+            },
+            {
+              "path": "scripts/v2_validate_enterprise_factory_design_intake.py",
+              "pattern": "api_key="
+            },
+            {
+              "path": "scripts/v2_validate_market_event_store_design_policy.py",
+              "pattern": "api_key="
+            }
+          ]
+        },
+        "pct_change_scanner": {
+          "hit_count": 4,
+          "hits": [
+            {
+              "path": "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_volatility_regime_indicator_stack.py",
+              "pattern": "pct_change("
+            },
+            {
+              "path": "src/vbtpro_strategy_v2/research_factory/v7/gpu_feature_matrix_runner.py",
+              "pattern": "pct_change("
+            },
+            {
+              "path": "src/vbtpro_strategy_v2/research_factory/v7/rl_research_environment.py",
+              "pattern": "pct_change("
+            },
+            {
+              "path": "scripts/v2_run_slice13_axis_config_combo_feature_smoke.py",
+              "pattern": "pct_change("
+            }
+          ]
+        },
+        "generated_artifact_source_truth_scanner": {
+          "hit_count": 0,
+          "hits": []
+        },
+        "no_hardcoded_runtime_values_scanner": {
+          "hit_count": 0,
+          "hits": []
+        },
+        "test_write_side_effect_scanner": {
+          "hit_count": 1,
+          "hits": [
+            {
+              "path": "tests/v2/test_repo_index_control_plane.py",
+              "pattern": "test_write_command_without_dry_run",
+              "command": "scripts/finalize_v2_slice_proof_gate.py"
+            }
+          ]
+        }
+      },
+      "impact": "The scanner reports real review targets mixed with false positives: secret hits are validator string literals, pct_change hits include real pandas calls and custom helper names, and the test-write hit is a fixture-style temp repo test.",
+      "primary_refs": [
+        "scripts/v2_validate_live_source_event_stream_control_plane.py:145",
+        "scripts/v2_validate_enterprise_factory_design_intake.py:147",
+        "scripts/v2_validate_market_event_store_design_policy.py:93",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbt_tool_volatility_regime_indicator_stack.py:154",
+        "src/vbtpro_strategy_v2/research_factory/v7/rl_research_environment.py:298",
+        "scripts/v2_run_slice13_axis_config_combo_feature_smoke.py:177",
+        "tests/v2/test_repo_index_control_plane.py:352"
+      ]
+    },
+    {
+      "id": "F05_archived_foundation_reference_guard_fails",
+      "severity": "P2",
+      "title": "Archived foundation references still leak into source/config/test/generated audit surfaces",
+      "evidence": {
+        "status": "failed",
+        "scanned_file_count": 2652,
+        "allowlist_path": "configs/v2/production_historical_evidence_allowlist.json",
+        "allowlist_entry_count": 22,
+        "violation_count": 37,
+        "violations": [
+          {
+            "path": "src/vbtpro_strategy_v2/production/foundation_authority.py",
+            "line": 15,
+            "reason": "src_foundation_reference_forbidden",
+            "matched_text": "LEGACY_PROOF_AUTHORITY_PATH = Path(\"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\")"
+          },
+          {
+            "path": "tests/v2/test_data_estate_authority.py",
+            "line": 354,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"/home/benji/vbtprobuild/proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "tests/v2/test_foundation_authority_decoupling.py",
+            "line": 71,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\""
+          },
+          {
+            "path": "configs/v2/data_estate_authority.json",
+            "line": 14,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"proofs/\""
+          },
+          {
+            "path": "configs/v2/data_estate_authority.json",
+            "line": 496,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"proofs/\","
+          },
+          {
+            "path": "configs/v2/data_estate_authority.json",
+            "line": 940,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"proofs/\""
+          },
+          {
+            "path": "configs/v2/repo_index_query_profiles.json",
+            "line": 89,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"bootstrap_scripts/finalize_v2_slice_proof_gate.py\""
+          },
+          {
+            "path": "configs/v2/repo_index_query_profiles.json",
+            "line": 93,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"bootstrap_scripts/\","
+          },
+          {
+            "path": "configs/v2/repo_index_query_profiles.json",
+            "line": 95,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"checklists/\","
+          },
+          {
+            "path": "configs/v2/repo_index_query_profiles.json",
+            "line": 96,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"proofs/\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 477,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13335,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13343,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/all_40_strategy_math_prebuild_mapping_requirements_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13351,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13359,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"checklists/v2_slice_acceptance_checklists_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13451,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13459,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13467,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/all_40_strategy_math_prebuild_mapping_requirements_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13475,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/all_40_strategy_math_prebuild_mapping_requirements_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13483,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13491,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13499,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"checklists/v2_slice_acceptance_checklists_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13507,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"checklists/v2_slice_acceptance_checklists_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13981,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 13989,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 16990,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 17145,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 17153,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"proofs/vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 21868,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 21876,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25482,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25490,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"vbtpro_strategy_v2_capability_proof_matrix_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25498,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"all_40_strategy_math_prebuild_mapping_requirements_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25506,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"all_40_strategy_math_prebuild_mapping_requirements_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25514,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"v2_slice_acceptance_checklists_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/data_estate_writer_route_audit.json",
+            "line": 25522,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"v2_slice_acceptance_checklists_20260428.json\","
+          },
+          {
+            "path": "manifests/v2/repo_identity_unmapped_artifact_tracking_20260507.json",
+            "line": 1137,
+            "reason": "unallowlisted_foundation_reference",
+            "matched_text": "\"path\": \"plans/vbtpro_strategy_v2_semantic_contract_overlay_plan_20260428.json\","
+          }
+        ]
+      },
+      "impact": "The guard reports 37 violations, including an active src reference to a legacy proof path and unallowlisted foundation path references in config/test/manifests. This weakens the current-authority boundary.",
+      "primary_refs": [
+        "src/vbtpro_strategy_v2/production/foundation_authority.py:15",
+        "configs/v2/data_estate_authority.json:14",
+        "configs/v2/repo_index_query_profiles.json:89"
+      ]
+    },
+    {
+      "id": "F06_exact_path_references_missing_or_archive_internal",
+      "severity": "P2",
+      "title": "Several exact path refs used by configs/checkpoints do not resolve in the active repo index",
+      "evidence": [
+        {
+          "path": "configs/v2/v7_strategy_family_run_semantics_overlay.json",
+          "source": "checkpoints/v2/v7_2_4_slice_11_label_outcome_generation_smoke_checkpoint.json",
+          "repo_index_path_status": "missing"
+        },
+        {
+          "path": "configs/v2/proposals/slice_15_operator_review_queue.json",
+          "source": "checkpoints/v2/v7_2_4_slice_15_config_generation_and_operator_decision_loop_checkpoint.json",
+          "repo_index_path_status": "missing"
+        },
+        {
+          "path": "scripts/v2_run_production_pipeline_profile.py",
+          "source": "configs/v2/market_sector_sweep_control_plane_policy.json and checkpoint",
+          "repo_index_path_status": "missing"
+        },
+        {
+          "path": "reference/source_inputs/desktop_20260511/slice_19_20_21.tar.gz/v724_slice19_20_21_repo_owned_four_layer_100plus_final (1).zip",
+          "source": "configs/v2/current_slice_context_policy.json and AGENTS.md",
+          "repo_index_path_status": "missing"
+        }
+      ],
+      "impact": "Agents and validators using exact path lookup can treat historical/proposal/archive-internal refs as missing runtime surfaces unless these are normalized to archive-member metadata or downgraded to evidence-only text.",
+      "primary_refs": [
+        "configs/v2/current_slice_context_policy.json",
+        "configs/v2/market_sector_sweep_control_plane_policy.json"
+      ]
+    },
+    {
+      "id": "F07_summary_only_and_read_only_semantics_are_inconsistent_across_scripts",
+      "severity": "P3",
+      "title": "Many scripts accept --summary-only while still containing write paths; several use --dry-run instead of --write",
+      "evidence": {
+        "summary_only_writer_candidate_count": 79,
+        "candidates_without_explicit_write_or_dry_flag_text": [
+          {
+            "path": "scripts/check_v2_no_hard_coded_runtime_values.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text("
+            ]
+          },
+          {
+            "path": "scripts/v2_audit_production_run_outputs.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text("
+            ]
+          },
+          {
+            "path": "scripts/v2_audit_sparse_reference_current_universe.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_build_all_execution_event_mask_decisions.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_build_all_execution_run_quality_summary.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_build_event_mask_strategy_result_artifact.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_build_regime_event_mask_scoring_smoke.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace(",
+              ".rename("
+            ]
+          },
+          {
+            "path": "scripts/v2_build_signal_quality_funnel.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_check_compute_topology_rules.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_event_context_masking_proof.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_event_context_projection_pit_smoke.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_finalize_production_hard_run_receipts.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_materialize_history_fixture.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_operational_materialization_run.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              "write_bytes(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_operational_records_metrics_run.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace(",
+              ".rename("
+            ]
+          },
+          {
+            "path": "scripts/v2_operational_replay_run.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_pre_slice16_hard_run_gate.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_production_local_parquet_hard_run.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace(",
+              ".rename(",
+              ".unlink("
+            ]
+          },
+          {
+            "path": "scripts/v2_project_sparse_reference_current_universe.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".to_parquet(",
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_repo_index_watch.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_static_lookup_index.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              "write_text(",
+              ".replace(",
+              ".unlink("
+            ]
+          },
+          {
+            "path": "scripts/v2_strict_pit_full_proof.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_strict_pit_regime_smoke.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_validate_repo_delete_safety_manifest.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          },
+          {
+            "path": "scripts/v2_validate_research_run_plan_registry.py",
+            "has_explicit_write_or_dry_flag_text": false,
+            "write_tokens": [
+              ".replace("
+            ]
+          }
+        ]
+      },
+      "impact": "Some are intentional report generators, but the CLI vocabulary is inconsistent. It is easy to assume --summary-only means read-only when a script actually writes tmp reports or run summaries.",
+      "primary_refs": [
+        "scripts/verify_no_generated_cache.py:27",
+        "scripts/run_v2_validation_bundle.py:257",
+        "scripts/check_v2_no_hard_coded_runtime_values.py:31"
+      ]
+    },
+    {
+      "id": "F08_valueinvesting_only_retired_historical_refs_remain",
+      "severity": "P3",
+      "title": "ValueInvesting is gone from active source registry surfaces, but historical docs still contain many references",
+      "evidence": {
+        "active_config_script_src_contract_hits": [],
+        "doc_hit_count": 52,
+        "all_hit_count": 52
+      },
+      "impact": "This is not an active provider-lane problem, but broad text search still surfaces retired provider references from historical bundles and may confuse future source audits.",
+      "primary_refs": [
+        "docs/v2/production/v4_mass_research_factory_repo_ready_20260505/v4_first_wave_experiment_queue.json"
+      ]
+    }
+  ],
+  "next_fix_order": [
+    "F01_helper_catalog_stale_and_incomplete",
+    "F02_index_rebuilds_self_invalidate_on_tracked_outputs",
+    "F03_validation_coverage_too_narrow_for_current_config_schema_contract_estate",
+    "F04_bad_pattern_scanners_fail_and_include_false_positive_patterns",
+    "F05_archived_foundation_reference_guard_fails",
+    "F06_exact_path_references_missing_or_archive_internal"
+  ],
+  "worktree_status_after_audit": [
+    " M checkpoints/v2/script_import_architecture_index_checkpoint.json",
+    " M manifests/v2/production/config_variable_inventory.json",
+    " M manifests/v2/repo_index_summary.json",
+    " M manifests/v2/script_import_architecture_index.sqlite",
+    " M manifests/v2/script_import_architecture_index_manifest.json",
+    " M manifests/v2/script_import_architecture_index_summary.json",
+    " M receipts/v2/repo_index_receipts.jsonl",
+    " M receipts/v2/script_import_architecture_index_receipt.json"
+  ]
+}

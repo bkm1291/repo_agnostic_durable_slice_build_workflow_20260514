@@ -1,0 +1,658 @@
+{
+  "schema_version": "v2.vbtprobuild_wave_1_11_index_receipt_note_evidence_chain_audit.1",
+  "report_id": "vbtprobuild_wave_1_11_index_receipt_note_evidence_chain_audit_20260514",
+  "created_at_utc": "2026-05-14T10:23:00Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "status": "passed",
+  "purpose": "Audit Waves 1-11 index refreshes individually, receipt/checkpoint writes, and note additions so current VBTPro build waves can copy the same evidence-output logic without over-refreshing.",
+  "source_authority_refs": [
+    "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "tmp/reports/production/vbtprobuild_wave_1_11_build_workflow_forensics_20260514.json",
+    "tmp/reports/production/vbtprobuild_wave_1_11_index_refresh_logic_audit_20260514.json",
+    "tmp/reports/production/vbtprobuild_wave_1_11_current_wave_alignment_audit_20260514.json",
+    "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+    "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json",
+    "git show --name-status for Wave 1-11 prep, implementation, refresh, closeout, and current protocol refresh commits"
+  ],
+  "core_conclusion": {
+    "wave_1_11_logic": "Plan-note evidence moved every wave. Broad discovery indexes moved only when the selected wave or the next wave required fresh discovery, reconciliation, no-write auditing, scanner cleanup, closeout proof, or closeout artifact visibility.",
+    "receipt_logic": "Waves 1-7 and 9-10 did not write per-wave receipts. They used focused validators/tests plus active plan future-wave details. Receipts/checkpoints were written when the wave itself owned generated index outputs or at post-Wave-11 closeout.",
+    "current_wave_match": "The current build protocol now matches this by requiring every compact packet to carry a structured refresh_decision instead of relying on vague prose or default refreshes."
+  },
+  "index_surface_matrix": [
+    {
+      "index_surface": "plan_note_index",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/plan_note_compiled.json",
+        "manifests/v2/plan_note_index.json",
+        "manifests/v2/plan_note_index.sqlite",
+        "manifests/v2/plan_note_index.duckdb",
+        "events/v2/plan_note_events.jsonl"
+      ],
+      "wave_1_11_observed_logic": "Rebuilt and committed as manifests/v2/plan_note_compiled.json whenever the active crack-repair plan or prep notes changed. This happened on every prep and implementation commit because future-wave details were persisted in the active plan.",
+      "when_it_blocked_or_required_refresh": "Required for plan/note durability after changing the plan; it did not imply a full repo-index refresh.",
+      "current_wave_rule": "Plan-note rebuild/status after roadmap, protocol, packet, or evidence-report changes; batch related plan-note edits and rebuild once."
+    },
+    {
+      "index_surface": "repo_index",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/repo_index.sqlite",
+        "manifests/v2/repo_index_summary.json",
+        "manifests/v2/repo_index_hot.json",
+        "receipts/v2/repo_index_receipts.jsonl"
+      ],
+      "wave_1_11_observed_logic": "Refreshed in Wave 8, pre-Wave 10, pre-Wave 11, post-Wave-11 closeout, and final closeout artifact visibility. Not refreshed after Waves 1-7 source/runtime implementations.",
+      "when_it_blocked_or_required_refresh": "Only when discovery/reconciliation was the wave, stale discovery blocked the next action, closeout required fresh proof, closeout artifacts needed discovery, or the operator asked.",
+      "current_wave_rule": "Use compact packet refresh_decision.repo_index_required; refresh after implementation commit only when future discovery or another durable condition requires it."
+    },
+    {
+      "index_surface": "repo_index_projections",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/repo_index.duckdb",
+        "manifests/v2/repo_index_vectors/repo_index_semantic.faiss",
+        "manifests/v2/repo_index_vectors/repo_index_semantic_manifest.json",
+        "manifests/v2/repo_index_vectors/repo_index_semantic_chunks.jsonl"
+      ],
+      "wave_1_11_observed_logic": "Projection refreshes appeared as part of full repo-index refresh/validation flows, not as independent wave proof. The committed Wave 1-11 refresh evidence centered on repo_index_summary, repo_index_hot, and repo_index_receipts; projection receipts were validation/discovery evidence.",
+      "when_it_blocked_or_required_refresh": "Required only when a full repo-index refresh or projection validation gate explicitly required projection freshness.",
+      "current_wave_rule": "Do not run projection refreshes for ordinary slice proof. Include them only when the selected refresh command or release/closeout gate explicitly requires projection freshness."
+    },
+    {
+      "index_surface": "script_import_architecture_index",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/script_import_architecture_index.sqlite",
+        "manifests/v2/script_import_architecture_index_manifest.json",
+        "manifests/v2/script_import_architecture_index_summary.json",
+        "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+        "receipts/v2/script_import_architecture_index_receipt.json"
+      ],
+      "wave_1_11_observed_logic": "Refreshed when script/module discovery mattered: Wave 8 reconciliation, Wave 10/11 discovery prep, and closeout. New validators first proved waves by direct focused calls, not by immediate global index/allowlist routing.",
+      "when_it_blocked_or_required_refresh": "Required when future waves needed to discover validators/harnesses or when global routing in script_surface_usage_policy had to be reflected.",
+      "current_wave_rule": "Use compact packet refresh_decision.script_import_index_required; new validator existence alone is not enough."
+    },
+    {
+      "index_surface": "config_variable_inventory",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/production/config_variable_inventory.json"
+      ],
+      "wave_1_11_observed_logic": "Refreshed during Wave 8 and discovery/closeout refreshes when config topology changed or needed discovery; skipped in the final closeout artifact refresh because the closeout artifacts were not configs.",
+      "when_it_blocked_or_required_refresh": "Required when config-owned runtime or policy surfaces changed and later discovery/validation needed the inventory current.",
+      "current_wave_rule": "Use compact packet refresh_decision.config_variable_inventory_required; Wave 04A likely requires it after implementation because it creates config/schema/contract loader surfaces."
+    },
+    {
+      "index_surface": "output_schema_index",
+      "tracked_outputs_or_primary_artifacts": [
+        "manifests/v2/output_schema_index.json"
+      ],
+      "wave_1_11_observed_logic": "Refreshed with broad discovery/closeout gates and when new schema/receipt/checkpoint/report artifacts needed output-schema visibility.",
+      "when_it_blocked_or_required_refresh": "Required for generated output/schema discovery and closeout artifact indexing, not for ordinary focused runtime proof.",
+      "current_wave_rule": "Refresh only if a selected wave writes schema-bearing outputs whose discovery is needed by the next wave or closeout."
+    },
+    {
+      "index_surface": "helper_catalog_index",
+      "tracked_outputs_or_primary_artifacts": [
+        "reference/repo_helpers/index.json",
+        "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json"
+      ],
+      "wave_1_11_observed_logic": "Wave 8 owned helper catalog reconciliation. Other waves did not update helper catalog just because they added validators.",
+      "when_it_blocked_or_required_refresh": "Required only when the helper catalog is the owner surface or when future helper discovery depends on it.",
+      "current_wave_rule": "Add validators to reference/repo_helpers/index.json only when they are reusable helper/control-plane surfaces, not simply because they are slice-owned."
+    }
+  ],
+  "per_wave_side_by_side": [
+    {
+      "wave": 1,
+      "title": "Activation schema, validator, and tests",
+      "prep_commits": [],
+      "implementation_commit": "976e0cde",
+      "associated_refresh_commits": [],
+      "note_logic": "Plan and compiled note updated during implementation; no separate prep was needed.",
+      "receipt_logic": "No per-wave receipt was written; proof lived in focused validator/test and active plan future-wave notes.",
+      "prep_commit_subjects": [],
+      "implementation_subject": "Implement Wave 1 activation enforcement",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 2,
+      "title": "Source registry live/historical acquisition semantics",
+      "prep_commits": [],
+      "implementation_commit": "377d6b6b",
+      "associated_refresh_commits": [],
+      "note_logic": "Plan and compiled note updated during implementation; future-wave details captured acquisition semantics.",
+      "receipt_logic": "No per-wave receipt; no-network/live-source focused tests provided proof.",
+      "prep_commit_subjects": [],
+      "implementation_subject": "Implement Wave 2 source acquisition semantics",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 3,
+      "title": "Cross-policy private runtime research overlay",
+      "prep_commits": [
+        "e5ec079d"
+      ],
+      "implementation_commit": "eb3f3707",
+      "associated_refresh_commits": [],
+      "note_logic": "Prep note narrowed overlay taxonomy before implementation; implementation then appended future-wave overlay details.",
+      "receipt_logic": "No per-wave receipt; overlay validator and pytest were the proof.",
+      "prep_commit_subjects": [
+        "Record Wave 3 overlay taxonomy plan"
+      ],
+      "implementation_subject": "Implement Wave 3 runtime research overlay",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 4,
+      "title": "VBT Data acquisition bridge",
+      "prep_commits": [
+        "cae85bca"
+      ],
+      "implementation_commit": "a69d2cea",
+      "associated_refresh_commits": [],
+      "note_logic": "Prep note captured bridge boundaries before adding the thin bridge.",
+      "receipt_logic": "No per-wave receipt; bridge validator and pytest were the proof.",
+      "prep_commit_subjects": [
+        "Record Wave 4 bridge boundaries"
+      ],
+      "implementation_subject": "Implement private VBT Data bridge wave",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 5,
+      "title": "Portfolio and optimizer private research modes",
+      "prep_commits": [
+        "551caa55"
+      ],
+      "implementation_commit": "59d1c66e",
+      "associated_refresh_commits": [],
+      "note_logic": "Prep note captured status separation and production-readiness boundary.",
+      "receipt_logic": "No per-wave receipt; portfolio/optimizer validator and pytest were the proof.",
+      "prep_commit_subjects": [
+        "Record Wave 5 research mode boundaries"
+      ],
+      "implementation_subject": "Implement private portfolio optimizer research modes",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 6,
+      "title": "VBT642 mode-aware matrix and queue metadata",
+      "prep_commits": [
+        "f0463545",
+        "a31f2b97"
+      ],
+      "implementation_commit": "b714f9fe",
+      "associated_refresh_commits": [],
+      "note_logic": "Two prep notes narrowed VBT642 mode semantics and future-wave details before implementation.",
+      "receipt_logic": "No per-wave receipt; matrix validator and pytest were the proof.",
+      "prep_commit_subjects": [
+        "Record Wave 6 VBT642 mode plan",
+        "Record future wave repair details"
+      ],
+      "implementation_subject": "Implement VBT642 mode-aware matrix",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 7,
+      "title": "Shared VBT tool boundary helper",
+      "prep_commits": [
+        "2e1bb0f5"
+      ],
+      "implementation_commit": "f8399d3a",
+      "associated_refresh_commits": [],
+      "note_logic": "Prep note defined shared-helper reuse after Waves 3-6 proved repeated semantics.",
+      "receipt_logic": "No per-wave receipt; shared-helper validator and pytest were the proof.",
+      "prep_commit_subjects": [
+        "Detail Wave 7 helper plan"
+      ],
+      "implementation_subject": "Add shared VBT tool boundary helper",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": []
+    },
+    {
+      "wave": 8,
+      "title": "Helper manifest and script surface reconciliation",
+      "prep_commits": [
+        "11f018fd"
+      ],
+      "implementation_commit": "44987788",
+      "associated_refresh_commits": [
+        "44987788"
+      ],
+      "note_logic": "Prep note explicitly saved the refresh safety sequence and nonblocking pre-Wave-8 stale index evidence.",
+      "receipt_logic": "Index receipts/checkpoints were written because Wave 8 owned generated discovery reconciliation.",
+      "prep_commit_subjects": [
+        "Record Wave 8 refresh safety sequence"
+      ],
+      "implementation_subject": "Reconcile Wave 8 helper and index discovery",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": true,
+      "associated_refresh_subjects": [
+        "Reconcile Wave 8 helper and index discovery"
+      ]
+    },
+    {
+      "wave": 9,
+      "title": "MCP/runtime precedence tests",
+      "prep_commits": [],
+      "implementation_commit": "a2c31d7c",
+      "associated_refresh_commits": [
+        "ecb65996"
+      ],
+      "note_logic": "Implementation updated plan notes with Wave 10 no-write follow-up requirements.",
+      "receipt_logic": "No per-wave receipt; the following refresh made Wave 9 discoverable for Wave 10 no-write audits.",
+      "prep_commit_subjects": [],
+      "implementation_subject": "Add Wave 9 MCP runtime precedence gate",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": [
+        "Refresh Wave 10 discovery indexes"
+      ]
+    },
+    {
+      "wave": 10,
+      "title": "Read-only and index mutation cleanup",
+      "prep_commits": [
+        "58e5052f"
+      ],
+      "implementation_commit": "e1d27aba",
+      "associated_refresh_commits": [
+        "8fc52383"
+      ],
+      "note_logic": "Prep note specified reusable no-write harness before implementation.",
+      "receipt_logic": "No per-wave receipt; the harness later scanned commands and the following refresh made it discoverable for Wave 11.",
+      "prep_commit_subjects": [
+        "Document Wave 10 reusable no-write harness"
+      ],
+      "implementation_subject": "Add Wave 10 read-only command harness",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": [
+        "Refresh Wave 11 discovery indexes"
+      ]
+    },
+    {
+      "wave": 11,
+      "title": "Scanner, exact-path, and legacy authority cleanup",
+      "prep_commits": [
+        "4d563266",
+        "9dbd6a35"
+      ],
+      "implementation_commit": "413b07fc",
+      "associated_refresh_commits": [
+        "e0fd13d9",
+        "3483511c",
+        "f06d07fd"
+      ],
+      "note_logic": "Prep notes added closeout plan/checklist; implementation updated plan with pass/fail semantics for scanner/index evidence.",
+      "receipt_logic": "Closeout receipt/checkpoint were written after all Waves 1-11 proof passed; final refresh indexed those closeout artifacts.",
+      "prep_commit_subjects": [
+        "Add post Wave 11 closeout plan",
+        "Add post Wave 11 closeout checklist"
+      ],
+      "implementation_subject": "Implement Wave 11 legacy authority cleanup",
+      "plan_note_compiled_changed_in_prep_or_impl": true,
+      "broad_index_refresh_in_implementation_commit": false,
+      "associated_refresh_subjects": [
+        "Refresh indexes for post Wave 11 closeout",
+        "Complete post Wave 11 closeout",
+        "Refresh indexes after closeout commit"
+      ]
+    }
+  ],
+  "refresh_event_side_by_side_by_index": [
+    {
+      "refresh_commit": "44987788",
+      "refresh_name": "wave_8_helper_script_index_discovery_reconciliation",
+      "captured_head": "11f018fd",
+      "trigger_wave": "wave_8",
+      "reason": "Wave 8 explicitly owned helper manifest, script surface, repo-index, script-import, output-schema, config-inventory, and generated discovery reconciliation after Waves 1-7 created new owner surfaces.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index",
+        "config_variable_inventory",
+        "output_schema_index",
+        "helper_catalog_index",
+        "worktree_noise_fixtures"
+      ],
+      "not_refreshed_or_not_primary": [
+        "plan_note_index was rebuilt because the active plan changed, but not the reason for the broad discovery refresh."
+      ],
+      "subject": "Reconcile Wave 8 helper and index discovery",
+      "changed_index_paths": {
+        "plan_note_index": [
+          "manifests/v2/plan_note_compiled.json"
+        ],
+        "repo_index": [
+          "manifests/v2/repo_index_hot.json",
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [
+          "manifests/v2/production/config_variable_inventory.json"
+        ],
+        "output_schema_index": [
+          "manifests/v2/output_schema_index.json"
+        ],
+        "helper_catalog_index": [
+          "reference/repo_helpers/index.json",
+          "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json"
+        ],
+        "worktree_noise_fixtures": [
+          "configs/v2/repo_worktree_cleanliness_policy.json",
+          "configs/v2/worktree_noise_classification_policy_20260513.json",
+          "tests/v2/fixtures/repo_worktree_cleanliness/positive_generated_index_noise_nonblocking.json",
+          "tests/v2/fixtures/repo_worktree_cleanliness/positive_wave8_helper_reference_update_nonblocking.json",
+          "tests/v2/test_repo_worktree_cleanliness.py"
+        ]
+      }
+    },
+    {
+      "refresh_commit": "ecb65996",
+      "refresh_name": "pre_wave_10_discovery_refresh",
+      "captured_head": "a2c31d7c",
+      "trigger_wave": "wave_10_prep_after_wave_9",
+      "reason": "Wave 9 added MCP/runtime precedence surfaces, and Wave 10 needed current discovery to audit no-write behavior around that new validator and related scripts.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index",
+        "config_variable_inventory",
+        "output_schema_index"
+      ],
+      "not_refreshed_or_not_primary": [
+        "helper catalog was not the owning surface in this refresh."
+      ],
+      "subject": "Refresh Wave 10 discovery indexes",
+      "changed_index_paths": {
+        "plan_note_index": [],
+        "repo_index": [
+          "manifests/v2/repo_index_hot.json",
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [
+          "manifests/v2/production/config_variable_inventory.json"
+        ],
+        "output_schema_index": [
+          "manifests/v2/output_schema_index.json"
+        ],
+        "helper_catalog_index": [],
+        "worktree_noise_fixtures": []
+      }
+    },
+    {
+      "refresh_commit": "8fc52383",
+      "refresh_name": "pre_wave_11_discovery_refresh",
+      "captured_head": "e1d27aba",
+      "trigger_wave": "wave_11_prep_after_wave_10",
+      "reason": "Wave 10 added the read-only command harness and routed it in script_surface_usage_policy; Wave 11 needed that harness discoverable for scanner and exact-path cleanup.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index",
+        "config_variable_inventory",
+        "output_schema_index"
+      ],
+      "not_refreshed_or_not_primary": [
+        "plan-note status was checked, but the refresh target was discovery indexes."
+      ],
+      "subject": "Refresh Wave 11 discovery indexes",
+      "changed_index_paths": {
+        "plan_note_index": [],
+        "repo_index": [
+          "manifests/v2/repo_index_hot.json",
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [
+          "manifests/v2/production/config_variable_inventory.json"
+        ],
+        "output_schema_index": [
+          "manifests/v2/output_schema_index.json"
+        ],
+        "helper_catalog_index": [],
+        "worktree_noise_fixtures": []
+      }
+    },
+    {
+      "refresh_commit": "e0fd13d9",
+      "refresh_name": "post_wave_11_closeout_discovery_refresh",
+      "captured_head": "9dbd6a35",
+      "trigger_wave": "post_wave_11_closeout_gate",
+      "reason": "The closeout checklist required output-schema/full repo-index, script-import, and config-variable refreshes before the final Waves 1-11 validation bundle and status checks.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index",
+        "config_variable_inventory",
+        "output_schema_index"
+      ],
+      "not_refreshed_or_not_primary": [
+        "The refresh did not create the closeout receipt yet; that came in the following closeout commit."
+      ],
+      "subject": "Refresh indexes for post Wave 11 closeout",
+      "changed_index_paths": {
+        "plan_note_index": [],
+        "repo_index": [
+          "manifests/v2/repo_index_hot.json",
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [
+          "manifests/v2/production/config_variable_inventory.json"
+        ],
+        "output_schema_index": [
+          "manifests/v2/output_schema_index.json"
+        ],
+        "helper_catalog_index": [],
+        "worktree_noise_fixtures": []
+      }
+    },
+    {
+      "refresh_commit": "f06d07fd",
+      "refresh_name": "final_closeout_artifact_refresh",
+      "captured_head": "3483511c",
+      "trigger_wave": "post_wave_11_closeout_artifact_visibility",
+      "reason": "The closeout commit added the checkpoint and receipt and marked the plan complete, so the final refresh indexed those closeout artifacts and confirmed routing stayed stable.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index",
+        "output_schema_index"
+      ],
+      "not_refreshed_or_not_primary": [
+        "config_variable_inventory was not rewritten because the closeout artifacts were not config surfaces."
+      ],
+      "subject": "Refresh indexes after closeout commit",
+      "changed_index_paths": {
+        "plan_note_index": [],
+        "repo_index": [
+          "manifests/v2/repo_index_hot.json",
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [],
+        "output_schema_index": [
+          "manifests/v2/output_schema_index.json"
+        ],
+        "helper_catalog_index": [],
+        "worktree_noise_fixtures": []
+      }
+    },
+    {
+      "refresh_commit": "a0866d08",
+      "refresh_name": "current_refresh_decision_protocol_discovery_refresh",
+      "captured_head": "66847e1f",
+      "trigger_wave": "current_build_mode_protocol_hardening",
+      "reason": "The implementation changed root rules, the durable protocol, Wave 04A packet, build-wave validator, and tests; future Wave 04A discovery depends on those rule and validator surfaces.",
+      "index_surfaces_refreshed": [
+        "repo_index",
+        "script_import_architecture_index"
+      ],
+      "not_refreshed_or_not_primary": [
+        "plan-note index was rebuilt in the implementation commit before this generated-index commit; config inventory did not change because no config files changed."
+      ],
+      "subject": "Refresh discovery indexes for refresh decision protocol",
+      "changed_index_paths": {
+        "plan_note_index": [],
+        "repo_index": [
+          "manifests/v2/repo_index_summary.json",
+          "receipts/v2/repo_index_receipts.jsonl"
+        ],
+        "repo_index_projections": [],
+        "script_import_architecture_index": [
+          "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+          "manifests/v2/script_import_architecture_index.sqlite",
+          "manifests/v2/script_import_architecture_index_manifest.json",
+          "manifests/v2/script_import_architecture_index_summary.json",
+          "receipts/v2/script_import_architecture_index_receipt.json"
+        ],
+        "config_variable_inventory": [],
+        "output_schema_index": [],
+        "helper_catalog_index": [],
+        "worktree_noise_fixtures": []
+      }
+    }
+  ],
+  "note_addition_logic": {
+    "pattern": "The active crack-repair plan was the running ledger. Prep commits and implementation commits both updated plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json plus manifests/v2/plan_note_compiled.json.",
+    "prep_commits_that_only_narrowed_future_implementation": [
+      "e5ec079d",
+      "cae85bca",
+      "551caa55",
+      "f0463545",
+      "a31f2b97",
+      "2e1bb0f5",
+      "11f018fd",
+      "58e5052f",
+      "4d563266",
+      "9dbd6a35"
+    ],
+    "why_this_worked": "Notes were compact, wave-specific, and future-facing. They captured order, owner files, validators, safety boundaries, index requirements, and activation gates without restarting broad architecture planning.",
+    "current_copy_rule": "Each current VBTPro wave should update its packet or roadmap only when a discovery changes future implementation order, owners, validators, full-read requirements, safety boundaries, index requirements, or activation gates."
+  },
+  "receipt_checkpoint_logic": {
+    "per_wave_receipts_were_not_default": true,
+    "waves_without_per_wave_receipts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10
+    ],
+    "generated_receipts_when_index_writers_ran": [
+      "receipts/v2/repo_index_receipts.jsonl",
+      "receipts/v2/script_import_architecture_index_receipt.json"
+    ],
+    "closeout_receipt_and_checkpoint": [
+      "receipts/v2/vbtprobuild_crack_repair_post_wave_11_closeout_receipt_20260513.json",
+      "checkpoints/v2/vbtprobuild_crack_repair_post_wave_11_closeout_checkpoint_20260513.json"
+    ],
+    "why_this_worked": "Focused validators/tests were enough for owner behavior proof. Receipts/checkpoints were reserved for generated index runs and the final closeout proof bundle, which avoided unnecessary committed artifact churn.",
+    "current_copy_rule": "Current waves should not create receipts just for status. Create receipts/checkpoints when the owner surface is a writer/generator/materializer or at a real closeout gate."
+  },
+  "current_wave_alignment": {
+    "wave_04a_packet": "plans/v7_2_5/vbtprobuild_wave_04a_full_read_packet_20260514.json",
+    "structured_refresh_decision_status": "present_and_validator_enforced",
+    "current_refresh_decision_summary": {
+      "repo_index_required": true,
+      "script_import_index_required": true,
+      "plan_note_index_required": true,
+      "config_variable_inventory_required": true,
+      "post_output_hook_required": false,
+      "next_wave_discovery_depends_on_new_surfaces": true,
+      "refresh_timing": "after_implementation_commit"
+    },
+    "logic_match": "Matches Wave 8/Wave 10/Wave 11 conditional-refresh logic because Wave 04A is expected to create discoverable config, schema, contract, src, validator, and test surfaces needed by Wave 04B and helper/script discovery.",
+    "anti_loop_guard": "The packet and validator now reject vague refresh reasons, missing refresh decisions, skip timing when refresh surfaces are required, and next-wave discovery dependency without repo-index refresh."
+  },
+  "other_index_surfaces_checked": [
+    {
+      "surface": "manifests/v2/static_lookup_indexes/vectorbtpro_static_lookup.sqlite",
+      "wave_1_11_role": "Not part of the crack-repair Wave 1-11 refresh chain; used as VBTPro lookup evidence in later VBT build planning.",
+      "current_rule": "Use when VBTPro implementation requires native lookup; do not refresh it as part of generic wave closeout unless its owner task activates it."
+    },
+    {
+      "surface": "manifests/v2/v7_2_5_vbtpro_642_export_import_matrix.json",
+      "wave_1_11_role": "Wave 6 changed mode-aware VBT642 semantics, but this matrix was not refreshed as a generic discovery index in every wave.",
+      "current_rule": "Use its owning validators when VBT642/export queue work is selected; do not treat it as a default closeout refresh surface."
+    },
+    {
+      "surface": "manifests/v2/output_schema_index.json",
+      "wave_1_11_role": "Covered in the main matrix because it was refreshed by Wave 8 and closeout discovery gates.",
+      "current_rule": "Refresh only when output/schema artifact discovery is required by the selected wave or closeout gate."
+    }
+  ],
+  "evidence_output_chain_to_copy": [
+    "Run required start and classify index/worktree noise.",
+    "Read active owner plan and selected packet, not unrelated historical notes.",
+    "If planning or prep changes are made, update JSON plan/packet/report and rebuild plan-note index once.",
+    "Implement owner surfaces and prove with owning validator and focused tests.",
+    "Commit implementation/report/plan-note outputs first.",
+    "Run broad discovery index refresh only if the packet refresh_decision or closeout gate requires it.",
+    "Commit generated index outputs separately and stop; do not chase head-only staleness from the generated-index commit."
+  ],
+  "validation_snapshot_before_report_write": {
+    "repo_index_status": "passed_fresh_before_report_creation",
+    "script_import_index_status": "passed_fresh_before_report_creation",
+    "plan_note_index_status": "passed_fresh_before_report_creation",
+    "git_status_before_report_creation": "clean"
+  },
+  "conclusion": {
+    "current_waves_should_copy_wave_1_11_logic": true,
+    "missing_logic_after_this_report": false,
+    "main_guardrail": "Every wave packet must name the owning validator/test and structured refresh_decision; index refreshes follow that decision instead of habit."
+  }
+}

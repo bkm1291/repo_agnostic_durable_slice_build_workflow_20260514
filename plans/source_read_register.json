@@ -93,6 +93,16 @@
       "owner_slice": "slice_001",
       "evidence_ref": "scripts/validate_release_package.py",
       "summary": "Dependency-free validator proving required public release files, CI commands, generated entrypoint freshness, example validation, version/changelog alignment, and clean tracked package paths."
+    },
+    {
+      "read_id": "vbtprobuild_wave_1_11_evidence_copy",
+      "surface": "evidence/vbtprobuild_wave_1_11_20260514/manifest.json",
+      "surface_type": "other",
+      "read_type": "docs",
+      "status": "satisfied",
+      "owner_slice": "workflow_evidence_import",
+      "evidence_ref": "evidence/vbtprobuild_wave_1_11_20260514/manifest.json",
+      "summary": "Copied vbtprobuild Wave 1-11 indexed tmp reports, crack-repair audits, plan, checkpoint, receipt, helper reconciliation, and targeted index extracts used to preserve the repo-agnostic workflow evidence."
     }
   ]
 }

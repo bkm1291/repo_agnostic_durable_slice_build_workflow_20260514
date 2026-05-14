@@ -1,0 +1,291 @@
+{
+  "artifact_type": "vbtprobuild_full_index_audit_report",
+  "schema_version": "v1",
+  "audit_id": "vbtprobuild_full_index_audit_20260513",
+  "created_at_utc": "2026-05-13T03:57:52Z",
+  "repo_root": "/home/benji/vbtprobuild",
+  "head_commit": "db5a48b467511ead81da06476587739fc22e223a",
+  "branch": "slice/final-foundation-audit-and-release-gate",
+  "status": "completed_primary_fixes_with_remaining_findings",
+  "scope": {
+    "active_repo_authority": true,
+    "repo_index": true,
+    "plan_note_index": true,
+    "script_import_architecture_index": true,
+    "source_registry_and_data_pull_authority": true,
+    "raw_landing_schema": true,
+    "private_research_artifact_index": true,
+    "private_research_vbt_sweep_index": true,
+    "output_schema_index": true,
+    "vbtpro_static_lookup_index": true,
+    "vbt642_export_import_matrix": true,
+    "vectorbtpro_mcp": true,
+    "worktree_mutation_semantics": true
+  },
+  "implemented_fixes": [
+    {
+      "fix_id": "retire_valueinvesting_active_source",
+      "status": "implemented",
+      "summary": "Retired the unused external short-data provider from active source registry, data-pull rule sheet, materializer policy, provider preflight policy, bounded source smoke policy, raw landing schema definitions, source-family priorities, semantic taxonomy, strategy grammar, active prompt surface, active pipeline manual, source coverage matrix builder, and focused tests.",
+      "evidence": [
+        "configs/v2/source_registry.json active source count is 9",
+        "configs/v2/production_data_pull_rule_sheet.json source_registry_source_count is 9",
+        "schemas/v2/raw_landing.schema.json no longer declares retired provider raw landing definitions",
+        "active-surface grep for retired provider terms returned no hits in AGENTS.md, SKILL.md, configs/v2, schemas/v2, scripts, src, selected active tests, selected active plan, and active pipeline manual"
+      ],
+      "historical_evidence_retained": true,
+      "data_delete_performed": false
+    },
+    {
+      "fix_id": "sync_vbt_tool_002_source_denominator",
+      "status": "implemented",
+      "summary": "Updated the VBT tool 002 provider/data-type mapper policy and positive fixture from 12 active sources to the current 9 active sources.",
+      "evidence": [
+        "scripts/v2_validate_v7_2_5_vbt_tool_002_provider_data_type_mapper.py --repo-corpus --summary-only passed with source_registry_source_count 9",
+        "scripts/v2_validate_v7_2_5_tool_real_data_smoke.py --summary-only passed",
+        "scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py --repo-corpus --summary-only passed",
+        "scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py --repo-corpus --summary-only passed"
+      ]
+    },
+    {
+      "fix_id": "private_docs_url_fixture_hygiene",
+      "status": "implemented",
+      "summary": "Replaced a full tokenized private VectorBT Pro docs URL in a negative fixture with a redacted placeholder. This is classified as private docs URL persistence hygiene, not a secret-value leak.",
+      "evidence": [
+        "Exact scan for the prior private-docs URL fragment returned no hits outside excluded source-input/vector-index areas",
+        "VectorBT Pro MCP still emits full private docs URLs in tool output, so repo files should keep using credentialed_vectorbtpro_api_docs_endpoint rather than persisted private docs URLs"
+      ]
+    },
+    {
+      "fix_id": "repo_index_freshness_status",
+      "status": "implemented",
+      "summary": "Repo-index status now compares tracked paths, missing indexed tracked paths, dirty tracked file hashes, and build-head metadata before returning a clean status.",
+      "evidence": [
+        "scripts/v2_repo_index.py --status --summary-only --no-auto-refresh now returns status=stale in the dirty worktree instead of false-green passed",
+        "focused repo-index freshness pytest passed"
+      ]
+    },
+    {
+      "fix_id": "script_import_architecture_index_freshness_status",
+      "status": "implemented",
+      "summary": "Script-import architecture query status now detects stale HEAD metadata, missing tracked script/test paths, and dirty tracked file hash changes.",
+      "evidence": [
+        "scripts/v2_query_script_import_architecture_index.py --summary-only now exits stale in the current stale-index state",
+        "tracked missing path queries return stale issue details instead of a clean zero-record pass"
+      ]
+    },
+    {
+      "fix_id": "summary_only_read_only_validation",
+      "status": "implemented",
+      "summary": "Summary-only validator flows now default to read-only for the touched validators, with durable writes gated by explicit write flags.",
+      "evidence": [
+        "data estate output route, text event alignment, timeframe registry, source, and data quality masking validators were updated",
+        "summary-only validation commands left tracked receipts, checkpoints, reports, and manifests untouched in focused checks"
+      ]
+    },
+    {
+      "fix_id": "massive_source_acquisition_fixture_coverage",
+      "status": "implemented",
+      "summary": "Added raw landing fixture manifest coverage for remaining Massive minute flatfile, REST technical indicator, and live websocket quote lanes, and made the source validator avoid blocking existing non-source support fixtures merely because they are not source-ingestion manifest entries.",
+      "evidence": [
+        "scripts/v2_validate_sources.py passes for pit_price_corporate_actions_and_history_store, pit_fundamentals_filings_news_and_short_float, pit_feature_store_availability_gate_and_asof_joins, and source_intelligence_outcome_labels_and_scorecards under --summary-only",
+        "all 9 active Massive source IDs are covered by raw landing lineage and promotion gate results"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "P1_repo_index_false_freshness",
+      "severity": "P1",
+      "status": "resolved_in_worktree",
+      "summary": "The active repo index reports stale=false while missing tracked files and while dirty tracked files have hashes that differ from indexed hashes.",
+      "evidence": [
+        "Before fix, scripts/v2_repo_index.py --status --summary-only --no-auto-refresh returned status=passed and stale=false",
+        "After fix, the same command returns status=stale with tracked_file_missing, tracked_file_hash_changed, and index_head_mismatch freshness issues in the current dirty/stale-index state",
+        "scripts/v2_repo_index.py --path scripts/v2_validate_research_difficulty_semantics.py --compact --no-auto-refresh returned status=missing",
+        "git ls-files includes scripts/v2_validate_research_difficulty_semantics.py, tests/v2/research_factory/test_research_difficulty_semantics.py, and tmp/reports/production/research_difficulty_semantics_audit_20260513.json",
+        "manifests/v2/repo_index.sqlite files table has 0 rows for those tracked paths"
+      ],
+      "impact": "Authority lookups and low-token exact-path queries can silently miss committed research validators, tests, and reports.",
+      "recommended_fix": "Implemented: repo-index freshness compares tracked file path sets, tracked file hashes, indexed tracked paths, and build-head metadata before returning clean status."
+    },
+    {
+      "finding_id": "P1_source_acquisition_remaining_massive_lanes",
+      "severity": "P1",
+      "status": "resolved_in_worktree",
+      "summary": "After retiring the unused provider, source validation still blocks three Massive lanes because fixture/raw-landing lineage coverage is missing.",
+      "evidence": [
+        "Before fix, scripts/v2_validate_sources.py --slice pit_price_corporate_actions_and_history_store --summary-only --dry-run returned status=failed",
+        "After fix, source validation passes for pit_price_corporate_actions_and_history_store, pit_fundamentals_filings_news_and_short_float, pit_feature_store_availability_gate_and_asof_joins, and source_intelligence_outcome_labels_and_scorecards",
+        "source_count=9 and all 9 active source IDs are covered",
+        "Added fixture manifest coverage for massive_flatfiles_stocks_minute, massive_rest_technical_indicators, and massive_websocket_quotes_live"
+      ],
+      "impact": "Live and historical data pulls are easier than before, but minute flatfiles, technical indicators, and live websocket quotes still cannot be promoted through the current source gate.",
+      "recommended_fix": "Implemented: added bounded fixture/raw-landing lineage coverage for the three remaining Massive lanes and retained fixture-before-live promotion semantics."
+    },
+    {
+      "finding_id": "P1_vbt_real_data_smoke_stale_policy_count",
+      "severity": "P1",
+      "status": "resolved_in_worktree",
+      "summary": "VBT real-data smoke and top300/other300 import smokes failed after source retirement because vbt_tool_002 still expected 12 active source-registry entries.",
+      "evidence": [
+        "Initial scripts/v2_validate_v7_2_5_tool_real_data_smoke.py --summary-only failed with VBT_TOOL_002_SOURCE_REGISTRY_COUNT_MISMATCH",
+        "After updating configs/v2/v7_2_5_vbt_tool_002_provider_data_type_mapper_policy.json and the positive fixture to 9, real-data smoke and both import smokes passed"
+      ],
+      "impact": "This would have blocked VBT642 queue validation despite the provider retirement being intentional.",
+      "recommended_fix": "Keep VBT tool policy expected denominators generated from source_registry or checked by a focused denominator consistency test."
+    },
+    {
+      "finding_id": "P2_script_import_index_stale_head",
+      "severity": "P2",
+      "status": "resolved_in_worktree",
+      "summary": "The script import architecture index reports passed even though its build metadata points at an older commit and it misses current tracked script/test surfaces.",
+      "evidence": [
+        "Current HEAD is db5a48b467511ead81da06476587739fc22e223a",
+        "manifests/v2/script_import_architecture_index.sqlite build_metadata head is 05d6259c302ec58309b750497810815542781c60",
+        "files table has 0 rows for scripts/v2_validate_research_difficulty_semantics.py and tests/v2/research_factory/test_research_difficulty_semantics.py",
+        "Before fix, scripts/v2_query_script_import_architecture_index.py --summary-only returned status=passed and issue_count=0",
+        "After fix, the same command returns status=stale with path-set, dirty-hash, and index-head freshness issues in the current stale-index state"
+      ],
+      "impact": "Import-risk and script-surface queries can miss recently added validators while still presenting a clean status.",
+      "recommended_fix": "Implemented: query/status now adds HEAD/path-set/hash freshness checks and fails stale indexes before returning clean summaries."
+    },
+    {
+      "finding_id": "P2_summary_only_mutation_semantics",
+      "severity": "P2",
+      "status": "resolved_in_worktree",
+      "summary": "Some validation/audit flows are not read-only under --summary-only.",
+      "evidence": [
+        "Before fix, scripts/v2_validate_data_estate_output_routes.py --summary-only rewrote manifests/v2/data_estate_no_delete_cleanup_candidate_manifest.json and manifests/v2/data_estate_writer_route_audit.json during audit",
+        "scripts/v2_validate_text_event_alignment.py and scripts/validate_v2_timeframe_registry.py now require explicit report-write flags for durable reports",
+        "scripts/v2_validate_sources.py and scripts/v2_validate_data_quality_masking.py now treat --summary-only as dry-run/read-only unless --write is passed"
+      ],
+      "impact": "Read-only validation and pytest/audit flows can dirty tracked artifacts or repo reports, masking real worktree changes.",
+      "recommended_fix": "Implemented for audited validators: --summary-only is read-only by default, with durable writes gated by --write or --write-report."
+    },
+    {
+      "finding_id": "P2_output_schema_identity_gap",
+      "severity": "P2",
+      "status": "open",
+      "summary": "The output schema index passes but has weak explicit schema identity coverage and missing provenance metadata.",
+      "evidence": [
+        "manifests/v2/output_schema_index.json status=passed",
+        "output_count=933, explicit_schema_identity_count=41, inferred_schema_identity_count=514, missing_schema_identity_count=378",
+        "upstream_manifest_path, upstream_manifest_hash, and created_at_utc are null"
+      ],
+      "impact": "Research outputs are indexed broadly, but promotion and reproducibility checks still depend heavily on inferred or missing schema identity.",
+      "recommended_fix": "Add explicit schema IDs and upstream manifest hashes to high-value durable outputs first, then make missing identity a warning budget or gate by output family."
+    },
+    {
+      "finding_id": "P2_private_research_artifact_warning_noise",
+      "severity": "P2",
+      "status": "open",
+      "summary": "The private research artifact index passes but carries thousands of warning ledger rows and lacks clean reconciliation for newer research surfaces.",
+      "evidence": [
+        "scripts/v2_query_private_research_artifact_index.py --summary-only returned status=passed, artifact_count=3107, issue_count=0, issue_ledger_count=5715, unreconciled_count=66",
+        "Issue ledger includes 5645 PRIVATE_RESEARCH_INDEX_OUTPUT_ROUTE_ABSOLUTE_REVIEW warnings, 66 PRIVATE_RESEARCH_INDEX_REPO_INDEX_RECONCILIATION_PENDING warnings, and 4 PRIVATE_RESEARCH_INDEX_CONFIG_VARIABLE_SCAN_TRUNCATED warnings",
+        "322 distinct paths have absolute-output-route review warnings"
+      ],
+      "impact": "High warning volume can hide actionable route mistakes and makes index quality harder to assess during research audits.",
+      "recommended_fix": "Split expected absolute historical outputs from actionable route warnings, reconcile new research surfaces into the repo index, and add build metadata/freshness facts to the private index."
+    },
+    {
+      "finding_id": "P2_private_vbt_sweep_missing_output",
+      "severity": "P2",
+      "status": "open",
+      "summary": "The private research VBT sweep index passes while one expected metrics summary output is missing.",
+      "evidence": [
+        "scripts/v2_query_private_research_vbt_sweep_result_index.py --summary-only returned status=passed, run_count=4, metric_row_count=6",
+        "manifests/v2/private_research_vbt_sweep_result_index.sqlite output_files has one file_exists=0 row",
+        "Missing output key: metrics_summary for run private_research_vbt_sweep__smoke-random10__20260512T115933Z"
+      ],
+      "impact": "Sweep history can look green while a run-scoped summary artifact is absent.",
+      "recommended_fix": "Either regenerate the missing run metrics summary or encode missing optional historical summaries as explicit non-blocking expected gaps."
+    },
+    {
+      "finding_id": "P3_plan_note_metadata_coverage",
+      "severity": "P3",
+      "status": "open",
+      "summary": "The plan-note index correctly detects staleness but most indexed plan/note records lack metadata.",
+      "evidence": [
+        "scripts/v2_plan_note_index.py --status --compact --no-auto-refresh returned status=stale after active doc/plan edits",
+        "metadata_missing_count=281 out of plan_count=322",
+        "stale reasons were the edited pipeline manual and future slice prompt structure"
+      ],
+      "impact": "Staleness detection is better than repo-index behavior, but metadata sparsity weakens routing and authority classification.",
+      "recommended_fix": "Add required metadata to active and high-use historical plan/note records, then enforce metadata for new durable plans/reports."
+    },
+    {
+      "finding_id": "P3_mcp_private_docs_url_output",
+      "severity": "P3",
+      "status": "open",
+      "summary": "VectorBT Pro MCP search output may include full private docs URLs even when the repo policy prefers credentialed_vectorbtpro_api_docs_endpoint in persisted files.",
+      "evidence": [
+        "mcp__vectorbtpro__.resolve_refnames resolved vbt.Portfolio, vbt.Data, and vbt.IF successfully",
+        "mcp__vectorbtpro__.search returned private-docs links in tool output",
+        "The repository fixture was redacted; the MCP output itself was not persisted into repo files"
+      ],
+      "impact": "Agents can accidentally persist full private docs URLs while copying MCP evidence into repo artifacts.",
+      "recommended_fix": "Add a report/receipt linter rule that rewrites private docs URLs to credentialed_vectorbtpro_api_docs_endpoint before durable persistence."
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest tests/v2/source_intelligence/test_production_data_pull_rule_sheet.py tests/v2/research_factory/test_slice_06_provider_authorization_preflight_accepts_valid_fixture.py tests/v2/research_factory/test_slice_06_provider_authorization_preflight_rejects_false_claims.py -q",
+      "status": "passed",
+      "summary": "29 passed"
+    },
+    {
+      "command": "python -m pytest tests/v2/research_factory/test_v7_2_5_vbt_tool_002_provider_data_type_mapper_accepts_valid_fixture.py tests/v2/research_factory/test_v7_2_5_vbt_tool_002_provider_data_type_mapper_rejects_false_claims.py tests/v2/research_factory/test_v7_2_5_tool_real_data_smoke.py -q",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "scripts/v2_validate_v7_2_5_tool_real_data_smoke.py --summary-only",
+      "status": "passed",
+      "summary": "23 of 23 tool smokes passed"
+    },
+    {
+      "command": "scripts/v2_validate_v7_2_5_vbtpro_top300_import_smoke.py --repo-corpus --summary-only",
+      "status": "passed",
+      "summary": "300 resolved imports, 0 failed imports, real_data_smoke_status=passed, topology_smoke_status=passed"
+    },
+    {
+      "command": "scripts/v2_validate_v7_2_5_vbtpro_other300_import_smoke.py --repo-corpus --summary-only",
+      "status": "passed",
+      "summary": "300 resolved imports, 0 failed imports, real_data_smoke_status=passed, topology_smoke_status=passed"
+    },
+    {
+      "command": "scripts/v2_validate_sources.py --slice pit_price_corporate_actions_and_history_store --summary-only",
+      "status": "passed",
+      "summary": "9 of 9 active sources pass fixture/raw-lineage promotion coverage; summary-only ran read-only"
+    },
+    {
+      "command": "scripts/v2_validate_sources.py --slice pit_fundamentals_filings_news_and_short_float --summary-only; scripts/v2_validate_sources.py --slice pit_feature_store_availability_gate_and_asof_joins --summary-only; scripts/v2_validate_sources.py --slice source_intelligence_outcome_labels_and_scorecards --summary-only",
+      "status": "passed",
+      "summary": "Adjacent source-data slices pass with all 9 active sources covered and no missing fixture files"
+    }
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Reduce private research artifact warning noise by separating accepted historical absolute routes from actionable current route warnings."
+    },
+    {
+      "priority": 2,
+      "action": "Increase explicit schema identity on high-value durable outputs and attach upstream manifest provenance to output_schema_index."
+    },
+    {
+      "priority": 3,
+      "action": "Regenerate or explicitly classify the missing private VBT sweep metrics summary artifact."
+    },
+    {
+      "priority": 4,
+      "action": "Add metadata to active/high-use plan-note records, then enforce metadata for new durable plans/reports."
+    },
+    {
+      "priority": 5,
+      "action": "Add persisted-artifact lint coverage for private docs URLs emitted by MCP tool output."
+    }
+  ]
+}

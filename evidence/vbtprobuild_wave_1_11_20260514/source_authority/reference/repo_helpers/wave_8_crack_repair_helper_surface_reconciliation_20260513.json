@@ -1,0 +1,206 @@
+{
+  "artifact_type": "repo_helper_crack_repair_surface_reconciliation_overlay",
+  "schema_version": "v1",
+  "overlay_id": "wave_8_crack_repair_helper_surface_reconciliation_20260513",
+  "status": "active_reference_overlay",
+  "created_at_utc": "2026-05-13T13:45:00Z",
+  "purpose": "Expose Wave 1-7 crack-repair policies, schemas, contracts, modules, validators, tests, and control-plane evidence through the repo helper entrypoint before and after the Wave 8 index refresh.",
+  "source_authority": {
+    "active_repair_plan": "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "helper_index": "reference/repo_helpers/index.json",
+    "legacy_script_manifest": "reference/repo_helpers/repo_script_manifest_20260511.json",
+    "legacy_script_catalog": "reference/repo_helpers/repo_script_helper_catalog_20260511.json",
+    "script_import_architecture_index": "manifests/v2/script_import_architecture_index.sqlite",
+    "repo_index": "manifests/v2/repo_index.sqlite"
+  },
+  "boundary": {
+    "reference_only": true,
+    "does_not_authorize_runtime_execution": true,
+    "does_not_authorize_provider_pull_or_probe": true,
+    "does_not_authorize_materialization": true,
+    "does_not_authorize_replay": true,
+    "does_not_authorize_vbt_sweep": true,
+    "does_not_claim_production_candidate": true,
+    "does_not_claim_production_ready": true,
+    "old_20260511_helper_catalogs_remain_lineage": true,
+    "wave_8_refreshed_indexes_are_current_discovery_baseline": true
+  },
+  "reconciliation_semantics": {
+    "helper_manifest_gap": "The static 20260511 helper manifests do not enumerate every Wave 1-7 crack-repair surface by themselves.",
+    "repair_shape": "Keep the dated helper catalogs as lineage and add this overlay as the current crack-repair helper discovery patch, then refresh script, repo, and config indexes from current tracked source.",
+    "stale_index_semantics": "Pre-Wave-8 stale index findings are evidence only; after Wave 8, refreshed indexes become the baseline for Wave 9-11 lookups.",
+    "generated_output_semantics": "Generated sqlite, manifest, summary, checkpoint, receipt, and config-inventory diffs are Wave 8-owned only when produced by the explicit refresh sequence."
+  },
+  "control_plane_surfaces": [
+    "AGENTS.md",
+    "SKILL.md",
+    "plans/v7_2_4/vbtprobuild_crack_repair_execution_plan_20260513.json",
+    "manifests/v2/plan_note_supersession_register_20260513.json",
+    "configs/v2/worktree_noise_classification_policy_20260513.json",
+    "tmp/reports/production/vbtprobuild_audit_fix_strategy_plan_20260513.json",
+    "tmp/reports/production/vbtprobuild_root_control_file_crack_alignment_audit_20260513.json",
+    "tmp/reports/production/vbtprobuild_vbtpro_api_lane_crack_dependency_graph_20260513.json",
+    "reference/repo_helpers/wave_8_crack_repair_helper_surface_reconciliation_20260513.json"
+  ],
+  "wave_surface_groups": [
+    {
+      "wave": 1,
+      "title": "Activation schema, validator, and tests",
+      "surface_class": "activation_policy_schema_validator_tests",
+      "artifact_refs": [
+        "configs/v2/private_full_real_testing_activation_policy.json",
+        "schemas/v2/private_full_real_testing_activation.schema.json",
+        "contracts/v2/private_full_real_testing_activation_contract.json",
+        "scripts/v2_validate_private_full_real_testing_activation.py",
+        "tests/v2/research_factory/test_private_full_real_testing_activation.py"
+      ]
+    },
+    {
+      "wave": 2,
+      "title": "Source registry live and historical acquisition semantics",
+      "surface_class": "source_registry_acquisition_policy_schema_contract_runtime_tests",
+      "artifact_refs": [
+        "configs/v2/repo_source_data_acquisition_policy_20260512.json",
+        "schemas/v2/repo_source_data_acquisition_policy.schema.json",
+        "contracts/v2/repo_source_data_acquisition_policy_contract.json",
+        "configs/v2/source_registry.json",
+        "configs/v2/live_source_promotion_policy.json",
+        "configs/v2/production_data_pull_rule_sheet.json",
+        "src/vbtpro_strategy_v2/data/source_registry.py",
+        "src/vbtpro_strategy_v2/data/live_promotion.py",
+        "scripts/v2_operational_materialization_run.py",
+        "tests/v2/data/test_source_registry_no_network.py",
+        "tests/v2/data/test_live_source_rest_download_receipt.py",
+        "tests/v2/data/test_live_source_promotion_policy.py"
+      ]
+    },
+    {
+      "wave": 3,
+      "title": "Cross-policy private runtime research overlay validator",
+      "surface_class": "private_runtime_overlay_policy_schema_contract_validator_tests",
+      "artifact_refs": [
+        "configs/v2/private_runtime_research_overlay_policy_20260513.json",
+        "schemas/v2/private_runtime_research_overlay_policy.schema.json",
+        "contracts/v2/private_runtime_research_overlay_policy_contract.json",
+        "scripts/v2_validate_private_runtime_research_overlay.py",
+        "tests/v2/research_factory/test_private_runtime_research_overlay.py"
+      ]
+    },
+    {
+      "wave": 4,
+      "title": "VBT Data acquisition bridge",
+      "surface_class": "private_vbt_data_bridge_policy_schema_contract_module_validator_tests",
+      "artifact_refs": [
+        "configs/v2/private_vbt_data_acquisition_bridge_policy_20260513.json",
+        "schemas/v2/private_vbt_data_acquisition_bridge_policy.schema.json",
+        "contracts/v2/private_vbt_data_acquisition_bridge_policy_contract.json",
+        "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+        "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+        "tests/v2/data/test_private_vbt_data_acquisition_bridge.py"
+      ]
+    },
+    {
+      "wave": 5,
+      "title": "Portfolio and optimizer private research modes",
+      "surface_class": "portfolio_optimizer_research_policy_schema_contract_module_validator_tests",
+      "artifact_refs": [
+        "configs/v2/private_portfolio_optimizer_research_modes_policy_20260513.json",
+        "schemas/v2/private_portfolio_optimizer_research_modes_policy.schema.json",
+        "contracts/v2/private_portfolio_optimizer_research_modes_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+        "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+        "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py"
+      ]
+    },
+    {
+      "wave": 6,
+      "title": "VBT642 mode-aware matrix and queue metadata",
+      "surface_class": "vbt642_mode_aware_policy_schema_contract_module_validator_tests",
+      "artifact_refs": [
+        "configs/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_20260513.json",
+        "schemas/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy.schema.json",
+        "contracts/v2/v7_2_5_vbtpro_642_mode_aware_matrix_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+        "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+        "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py"
+      ]
+    },
+    {
+      "wave": 7,
+      "title": "Shared VBT tool boundary helper",
+      "surface_class": "shared_vbt_tool_boundary_policy_schema_contract_module_validator_tests",
+      "artifact_refs": [
+        "configs/v2/shared_vbt_tool_boundary_helper_policy_20260513.json",
+        "schemas/v2/shared_vbt_tool_boundary_helper_policy.schema.json",
+        "contracts/v2/shared_vbt_tool_boundary_helper_policy_contract.json",
+        "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py",
+        "scripts/v2_validate_shared_vbt_tool_boundary_helper.py",
+        "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py"
+      ]
+    }
+  ],
+  "script_surfaces_for_script_import_index": [
+    "scripts/v2_validate_private_full_real_testing_activation.py",
+    "scripts/v2_operational_materialization_run.py",
+    "scripts/v2_validate_private_runtime_research_overlay.py",
+    "scripts/v2_validate_private_vbt_data_acquisition_bridge.py",
+    "scripts/v2_validate_private_portfolio_optimizer_research_modes.py",
+    "scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+    "scripts/v2_validate_shared_vbt_tool_boundary_helper.py"
+  ],
+  "module_surfaces_for_script_import_index": [
+    "src/vbtpro_strategy_v2/data/source_registry.py",
+    "src/vbtpro_strategy_v2/data/live_promotion.py",
+    "src/vbtpro_strategy_v2/data/vbt_data_bridge.py",
+    "src/vbtpro_strategy_v2/research_factory/v7/private_portfolio_optimizer_research_modes.py",
+    "src/vbtpro_strategy_v2/research_factory/v7/vbtpro_642_mode_aware_matrix.py",
+    "src/vbtpro_strategy_v2/research_factory/v7/shared_vbt_tool_boundary_helper.py"
+  ],
+  "test_surfaces_for_repo_index": [
+    "tests/v2/fixtures/repo_worktree_cleanliness/positive_generated_index_noise_nonblocking.json",
+    "tests/v2/research_factory/test_private_full_real_testing_activation.py",
+    "tests/v2/data/test_source_registry_no_network.py",
+    "tests/v2/data/test_live_source_rest_download_receipt.py",
+    "tests/v2/data/test_live_source_promotion_policy.py",
+    "tests/v2/data/test_private_vbt_data_acquisition_bridge.py",
+    "tests/v2/research_factory/test_private_runtime_research_overlay.py",
+    "tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py",
+    "tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py",
+    "tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py",
+    "tests/v2/test_repo_worktree_cleanliness.py"
+  ],
+  "index_refresh_targets": [
+    "manifests/v2/script_import_architecture_index.sqlite",
+    "manifests/v2/script_import_architecture_index_manifest.json",
+    "manifests/v2/script_import_architecture_index_summary.json",
+    "checkpoints/v2/script_import_architecture_index_checkpoint.json",
+    "receipts/v2/script_import_architecture_index_receipt.json",
+    "manifests/v2/production/config_variable_inventory.json",
+    "manifests/v2/repo_index.sqlite",
+    "manifests/v2/repo_index_summary.json",
+    "receipts/v2/repo_index_receipts.jsonl"
+  ],
+  "minimum_validation_commands": [
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_full_real_testing_activation.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_runtime_research_overlay.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_vbt_data_acquisition_bridge.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_private_portfolio_optimizer_research_modes.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_v7_2_5_vbtpro_642_mode_aware_matrix.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python scripts/v2_validate_shared_vbt_tool_boundary_helper.py --repo-corpus --summary-only",
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src /home/benji/miniconda3/envs/vectorbtpro/bin/python -m pytest -q -p no:cacheprovider tests/v2/research_factory/test_private_full_real_testing_activation.py tests/v2/data/test_source_registry_no_network.py tests/v2/data/test_live_source_rest_download_receipt.py tests/v2/data/test_live_source_promotion_policy.py tests/v2/data/test_private_vbt_data_acquisition_bridge.py tests/v2/research_factory/test_private_runtime_research_overlay.py tests/v2/research_factory/test_private_portfolio_optimizer_research_modes.py tests/v2/research_factory/test_v7_2_5_vbtpro_642_mode_aware_matrix.py tests/v2/research_factory/test_shared_vbt_tool_boundary_helper.py tests/v2/test_repo_worktree_cleanliness.py"
+  ],
+  "future_wave_details": [
+    "Wave 9 should treat the refreshed repo and script indexes as the MCP/runtime precedence baseline and should use Wave 7 boundary classifications for stale helper lag, operator-decision gaps, exact-path misses, and runtime gates.",
+    "Wave 10 should use the refreshed indexes plus this overlay to find validators or tests that still mutate receipts, checkpoints, sqlite indexes, summaries, or config inventories during summary-only/read-only flows.",
+    "Wave 11 should use the refreshed repo-index state as its scanner and exact-path cleanup baseline instead of stale pre-Wave-8 misses."
+  ],
+  "summary_counts": {
+    "wave_surface_group_count": 7,
+    "control_plane_surface_count": 9,
+    "wave_artifact_ref_count": 46,
+    "script_surface_count": 7,
+    "module_surface_count": 6,
+    "test_surface_count": 11,
+    "index_refresh_target_count": 9
+  }
+}
