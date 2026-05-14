@@ -179,3 +179,40 @@ def test_bootstrap_refuses_conflicts_without_force(tmp_path: Path) -> None:
     assert result.returncode == 1
     assert "FAIL bootstrap_conflicts" in result.stdout
     assert (target / "README.md").read_text(encoding="utf-8") == "existing\n"
+
+
+def test_bootstrap_can_initialize_git_and_github_remote(tmp_path: Path) -> None:
+    target = tmp_path / "tracked-demo"
+    remote = "git@github.com:example/tracked-demo.git"
+    result = run_command(
+        [
+            sys.executable,
+            str(BOOTSTRAP),
+            str(target),
+            "--project-name",
+            "Tracked Demo",
+            "--init-git",
+            "--github-remote",
+            remote,
+            "--git-user-name",
+            "Bootstrap Test",
+            "--git-user-email",
+            "bootstrap@example.invalid",
+        ]
+    )
+
+    assert result.returncode == 0
+    assert (target / ".git").is_dir()
+    assert "GIT initialized_git_repo branch=main" in result.stdout
+    assert "GIT origin_remote_added" in result.stdout
+    assert "GIT initial_commit_created" in result.stdout
+
+    branch = run_command(["git", "branch", "--show-current"], cwd=target)
+    remote_check = run_command(["git", "remote", "get-url", "origin"], cwd=target)
+    log = run_command(["git", "log", "--oneline", "-1"], cwd=target)
+    status = run_command(["git", "status", "--short"], cwd=target)
+
+    assert branch.stdout.strip() == "main"
+    assert remote_check.stdout.strip() == remote
+    assert "Bootstrap durable slice workflow" in log.stdout
+    assert status.stdout.strip() == ""

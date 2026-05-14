@@ -48,3 +48,25 @@ Before tagging or publishing, run the local checklist in `RELEASE_CHECKLIST.md`
 and confirm the GitHub Actions `check` workflow passed on `main`.
 
 If CI fails, fix the first failing command locally before changing the workflow.
+
+## New Repo Tracking
+
+For a new repo that should be tracked from the start, bootstrap with git enabled:
+
+```bash
+python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo --init-git --github-remote git@github.com:<owner>/<repo>.git
+```
+
+Run the starter checks locally before pushing:
+
+```bash
+make check
+make bootstrap-smoke
+make read-only-check
+git status --short
+git push -u origin main
+```
+
+The first push should contain the validated bootstrap governance commit. Later
+slices should keep implementation commits, generated-refresh commits, and
+meaningful closeout evidence commits separate.

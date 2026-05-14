@@ -11,7 +11,7 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 ## Start Here
 
 1. If this workflow is new, read `START_HERE.md`.
-2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the handoff shape.
+2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the one-time setup shape.
 3. Check `PROJECT_GOAL.md` first. If it exists and contains a concrete non-placeholder goal, use it automatically. If the user says only "use this", "use this template", gives a placeholder goal, or `PROJECT_GOAL.md` is missing/placeholder-only, ask exactly: "What do you want to build? One or two paragraphs is enough." Do not create or update a roadmap, packet, or code until the goal is known.
 4. Run `/skills` and confirm these project skills are available:
    - `/durable-slice` from `.claude/skills/durable-slice/SKILL.md`
@@ -38,14 +38,8 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 
 Report changed files, validation commands/results, worktree state, whether generated refresh was required, and the next recommended slice. Do not leave future requirements only in chat.
 
-For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json` validates and show `Paste this into your prompt box:` followed by this exact next prompt:
+This template is build governance, not a prompt chain. Use the initial install/setup prompt only to establish repo authority. After that, preserve the current agent thread, reason from repo-native artifacts, and follow the roadmap -> slice packet -> validator -> focused tests -> closeout structure without emitting recurring operator prompt instructions.
 
-```text
-Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
-```
+After the initial roadmap and first slice packet validate, report that the packet is ready and do not create app/source implementation files unless the current user request explicitly activates implementation.
 
-After an implementation slice passes proof, show `Paste this into your prompt box:` followed by this exact next planning prompt:
-
-```text
-Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
-```
+After an implementation slice passes proof, close out with changed files, validation results, generated-refresh decision, worktree state, residual risks, and the next governed action from the roadmap. The next slice still requires a valid packet before implementation.

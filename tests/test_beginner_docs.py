@@ -57,9 +57,13 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "drag this folder into" in start_here
     assert "Claude Code or Codex" in start_here
     assert "Do not code until the packet validates" in start_here
-    assert "Paste this into your prompt box:" in start_here
-    assert "Go. Implement slice 001 exactly as defined" in start_here
-    assert "Continue. Inspect plans/repo_roadmap.json" in start_here
+    assert "same conversation" in start_here
+    assert "roadmap/slice/validator/test structure" in start_here
+    assert "next governed action" in start_here
+    assert "only required copy-paste prompt" in start_here
+    assert "--init-git" in start_here
+    assert "--github-remote" in start_here
+    assert "git push -u origin main" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
     assert "docs/MIGRATING_MATURE_REPO.md" in start_here
 
@@ -82,12 +86,11 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "use it automatically",
         "Do not create or update a roadmap, packet, or code until the goal is known.",
         "Do not code until the packet validates",
-        "Paste this into your prompt box:",
-        "Go. Implement slice 001 exactly as defined",
-        "Run the focused validators/tests before closeout.",
-        "Continue. Inspect plans/repo_roadmap.json",
-        "owner files, owner configs/schemas/contracts",
-        "Do not implement the next slice until I say go.",
+        "only required copy-paste prompt",
+        "same agent thread",
+        "packet is ready",
+        "next governed action from the roadmap",
+        "generated operator prompt text",
         "[ABSOLUTE_REPO_PATH]",
         "[ONE OR TWO PARAGRAPHS DESCRIBING WHAT THE REPO SHOULD BUILD]",
         "Read AGENTS.md",
@@ -102,6 +105,8 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "query_command_map.py",
         "MIGRATING_MATURE_REPO.md",
         "git status --short",
+        "bootstrap governance commit",
+        "GitHub origin",
     ]:
         assert required_text in prompt
 

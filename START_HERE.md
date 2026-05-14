@@ -9,7 +9,8 @@ Use it when you want a new repo to have:
 - one small packet per piece of work
 - a validator and focused tests for each piece
 - a clear rule for when generated indexes or reports should refresh
-- a copy-paste prompt for handing the repo to a fresh agent
+- one copy-paste setup prompt, then repo-native build governance
+- optional git/GitHub tracking from the first bootstrap commit
 - a Claude Code entrypoint and project skills when using Claude
 - a release checklist for tagging or publishing
 
@@ -28,25 +29,13 @@ If I name a target repo path or folder, I authorize you to create that folder if
 
 First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough."
 
-After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates.
+After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates. This first prompt establishes build governance; after that, keep the work in this same conversation, reason from repo-native artifacts, and follow the roadmap/slice/validator/test structure without turning closeout into generated prompt text.
 ```
 
-When the packet passes, the agent should show:
-
-Paste this into your prompt box:
-
-```text
-Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
-```
-
-When implementation finishes and proof passes, the agent should show this next
-planning prompt:
-
-Paste this into your prompt box:
-
-```text
-Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
-```
+This is the only required copy-paste prompt. The repo artifacts carry the
+workflow after setup: roadmap, slice packet, owner files, owning validator,
+focused tests, closeout, and the next governed action. You do not need recurring
+operator prompt instructions.
 
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,
 replace the placeholder with your real project goal, then drag this folder into
@@ -64,6 +53,20 @@ cd ../my-new-repo
 The bootstrap copies the workflow files, starter scripts, tests, examples, and a
 starter roadmap/packet. It copies `PROJECT_GOAL.template.md`, but it does not
 create `PROJECT_GOAL.md`; that local intake file is for your project goal.
+
+If you want the new repo tracked immediately, initialize git during bootstrap:
+
+```bash
+python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo --init-git --github-remote git@github.com:<owner>/<repo>.git
+cd ../my-new-repo
+git status --short
+git push -u origin main
+```
+
+Pass `--git-user-name` and `--git-user-email` if the machine does not already
+have git identity configured. GitHub push should happen after the starter checks
+pass, so the shared branch starts with validated roadmap, packet, CI, validators,
+and tests.
 
 ### 2. Run The Starter Checks
 
@@ -155,6 +158,11 @@ git status --short
 Commit source/config/test/docs changes first.
 
 Only refresh generated indexes afterward if the packet says a refresh is needed.
+When a generated refresh is required, commit generated outputs separately once.
+When a closeout receipt or checkpoint proves a real gate, commit it as closeout
+evidence. This keeps the workflow traceable like the Wave 1-11 pattern:
+bootstrap governance, implementation commit, optional generated-refresh commit,
+and meaningful closeout evidence.
 
 ## What To Do When Stuck
 

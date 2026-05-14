@@ -78,25 +78,27 @@ git diff --check
 git status --short
 ```
 
+## Git And GitHub Tracking
+
+The template copy operation does not create .git unless the operator asks for it. When the operator wants systematic tracking, initialize git before implementation, commit bootstrap governance, and push to GitHub only after local validators pass.
+
+Use `scripts/bootstrap_local_repo.py --init-git` for a new tracked repo, and add
+`--github-remote <url>` when the GitHub repo already exists. Keep implementation
+commits, generated-refresh commits, and meaningful closeout commits separate.
+
 ## Refresh And Receipts
 
 Generated indexes refresh only when the packet requires them. Receipts and
 checkpoints are for writers, generators, materializers, external actions,
 irreversible operations, and closeout gates, not default status notes.
 
-## Next Prompt Handoff
+## Same-Thread Continuity
 
 If the current task only created or updated the roadmap and first slice packet,
-stop after the packet validates and show `Paste this into your prompt box:` followed by this
-exact next prompt:
+stop after the packet validates. Report that the packet is ready and do not
+create app/source implementation files unless the current user request
+explicitly activates implementation.
 
-```text
-Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
-```
-
-After an implementation slice passes proof, show `Paste this into your prompt box:` followed
-by this exact next planning prompt:
-
-```text
-Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
-```
+After an implementation slice passes proof, close out the slice and report the
+next governed action from the roadmap. The next slice still requires a valid
+packet before implementation.

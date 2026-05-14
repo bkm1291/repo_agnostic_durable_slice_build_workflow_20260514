@@ -63,12 +63,9 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "No-prompt option" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not code until the packet validates" in rendered
-    assert "Paste this into your prompt box:" in rendered
-    assert "Go. Implement slice 001 exactly as defined" in rendered
-    assert "Run the focused validators/tests before closeout." in rendered
-    assert "Continue. Inspect plans/repo_roadmap.json" in rendered
-    assert "owner files, owner configs/schemas/contracts" in rendered
-    assert "Do not implement the next slice until I say go." in rendered
+    assert "same conversation" in rendered
+    assert "roadmap/slice/validator/test structure" in rendered
+    assert "operator prompt instructions" in rendered
     assert "examples/small_config_tool_repo" in rendered
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
     assert "contracts/low_token_workflow_contract.json" in rendered
@@ -84,6 +81,10 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert ".claude/skills/durable-slice/SKILL.md" in rendered
     assert "scripts/validate_read_only_commands.py --summary-only" in rendered
     assert "scripts/validate_release_package.py --summary-only" in rendered
+    assert "--init-git" in rendered
+    assert "--github-remote" in rendered
+    assert "Git And GitHub Tracking" in rendered
+    assert "generated-refresh commit" in rendered
     assert "START_HERE.md" in rendered
     assert "PROMPT_FOR_NEW_AGENT.md" in rendered
     assert "RELEASE_CHECKLIST.md" in rendered
@@ -119,9 +120,9 @@ def test_rendered_claude_mentions_project_skills() -> None:
     assert "/durable-slice" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not create or update a roadmap, packet, or code until the goal is known." in rendered
-    assert "Paste this into your prompt box:" in rendered
-    assert "Go. Implement slice 001 exactly as defined" in rendered
-    assert "Continue. Inspect plans/repo_roadmap.json" in rendered
+    assert "current agent thread" in rendered
+    assert "packet is ready" in rendered
+    assert "next governed action from the roadmap" in rendered
     assert ".claude/skills/durable-slice/SKILL.md" in rendered
     assert "validate_claude_integration.py" in rendered
 
@@ -141,3 +142,4 @@ def test_rendered_skill_mentions_project_goal_intake() -> None:
     assert "## Project Goal Intake" in rendered
     assert "PROJECT_GOAL.md" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
+    assert "## Same-Thread Continuity" in rendered

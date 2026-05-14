@@ -14,19 +14,23 @@ DEFAULT_METHODOLOGY = "repo_agnostic_durable_slice_build_workflow_methodology_20
 PROJECT_GOAL_TEMPLATE = "PROJECT_GOAL.template.md"
 PROJECT_GOAL_INTAKE = "PROJECT_GOAL.md"
 GOAL_FALLBACK_QUESTION = "What do you want to build? One or two paragraphs is enough."
-PROMPT_BOX_LABEL = "Paste this into your prompt box:"
-NEXT_IMPLEMENTATION_PROMPT = (
-    "Go. Implement slice 001 exactly as defined in "
-    "plans/slices/slice_001_packet.json. Do not expand scope. If the packet "
-    "needs to change, update and revalidate it before coding. Run the focused "
-    "validators/tests before closeout."
+CONTINUITY_RULE = (
+    "This template is build governance, not a prompt chain. Use the initial "
+    "install/setup prompt only to establish repo authority. After that, preserve "
+    "the current agent thread, reason from repo-native artifacts, and follow the "
+    "roadmap -> slice packet -> validator -> focused tests -> closeout structure "
+    "without emitting recurring operator prompt instructions."
 )
-NEXT_PLANNING_PROMPT = (
-    "Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, "
-    "create or update its slice packet with owner files, owner configs/schemas/"
-    "contracts, source reads, owning validator, focused tests, boundary rules, "
-    "refresh decision, and commit plan, validate the packet, and stop before "
-    "coding. Do not implement the next slice until I say go."
+INITIAL_PACKET_GATE = (
+    "After the initial roadmap and first slice packet validate, report that the "
+    "packet is ready and do not create app/source implementation files unless "
+    "the current user request explicitly activates implementation."
+)
+POST_IMPLEMENTATION_GATE = (
+    "After an implementation slice passes proof, close out with changed files, "
+    "validation results, generated-refresh decision, worktree state, residual "
+    "risks, and the next governed action from the roadmap. The next slice still "
+    "requires a valid packet before implementation."
 )
 GENERATED_HEADER = (
     "<!-- GENERATED FROM repo_agnostic_durable_slice_build_workflow_methodology_20260514.json "
@@ -49,9 +53,10 @@ BEGINNER_AGENT_PROMPT = (
     "After the goal is known, create or update the roadmap and first slice "
     "packet, then validate the packet. Do not create app/source implementation "
     "files or code features until the packet validates. Do not code until the "
-    "packet validates. After the packet passes, stop and show me "
-    f"`{PROMPT_BOX_LABEL}` followed by this exact prompt: "
-    f'"{NEXT_IMPLEMENTATION_PROMPT}"'
+    "packet validates. This first prompt establishes build governance; after "
+    "that, keep the work in this same conversation, reason from repo-native "
+    "artifacts, and follow the roadmap/slice/validator/test structure without "
+    "turning closeout into generated prompt text."
 )
 MISSING_GOAL_RULE = (
     f"Check `{PROJECT_GOAL_INTAKE}` first. If it exists and contains a concrete "
@@ -105,6 +110,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
     mature_repo_migration = starter.get("mature_repo_migration", {})
     release_package = starter.get("release_package_validator", {})
     beginner_docs = starter.get("beginner_docs", {})
+    git_tracking = methodology.get("git_and_github_tracking", {})
     project_goal_intake = starter.get("project_goal_intake", {})
     realistic_example = starter.get("realistic_small_example", {})
     project_goal_template = project_goal_intake.get("template", PROJECT_GOAL_TEMPLATE)
@@ -131,6 +137,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
         (
             "Run `python scripts/bootstrap_local_repo.py "
             "../my-new-repo --project-name my-new-repo`."
+        ),
+        (
+            "If you want git/GitHub tracking from the start, include "
+            "`--init-git` and optional `--github-remote <url>` in the bootstrap."
         ),
         "Change into the generated repo.",
         (
@@ -211,7 +221,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Planned future surfaces: {_wrap_code(planned_future_surfaces.get('registry', 'plans/planned_future_surfaces.json'))}",
         f"Planned future validator: {_wrap_code(planned_future_surfaces.get('validator', 'scripts/validate_planned_future_surfaces.py'))}",
         f"Beginner start: {_wrap_code(beginner_docs.get('start_here', 'START_HERE.md'))}",
-        f"New-agent handoff prompt: {_wrap_code(beginner_docs.get('new_agent_prompt', 'PROMPT_FOR_NEW_AGENT.md'))}",
+        f"New-agent setup prompt: {_wrap_code(beginner_docs.get('new_agent_prompt', 'PROMPT_FOR_NEW_AGENT.md'))}",
         f"Release checklist: {_wrap_code(beginner_docs.get('release_checklist', 'RELEASE_CHECKLIST.md'))}",
         f"Release package validator: {_wrap_code(release_package.get('validator', 'scripts/validate_release_package.py'))}",
         f"CI guide: {_wrap_code(beginner_docs.get('ci', 'docs/CI.md'))}",
@@ -249,21 +259,9 @@ Easiest path:
 3. If the agent asks what you want to build, answer in one or two paragraphs.
 4. The agent should create or update the roadmap and first slice packet, validate
    the packet, and wait to code until the packet passes.
-5. When the packet passes, the agent should show:
-
-{PROMPT_BOX_LABEL}
-
-```text
-{NEXT_IMPLEMENTATION_PROMPT}
-```
-6. When implementation finishes and proof passes, the agent should show this
-   next planning prompt:
-
-{PROMPT_BOX_LABEL}
-
-```text
-{NEXT_PLANNING_PROMPT}
-```
+5. After that, the repo artifacts carry the workflow. The agent should follow
+   the governed structure in the same thread without producing recurring
+   operator prompt instructions.
 
 No-prompt option: copy `{project_goal_template}` to `{project_goal_local}`, fill
 in the goal, then drag this folder into Claude Code or Codex and paste the same
@@ -360,6 +358,27 @@ python -m pytest -q tests
 The bootstrap command refuses to overwrite existing files unless `--force` is
 explicit. Examples are copied by default; use `--no-examples` for a lean starter.
 
+## Git And GitHub Tracking
+
+{git_tracking.get("purpose", "Use git history and optional GitHub remotes to make slice evidence recoverable.")}
+
+{git_tracking.get("default_rule", "Initialize git only when the operator asks for it, then commit bootstrap governance before implementation.")}
+
+For a new repo that should be tracked immediately:
+
+```bash
+{git_tracking.get("bootstrap_command_template", "python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo --init-git --github-remote git@github.com:<owner>/<repo>.git")}
+cd ../my-new-repo
+git status --short
+git push -u origin main
+```
+
+Tracking sequence:
+
+{_bullet_list(git_tracking.get("tracking_sequence", []))}
+
+{git_tracking.get("github_ci_rule", "GitHub Actions should pass before shared branches or releases are treated as healthy.")}
+
 ## Publish-Ready Checks
 
 Before publishing or pushing a release branch:
@@ -430,6 +449,7 @@ def render_agents(methodology: dict[str, Any]) -> str:
     source_read_register = starter.get("source_read_register", {})
     planned_future_surfaces = starter.get("planned_future_surfaces", {})
     mature_repo_migration = starter.get("mature_repo_migration", {})
+    git_tracking = methodology.get("git_and_github_tracking", {})
     start_steps = [
         "Read this `AGENTS.md`.",
         "Read root `SKILL.md` if present.",
@@ -513,6 +533,16 @@ refresh only when the structured refresh decision requires them. Commit
 implementation first, generated refresh second, and do not chase head-only
 staleness.
 
+## Git And GitHub Tracking
+
+{git_tracking.get("default_rule", "Initialize git only when the operator asks for it, then commit bootstrap governance before implementation.")}
+
+When tracking is enabled, keep the Wave 1-11 style evidence chain: implementation
+commit first, generated-refresh commit only when required, meaningful closeout
+receipt/checkpoint commits only when they prove a writer, materializer, external
+action, irreversible decision, release gate, or phase closeout. If a GitHub
+remote is configured, push only after focused local proof passes and confirm CI.
+
 ## Safety
 
 Do not persist secrets, tokenized URLs, credential values, private endpoint URLs,
@@ -529,18 +559,13 @@ commands/results, worktree state, classified residual noise, future-affecting
 notes persisted, and whether the next wave is ready.
 
 For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json`
-validates and show `{PROMPT_BOX_LABEL}` followed by this exact prompt:
+validates. Report that the packet is ready and do not create app/source
+implementation files unless the current user request explicitly activates
+implementation.
 
-```text
-{NEXT_IMPLEMENTATION_PROMPT}
-```
-
-After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed
-by this exact next planning prompt:
-
-```text
-{NEXT_PLANNING_PROMPT}
-```
+After an implementation slice passes proof, close out the slice and report the
+next governed action from the roadmap. The next slice still requires a valid
+packet before implementation.
 """
 
 
@@ -554,6 +579,7 @@ def render_skill(methodology: dict[str, Any]) -> str:
     planned_future_surfaces = starter.get("planned_future_surfaces", {})
     mature_repo_migration = starter.get("mature_repo_migration", {})
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
+    git_tracking = methodology.get("git_and_github_tracking", {})
     return f"""{GENERATED_HEADER}
 
 # Brand-New Repo Durable Slice Build Skill
@@ -627,28 +653,30 @@ git diff --check
 git status --short
 ```
 
+## Git And GitHub Tracking
+
+{git_tracking.get("default_rule", "Initialize git only when the operator asks for it, then commit bootstrap governance before implementation.")}
+
+Use `scripts/bootstrap_local_repo.py --init-git` for a new tracked repo, and add
+`--github-remote <url>` when the GitHub repo already exists. Keep implementation
+commits, generated-refresh commits, and meaningful closeout commits separate.
+
 ## Refresh And Receipts
 
 Generated indexes refresh only when the packet requires them. Receipts and
 checkpoints are for writers, generators, materializers, external actions,
 irreversible operations, and closeout gates, not default status notes.
 
-## Next Prompt Handoff
+## Same-Thread Continuity
 
 If the current task only created or updated the roadmap and first slice packet,
-stop after the packet validates and show `{PROMPT_BOX_LABEL}` followed by this
-exact next prompt:
+stop after the packet validates. Report that the packet is ready and do not
+create app/source implementation files unless the current user request
+explicitly activates implementation.
 
-```text
-{NEXT_IMPLEMENTATION_PROMPT}
-```
-
-After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed
-by this exact next planning prompt:
-
-```text
-{NEXT_PLANNING_PROMPT}
-```
+After an implementation slice passes proof, close out the slice and report the
+next governed action from the roadmap. The next slice still requires a valid
+packet before implementation.
 """
 
 
@@ -733,7 +761,7 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 ## Start Here
 
 1. If this workflow is new, read `START_HERE.md`.
-2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the handoff shape.
+2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the one-time setup shape.
 3. {MISSING_GOAL_RULE}
 4. Run `/skills` and confirm these project skills are available:
    - `/durable-slice` from `{durable_skill}`
@@ -760,17 +788,11 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 
 Report changed files, validation commands/results, worktree state, whether generated refresh was required, and the next recommended slice. Do not leave future requirements only in chat.
 
-For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json` validates and show `{PROMPT_BOX_LABEL}` followed by this exact next prompt:
+{CONTINUITY_RULE}
 
-```text
-{NEXT_IMPLEMENTATION_PROMPT}
-```
+{INITIAL_PACKET_GATE}
 
-After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed by this exact next planning prompt:
-
-```text
-{NEXT_PLANNING_PROMPT}
-```
+{POST_IMPLEMENTATION_GATE}
 """
 
 

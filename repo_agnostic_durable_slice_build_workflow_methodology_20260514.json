@@ -28,7 +28,7 @@
     "project_goal_intake": {
       "template": "PROJECT_GOAL.template.md",
       "local_intake": "PROJECT_GOAL.md",
-      "purpose": "Let non-experts create a no-prompt agent handoff by filling a local PROJECT_GOAL.md before saying use this. The filled intake file is local starter input, not the final durable roadmap authority."
+      "purpose": "Let non-experts create a no-prompt setup path by filling a local PROJECT_GOAL.md before saying use this. The filled intake file is local starter input, not the final durable roadmap authority."
     },
     "human_entrypoints": [
       "AGENTS.md",
@@ -147,7 +147,7 @@
       "troubleshooting": "docs/TROUBLESHOOTING.md",
       "decision_tree": "docs/NEXT_ACTION_DECISION_TREE.md",
       "annotated_slice_packet": "docs/ANNOTATED_SLICE_PACKET.md",
-      "purpose": "Give non-agent experts a plain-language first path, copy-paste handoff prompt, release checklist, mature-repo migration guard, term map, failure guide, next-action chooser, and field-by-field packet example."
+      "purpose": "Give non-agent experts a plain-language first path, single setup prompt, release checklist, mature-repo migration guard, term map, failure guide, next-action chooser, and field-by-field packet example."
     },
     "local_make_targets": {
       "check": "make check",
@@ -239,6 +239,12 @@
       "rule": "Commit implementation first, then refresh generated discovery outputs if required, then commit generated outputs separately once.",
       "reason": "Generated refreshes should capture a stable implementation head and not be mixed with hand-edited source changes.",
       "implementation": "Use two commits when a generated refresh is needed: implementation commit, then generated refresh commit."
+    },
+    {
+      "principle_id": "git_history_is_workflow_evidence",
+      "rule": "A brand-new repo should initialize git tracking before implementation when the operator authorizes it, and each slice should record implementation, generated-refresh, and closeout commits exactly when those artifacts exist.",
+      "reason": "The Wave 1-11 pattern was recoverable because decisions, proofs, refreshes, and closeouts were tied to durable files and commits, not chat-only state.",
+      "implementation": "Use the bootstrap --init-git path or an equivalent manual git init, make the first commit after roadmap and slice packet validation, add a GitHub origin when available, and push only after local proof passes."
     },
     {
       "principle_id": "no_head_chasing",
@@ -2141,6 +2147,32 @@
         "unrelated refactors"
       ]
     }
+  },
+  "git_and_github_tracking": {
+    "purpose": "Let people who bootstrap this workflow into a new repo start with traceable git history and optional GitHub remote/CI routing instead of relying on local files or chat state.",
+    "default_rule": "The template copy operation does not create .git unless the operator asks for it. When the operator wants systematic tracking, initialize git before implementation, commit bootstrap governance, and push to GitHub only after local validators pass.",
+    "bootstrap_command_template": "python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo --init-git --github-remote git@github.com:<owner>/<repo>.git",
+    "manual_equivalent_commands": [
+      "git init -b main",
+      "git add AGENTS.md SKILL.md README.md START_HERE.md PROMPT_FOR_NEW_AGENT.md PROJECT_GOAL.template.md .github .claude docs contracts plans schemas scripts tests pyproject.toml Makefile",
+      "git commit -m \"Bootstrap durable slice workflow\"",
+      "git remote add origin git@github.com:<owner>/<repo>.git",
+      "git push -u origin main"
+    ],
+    "tracking_sequence": [
+      "Commit bootstrap entrypoints, roadmap, first packet, validators, tests, and CI as the initial governance commit.",
+      "For each implementation slice, commit owner files, packet or roadmap updates, focused tests, and validator changes as the implementation commit.",
+      "If the slice refresh_decision requires generated discovery, run refresh from the implementation head and create one generated-refresh commit for the generated outputs.",
+      "If a receipt/checkpoint proves a writer, materializer, external action, irreversible decision, release gate, or phase closeout, commit it with that closeout evidence.",
+      "Push to GitHub after local proof passes and confirm GitHub Actions checks before treating the branch as shared authority."
+    ],
+    "github_ci_rule": "The copied .github/workflows/check.yml is part of the bootstrap governance surface. It should run make check, make bootstrap-smoke, and make read-only-check on push and pull_request before a shared branch or release is considered healthy.",
+    "do_not_do": [
+      "do not initialize git in a mature repo without an explicit migration packet",
+      "do not push secrets, tokenized private URLs, credential files, or raw private-source dumps",
+      "do not combine implementation and generated refresh commits unless the slice itself owns the generator",
+      "do not create GitHub remotes or pushes from chat-only assumptions about owner, repo name, or branch"
+    ]
   },
   "planning_to_build_transition": {
     "planning_is_complete_when": [

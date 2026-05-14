@@ -24,27 +24,15 @@ If I name a target repo path or folder, I authorize you to create that folder if
 
 First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough."
 
-After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates. After the packet passes, stop and show me `Paste this into your prompt box:` followed by this exact prompt: "Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout."
+After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates. This first prompt establishes build governance; after that, keep the work in this same conversation, reason from repo-native artifacts, and follow the roadmap/slice/validator/test structure without turning closeout into generated prompt text.
 ```
 
 3. If the agent asks what you want to build, answer in one or two paragraphs.
 4. The agent should create or update the roadmap and first slice packet, validate
    the packet, and wait to code until the packet passes.
-5. When the packet passes, the agent should show:
-
-Paste this into your prompt box:
-
-```text
-Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
-```
-6. When implementation finishes and proof passes, the agent should show this
-   next planning prompt:
-
-Paste this into your prompt box:
-
-```text
-Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
-```
+5. After that, the repo artifacts carry the workflow. The agent should follow
+   the governed structure in the same thread without producing recurring
+   operator prompt instructions.
 
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`, fill
 in the goal, then drag this folder into Claude Code or Codex and paste the same
@@ -71,22 +59,23 @@ Use `RELEASE_CHECKLIST.md` before tagging or publishing, `docs/CI.md` for CI exp
 1. If you are new to the workflow, read `START_HERE.md` first.
 2. To hand the repo to a fresh agent, fill in and paste `PROMPT_FOR_NEW_AGENT.md`.
 3. Run `python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo`.
-4. Change into the generated repo.
-5. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
-6. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
-7. Run `python scripts/validate_source_read_register.py --summary-only` to confirm durable source-read evidence refs.
-8. Run `python scripts/validate_planned_future_surfaces.py --summary-only` to confirm intentionally deferred future files are classified.
-9. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
-10. Run `python scripts/build_command_map.py --summary-only` and `python scripts/validate_command_map.py --summary-only` to confirm command discovery.
-11. Run `python scripts/query_command_map.py --safe-read-only --summary-only` to preview safe command routing.
-12. Run `python scripts/validate_claude_integration.py --summary-only` to confirm Claude Code entrypoints and skills are present.
-13. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-14. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-15. Fix packet failures before implementation.
-16. Implement only the owner files named in the packet.
-17. Run the owning validator and focused tests.
-18. Commit implementation first.
-19. Refresh generated indexes only if the packet's refresh decision requires it.
+4. If you want git/GitHub tracking from the start, include `--init-git` and optional `--github-remote <url>` in the bootstrap.
+5. Change into the generated repo.
+6. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
+7. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
+8. Run `python scripts/validate_source_read_register.py --summary-only` to confirm durable source-read evidence refs.
+9. Run `python scripts/validate_planned_future_surfaces.py --summary-only` to confirm intentionally deferred future files are classified.
+10. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
+11. Run `python scripts/build_command_map.py --summary-only` and `python scripts/validate_command_map.py --summary-only` to confirm command discovery.
+12. Run `python scripts/query_command_map.py --safe-read-only --summary-only` to preview safe command routing.
+13. Run `python scripts/validate_claude_integration.py --summary-only` to confirm Claude Code entrypoints and skills are present.
+14. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+15. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+16. Fix packet failures before implementation.
+17. Implement only the owner files named in the packet.
+18. Run the owning validator and focused tests.
+19. Commit implementation first.
+20. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Expert / Custom Path
 
@@ -167,6 +156,31 @@ python -m pytest -q tests
 
 The bootstrap command refuses to overwrite existing files unless `--force` is
 explicit. Examples are copied by default; use `--no-examples` for a lean starter.
+
+## Git And GitHub Tracking
+
+Let people who bootstrap this workflow into a new repo start with traceable git history and optional GitHub remote/CI routing instead of relying on local files or chat state.
+
+The template copy operation does not create .git unless the operator asks for it. When the operator wants systematic tracking, initialize git before implementation, commit bootstrap governance, and push to GitHub only after local validators pass.
+
+For a new repo that should be tracked immediately:
+
+```bash
+python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo --init-git --github-remote git@github.com:<owner>/<repo>.git
+cd ../my-new-repo
+git status --short
+git push -u origin main
+```
+
+Tracking sequence:
+
+- Commit bootstrap entrypoints, roadmap, first packet, validators, tests, and CI as the initial governance commit.
+- For each implementation slice, commit owner files, packet or roadmap updates, focused tests, and validator changes as the implementation commit.
+- If the slice refresh_decision requires generated discovery, run refresh from the implementation head and create one generated-refresh commit for the generated outputs.
+- If a receipt/checkpoint proves a writer, materializer, external action, irreversible decision, release gate, or phase closeout, commit it with that closeout evidence.
+- Push to GitHub after local proof passes and confirm GitHub Actions checks before treating the branch as shared authority.
+
+The copied .github/workflows/check.yml is part of the bootstrap governance surface. It should run make check, make bootstrap-smoke, and make read-only-check on push and pull_request before a shared branch or release is considered healthy.
 
 ## Publish-Ready Checks
 
@@ -253,7 +267,7 @@ Adjust commands to the target repo's language and test runner.
 - Planned future surfaces: `plans/planned_future_surfaces.json`
 - Planned future validator: `scripts/validate_planned_future_surfaces.py`
 - Beginner start: `START_HERE.md`
-- New-agent handoff prompt: `PROMPT_FOR_NEW_AGENT.md`
+- New-agent setup prompt: `PROMPT_FOR_NEW_AGENT.md`
 - Release checklist: `RELEASE_CHECKLIST.md`
 - Release package validator: `scripts/validate_release_package.py`
 - CI guide: `docs/CI.md`

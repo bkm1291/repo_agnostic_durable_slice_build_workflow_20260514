@@ -40,6 +40,7 @@ unless the current task explicitly authorizes mutation.
 - `conditional_generated_refresh`: Generated indexes, catalogs, inventories, projections, dashboards, and receipts refresh only when the selected slice owns them, future discovery depends on them, stale discovery blocks work, closeout requires them, or the operator explicitly requests them.
 - `receipts_are_not_status_confetti`: Do not write receipts or checkpoints merely to say work happened. Write them when they prove an output writer, materializer, generator, external action, closeout gate, or irreversible decision.
 - `implementation_before_generated_refresh`: Commit implementation first, then refresh generated discovery outputs if required, then commit generated outputs separately once.
+- `git_history_is_workflow_evidence`: A brand-new repo should initialize git tracking before implementation when the operator authorizes it, and each slice should record implementation, generated-refresh, and closeout commits exactly when those artifacts exist.
 - `no_head_chasing`: After a generated-index commit, do not run another refresh only because the generated index describes its parent commit.
 - `config_owns_runtime_values`: Runtime-affecting values belong in config, policy, contract, schema, or explicit operator selection, not hidden in code or chat.
 
@@ -85,6 +86,16 @@ refresh only when the structured refresh decision requires them. Commit
 implementation first, generated refresh second, and do not chase head-only
 staleness.
 
+## Git And GitHub Tracking
+
+The template copy operation does not create .git unless the operator asks for it. When the operator wants systematic tracking, initialize git before implementation, commit bootstrap governance, and push to GitHub only after local validators pass.
+
+When tracking is enabled, keep the Wave 1-11 style evidence chain: implementation
+commit first, generated-refresh commit only when required, meaningful closeout
+receipt/checkpoint commits only when they prove a writer, materializer, external
+action, irreversible decision, release gate, or phase closeout. If a GitHub
+remote is configured, push only after focused local proof passes and confirm CI.
+
 ## Safety
 
 Do not persist secrets, tokenized URLs, credential values, private endpoint URLs,
@@ -101,15 +112,10 @@ commands/results, worktree state, classified residual noise, future-affecting
 notes persisted, and whether the next wave is ready.
 
 For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json`
-validates and show `Paste this into your prompt box:` followed by this exact prompt:
+validates. Report that the packet is ready and do not create app/source
+implementation files unless the current user request explicitly activates
+implementation.
 
-```text
-Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
-```
-
-After an implementation slice passes proof, show `Paste this into your prompt box:` followed
-by this exact next planning prompt:
-
-```text
-Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
-```
+After an implementation slice passes proof, close out the slice and report the
+next governed action from the roadmap. The next slice still requires a valid
+packet before implementation.

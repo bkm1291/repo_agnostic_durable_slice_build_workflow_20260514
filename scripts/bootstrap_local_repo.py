@@ -7,6 +7,7 @@ import argparse
 import json
 import re
 import shutil
+import subprocess
 from pathlib import Path
 
 
@@ -41,6 +42,10 @@ CORE_PATHS = (
 )
 
 EXCLUDED_DIRS = {".git", "__pycache__", ".pytest_cache"}
+
+
+class BootstrapGitError(RuntimeError):
+    pass
 
 
 def slugify_project_name(value: str) -> str:
@@ -372,10 +377,119 @@ def _write_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
 
+def _run_git(target: Path, args: list[str]) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=target,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        details = (result.stderr or result.stdout).strip()
+        raise BootstrapGitError(f"git {' '.join(args)} failed: {details}")
+    return result
+
+
+def _git_config_value(target: Path, key: str) -> str:
+    result = subprocess.run(
+        ["git", "config", "--get", key],
+        cwd=target,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def _init_git_repo(target: Path, branch: str) -> list[str]:
+    events: list[str] = []
+    if (target / ".git").exists():
+        events.append("existing_git_repo")
+        return events
+
+    result = subprocess.run(
+        ["git", "init", "-b", branch],
+        cwd=target,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        _run_git(target, ["init"])
+        _run_git(target, ["checkout", "-B", branch])
+    events.append(f"initialized_git_repo branch={branch}")
+    return events
+
+
+def _configure_origin(target: Path, remote: str, *, force: bool) -> list[str]:
+    events: list[str] = []
+    result = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        cwd=target,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    if result.returncode == 0:
+        existing = result.stdout.strip()
+        if existing == remote:
+            events.append("origin_remote_already_set")
+            return events
+        if not force:
+            raise BootstrapGitError(
+                "origin remote already exists; rerun with --force to replace it"
+            )
+        _run_git(target, ["remote", "set-url", "origin", remote])
+        events.append("origin_remote_replaced")
+        return events
+
+    _run_git(target, ["remote", "add", "origin", remote])
+    events.append("origin_remote_added")
+    return events
+
+
+def _commit_bootstrap(args: argparse.Namespace, target: Path) -> list[str]:
+    events: list[str] = []
+    if args.git_user_name:
+        _run_git(target, ["config", "user.name", args.git_user_name])
+    if args.git_user_email:
+        _run_git(target, ["config", "user.email", args.git_user_email])
+
+    user_name = _git_config_value(target, "user.name")
+    user_email = _git_config_value(target, "user.email")
+    if not user_name or not user_email:
+        raise BootstrapGitError(
+            "git user.name and user.email are required for the initial commit; "
+            "configure git globally or pass --git-user-name and --git-user-email"
+        )
+
+    _run_git(target, ["add", "-A"])
+    status = _run_git(target, ["status", "--short"]).stdout.strip()
+    if not status:
+        events.append("initial_commit_skipped_no_changes")
+        return events
+    _run_git(target, ["commit", "-m", args.initial_commit_message])
+    events.append("initial_commit_created")
+    return events
+
+
+def _setup_git_tracking(args: argparse.Namespace, target: Path) -> list[str]:
+    events: list[str] = []
+    events.extend(_init_git_repo(target, args.git_initial_branch))
+    if args.github_remote:
+        events.extend(_configure_origin(target, args.github_remote, force=args.force))
+    if not args.no_initial_commit:
+        events.extend(_commit_bootstrap(args, target))
+    return events
+
+
 def bootstrap(args: argparse.Namespace) -> int:
     target = args.target.resolve()
     project_name = args.project_name or target.name
     include_examples = args.include_examples or not args.no_examples
+    if args.github_remote:
+        args.init_git = True
     planned = _planned_outputs(target, include_examples, not args.no_starter_plan)
     conflicts = [dst for dst, _src in planned if dst.exists()]
 
@@ -388,7 +502,8 @@ def bootstrap(args: argparse.Namespace) -> int:
         return 1
 
     if args.dry_run:
-        print(f"DRY_RUN bootstrap target={target} files={len(planned)}")
+        git_mode = "enabled" if args.init_git else "disabled"
+        print(f"DRY_RUN bootstrap target={target} files={len(planned)} git={git_mode}")
         return 0
 
     target.mkdir(parents=True, exist_ok=True)
@@ -404,9 +519,23 @@ def bootstrap(args: argparse.Namespace) -> int:
             _starter_packet(),
         )
 
+    git_events: list[str] = []
+    if args.init_git:
+        try:
+            git_events = _setup_git_tracking(args, target)
+        except BootstrapGitError as exc:
+            print(f"FAIL bootstrap_git target={target} error={exc}")
+            return 1
+
     print(f"PASS bootstrap target={target} files={len(planned)}")
+    for event in git_events:
+        print(f"GIT {event}")
     print("Next:")
     print("  cd", target)
+    if args.init_git:
+        print("  git status --short")
+    if args.github_remote:
+        print(f"  git push -u origin {args.git_initial_branch}")
     print("  read START_HERE.md")
     print("  python scripts/render_canonical_entrypoints.py --check")
     print("  python scripts/validate_low_token_workflow.py --summary-only")
@@ -436,6 +565,16 @@ def main() -> int:
     parser.add_argument("--no-starter-plan", action="store_true")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--init-git", action="store_true")
+    parser.add_argument("--github-remote")
+    parser.add_argument("--git-initial-branch", default="main")
+    parser.add_argument("--git-user-name")
+    parser.add_argument("--git-user-email")
+    parser.add_argument(
+        "--initial-commit-message",
+        default="Bootstrap durable slice workflow",
+    )
+    parser.add_argument("--no-initial-commit", action="store_true")
     return bootstrap(parser.parse_args())
 
 
