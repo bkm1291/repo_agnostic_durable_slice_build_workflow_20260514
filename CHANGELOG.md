@@ -10,6 +10,7 @@ All notable changes to this local template are documented here.
 - Hardened the read-only command harness with git porcelain before/after comparison and secret-like stdout/stderr scanning.
 - Added `PROMPT_FOR_NEW_AGENT.md` for non-expert handoff to a fresh agent.
 - Added `RELEASE_CHECKLIST.md` with exact local validation, tag, and publish commands.
+- Added GitHub Actions CI for Python 3.11 and 3.12 running `make check`, `make bootstrap-smoke`, and `make read-only-check`.
 - Wired the new hardening into bootstrap, examples, docs, generated entrypoints, Makefile checks, and publish metadata.
 
 ## 0.3.0 - 2026-05-14

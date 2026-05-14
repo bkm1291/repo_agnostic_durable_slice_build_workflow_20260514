@@ -31,17 +31,34 @@ git status --short
 The expected result is no command failure. `git status --short` should show only
 intentional release changes.
 
-## 3. Inspect The Release Diff
+## 3. Confirm CI Configuration
+
+```bash
+python - <<'PY'
+from pathlib import Path
+path = Path(".github/workflows/check.yml")
+text = path.read_text(encoding="utf-8")
+required = ["python-version", "3.11", "3.12", "make check", "make bootstrap-smoke", "make read-only-check"]
+missing = [item for item in required if item not in text]
+if missing:
+    raise SystemExit(f"missing CI checks: {missing}")
+print("CI workflow present")
+PY
+```
+
+After pushing, confirm the GitHub Actions `check` workflow passes on `main`.
+
+## 4. Inspect The Release Diff
 
 ```bash
 git diff --stat
-git diff -- README.md START_HERE.md PROMPT_FOR_NEW_AGENT.md RELEASE_CHECKLIST.md CHANGELOG.md
+git diff -- README.md START_HERE.md PROMPT_FOR_NEW_AGENT.md RELEASE_CHECKLIST.md CHANGELOG.md .github/workflows/check.yml
 ```
 
 Confirm the public entrypoints explain the current workflow and no generated
 entrypoint drift remains.
 
-## 4. Commit
+## 5. Commit
 
 ```bash
 git add .
@@ -51,14 +68,14 @@ git status --short
 
 `git status --short` should be clean after the commit.
 
-## 5. Tag
+## 6. Tag
 
 ```bash
 git tag -a vX.Y.Z -m "vX.Y.Z"
 git tag --list 'v*' --sort=-creatordate | head
 ```
 
-## 6. Publish
+## 7. Publish
 
 Check the remote first:
 
@@ -74,7 +91,7 @@ git push origin HEAD
 git push origin vX.Y.Z
 ```
 
-## 7. Smoke A Fresh Consumer Copy
+## 8. Smoke A Fresh Consumer Copy
 
 ```bash
 python scripts/bootstrap_local_repo.py /tmp/durable-slice-release-consumer --project-name durable-slice-release-consumer --force
@@ -89,7 +106,7 @@ python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --sum
 python -m pytest -q tests
 ```
 
-## 8. Release Note
+## 9. Release Note
 
 Use this shape:
 
@@ -102,5 +119,6 @@ vX.Y.Z
   - make check
   - make bootstrap-smoke
   - make read-only-check
+  - GitHub Actions check
 - Known limitations:
 ```
