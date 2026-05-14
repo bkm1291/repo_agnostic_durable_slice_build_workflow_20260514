@@ -42,6 +42,8 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "No-prompt option" in start_here
     assert "Read this folder and use it as the workflow template for my repo" in start_here
     assert "I authorize you to inspect the files in this folder" in start_here
+    assert "I authorize you to create that folder if needed" in start_here
+    assert "copy or bootstrap this workflow into it" in start_here
     assert "docs/GLOSSARY.md" in start_here
     assert "docs/TROUBLESHOOTING.md" in start_here
     assert "docs/CI.md" in start_here
@@ -64,6 +66,9 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "Shortest beginner prompt",
         "Read this folder and use it as the workflow template for my repo",
         "I authorize you to inspect the files in this folder",
+        "I authorize you to create that folder if needed",
+        "copy or bootstrap this workflow into it",
+        "Do not create app/source implementation files or code features",
         "PROJECT_GOAL.template.md",
         "PROJECT_GOAL.md",
         "What do you want to build? One or two paragraphs is enough.",

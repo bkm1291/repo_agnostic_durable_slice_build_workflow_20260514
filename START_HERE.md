@@ -20,7 +20,15 @@ Use it when you want a new repo to have:
 Drag this folder into Claude Code or Codex, then paste:
 
 ```text
-Read this folder and use it as the workflow template for my repo. I authorize you to inspect the files in this folder. First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
+Read this folder and use it as the workflow template for my repo.
+
+I authorize you to inspect the files in this folder.
+
+If I name a target repo path or folder, I authorize you to create that folder if needed, copy or bootstrap this workflow into it, and create or update only the starter roadmap and first slice packet before coding. If no target repo path or folder is clear, ask me for it before writing files.
+
+First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough."
+
+After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates.
 ```
 
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,

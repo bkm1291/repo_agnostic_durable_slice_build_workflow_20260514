@@ -52,6 +52,10 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "Drag this folder into Claude Code or Codex" in rendered
     assert "Read this folder and use it as the workflow template for my repo" in rendered
     assert "I authorize you to inspect the files in this folder" in rendered
+    assert "I authorize you to create that folder if needed" in rendered
+    assert "copy or bootstrap this workflow into it" in rendered
+    assert "If no target repo path or folder is clear" in rendered
+    assert "Do not create app/source implementation files or code features" in rendered
     assert "PROJECT_GOAL.template.md" in rendered
     assert "PROJECT_GOAL.md" in rendered
     assert "No-prompt option" in rendered

@@ -19,14 +19,21 @@ GENERATED_HEADER = (
     "BY scripts/render_canonical_entrypoints.py. EDIT THE JSON, THEN RUN --write. -->"
 )
 BEGINNER_AGENT_PROMPT = (
-    "Read this folder and use it as the workflow template for my repo. I "
-    "authorize you to inspect the files in this folder. First read README.md, "
-    f"START_HERE.md, AGENTS.md, and `{PROJECT_GOAL_INTAKE}` if it exists. If "
-    f"`{PROJECT_GOAL_INTAKE}` has a real non-placeholder goal, use it "
-    "automatically. If it is missing or still placeholder text, ask me exactly: "
-    f'"{GOAL_FALLBACK_QUESTION}" '
-    "After the goal is known, create or update the roadmap and first slice packet. "
-    "Do not code until the packet validates."
+    "Read this folder and use it as the workflow template for my repo.\n\n"
+    "I authorize you to inspect the files in this folder.\n\n"
+    "If I name a target repo path or folder, I authorize you to create that "
+    "folder if needed, copy or bootstrap this workflow into it, and create or "
+    "update only the starter roadmap and first slice packet before coding. If "
+    "no target repo path or folder is clear, ask me for it before writing "
+    "files.\n\n"
+    f"First read README.md, START_HERE.md, AGENTS.md, and `{PROJECT_GOAL_INTAKE}` "
+    f"if it exists. If `{PROJECT_GOAL_INTAKE}` has a real non-placeholder goal, "
+    "use it automatically. If it is missing or still placeholder text, ask me "
+    f'exactly: "{GOAL_FALLBACK_QUESTION}"\n\n'
+    "After the goal is known, create or update the roadmap and first slice "
+    "packet, then validate the packet. Do not create app/source implementation "
+    "files or code features until the packet validates. Do not code until the "
+    "packet validates."
 )
 MISSING_GOAL_RULE = (
     f"Check `{PROJECT_GOAL_INTAKE}` first. If it exists and contains a concrete "
