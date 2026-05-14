@@ -170,6 +170,36 @@ A command marked safe for the read-only harness is also classified as a writer.
 Writers do not belong in the read-only harness. Move the command to an explicit
 writer workflow or change it to a true summary/check mode.
 
+## `CLAUDE_ENTRYPOINT_REQUIRED_TEXT_MISSING`
+
+`CLAUDE.md` no longer points Claude Code at a required starter surface such as
+`@AGENTS.md`, `START_HERE.md`, `PROMPT_FOR_NEW_AGENT.md`, the slice-packet
+validator, or the project skills.
+
+Regenerate entrypoints with `python scripts/render_canonical_entrypoints.py --write`
+or restore the missing reference.
+
+## `CLAUDE_SKILL_ALLOWED_TOOLS_FORBIDDEN`
+
+A project skill added `allowed-tools` frontmatter.
+
+Remove broad project-level tool pre-approval. The public template should let
+Claude Code permissions and the operator control tool approval.
+
+## `CLAUDE_DEFAULT_HOOKS_FORBIDDEN`
+
+The default template gained active Claude hooks in `.claude/settings.json`.
+
+Hooks are deterministic enforcement and can surprise beginners. Keep the public
+template hook-free unless a later repo explicitly owns that integration.
+
+## `CLAUDE_DEFAULT_MCP_FORBIDDEN`
+
+The default template gained a root `.mcp.json`.
+
+MCP connects external tools and should stay out of the generic starter unless a
+consuming repo deliberately adds a project-specific integration.
+
 ## `MIGRATION_HIGH_RISK_AUTHORITY_UNCLASSIFIED`
 
 A mature-repo migration packet did not classify one of the target repo's

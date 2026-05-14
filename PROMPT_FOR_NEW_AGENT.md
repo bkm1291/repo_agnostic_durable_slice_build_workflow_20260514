@@ -30,15 +30,24 @@ Constraints:
 Startup:
 
 1. Read AGENTS.md.
-2. Read SKILL.md if present.
-3. Read README.md and START_HERE.md if this repo is newly bootstrapped.
-4. Read repo_agnostic_durable_slice_build_workflow_methodology_20260514.json.
-5. Read plans/repo_roadmap.json and the selected plans/slices/*_packet.json if they exist.
-6. If the packet cites source_read:<id>, read plans/source_read_register.json.
-7. If the packet cites planned future surface ids, read plans/planned_future_surfaces.json.
-8. Run python scripts/build_command_map.py --summary-only, python scripts/query_command_map.py --safe-read-only --summary-only, and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
-9. If this is an existing mature repo, stop and read docs/MIGRATING_MATURE_REPO.md before copying or adapting template files.
-10. Check git status before editing.
+2. Read CLAUDE.md if using Claude Code.
+3. Read SKILL.md if present.
+4. Read README.md and START_HERE.md if this repo is newly bootstrapped.
+5. Read repo_agnostic_durable_slice_build_workflow_methodology_20260514.json.
+6. Read plans/repo_roadmap.json and the selected plans/slices/*_packet.json if they exist.
+7. If the packet cites source_read:<id>, read plans/source_read_register.json.
+8. If the packet cites planned future surface ids, read plans/planned_future_surfaces.json.
+9. Run python scripts/build_command_map.py --summary-only, python scripts/query_command_map.py --safe-read-only --summary-only, and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
+10. Run python scripts/validate_claude_integration.py --summary-only if using Claude Code or modifying Claude surfaces.
+11. If this is an existing mature repo, stop and read docs/MIGRATING_MATURE_REPO.md before copying or adapting template files.
+12. Check git status before editing.
+
+Claude Code shortcut:
+
+- Run /skills.
+- Use /durable-slice for normal roadmap/slice/implementation work.
+- Use /durable-slice-audit for read-only review.
+- Use /durable-slice-release only when I explicitly ask for release work.
 
 If there is no roadmap or packet:
 
@@ -67,6 +76,7 @@ python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_command_map.py --summary-only
 python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only

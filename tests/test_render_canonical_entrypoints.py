@@ -36,6 +36,18 @@ def test_rendered_readme_mentions_realistic_example() -> None:
 
     rendered = module.render_readme(methodology)
 
+    assert rendered.index("## What This Is") < rendered.index(
+        "## New Here? Start With `START_HERE.md`"
+    )
+    assert rendered.index("## New Here? Start With `START_HERE.md`") < rendered.index(
+        "## Giving This To An Agent? Use `PROMPT_FOR_NEW_AGENT.md`"
+    )
+    assert rendered.index(
+        "## Giving This To An Agent? Use `PROMPT_FOR_NEW_AGENT.md`"
+    ) < rendered.index("## 10-Minute Bootstrap Path")
+    assert rendered.index("## 10-Minute Bootstrap Path") < rendered.index(
+        "## Expert / Custom Path"
+    )
     assert "examples/small_config_tool_repo" in rendered
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
     assert "contracts/low_token_workflow_contract.json" in rendered
@@ -46,6 +58,9 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "scripts/build_command_map.py --summary-only" in rendered
     assert "scripts/query_command_map.py --safe-read-only --summary-only" in rendered
     assert "scripts/validate_command_map.py --summary-only" in rendered
+    assert "scripts/validate_claude_integration.py --summary-only" in rendered
+    assert "CLAUDE.md" in rendered
+    assert ".claude/skills/durable-slice/SKILL.md" in rendered
     assert "scripts/validate_read_only_commands.py --summary-only" in rendered
     assert "scripts/validate_release_package.py --summary-only" in rendered
     assert "START_HERE.md" in rendered
@@ -61,3 +76,24 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "plans/planned_future_surfaces.json" in rendered
     assert "Schema Vs Validator Authority" in rendered
     assert "validate_mature_repo_migration_packet.py" in rendered
+
+
+def test_rendered_claude_mentions_project_skills() -> None:
+    methodology = json.loads(METHODOLOGY.read_text(encoding="utf-8"))
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("render_canonical_entrypoints", RENDERER)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+
+    rendered = module.render_claude(methodology)
+
+    assert "@AGENTS.md" in rendered
+    assert "START_HERE.md" in rendered
+    assert "PROMPT_FOR_NEW_AGENT.md" in rendered
+    assert "/skills" in rendered
+    assert "/durable-slice" in rendered
+    assert ".claude/skills/durable-slice/SKILL.md" in rendered
+    assert "validate_claude_integration.py" in rendered

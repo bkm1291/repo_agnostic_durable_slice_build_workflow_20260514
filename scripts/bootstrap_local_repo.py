@@ -25,10 +25,12 @@ CORE_PATHS = (
     "Makefile",
     "README.md",
     "AGENTS.md",
+    "CLAUDE.md",
     "SKILL.md",
     "BUILD_STAGE_PROMPTS.md",
     "pyproject.toml",
     METHODOLOGY,
+    ".claude",
     "docs",
     "contracts",
     "plans",
@@ -128,6 +130,7 @@ def _starter_roadmap(project_name: str) -> dict:
                 "python scripts/validate_low_token_workflow.py --summary-only",
                 "python scripts/build_repo_file_index.py --summary-only",
                 "python scripts/validate_read_only_commands.py --summary-only",
+                "python scripts/validate_claude_integration.py --summary-only",
                 (
                     "python scripts/validate_slice_packet.py "
                     "plans/slices/slice_001_packet.json --summary-only"
@@ -154,8 +157,12 @@ def _starter_packet() -> dict:
             "docs/NEXT_ACTION_DECISION_TREE.md",
             "docs/ANNOTATED_SLICE_PACKET.md",
             "AGENTS.md",
+            "CLAUDE.md",
             "SKILL.md",
             "BUILD_STAGE_PROMPTS.md",
+            ".claude/skills/durable-slice/SKILL.md",
+            ".claude/skills/durable-slice-audit/SKILL.md",
+            ".claude/skills/durable-slice-release/SKILL.md",
             ".github/workflows/check.yml",
             "pyproject.toml",
             METHODOLOGY,
@@ -179,6 +186,7 @@ def _starter_packet() -> dict:
             "scripts/query_command_map.py",
             "scripts/query_repo_file_index.py",
             "scripts/render_canonical_entrypoints.py",
+            "scripts/validate_claude_integration.py",
             "scripts/validate_command_map.py",
             "scripts/validate_mature_repo_migration_packet.py",
             "scripts/validate_release_package.py",
@@ -190,6 +198,7 @@ def _starter_packet() -> dict:
             "tests/test_repo_file_index.py",
             "tests/test_command_map.py",
             "tests/test_query_command_map.py",
+            "tests/test_validate_claude_integration.py",
             "tests/test_validate_mature_repo_migration_packet.py",
             "tests/test_release_package.py",
             "tests/test_validate_read_only_commands.py",
@@ -259,6 +268,12 @@ def _starter_packet() -> dict:
                 "evidence_ref": "START_HERE.md",
             },
             {
+                "surface": "Claude Code entrypoint and project skills",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "CLAUDE.md",
+            },
+            {
                 "read_id": "source_read_register_validator",
                 "surface": "source-read register validator",
                 "read_type": "full_source",
@@ -277,6 +292,7 @@ def _starter_packet() -> dict:
         "owning_wave_tests": [
             "tests/test_validate_slice_packet.py",
             "tests/test_render_canonical_entrypoints.py",
+            "tests/test_validate_claude_integration.py",
         ],
         "focused_validators_and_tests": [
             "python scripts/render_canonical_entrypoints.py --check",
@@ -285,6 +301,7 @@ def _starter_packet() -> dict:
             "python scripts/build_command_map.py --summary-only",
             "python scripts/query_command_map.py --safe-read-only --summary-only",
             "python scripts/validate_command_map.py --summary-only",
+            "python scripts/validate_claude_integration.py --summary-only",
             "python scripts/validate_read_only_commands.py --summary-only",
             "python scripts/validate_release_package.py --summary-only",
             (
@@ -391,6 +408,7 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  python scripts/build_command_map.py --summary-only")
     print("  python scripts/query_command_map.py --safe-read-only --summary-only")
     print("  python scripts/validate_command_map.py --summary-only")
+    print("  python scripts/validate_claude_integration.py --summary-only")
     print("  python scripts/validate_read_only_commands.py --summary-only")
     print("  python scripts/validate_release_package.py --summary-only")
     print(

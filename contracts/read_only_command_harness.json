@@ -133,6 +133,19 @@
       "compact_mode": true
     },
     {
+      "command_id": "validate_claude_integration",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_claude_integration.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
       "command_id": "validate_source_read_register",
       "cwd": ".",
       "argv": [

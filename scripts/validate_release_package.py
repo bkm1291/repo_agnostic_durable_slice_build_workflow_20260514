@@ -15,6 +15,7 @@ from typing import Any
 REQUIRED_PATHS = (
     "README.md",
     "AGENTS.md",
+    "CLAUDE.md",
     "SKILL.md",
     "BUILD_STAGE_PROMPTS.md",
     "START_HERE.md",
@@ -24,6 +25,9 @@ REQUIRED_PATHS = (
     "LICENSE",
     ".gitignore",
     ".gitattributes",
+    ".claude/skills/durable-slice/SKILL.md",
+    ".claude/skills/durable-slice-audit/SKILL.md",
+    ".claude/skills/durable-slice-release/SKILL.md",
     ".github/workflows/check.yml",
     "docs/CI.md",
     "docs/GLOSSARY.md",
@@ -58,6 +62,7 @@ REQUIRED_PATHS = (
     "scripts/build_command_map.py",
     "scripts/query_command_map.py",
     "scripts/validate_command_map.py",
+    "scripts/validate_claude_integration.py",
     "scripts/validate_read_only_commands.py",
     "scripts/validate_source_read_register.py",
     "scripts/validate_planned_future_surfaces.py",
@@ -68,6 +73,7 @@ REQUIRED_PATHS = (
     "tests/test_repo_file_index.py",
     "tests/test_command_map.py",
     "tests/test_query_command_map.py",
+    "tests/test_validate_claude_integration.py",
     "tests/test_validate_read_only_commands.py",
     "tests/test_validate_source_read_register.py",
     "tests/test_validate_planned_future_surfaces.py",
@@ -137,6 +143,13 @@ SUBPROCESS_CHECKS = (
         [
             "examples/small_config_tool_repo/scripts/validate_greeting_config.py",
             "examples/small_config_tool_repo/configs/greeting_config.json",
+            "--summary-only",
+        ],
+    ),
+    (
+        "claude_integration_validates",
+        [
+            "scripts/validate_claude_integration.py",
             "--summary-only",
         ],
     ),

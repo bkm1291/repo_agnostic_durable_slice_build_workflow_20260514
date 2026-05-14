@@ -52,6 +52,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
     low_token = starter.get("low_token_workflow", {})
     repo_file_index = starter.get("repo_file_index", {})
     command_map = starter.get("command_map", {})
+    claude_integration = starter.get("claude_integration", {})
     read_only_harness = starter.get("read_only_command_harness", {})
     source_read_register = starter.get("source_read_register", {})
     planned_future_surfaces = starter.get("planned_future_surfaces", {})
@@ -112,6 +113,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
             "to preview safe command routing."
         ),
         (
+            "Run `python scripts/validate_claude_integration.py --summary-only` "
+            "to confirm Claude Code entrypoints and skills are present."
+        ),
+        (
             "Create `plans/repo_roadmap.json` and "
             "`plans/slices/slice_001_packet.json`."
         ),
@@ -133,6 +138,11 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Agent entrypoint: {_wrap_code('AGENTS.md')}",
         f"Skill pointer: {_wrap_code('SKILL.md')}",
         f"Prompt library: {_wrap_code('BUILD_STAGE_PROMPTS.md')}",
+        f"Claude Code entrypoint: {_wrap_code(claude_integration.get('entrypoint', 'CLAUDE.md'))}",
+        f"Claude Code durable-slice skill: {_wrap_code(claude_integration.get('durable_slice_skill', '.claude/skills/durable-slice/SKILL.md'))}",
+        f"Claude Code audit skill: {_wrap_code(claude_integration.get('audit_skill', '.claude/skills/durable-slice-audit/SKILL.md'))}",
+        f"Claude Code release skill: {_wrap_code(claude_integration.get('release_skill', '.claude/skills/durable-slice-release/SKILL.md'))}",
+        f"Claude Code validator: {_wrap_code(claude_integration.get('validator', 'scripts/validate_claude_integration.py'))}",
         f"Starter schemas: {_wrap_code('schemas/')}",
         f"Starter validator: {_wrap_code(starter_validator_path)}",
         f"Low-token contract: {_wrap_code(low_token.get('contract', 'contracts/low_token_workflow_contract.json'))}",
@@ -168,16 +178,40 @@ def render_readme(methodology: dict[str, Any]) -> str:
 
 # Durable Slice Build Workflow Template
 
+## What This Is
+
 {methodology["positioning_statement"]}
 
 {methodology["purpose"]}
 
+## New Here? Start With `{beginner_docs.get("start_here", "START_HERE.md")}`
+
+If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.
+
+## Giving This To An Agent? Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}`
+
+Fill in `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}` with the repo path, project goal, and smallest next slice, then paste it into a fresh agent. That prompt tells the agent what to read first, how to stay inside the repo, how to validate, and how to close out without leaving important decisions only in chat.
+
+Using Claude Code? `CLAUDE.md` is the always-loaded entrypoint. Run `/skills` to confirm the project skills are available, then start with `/durable-slice <project goal or slice request>`.
+
+Use `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` before tagging or publishing, `{beginner_docs.get("ci", "docs/CI.md")}` for CI expectations, `{beginner_docs.get("mature_repo_migration", "docs/MIGRATING_MATURE_REPO.md")}` before adopting this template into an existing repo, `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
+
+## 10-Minute Bootstrap Path
+
+{_numbered_list(quickstart)}
+
+## Expert / Custom Path
+
 The canonical doctrine is `{starter.get("canonical_source", DEFAULT_METHODOLOGY)}`.
-Markdown entrypoints are generated summaries; edit the JSON and run:
+Markdown entrypoints are generated summaries. For custom methodology changes, edit the JSON and run:
 
 ```bash
 python scripts/render_canonical_entrypoints.py --write
 ```
+
+Use `schemas/` for portable JSON shape rules, Python validators for semantic workflow rules, `contracts/` and `plans/` for repo authority, and generated Markdown entrypoints for agent-facing summaries.
+
+Claude Code support stays on the same doctrine: `CLAUDE.md` imports `AGENTS.md`, `.claude/skills/` holds on-demand workflows, and `scripts/validate_claude_integration.py --summary-only` checks that no default hooks, MCP servers, or broad tool pre-approvals were added.
 
 ## Use This When
 
@@ -190,14 +224,6 @@ python scripts/render_canonical_entrypoints.py --write
 ## Do Not Use This When
 
 {_bullet_list(methodology["not_intended_for"])}
-
-## Beginner Path
-
-If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}` to hand a project goal to a fresh agent, `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` before tagging or publishing, `{beginner_docs.get("ci", "docs/CI.md")}` for CI expectations, `{beginner_docs.get("mature_repo_migration", "docs/MIGRATING_MATURE_REPO.md")}` before adopting this template into an existing repo, `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
-
-## 10-Minute Bootstrap Path
-
-{_numbered_list(quickstart)}
 
 ## Workflow Chain
 
@@ -235,6 +261,7 @@ python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
 python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
@@ -258,7 +285,7 @@ git status --short
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
-builder/query pair, a queryable command map, a read-only command harness, release
+builder/query pair, a queryable command map, Claude Code entrypoints/skills, a read-only command harness, release
 package validation, and example tests.
 
 Use `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` for the full tag and publish sequence.
@@ -553,11 +580,68 @@ active roadmap are already available to the agent.
 """
 
 
+def render_claude(methodology: dict[str, Any]) -> str:
+    starter = _starter_artifacts(methodology)
+    claude_integration = starter.get("claude_integration", {})
+    durable_skill = claude_integration.get(
+        "durable_slice_skill", ".claude/skills/durable-slice/SKILL.md"
+    )
+    audit_skill = claude_integration.get(
+        "audit_skill", ".claude/skills/durable-slice-audit/SKILL.md"
+    )
+    release_skill = claude_integration.get(
+        "release_skill", ".claude/skills/durable-slice-release/SKILL.md"
+    )
+    validator = claude_integration.get(
+        "validator", "scripts/validate_claude_integration.py"
+    )
+    return f"""{GENERATED_HEADER}
+
+# Claude Code Entry Point
+
+@AGENTS.md
+
+Claude Code reads `CLAUDE.md` at session start. Keep this file short; the durable
+workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
+`{starter.get("canonical_source", DEFAULT_METHODOLOGY)}`.
+
+## Start Here
+
+1. If this workflow is new, read `START_HERE.md`.
+2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the handoff shape.
+3. Run `/skills` and confirm these project skills are available:
+   - `/durable-slice` from `{durable_skill}`
+   - `/durable-slice-audit` from `{audit_skill}`
+   - `/durable-slice-release` from `{release_skill}`
+4. Create or validate `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before coding.
+5. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only` before implementation.
+6. Run `python {validator} --summary-only` when checking this integration.
+
+## Claude Skills
+
+- `/durable-slice <project goal or slice request>`: start or continue the roadmap -> slice packet -> implementation -> validation loop.
+- `/durable-slice-audit <audit focus>`: run a read-only audit in isolated context and return concise findings.
+- `/durable-slice-release <version or release focus>`: manually run release-readiness checks from `RELEASE_CHECKLIST.md`.
+
+## Claude-Specific Safety
+
+- Do not add `.claude/settings.json` hooks or `.mcp.json` servers unless a later repo explicitly owns that integration.
+- Do not add broad `allowed-tools` to project skills; let Claude Code permissions and the user control tool approval.
+- Do not mutate sibling repos, vendor folders, downloads, archives, or external data roots unless the user explicitly approves that exact path.
+- If a mature repo already has Claude authority files, stop and use `docs/MIGRATING_MATURE_REPO.md` before copying this template over them.
+
+## Closeout
+
+Report changed files, validation commands/results, worktree state, whether generated refresh was required, and the next recommended slice. Do not leave future requirements only in chat.
+"""
+
+
 RENDERERS: dict[str, Callable[[dict[str, Any]], str]] = {
     "README.md": render_readme,
     "AGENTS.md": render_agents,
     "SKILL.md": render_skill,
     "BUILD_STAGE_PROMPTS.md": render_prompts,
+    "CLAUDE.md": render_claude,
 }
 
 

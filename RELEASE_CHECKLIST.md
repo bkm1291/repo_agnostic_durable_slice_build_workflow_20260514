@@ -23,6 +23,7 @@ python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
 python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_release_package.py --summary-only
 make check
@@ -69,7 +70,8 @@ git diff -- README.md START_HERE.md PROMPT_FOR_NEW_AGENT.md RELEASE_CHECKLIST.md
 ```
 
 Confirm the public entrypoints explain the current workflow and no generated
-entrypoint drift remains.
+entrypoint drift remains. If Claude Code support changed, also inspect
+`CLAUDE.md`, `.claude/skills/`, and `scripts/validate_claude_integration.py`.
 
 ## 5. Commit
 
@@ -117,6 +119,7 @@ python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
 python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only

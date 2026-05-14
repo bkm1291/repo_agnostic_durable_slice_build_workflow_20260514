@@ -15,6 +15,10 @@ def test_beginner_docs_exist_and_cross_link() -> None:
         "START_HERE.md",
         "PROMPT_FOR_NEW_AGENT.md",
         "RELEASE_CHECKLIST.md",
+        "CLAUDE.md",
+        ".claude/skills/durable-slice/SKILL.md",
+        ".claude/skills/durable-slice-audit/SKILL.md",
+        ".claude/skills/durable-slice-release/SKILL.md",
         "docs/CI.md",
         "docs/GLOSSARY.md",
         "docs/MIGRATING_MATURE_REPO.md",
@@ -34,6 +38,8 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "docs/NEXT_ACTION_DECISION_TREE.md" in start_here
     assert "docs/ANNOTATED_SLICE_PACKET.md" in start_here
     assert "PROMPT_FOR_NEW_AGENT.md" in start_here
+    assert "CLAUDE.md" in start_here
+    assert "/durable-slice" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
     assert "docs/MIGRATING_MATURE_REPO.md" in start_here
 
@@ -45,6 +51,9 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "[ABSOLUTE_REPO_PATH]",
         "[ONE OR TWO PARAGRAPHS DESCRIBING WHAT THE REPO SHOULD BUILD]",
         "Read AGENTS.md",
+        "Read CLAUDE.md",
+        "/durable-slice",
+        "validate_claude_integration.py",
         "plans/repo_roadmap.json",
         "plans/slices/slice_001_packet.json",
         "boundary_rules",
@@ -66,6 +75,7 @@ def test_release_checklist_has_exact_release_commands() -> None:
         "make read-only-check",
         "build_command_map.py",
         "query_command_map.py",
+        "validate_claude_integration.py",
         "validate_release_package.py",
         "git diff --check",
         "git commit -m",
@@ -89,6 +99,10 @@ def test_troubleshooting_mentions_validator_failure_codes() -> None:
         "READ_ONLY_COMMAND_MODIFIED_PATHS",
         "READ_ONLY_COMMAND_SECRET_OUTPUT",
         "COMMAND_MAP_WRITER_WITHOUT_EXPLICIT_INTENT",
+        "CLAUDE_ENTRYPOINT_REQUIRED_TEXT_MISSING",
+        "CLAUDE_SKILL_ALLOWED_TOOLS_FORBIDDEN",
+        "CLAUDE_DEFAULT_HOOKS_FORBIDDEN",
+        "CLAUDE_DEFAULT_MCP_FORBIDDEN",
         "MIGRATION_HIGH_RISK_AUTHORITY_UNCLASSIFIED",
         "RELEASE_REQUIRED_PATH_MISSING",
     ]:

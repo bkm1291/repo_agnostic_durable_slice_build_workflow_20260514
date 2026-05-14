@@ -27,10 +27,14 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
 
     assert result.returncode == 0
     assert (target / "README.md").is_file()
+    assert (target / "CLAUDE.md").is_file()
     assert (target / "START_HERE.md").is_file()
     assert (target / "PROMPT_FOR_NEW_AGENT.md").is_file()
     assert (target / "RELEASE_CHECKLIST.md").is_file()
     assert (target / ".github" / "workflows" / "check.yml").is_file()
+    assert (target / ".claude" / "skills" / "durable-slice" / "SKILL.md").is_file()
+    assert (target / ".claude" / "skills" / "durable-slice-audit" / "SKILL.md").is_file()
+    assert (target / ".claude" / "skills" / "durable-slice-release" / "SKILL.md").is_file()
     assert (target / "docs" / "CI.md").is_file()
     assert (target / "docs" / "GLOSSARY.md").is_file()
     assert (target / "docs" / "MIGRATING_MATURE_REPO.md").is_file()
@@ -52,6 +56,7 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "scripts" / "build_command_map.py").is_file()
     assert (target / "scripts" / "query_command_map.py").is_file()
     assert (target / "scripts" / "validate_command_map.py").is_file()
+    assert (target / "scripts" / "validate_claude_integration.py").is_file()
     assert (target / "scripts" / "validate_mature_repo_migration_packet.py").is_file()
     assert (target / "scripts" / "validate_release_package.py").is_file()
     assert (target / "scripts" / "query_repo_file_index.py").is_file()
@@ -101,6 +106,10 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
         [sys.executable, "scripts/validate_command_map.py", "--summary-only"],
         cwd=target,
     )
+    claude_check = run_command(
+        [sys.executable, "scripts/validate_claude_integration.py", "--summary-only"],
+        cwd=target,
+    )
     release_check = run_command(
         [sys.executable, "scripts/validate_release_package.py", "--summary-only"],
         cwd=target,
@@ -125,6 +134,7 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert command_map_summary.returncode == 0
     assert command_map_query.returncode == 0
     assert command_map_check.returncode == 0
+    assert claude_check.returncode == 0
     assert release_check.returncode == 0
     assert source_read_check.returncode == 0
     assert planned_surfaces_check.returncode == 0

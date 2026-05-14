@@ -10,6 +10,7 @@ Use it when you want a new repo to have:
 - a validator and focused tests for each piece
 - a clear rule for when generated indexes or reports should refresh
 - a copy-paste prompt for handing the repo to a fresh agent
+- a Claude Code entrypoint and project skills when using Claude
 - a release checklist for tagging or publishing
 
 ## First 30 Minutes
@@ -37,6 +38,7 @@ python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
 python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
@@ -50,10 +52,14 @@ If these pass, the workflow copied correctly.
 Read these before changing the new repo:
 
 - `README.md`: the short workflow overview
+- `CLAUDE.md`: the Claude Code entrypoint if you are using Claude
 - `plans/repo_roadmap.json`: the current work plan
 - `plans/slices/slice_001_packet.json`: the first slice packet
 
 Use `docs/GLOSSARY.md` if a term is unfamiliar.
+
+If you are using Claude Code, run `/skills` and start with
+`/durable-slice <project goal or slice request>` after the starter checks pass.
 
 If you are adapting this workflow into an existing repo instead of a new repo,
 stop and read `docs/MIGRATING_MATURE_REPO.md` before copying files.
@@ -119,6 +125,7 @@ Only refresh generated indexes afterward if the packet says a refresh is needed.
 - If you do not know the next action, read `docs/NEXT_ACTION_DECISION_TREE.md`.
 - If the packet fields feel abstract, read `docs/ANNOTATED_SLICE_PACKET.md`.
 - If you are handing this repo to a fresh agent, fill in `PROMPT_FOR_NEW_AGENT.md`.
+- If you are using Claude Code, read `CLAUDE.md` and use `/durable-slice`.
 - If you are checking CI expectations, read `docs/CI.md`.
 - If you are tagging or publishing, follow `RELEASE_CHECKLIST.md`.
 - If you are adopting the template into an existing repo, read `docs/MIGRATING_MATURE_REPO.md`.
