@@ -2,7 +2,20 @@
 name = "durable-slice-build-template"
 version = "0.1.0"
 description = "Repo-agnostic bootstrap template for creating brand-new repos with durable slice-based planning, implementation, validation, and closeout."
+readme = "README.md"
 requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Benji" }]
+keywords = ["agents", "workflow", "template", "validation", "bootstrap"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Software Development :: Quality Assurance"
+]
 dependencies = []
 
 [tool.durable_slice_workflow]
@@ -137,6 +150,9 @@ minimal_example = "examples/minimal_repo"
 realistic_small_example = "examples/small_config_tool_repo"
 starter_slice_packet_validator = "scripts/validate_slice_packet.py"
 entrypoint_renderer = "scripts/render_canonical_entrypoints.py"
+local_bootstrap = "scripts/bootstrap_local_repo.py"
+changelog = "CHANGELOG.md"
+license = "LICENSE"
 
 [tool.durable_slice_workflow.schemas]
 methodology = "schemas/methodology.schema.json"
@@ -149,6 +165,8 @@ validate_minimal_example_packet = "python scripts/validate_slice_packet.py examp
 validate_small_config_example_packet = "python scripts/validate_slice_packet.py examples/small_config_tool_repo/plans/slices/slice_001_packet.json --summary-only"
 check_canonical_entrypoints = "python scripts/render_canonical_entrypoints.py --check"
 write_canonical_entrypoints = "python scripts/render_canonical_entrypoints.py --write"
+bootstrap_local_repo = "python scripts/bootstrap_local_repo.py <target> --project-name <name>"
+make_check = "make check"
 
 [tool.durable_slice_workflow.required_slice_packet_fields]
 selected_wave_or_slice = true

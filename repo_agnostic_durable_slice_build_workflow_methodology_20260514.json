@@ -41,6 +41,25 @@
       "write_command": "python scripts/render_canonical_entrypoints.py --write",
       "purpose": "Render Markdown entrypoints from this canonical methodology JSON so duplicated doctrine does not drift."
     },
+    "local_bootstrap": {
+      "path": "scripts/bootstrap_local_repo.py",
+      "command_template": "python scripts/bootstrap_local_repo.py <target> --project-name <name>",
+      "purpose": "Copy the template into a new local repo, generate a starter roadmap and slice packet, and refuse overwrites unless --force is explicit."
+    },
+    "local_make_targets": {
+      "check": "make check",
+      "render": "make render",
+      "render_check": "make render-check",
+      "bootstrap_smoke": "make bootstrap-smoke",
+      "release_check": "make release-check"
+    },
+    "publishable_artifacts": {
+      "license": "LICENSE",
+      "changelog": "CHANGELOG.md",
+      "git_attributes": ".gitattributes",
+      "ignore_rules": ".gitignore",
+      "release_command": "make check"
+    },
     "minimal_example": {
       "root": "examples/minimal_repo",
       "roadmap": "examples/minimal_repo/plans/repo_roadmap.json",

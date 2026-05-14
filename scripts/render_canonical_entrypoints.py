@@ -53,6 +53,9 @@ def render_readme(methodology: dict[str, Any]) -> str:
     starter_validator_path = starter.get("starter_validator", {}).get(
         "path", "scripts/validate_slice_packet.py"
     )
+    local_bootstrap_path = starter.get("local_bootstrap", {}).get(
+        "path", "scripts/bootstrap_local_repo.py"
+    )
     minimal_example_root = starter.get("minimal_example", {}).get(
         "root", "examples/minimal_repo"
     )
@@ -61,8 +64,11 @@ def render_readme(methodology: dict[str, Any]) -> str:
     )
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
     quickstart = [
-        "Copy this bundle into the new repo root or copy the files you need.",
-        "Adapt `AGENTS.md`, `SKILL.md`, `pyproject.toml`, and repo-local paths.",
+        (
+            "Run `python scripts/bootstrap_local_repo.py "
+            "../my-new-repo --project-name my-new-repo`."
+        ),
+        "Change into the generated repo.",
         (
             "Keep the methodology JSON as canonical, or deliberately replace it "
             "with the target repo's canonical methodology file."
@@ -91,6 +97,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Prompt library: {_wrap_code('BUILD_STAGE_PROMPTS.md')}",
         f"Starter schemas: {_wrap_code('schemas/')}",
         f"Starter validator: {_wrap_code(starter_validator_path)}",
+        f"Local bootstrap: {_wrap_code(local_bootstrap_path)}",
         f"Minimal example: {_wrap_code(minimal_example_root)}",
         f"Realistic small example: {_wrap_code(realistic_example_root)}",
     ]
@@ -128,6 +135,33 @@ python scripts/render_canonical_entrypoints.py --write
 ## Workflow Chain
 
 {_bullet_list(workflow)}
+
+## Local Reuse
+
+Bootstrap a new local repo:
+
+```bash
+python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
+cd ../my-new-repo
+python scripts/render_canonical_entrypoints.py --check
+python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
+python -m pytest -q tests
+```
+
+The bootstrap command refuses to overwrite existing files unless `--force` is
+explicit. Examples are copied by default; use `--no-examples` for a lean starter.
+
+## Publish-Ready Checks
+
+Before publishing or pushing a release branch:
+
+```bash
+make check
+git status --short
+```
+
+The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
+generated entrypoint drift checks, semantic packet validation, and example tests.
 
 ## First Slice Readiness
 

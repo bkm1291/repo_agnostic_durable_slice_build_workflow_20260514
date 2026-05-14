@@ -29,8 +29,8 @@ python scripts/render_canonical_entrypoints.py --write
 
 ## 10-Minute Bootstrap Path
 
-1. Copy this bundle into the new repo root or copy the files you need.
-2. Adapt `AGENTS.md`, `SKILL.md`, `pyproject.toml`, and repo-local paths.
+1. Run `python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo`.
+2. Change into the generated repo.
 3. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
 4. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
 5. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
@@ -50,6 +50,33 @@ python scripts/render_canonical_entrypoints.py --write
 - Future notes
 - Conditional generated/index refresh
 - Closeout receipt only when it proves something
+
+## Local Reuse
+
+Bootstrap a new local repo:
+
+```bash
+python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
+cd ../my-new-repo
+python scripts/render_canonical_entrypoints.py --check
+python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
+python -m pytest -q tests
+```
+
+The bootstrap command refuses to overwrite existing files unless `--force` is
+explicit. Examples are copied by default; use `--no-examples` for a lean starter.
+
+## Publish-Ready Checks
+
+Before publishing or pushing a release branch:
+
+```bash
+make check
+git status --short
+```
+
+The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
+generated entrypoint drift checks, semantic packet validation, and example tests.
 
 ## First Slice Readiness
 
@@ -86,5 +113,6 @@ Adjust commands to the target repo's language and test runner.
 - Prompt library: `BUILD_STAGE_PROMPTS.md`
 - Starter schemas: `schemas/`
 - Starter validator: `scripts/validate_slice_packet.py`
+- Local bootstrap: `scripts/bootstrap_local_repo.py`
 - Minimal example: `examples/minimal_repo`
 - Realistic small example: `examples/small_config_tool_repo`
