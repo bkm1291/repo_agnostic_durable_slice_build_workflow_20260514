@@ -19,9 +19,12 @@ GENERATED_HEADER = (
     "BY scripts/render_canonical_entrypoints.py. EDIT THE JSON, THEN RUN --write. -->"
 )
 BEGINNER_AGENT_PROMPT = (
-    f"Use this workflow template to set up my repo. If `{PROJECT_GOAL_INTAKE}` "
-    "exists and has a real non-placeholder goal, use it automatically. If it is "
-    f'missing or still placeholder text, ask me: "{GOAL_FALLBACK_QUESTION}" '
+    "Read this folder and use it as the workflow template for my repo. I "
+    "authorize you to inspect the files in this folder. First read README.md, "
+    f"START_HERE.md, AGENTS.md, and `{PROJECT_GOAL_INTAKE}` if it exists. If "
+    f"`{PROJECT_GOAL_INTAKE}` has a real non-placeholder goal, use it "
+    "automatically. If it is missing or still placeholder text, ask me exactly: "
+    f'"{GOAL_FALLBACK_QUESTION}" '
     "After the goal is known, create or update the roadmap and first slice packet. "
     "Do not code until the packet validates."
 )
@@ -212,24 +215,24 @@ def render_readme(methodology: dict[str, Any]) -> str:
 Easiest path:
 
 1. Drag this folder into Claude Code or Codex.
-2. Type:
+2. Paste this:
 
 ```text
-use this
+{BEGINNER_AGENT_PROMPT}
 ```
 
-3. When the agent asks what you want to build, answer in one or two paragraphs.
+3. If the agent asks what you want to build, answer in one or two paragraphs.
 4. The agent should create or update the roadmap and first slice packet, validate
    the packet, and wait to code until the packet passes.
 
 No-prompt option: copy `{project_goal_template}` to `{project_goal_local}`, fill
-in the goal, then drag this folder into Claude Code or Codex and say `use this`.
-The agent will read the goal automatically.
+in the goal, then drag this folder into Claude Code or Codex and paste the same
+instruction above. The agent will read the goal automatically.
 
-If your prompt box works better with a full instruction, paste:
+Short fallback if the agent already knows it can read the folder:
 
 ```text
-{BEGINNER_AGENT_PROMPT}
+Read this folder and use its workflow template. Do not code until the first slice packet validates.
 ```
 
 If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.

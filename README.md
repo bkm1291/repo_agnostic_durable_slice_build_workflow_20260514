@@ -13,24 +13,24 @@ Capture a reusable from-scratch planning and implementation workflow for buildin
 Easiest path:
 
 1. Drag this folder into Claude Code or Codex.
-2. Type:
+2. Paste this:
 
 ```text
-use this
+Read this folder and use it as the workflow template for my repo. I authorize you to inspect the files in this folder. First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
 ```
 
-3. When the agent asks what you want to build, answer in one or two paragraphs.
+3. If the agent asks what you want to build, answer in one or two paragraphs.
 4. The agent should create or update the roadmap and first slice packet, validate
    the packet, and wait to code until the packet passes.
 
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`, fill
-in the goal, then drag this folder into Claude Code or Codex and say `use this`.
-The agent will read the goal automatically.
+in the goal, then drag this folder into Claude Code or Codex and paste the same
+instruction above. The agent will read the goal automatically.
 
-If your prompt box works better with a full instruction, paste:
+Short fallback if the agent already knows it can read the folder:
 
 ```text
-Use this workflow template to set up my repo. If `PROJECT_GOAL.md` exists and has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
+Read this folder and use its workflow template. Do not code until the first slice packet validates.
 ```
 
 If this workflow is new to you, start with `START_HERE.md`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.

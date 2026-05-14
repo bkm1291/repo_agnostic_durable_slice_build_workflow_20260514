@@ -50,11 +50,11 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     )
     assert "Easiest path" in rendered
     assert "Drag this folder into Claude Code or Codex" in rendered
-    assert "use this" in rendered
+    assert "Read this folder and use it as the workflow template for my repo" in rendered
+    assert "I authorize you to inspect the files in this folder" in rendered
     assert "PROJECT_GOAL.template.md" in rendered
     assert "PROJECT_GOAL.md" in rendered
     assert "No-prompt option" in rendered
-    assert "Use this workflow template to set up my repo" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not code until the packet validates" in rendered
     assert "examples/small_config_tool_repo" in rendered

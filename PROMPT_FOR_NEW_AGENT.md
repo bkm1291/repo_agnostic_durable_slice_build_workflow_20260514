@@ -5,11 +5,11 @@ Use this when you want to hand a repo and a project goal to a fresh agent.
 Shortest beginner prompt:
 
 ```text
-Use this workflow template to set up my repo. If `PROJECT_GOAL.md` exists and has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
+Read this folder and use it as the workflow template for my repo. I authorize you to inspect the files in this folder. First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exists. If `PROJECT_GOAL.md` has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me exactly: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
 ```
 
 No-prompt path: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`, fill in
-the goal, then give the folder to the agent and say `use this`.
+the goal, then give the folder to the agent and paste the prompt above.
 
 Copy the block below into the new agent. Replace the bracketed values first.
 
