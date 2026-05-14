@@ -113,6 +113,16 @@
       "owner_slice": "workflow_evidence_import",
       "evidence_ref": "reports/vbtprobuild_slice_01_19_vs_wave_1_11_progression_audit_20260514.json",
       "summary": "Read-only audit of vbtprobuild V7.2.4 slice 01-19 plan, git progression, plan-note index, output-schema index, repo index, full slice audit, and comparison against Wave 1-11 governance."
+    },
+    {
+      "read_id": "vbtprobuild_slice_01_19_layer_planning_audit",
+      "surface": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/00_repo_owned_accepted_four_layer_stack_manifest.json",
+      "surface_type": "external_source",
+      "read_type": "docs",
+      "status": "satisfied",
+      "owner_slice": "workflow_evidence_import",
+      "evidence_ref": "reports/vbtprobuild_slice_01_19_layer_planning_audit_20260514.json",
+      "summary": "Read-only audit of vbtprobuild V7.2.4 accepted four-layer stack for slices 01-19: foundation lifecycle, contract application, semantic application, fine-detail maps, and work orders."
     }
   ]
 }

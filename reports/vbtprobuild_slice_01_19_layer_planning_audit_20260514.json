@@ -1,0 +1,172 @@
+{
+  "schema_version": "repo_agnostic.audit.v1",
+  "report_id": "vbtprobuild_slice_01_19_layer_planning_audit_20260514",
+  "created_at_local_date": "2026-05-14",
+  "audit_mode": "read_only_source_repo_audit_with_local_report_persistence",
+  "source_repo": "/home/benji/vbtprobuild",
+  "target_repo": "/home/benji/Desktop/repo_agnostic_durable_slice_build_workflow_20260514",
+  "purpose": "Distill how the V7.2.4 slice 01-19 planning layers worked before the later overlay and Wave 1-11 governance repair.",
+  "source_refs": {
+    "accepted_stack_root": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507",
+    "manifest": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/00_repo_owned_accepted_four_layer_stack_manifest.json",
+    "foundation_lifecycle_layer": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/foundation_layer/01_foundation_slice_lifecycle_plan.json",
+    "contract_application_layer": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/contract_layer/02_contract_to_slice_application_map.json",
+    "semantic_application_layer": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/semantic_layer/03_semantic_to_slice_application_map.json",
+    "fine_detail_application_layer": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/fine_detail_layer/04_fine_detail_to_slice_application_map.json",
+    "fine_detail_work_orders": "/home/benji/vbtprobuild/docs/v2/production/v7_2_4_accepted_four_layer_stack_20260507/fine_detail_layer/04_detailed_slice_work_orders.json",
+    "prior_progression_audit": "reports/vbtprobuild_slice_01_19_vs_wave_1_11_progression_audit_20260514.json"
+  },
+  "core_conclusion": {
+    "summary": "The slice 01-19 process planned each slice through four cumulative layers: foundation lifecycle, contract application, semantic application, and fine-detail work orders. The layers converted a broad design bundle into a one-slice-at-a-time build sequence with explicit claims, non-claims, prerequisites, validators, fixtures, receipts, checkpoints, and next-slice gates.",
+    "main_mechanic": "For each slice, the planner set exactly one owned behavior true and kept downstream behaviors false until their slice. This is why the sequence could discuss local LLM, dry-run orchestration, runtime, replay, and readiness without authorizing them early.",
+    "later_progression": "Wave 1-11 did not replace the layered idea; it simplified and hardened it. The Wave packet/plan structure kept owner, proof, boundary, and refresh decisions, while dropping routine prompt/handoff/receipt noise."
+  },
+  "layer_stack": [
+    {
+      "layer": "repo_owned_manifest",
+      "role": "Envelope and provenance layer.",
+      "how_it_worked": [
+        "Copied the accepted four-layer stack into repo-owned JSON so planning no longer depended on Desktop-only ZIP paths.",
+        "Declared the exact 19 planned slices.",
+        "Declared validation requirements for the bundle itself: all 77 JSON files parse, expected layer file counts hold, active plans cite the repo-owned root, and repo index discovery is current or confirmed."
+      ],
+      "key_rules": {
+        "slice_count": 19,
+        "foundation_file_count": 28,
+        "contract_file_count": 11,
+        "semantic_file_count": 15,
+        "fine_detail_file_count": 22
+      }
+    },
+    {
+      "layer": "foundation_lifecycle",
+      "role": "One-slice-at-a-time lifecycle and authorization layer.",
+      "how_it_worked": [
+        "Named the full 19-slice sequence and per-slice lifecycle requirements.",
+        "For each slice, declared allowed execution flags, blocker conditions, authority reads, completion criteria, receipts, checkpoints, logs, validation commands, and next-slice dependency.",
+        "Marked the bundle as design/planning only, not implementation, not tested, and not production ready.",
+        "Established timing: first live provider test at slice 06, first actual data pull at slice 07, first transformation proof at slice 08, local model structured JSON at slice 15, dry-run queue at slice 16, runtime research at slice 17, replay/configured-scope smoke at slice 18, and operator readiness report at slice 19."
+      ],
+      "planning_value": "This layer prevented capability leakage by making every downstream behavior false until its slice owned it."
+    },
+    {
+      "layer": "contract_application",
+      "role": "Shared contract gate layer.",
+      "how_it_worked": [
+        "Applied shared contracts across all 19 slices instead of creating one bespoke contract per slice.",
+        "Mapped each slice to required configs, schemas, validators, tests, fixtures, receipts, checkpoints, logs, real-data checks, and repo-corpus checks.",
+        "Kept global claim boundaries false: no implementation, command run, provider access, data pull, runtime research, VBT sweep, replay, configured-scope smoke, production candidate, or production ready claim by the design bundle."
+      ],
+      "planning_value": "This made the proof surface explicit before coding and made missing contracts or required proof a blocker."
+    },
+    {
+      "layer": "semantic_application",
+      "role": "Meaning and claim-boundary layer.",
+      "how_it_worked": [
+        "Mapped semantic terms to every slice: behavior true fields, behavior false fields, required terms, supporting terms, and terms forbidden as active claims.",
+        "Defined actual planned capability tracks inside the 19 slices: local LLM structured JSON inference, full autopilot/script-sweep loop, and GPU/ML/RL expansion.",
+        "Made the semantics non-authorizing: local model output could feed deterministic validators and operator decisions but could not self-approve, mutate protected surfaces, or execute shell commands."
+      ],
+      "planning_value": "This layer said what words meant, so phrases like runtime, replay, local model, and readiness could appear in planning without becoming premature permission."
+    },
+    {
+      "layer": "fine_detail_application_and_work_orders",
+      "role": "Executable planning detail layer.",
+      "how_it_worked": [
+        "Mapped 18 fine-detail files onto all 19 slices.",
+        "For each slice, carried fine-detail scope, old pipeline stage references, proposed future design targets, required authority reads, required configs/contracts/schemas/validators/tests/fixtures/logs, positive and negative fixture requirements, receipt/checkpoint/log requirements, and validation commands.",
+        "Repeated the behavior-boundary flags and prohibited execution classes so the detailed work order could not override the upper layers."
+      ],
+      "planning_value": "This was the closest layer to a slice packet: it translated lifecycle, contract, and semantic rules into the files and proof each slice needed."
+    }
+  ],
+  "slice_ladder_from_layers": [
+    {
+      "slice_range": "01-04",
+      "layered_role": "Foundation prerequisites.",
+      "owned_behaviors": [
+        "foundation_control_plane_behavior",
+        "semantic_taxonomy_behavior",
+        "strategy_component_grammar_behavior",
+        "semantic_validators_and_negative_fixtures_behavior"
+      ],
+      "logic": "Build the language and claim boundary before provider, data, feature, runtime, replay, or readiness work."
+    },
+    {
+      "slice_range": "05-08",
+      "layered_role": "Catalog, provider authorization, first data, and transformation.",
+      "owned_behaviors": [
+        "schema_contract_config_catalog_behavior",
+        "provider_authorization_preflight_behavior",
+        "bounded_source_materialization_smoke_behavior",
+        "data_normalization_and_bar_smoke_behavior"
+      ],
+      "logic": "Move from design metadata into bounded provider proof, first actual data pull, and first transformation proof."
+    },
+    {
+      "slice_range": "09-12",
+      "layered_role": "Feature, mask, label, and PIT lineage boundaries.",
+      "owned_behaviors": [
+        "feature_materialization_smoke_behavior",
+        "mask_materialization_smoke_behavior",
+        "label_outcome_generation_smoke_behavior",
+        "source_lineage_pit_holdout_preflight_behavior"
+      ],
+      "logic": "Materialize decision-time features and masks, quarantine hindsight labels, and prove PIT/holdout/source-lineage rules before runtime."
+    },
+    {
+      "slice_range": "13-14",
+      "layered_role": "VBT Pro sweep planning and budget control.",
+      "owned_behaviors": [
+        "vbtpro_native_sweep_axis_compiler_behavior",
+        "vbtpro_sweep_budget_random_subset_behavior"
+      ],
+      "logic": "Compile native sweep axes and then run a bounded random subset under resource and receipt controls without unbounded sweep or production claims."
+    },
+    {
+      "slice_range": "15-16",
+      "layered_role": "Operator config loop and dry-run orchestration.",
+      "owned_behaviors": [
+        "config_generation_operator_decision_loop_behavior",
+        "local_llm_structured_json_inference_service_behavior",
+        "dry_run_queue_dispatch_receipts_behavior",
+        "full_autopilot_script_sweep_loop_behavior"
+      ],
+      "logic": "Introduce model-generated structured JSON and script-sweep preview through validation, receipts, allowlists, and operator decisions without direct mutation or execution."
+    },
+    {
+      "slice_range": "17-19",
+      "layered_role": "Runtime research, replay/portfolio smoke, and readiness evidence.",
+      "owned_behaviors": [
+        "runtime_research_smoke_behavior",
+        "gpu_ml_rl_expansion_behavior",
+        "replay_portfolio_configured_scope_smoke_behavior",
+        "operator_readiness_report_behavior"
+      ],
+      "logic": "Run bounded research and replay proof only after data, feature, mask, label, PIT, sweep, queue, and operator prerequisites, then report evidence and blockers without auto-promotion."
+    }
+  ],
+  "portable_planning_pattern": [
+    "Start with a fixed slice sequence and no extra capability slices unless a new authority plan says so.",
+    "For each slice, define the one owned behavior and explicitly list downstream behaviors that remain false.",
+    "Apply shared contracts across slices instead of inventing a new contract shape for every slice.",
+    "Use a semantic layer to define claim vocabulary before implementation, especially for risky terms like runtime, replay, readiness, model output, and production.",
+    "Turn the fine-detail layer into a packet-like owner bundle: authority reads, owner files, validators, focused tests, fixtures, receipts/checkpoints only when justified, and next-slice gate.",
+    "Before coding, revalidate current repo authority because the four-layer bundle itself is planning evidence, not implementation proof."
+  ],
+  "relationship_to_wave_1_11": {
+    "what_wave_1_11_inherited": [
+      "Explicit owner behavior per slice/wave.",
+      "Strong claim boundaries.",
+      "Config/contract/schema/validator/test proof before capability claims.",
+      "Planning evidence kept in repo-owned JSON."
+    ],
+    "what_wave_1_11_simplified": [
+      "Layer detail collapsed into smaller wave packets and active-plan notes.",
+      "Routine receipts/checkpoints became discouraged unless tied to a writer, generator, materializer, external action, irreversible decision, or closeout gate.",
+      "Generated refreshes became conditional instead of a default layer validation habit.",
+      "Historical design layers became evidence, while current active plans/packets controlled next action."
+    ],
+    "bottom_line": "The 1-19 layers were a rich design-to-slice compiler. Wave 1-11 was the governance compression pass that kept the useful fields and removed the noisy authority ambiguity."
+  }
+}
