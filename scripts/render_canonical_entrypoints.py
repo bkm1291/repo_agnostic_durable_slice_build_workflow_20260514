@@ -11,9 +11,27 @@ from typing import Any, Callable
 
 
 DEFAULT_METHODOLOGY = "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json"
+PROJECT_GOAL_TEMPLATE = "PROJECT_GOAL.template.md"
+PROJECT_GOAL_INTAKE = "PROJECT_GOAL.md"
+GOAL_FALLBACK_QUESTION = "What do you want to build? One or two paragraphs is enough."
 GENERATED_HEADER = (
     "<!-- GENERATED FROM repo_agnostic_durable_slice_build_workflow_methodology_20260514.json "
     "BY scripts/render_canonical_entrypoints.py. EDIT THE JSON, THEN RUN --write. -->"
+)
+BEGINNER_AGENT_PROMPT = (
+    f"Use this workflow template to set up my repo. If `{PROJECT_GOAL_INTAKE}` "
+    "exists and has a real non-placeholder goal, use it automatically. If it is "
+    f'missing or still placeholder text, ask me: "{GOAL_FALLBACK_QUESTION}" '
+    "After the goal is known, create or update the roadmap and first slice packet. "
+    "Do not code until the packet validates."
+)
+MISSING_GOAL_RULE = (
+    f"Check `{PROJECT_GOAL_INTAKE}` first. If it exists and contains a concrete "
+    'non-placeholder goal, use it automatically. If the user says only "use this", '
+    '"use this template", gives a placeholder goal, or '
+    f"`{PROJECT_GOAL_INTAKE}` is missing/placeholder-only, ask exactly: "
+    f'"{GOAL_FALLBACK_QUESTION}" Do not create or update a roadmap, packet, or '
+    "code until the goal is known."
 )
 
 
@@ -59,7 +77,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
     mature_repo_migration = starter.get("mature_repo_migration", {})
     release_package = starter.get("release_package_validator", {})
     beginner_docs = starter.get("beginner_docs", {})
+    project_goal_intake = starter.get("project_goal_intake", {})
     realistic_example = starter.get("realistic_small_example", {})
+    project_goal_template = project_goal_intake.get("template", PROJECT_GOAL_TEMPLATE)
+    project_goal_local = project_goal_intake.get("local_intake", PROJECT_GOAL_INTAKE)
     starter_validator_path = starter.get("starter_validator", {}).get(
         "path", "scripts/validate_slice_packet.py"
     )
@@ -138,6 +159,8 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Agent entrypoint: {_wrap_code('AGENTS.md')}",
         f"Skill pointer: {_wrap_code('SKILL.md')}",
         f"Prompt library: {_wrap_code('BUILD_STAGE_PROMPTS.md')}",
+        f"Project goal template: {_wrap_code(project_goal_template)}",
+        f"Local project goal intake: {_wrap_code(project_goal_local)}",
         f"Claude Code entrypoint: {_wrap_code(claude_integration.get('entrypoint', 'CLAUDE.md'))}",
         f"Claude Code durable-slice skill: {_wrap_code(claude_integration.get('durable_slice_skill', '.claude/skills/durable-slice/SKILL.md'))}",
         f"Claude Code audit skill: {_wrap_code(claude_integration.get('audit_skill', '.claude/skills/durable-slice-audit/SKILL.md'))}",
@@ -186,10 +209,15 @@ def render_readme(methodology: dict[str, Any]) -> str:
 
 ## New Here? Start With `{beginner_docs.get("start_here", "START_HERE.md")}`
 
-Drag this folder into Claude Code or Codex, or open a terminal in this folder, then say:
+Fastest no-prompt path: copy `{project_goal_template}` to `{project_goal_local}`,
+fill in the goal, then drag this folder into Claude Code or Codex and say `use
+this`.
+
+If you have not filled in `{project_goal_local}`, drag this folder into Claude Code
+or Codex, or open a terminal in this folder, then say:
 
 ```text
-Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+{BEGINNER_AGENT_PROMPT}
 ```
 
 If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.
@@ -355,6 +383,7 @@ def render_agents(methodology: dict[str, Any]) -> str:
         f"Read `{source_read_register.get('register', 'plans/source_read_register.json')}` if packet source reads cite `source_read:<id>`.",
         f"Read `{planned_future_surfaces.get('registry', 'plans/planned_future_surfaces.json')}` if packet boundary rules cite future surface ids.",
         "Check worktree state.",
+        MISSING_GOAL_RULE,
         "Read the current durable roadmap or owner plan.",
         "Confirm or create the selected slice packet before protected edits.",
         (
@@ -465,6 +494,10 @@ implement, validate, and close out work through durable slice evidence.
 
 Canonical doctrine lives in `{starter.get("canonical_source", DEFAULT_METHODOLOGY)}`.
 This skill is a compact generated pointer.
+
+## Project Goal Intake
+
+{MISSING_GOAL_RULE}
 
 ## Core Workflow
 
@@ -615,13 +648,14 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 
 1. If this workflow is new, read `START_HERE.md`.
 2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the handoff shape.
-3. Run `/skills` and confirm these project skills are available:
+3. {MISSING_GOAL_RULE}
+4. Run `/skills` and confirm these project skills are available:
    - `/durable-slice` from `{durable_skill}`
    - `/durable-slice-audit` from `{audit_skill}`
    - `/durable-slice-release` from `{release_skill}`
-4. Create or validate `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before coding.
-5. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only` before implementation.
-6. Run `python {validator} --summary-only` when checking this integration.
+5. Create or validate `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before coding.
+6. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only` before implementation.
+7. Run `python {validator} --summary-only` when checking this integration.
 
 ## Claude Skills
 

@@ -18,8 +18,11 @@ REQUIRED_SKILLS = {
         "required_body": [
             "START_HERE.md",
             "plans/slices/slice_001_packet.json",
+            "PROJECT_GOAL.md",
             "validate_slice_packet.py",
             "validate_claude_integration.py",
+            "What do you want to build? One or two paragraphs is enough.",
+            "Do not create or update a roadmap, packet, or code until the goal is known.",
         ],
     },
     "durable-slice-audit": {
@@ -51,11 +54,14 @@ CLAUDE_MD_REQUIRED_TEXT = (
     "@AGENTS.md",
     "START_HERE.md",
     "PROMPT_FOR_NEW_AGENT.md",
+    "PROJECT_GOAL.md",
     "validate_slice_packet.py",
     "validate_claude_integration.py",
     "/skills",
     "/durable-slice",
     ".claude/skills/durable-slice/SKILL.md",
+    "What do you want to build? One or two paragraphs is enough.",
+    "Do not create or update a roadmap, packet, or code until the goal is known.",
 )
 
 GITIGNORE_REQUIRED_TEXT = (

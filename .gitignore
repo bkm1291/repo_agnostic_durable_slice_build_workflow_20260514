@@ -22,6 +22,7 @@ env/
 *.log
 tmp/
 scratch/
+PROJECT_GOAL.md
 
 # Claude Code local-only state
 CLAUDE.local.md

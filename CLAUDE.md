@@ -12,13 +12,14 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 
 1. If this workflow is new, read `START_HERE.md`.
 2. If the user is handing you a project goal, use `PROMPT_FOR_NEW_AGENT.md` as the handoff shape.
-3. Run `/skills` and confirm these project skills are available:
+3. Check `PROJECT_GOAL.md` first. If it exists and contains a concrete non-placeholder goal, use it automatically. If the user says only "use this", "use this template", gives a placeholder goal, or `PROJECT_GOAL.md` is missing/placeholder-only, ask exactly: "What do you want to build? One or two paragraphs is enough." Do not create or update a roadmap, packet, or code until the goal is known.
+4. Run `/skills` and confirm these project skills are available:
    - `/durable-slice` from `.claude/skills/durable-slice/SKILL.md`
    - `/durable-slice-audit` from `.claude/skills/durable-slice-audit/SKILL.md`
    - `/durable-slice-release` from `.claude/skills/durable-slice-release/SKILL.md`
-4. Create or validate `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before coding.
-5. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only` before implementation.
-6. Run `python scripts/validate_claude_integration.py --summary-only` when checking this integration.
+5. Create or validate `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before coding.
+6. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only` before implementation.
+7. Run `python scripts/validate_claude_integration.py --summary-only` when checking this integration.
 
 ## Claude Skills
 

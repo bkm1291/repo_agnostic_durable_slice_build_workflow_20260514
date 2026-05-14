@@ -19,6 +19,7 @@ CORE_PATHS = (
     ".gitattributes",
     "LICENSE",
     "CHANGELOG.md",
+    "PROJECT_GOAL.template.md",
     "PROMPT_FOR_NEW_AGENT.md",
     "RELEASE_CHECKLIST.md",
     "START_HERE.md",
@@ -149,6 +150,7 @@ def _starter_packet() -> dict:
             "README.md",
             "START_HERE.md",
             "PROMPT_FOR_NEW_AGENT.md",
+            "PROJECT_GOAL.template.md",
             "RELEASE_CHECKLIST.md",
             "docs/CI.md",
             "docs/GLOSSARY.md",
@@ -241,6 +243,12 @@ def _starter_packet() -> dict:
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": "source_read:low_token_contract",
+            },
+            {
+                "surface": "project goal intake template",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "PROJECT_GOAL.template.md",
             },
             {
                 "surface": "repo file inventory starter tools",

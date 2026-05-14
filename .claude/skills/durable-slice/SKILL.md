@@ -9,12 +9,28 @@ argument-hint: "[project goal or slice request]"
 Use this skill to move from project goal to durable repo evidence without relying
 on chat memory.
 
+## Missing Goal Gate
+
+Check `PROJECT_GOAL.md` first. If it exists and contains a concrete
+non-placeholder goal, use it automatically.
+
+If `$ARGUMENTS` is empty, only says "use this", only says "use this template",
+still contains a placeholder goal, or `PROJECT_GOAL.md` is missing or
+placeholder-only, ask exactly:
+
+```text
+What do you want to build? One or two paragraphs is enough.
+```
+
+Do not create or update a roadmap, packet, or code until the goal is known.
+
 ## Startup
 
 1. Read `CLAUDE.md`, `AGENTS.md`, `SKILL.md`, `README.md`, and `START_HERE.md`.
-2. Read `plans/repo_roadmap.json` and the selected `plans/slices/*_packet.json` if they exist.
-3. If no roadmap or packet exists, create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before implementation.
-4. Run compact discovery before broad reads:
+2. Read `PROJECT_GOAL.md` if it exists and use it if it contains a real non-placeholder goal.
+3. Read `plans/repo_roadmap.json` and the selected `plans/slices/*_packet.json` if they exist.
+4. If no roadmap or packet exists, create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json` before implementation.
+5. Run compact discovery before broad reads:
 
 ```bash
 python scripts/build_repo_file_index.py --summary-only

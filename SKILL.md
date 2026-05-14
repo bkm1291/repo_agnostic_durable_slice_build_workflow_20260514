@@ -8,6 +8,10 @@ implement, validate, and close out work through durable slice evidence.
 Canonical doctrine lives in `repo_agnostic_durable_slice_build_workflow_methodology_20260514.json`.
 This skill is a compact generated pointer.
 
+## Project Goal Intake
+
+Check `PROJECT_GOAL.md` first. If it exists and contains a concrete non-placeholder goal, use it automatically. If the user says only "use this", "use this template", gives a placeholder goal, or `PROJECT_GOAL.md` is missing/placeholder-only, ask exactly: "What do you want to build? One or two paragraphs is enough." Do not create or update a roadmap, packet, or code until the goal is known.
+
 ## Core Workflow
 
 1. Durable roadmap

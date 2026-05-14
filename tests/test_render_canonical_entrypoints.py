@@ -48,8 +48,12 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert rendered.index("## 10-Minute Bootstrap Path") < rendered.index(
         "## Expert / Custom Path"
     )
-    assert "Drag this folder into Claude Code or Codex" in rendered
+    assert "drag this folder into Claude Code or Codex" in rendered
+    assert "PROJECT_GOAL.template.md" in rendered
+    assert "PROJECT_GOAL.md" in rendered
+    assert "Fastest no-prompt path" in rendered
     assert "Use this workflow template to set up my repo" in rendered
+    assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not code until the packet validates" in rendered
     assert "examples/small_config_tool_repo" in rendered
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
@@ -96,7 +100,27 @@ def test_rendered_claude_mentions_project_skills() -> None:
     assert "@AGENTS.md" in rendered
     assert "START_HERE.md" in rendered
     assert "PROMPT_FOR_NEW_AGENT.md" in rendered
+    assert "PROJECT_GOAL.md" in rendered
     assert "/skills" in rendered
     assert "/durable-slice" in rendered
+    assert "What do you want to build? One or two paragraphs is enough." in rendered
+    assert "Do not create or update a roadmap, packet, or code until the goal is known." in rendered
     assert ".claude/skills/durable-slice/SKILL.md" in rendered
     assert "validate_claude_integration.py" in rendered
+
+
+def test_rendered_skill_mentions_project_goal_intake() -> None:
+    methodology = json.loads(METHODOLOGY.read_text(encoding="utf-8"))
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("render_canonical_entrypoints", RENDERER)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+
+    rendered = module.render_skill(methodology)
+
+    assert "## Project Goal Intake" in rendered
+    assert "PROJECT_GOAL.md" in rendered
+    assert "What do you want to build? One or two paragraphs is enough." in rendered

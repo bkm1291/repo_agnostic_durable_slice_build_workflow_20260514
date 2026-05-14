@@ -5,8 +5,11 @@ Use this when you want to hand a repo and a project goal to a fresh agent.
 Shortest beginner prompt:
 
 ```text
-Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+Use this workflow template to set up my repo. If `PROJECT_GOAL.md` exists and has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
 ```
+
+No-prompt path: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`, fill in
+the goal, then give the folder to the agent and say `use this`.
 
 Copy the block below into the new agent. Replace the bracketed values first.
 
@@ -40,13 +43,14 @@ Startup:
 3. Read SKILL.md if present.
 4. Read README.md and START_HERE.md if this repo is newly bootstrapped.
 5. Read repo_agnostic_durable_slice_build_workflow_methodology_20260514.json.
-6. Read plans/repo_roadmap.json and the selected plans/slices/*_packet.json if they exist.
-7. If the packet cites source_read:<id>, read plans/source_read_register.json.
-8. If the packet cites planned future surface ids, read plans/planned_future_surfaces.json.
-9. Run python scripts/build_command_map.py --summary-only, python scripts/query_command_map.py --safe-read-only --summary-only, and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
-10. Run python scripts/validate_claude_integration.py --summary-only if using Claude Code or modifying Claude surfaces.
-11. If this is an existing mature repo, stop and read docs/MIGRATING_MATURE_REPO.md before copying or adapting template files.
-12. Check git status before editing.
+6. Read PROJECT_GOAL.md if it exists. If it contains a real non-placeholder goal, use it as the project goal.
+7. Read plans/repo_roadmap.json and the selected plans/slices/*_packet.json if they exist.
+8. If the packet cites source_read:<id>, read plans/source_read_register.json.
+9. If the packet cites planned future surface ids, read plans/planned_future_surfaces.json.
+10. Run python scripts/build_command_map.py --summary-only, python scripts/query_command_map.py --safe-read-only --summary-only, and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
+11. Run python scripts/validate_claude_integration.py --summary-only if using Claude Code or modifying Claude surfaces.
+12. If this is an existing mature repo, stop and read docs/MIGRATING_MATURE_REPO.md before copying or adapting template files.
+13. Check git status before editing.
 
 Claude Code shortcut:
 
@@ -57,6 +61,8 @@ Claude Code shortcut:
 
 If there is no roadmap or packet:
 
+- If PROJECT_GOAL.md contains a real non-placeholder goal, use it automatically.
+- If the project goal is missing, vague, or still a placeholder, ask: "What do you want to build? One or two paragraphs is enough." Do not create or update a roadmap, packet, or code until the goal is known.
 - Create plans/repo_roadmap.json.
 - Create plans/slices/slice_001_packet.json.
 - Keep the first slice small enough to name owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, not-in-scope items, boundary_rules, refresh_decision, and commit_plan before coding.

@@ -30,6 +30,8 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "CLAUDE.md").is_file()
     assert (target / "START_HERE.md").is_file()
     assert (target / "PROMPT_FOR_NEW_AGENT.md").is_file()
+    assert (target / "PROJECT_GOAL.template.md").is_file()
+    assert not (target / "PROJECT_GOAL.md").exists()
     assert (target / "RELEASE_CHECKLIST.md").is_file()
     assert (target / ".github" / "workflows" / "check.yml").is_file()
     assert (target / ".claude" / "skills" / "durable-slice" / "SKILL.md").is_file()

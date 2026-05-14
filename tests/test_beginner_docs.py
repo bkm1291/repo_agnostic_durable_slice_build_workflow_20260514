@@ -31,7 +31,15 @@ def test_beginner_docs_exist_and_cross_link() -> None:
         text = read(path)
         assert len(text.splitlines()) > 20
 
+    project_goal_template = read("PROJECT_GOAL.template.md")
+    assert "PROJECT_GOAL.md" in project_goal_template
+    assert "What do you want to build? One or two paragraphs is enough." in project_goal_template
+    assert "Do not create or update a roadmap, packet, or code until the goal is known." in project_goal_template
+
     start_here = read("START_HERE.md")
+    assert "PROJECT_GOAL.template.md" in start_here
+    assert "PROJECT_GOAL.md" in start_here
+    assert "Fastest no-prompt path" in start_here
     assert "docs/GLOSSARY.md" in start_here
     assert "docs/TROUBLESHOOTING.md" in start_here
     assert "docs/CI.md" in start_here
@@ -40,7 +48,8 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     assert "PROMPT_FOR_NEW_AGENT.md" in start_here
     assert "CLAUDE.md" in start_here
     assert "/durable-slice" in start_here
-    assert "Drag this folder into Claude Code or Codex" in start_here
+    assert "drag this folder into" in start_here
+    assert "Claude Code or Codex" in start_here
     assert "Do not code until the packet validates" in start_here
     assert "RELEASE_CHECKLIST.md" in start_here
     assert "docs/MIGRATING_MATURE_REPO.md" in start_here
@@ -52,6 +61,11 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
     for required_text in [
         "Shortest beginner prompt",
         "Use this workflow template to set up my repo",
+        "PROJECT_GOAL.template.md",
+        "PROJECT_GOAL.md",
+        "What do you want to build? One or two paragraphs is enough.",
+        "use it automatically",
+        "Do not create or update a roadmap, packet, or code until the goal is known.",
         "Do not code until the packet validates",
         "[ABSOLUTE_REPO_PATH]",
         "[ONE OR TWO PARAGRAPHS DESCRIBING WHAT THE REPO SHOULD BUILD]",

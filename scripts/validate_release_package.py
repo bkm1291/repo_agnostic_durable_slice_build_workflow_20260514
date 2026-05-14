@@ -20,6 +20,7 @@ REQUIRED_PATHS = (
     "BUILD_STAGE_PROMPTS.md",
     "START_HERE.md",
     "PROMPT_FOR_NEW_AGENT.md",
+    "PROJECT_GOAL.template.md",
     "RELEASE_CHECKLIST.md",
     "CHANGELOG.md",
     "LICENSE",
@@ -105,9 +106,10 @@ FORBIDDEN_PATH_PARTS = {
     "tmp",
     "scratch",
 }
-FORBIDDEN_EXACT_PATHS = {
-    "manifests/repo_file_index.json",
-    "manifests/command_map.json",
+FORBIDDEN_EXACT_PATH_REASONS = {
+    "PROJECT_GOAL.md": "RELEASE_TRACKED_LOCAL_PROJECT_GOAL_INTAKE",
+    "manifests/repo_file_index.json": "RELEASE_TRACKED_GENERATED_MANIFEST",
+    "manifests/command_map.json": "RELEASE_TRACKED_GENERATED_MANIFEST",
 }
 FORBIDDEN_NAME_FRAGMENTS = (
     ".env",
@@ -202,8 +204,9 @@ def _forbidden_release_path(path: str) -> str | None:
     parts = set(posix_path.parts)
     if parts & FORBIDDEN_PATH_PARTS:
         return "RELEASE_TRACKED_SCRATCH_OR_CACHE_PATH"
-    if path in FORBIDDEN_EXACT_PATHS:
-        return "RELEASE_TRACKED_GENERATED_MANIFEST"
+    exact_reason = FORBIDDEN_EXACT_PATH_REASONS.get(path)
+    if exact_reason:
+        return exact_reason
     name = posix_path.name.lower()
     if name.startswith(".env") or any(fragment in name for fragment in FORBIDDEN_NAME_FRAGMENTS):
         return "RELEASE_TRACKED_PRIVATE_OR_SECRET_LIKE_PATH"

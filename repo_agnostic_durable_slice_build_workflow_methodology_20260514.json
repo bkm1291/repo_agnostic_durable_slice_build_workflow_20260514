@@ -25,6 +25,11 @@
   "starter_kit_artifacts": {
     "canonical_source": "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json",
     "quickstart": "README.md",
+    "project_goal_intake": {
+      "template": "PROJECT_GOAL.template.md",
+      "local_intake": "PROJECT_GOAL.md",
+      "purpose": "Let non-experts create a no-prompt agent handoff by filling a local PROJECT_GOAL.md before saying use this. The filled intake file is local starter input, not the final durable roadmap authority."
+    },
     "human_entrypoints": [
       "AGENTS.md",
       "SKILL.md",

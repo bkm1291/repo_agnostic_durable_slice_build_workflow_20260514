@@ -119,10 +119,12 @@ def test_forbidden_release_paths_fail(tmp_path: Path) -> None:
         tracked_paths=[
             "scratch/debug.log",
             "manifests/command_map.json",
+            "PROJECT_GOAL.md",
             ".env",
         ],
     )
 
     assert "RELEASE_TRACKED_SCRATCH_OR_CACHE_PATH path=scratch/debug.log" in failures
     assert "RELEASE_TRACKED_GENERATED_MANIFEST path=manifests/command_map.json" in failures
+    assert "RELEASE_TRACKED_LOCAL_PROJECT_GOAL_INTAKE path=PROJECT_GOAL.md" in failures
     assert "RELEASE_TRACKED_PRIVATE_OR_SECRET_LIKE_PATH path=.env" in failures

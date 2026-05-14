@@ -24,9 +24,10 @@ unless the current task explicitly authorizes mutation.
 5. Read `plans/source_read_register.json` if packet source reads cite `source_read:<id>`.
 6. Read `plans/planned_future_surfaces.json` if packet boundary rules cite future surface ids.
 7. Check worktree state.
-8. Read the current durable roadmap or owner plan.
-9. Confirm or create the selected slice packet before protected edits.
-10. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
+8. Check `PROJECT_GOAL.md` first. If it exists and contains a concrete non-placeholder goal, use it automatically. If the user says only "use this", "use this template", gives a placeholder goal, or `PROJECT_GOAL.md` is missing/placeholder-only, ask exactly: "What do you want to build? One or two paragraphs is enough." Do not create or update a roadmap, packet, or code until the goal is known.
+9. Read the current durable roadmap or owner plan.
+10. Confirm or create the selected slice packet before protected edits.
+11. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
 
 ## Core Rules
 

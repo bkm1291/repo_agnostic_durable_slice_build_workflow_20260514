@@ -10,10 +10,15 @@ Capture a reusable from-scratch planning and implementation workflow for buildin
 
 ## New Here? Start With `START_HERE.md`
 
-Drag this folder into Claude Code or Codex, or open a terminal in this folder, then say:
+Fastest no-prompt path: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,
+fill in the goal, then drag this folder into Claude Code or Codex and say `use
+this`.
+
+If you have not filled in `PROJECT_GOAL.md`, drag this folder into Claude Code
+or Codex, or open a terminal in this folder, then say:
 
 ```text
-Use this workflow template to set up my repo. My project goal is: <describe what I want to build>. First create or update the roadmap and first slice packet. Do not code until the packet validates.
+Use this workflow template to set up my repo. If `PROJECT_GOAL.md` exists and has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
 ```
 
 If this workflow is new to you, start with `START_HERE.md`. It gives the shortest path: bootstrap a repo, run starter checks, read the roadmap and first slice packet, edit the packet before code, prove the slice, and commit.
@@ -189,6 +194,8 @@ Adjust commands to the target repo's language and test runner.
 - Agent entrypoint: `AGENTS.md`
 - Skill pointer: `SKILL.md`
 - Prompt library: `BUILD_STAGE_PROMPTS.md`
+- Project goal template: `PROJECT_GOAL.template.md`
+- Local project goal intake: `PROJECT_GOAL.md`
 - Claude Code entrypoint: `CLAUDE.md`
 - Claude Code durable-slice skill: `.claude/skills/durable-slice/SKILL.md`
 - Claude Code audit skill: `.claude/skills/durable-slice-audit/SKILL.md`
