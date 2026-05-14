@@ -44,11 +44,14 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "scripts/validate_planned_future_surfaces.py --summary-only" in rendered
     assert "scripts/build_repo_file_index.py --summary-only" in rendered
     assert "scripts/build_command_map.py --summary-only" in rendered
+    assert "scripts/query_command_map.py --safe-read-only --summary-only" in rendered
     assert "scripts/validate_command_map.py --summary-only" in rendered
     assert "scripts/validate_read_only_commands.py --summary-only" in rendered
+    assert "scripts/validate_release_package.py --summary-only" in rendered
     assert "START_HERE.md" in rendered
     assert "PROMPT_FOR_NEW_AGENT.md" in rendered
     assert "RELEASE_CHECKLIST.md" in rendered
+    assert "docs/CI.md" in rendered
     assert "docs/MIGRATING_MATURE_REPO.md" in rendered
     assert "docs/GLOSSARY.md" in rendered
     assert "docs/TROUBLESHOOTING.md" in rendered

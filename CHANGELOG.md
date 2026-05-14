@@ -14,6 +14,9 @@ All notable changes to this local template are documented here.
 - Added command-map contract, schema, builder, validator, and tests for durable command/helper discovery.
 - Added mature-repo migration guide, packet schema, validator, and tests to prevent unsafe adoption into existing repos.
 - Added a first-class schema-vs-Python-validator authority rule.
+- Added release package validation for public-file completeness, CI command coverage, example validation, and tracked scratch/cache/private path checks.
+- Added command-map query support for beginner-friendly command discovery without reading the full map.
+- Expanded planned-future-surface registry coverage for validator, test, and schema/contract maps.
 - Wired the new hardening into bootstrap, examples, docs, generated entrypoints, Makefile checks, and publish metadata.
 
 ## 0.3.0 - 2026-05-14

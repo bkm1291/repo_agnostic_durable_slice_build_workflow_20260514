@@ -52,6 +52,10 @@ def test_default_planned_future_surfaces_validates() -> None:
     assert result.returncode == 0
     assert "PASS planned_future_surfaces" in result.stdout
 
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    surface_ids = {item["surface_id"] for item in registry["surfaces"]}
+    assert {"validator_map", "test_map", "schema_contract_map"} <= surface_ids
+
 
 def test_duplicate_surface_id_fails(tmp_path: Path) -> None:
     registry = base_registry()

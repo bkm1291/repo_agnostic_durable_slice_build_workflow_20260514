@@ -187,6 +187,26 @@ path.
 Either change the target path, set `overwrite_allowed` to false, or get exact
 operator approval and update the packet scope.
 
+## `RELEASE_REQUIRED_PATH_MISSING`
+
+The release package validator expected a public template file, script, schema,
+contract, test, example, or CI workflow and could not find it.
+
+Restore the missing file, or update `scripts/validate_release_package.py` only
+if the file is intentionally no longer part of the public release surface.
+
+## `RELEASE_TRACKED_SCRATCH_OR_CACHE_PATH`
+
+A scratch, temporary, or cache path is tracked or would be packaged.
+
+Remove it from the release surface and keep it covered by `.gitignore`.
+
+## `RELEASE_CHANGELOG_VERSION_MISMATCH`
+
+`pyproject.toml` and `CHANGELOG.md` disagree about the release version.
+
+Update the changelog entry before tagging or publishing.
+
 ## First Debug Command
 
 When unsure, run:

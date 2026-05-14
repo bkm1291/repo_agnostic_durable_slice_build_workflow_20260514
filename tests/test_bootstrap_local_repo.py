@@ -30,6 +30,8 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "START_HERE.md").is_file()
     assert (target / "PROMPT_FOR_NEW_AGENT.md").is_file()
     assert (target / "RELEASE_CHECKLIST.md").is_file()
+    assert (target / ".github" / "workflows" / "check.yml").is_file()
+    assert (target / "docs" / "CI.md").is_file()
     assert (target / "docs" / "GLOSSARY.md").is_file()
     assert (target / "docs" / "MIGRATING_MATURE_REPO.md").is_file()
     assert (target / "docs" / "TROUBLESHOOTING.md").is_file()
@@ -48,8 +50,10 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "scripts" / "validate_planned_future_surfaces.py").is_file()
     assert (target / "scripts" / "build_repo_file_index.py").is_file()
     assert (target / "scripts" / "build_command_map.py").is_file()
+    assert (target / "scripts" / "query_command_map.py").is_file()
     assert (target / "scripts" / "validate_command_map.py").is_file()
     assert (target / "scripts" / "validate_mature_repo_migration_packet.py").is_file()
+    assert (target / "scripts" / "validate_release_package.py").is_file()
     assert (target / "scripts" / "query_repo_file_index.py").is_file()
     assert (target / "scripts" / "validate_read_only_commands.py").is_file()
     assert (target / "plans" / "repo_roadmap.json").is_file()
@@ -84,8 +88,21 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
         [sys.executable, "scripts/build_command_map.py", "--summary-only"],
         cwd=target,
     )
+    command_map_query = run_command(
+        [
+            sys.executable,
+            "scripts/query_command_map.py",
+            "--safe-read-only",
+            "--summary-only",
+        ],
+        cwd=target,
+    )
     command_map_check = run_command(
         [sys.executable, "scripts/validate_command_map.py", "--summary-only"],
+        cwd=target,
+    )
+    release_check = run_command(
+        [sys.executable, "scripts/validate_release_package.py", "--summary-only"],
         cwd=target,
     )
     source_read_check = run_command(
@@ -106,7 +123,9 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert low_token_check.returncode == 0
     assert repo_index_summary.returncode == 0
     assert command_map_summary.returncode == 0
+    assert command_map_query.returncode == 0
     assert command_map_check.returncode == 0
+    assert release_check.returncode == 0
     assert source_read_check.returncode == 0
     assert planned_surfaces_check.returncode == 0
     assert read_only_check.returncode == 0

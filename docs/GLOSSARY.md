@@ -142,7 +142,20 @@ Use:
 
 ```bash
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
+```
+
+## Release Package Validator
+
+A read-only release sanity check for required public files, generated entrypoint
+drift, examples, CI commands, version/changelog agreement, and tracked
+scratch/cache/private path names.
+
+Use:
+
+```bash
+python scripts/validate_release_package.py --summary-only
 ```
 
 ## Schema-Vs-Validator Authority

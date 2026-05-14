@@ -79,9 +79,11 @@
       "contract": "contracts/command_map_contract.json",
       "schema": "schemas/command_map.schema.json",
       "builder": "scripts/build_command_map.py",
+      "query": "scripts/query_command_map.py",
       "validator": "scripts/validate_command_map.py",
       "default_output": "manifests/command_map.json",
       "summary_command": "python scripts/build_command_map.py --summary-only",
+      "query_command": "python scripts/query_command_map.py --safe-read-only --summary-only",
       "validate_command": "python scripts/validate_command_map.py --summary-only",
       "write_command": "python scripts/build_command_map.py --write --summary-only",
       "purpose": "Map repo commands, helpers, validators, builders, writers, side effects, compact modes, owner refs, validator refs, and focused test refs without guessing."
@@ -115,10 +117,16 @@
       "command_template": "python scripts/validate_mature_repo_migration_packet.py <packet> --summary-only",
       "purpose": "Require an explicit migration packet before applying this template to an existing mature repo with its own authority surfaces."
     },
+    "release_package_validator": {
+      "validator": "scripts/validate_release_package.py",
+      "command_template": "python scripts/validate_release_package.py --summary-only",
+      "purpose": "Verify required public files, generated entrypoints, examples, CI checks, version/changelog alignment, and absence of tracked scratch/cache/private release paths before tagging or publishing."
+    },
     "beginner_docs": {
       "start_here": "START_HERE.md",
       "new_agent_prompt": "PROMPT_FOR_NEW_AGENT.md",
       "release_checklist": "RELEASE_CHECKLIST.md",
+      "ci": "docs/CI.md",
       "mature_repo_migration": "docs/MIGRATING_MATURE_REPO.md",
       "glossary": "docs/GLOSSARY.md",
       "troubleshooting": "docs/TROUBLESHOOTING.md",

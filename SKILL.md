@@ -42,7 +42,7 @@ Use `contracts/low_token_workflow_contract.json` as the compact-read policy. Que
 
 Use `plans/source_read_register.json` for durable source/full-read refs and `plans/planned_future_surfaces.json` for intentionally deferred future files.
 
-Use `scripts/build_command_map.py` and `scripts/validate_command_map.py` before adding new command, helper, validator, builder, writer, or test surfaces.
+Use `scripts/build_command_map.py`, `scripts/query_command_map.py`, and `scripts/validate_command_map.py` before adding new command, helper, validator, builder, writer, or test surfaces.
 
 For mature repos, validate an explicit migration packet with `scripts/validate_mature_repo_migration_packet.py` before copying or adapting template files.
 

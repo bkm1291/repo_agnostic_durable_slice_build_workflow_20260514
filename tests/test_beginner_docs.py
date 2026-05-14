@@ -15,6 +15,7 @@ def test_beginner_docs_exist_and_cross_link() -> None:
         "START_HERE.md",
         "PROMPT_FOR_NEW_AGENT.md",
         "RELEASE_CHECKLIST.md",
+        "docs/CI.md",
         "docs/GLOSSARY.md",
         "docs/MIGRATING_MATURE_REPO.md",
         "docs/TROUBLESHOOTING.md",
@@ -29,6 +30,7 @@ def test_beginner_docs_exist_and_cross_link() -> None:
     start_here = read("START_HERE.md")
     assert "docs/GLOSSARY.md" in start_here
     assert "docs/TROUBLESHOOTING.md" in start_here
+    assert "docs/CI.md" in start_here
     assert "docs/NEXT_ACTION_DECISION_TREE.md" in start_here
     assert "docs/ANNOTATED_SLICE_PACKET.md" in start_here
     assert "PROMPT_FOR_NEW_AGENT.md" in start_here
@@ -48,6 +50,7 @@ def test_new_agent_prompt_is_copy_paste_ready() -> None:
         "boundary_rules",
         "refresh_decision",
         "build_command_map.py",
+        "query_command_map.py",
         "MIGRATING_MATURE_REPO.md",
         "git status --short",
     ]:
@@ -62,6 +65,8 @@ def test_release_checklist_has_exact_release_commands() -> None:
         "make bootstrap-smoke",
         "make read-only-check",
         "build_command_map.py",
+        "query_command_map.py",
+        "validate_release_package.py",
         "git diff --check",
         "git commit -m",
         "git tag -a",
@@ -85,6 +90,7 @@ def test_troubleshooting_mentions_validator_failure_codes() -> None:
         "READ_ONLY_COMMAND_SECRET_OUTPUT",
         "COMMAND_MAP_WRITER_WITHOUT_EXPLICIT_INTENT",
         "MIGRATION_HIGH_RISK_AUTHORITY_UNCLASSIFIED",
+        "RELEASE_REQUIRED_PATH_MISSING",
     ]:
         assert failure_code in troubleshooting
 

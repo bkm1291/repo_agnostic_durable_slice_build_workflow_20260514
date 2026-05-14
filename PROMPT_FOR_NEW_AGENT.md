@@ -36,7 +36,7 @@ Startup:
 5. Read plans/repo_roadmap.json and the selected plans/slices/*_packet.json if they exist.
 6. If the packet cites source_read:<id>, read plans/source_read_register.json.
 7. If the packet cites planned future surface ids, read plans/planned_future_surfaces.json.
-8. Run python scripts/build_command_map.py --summary-only and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
+8. Run python scripts/build_command_map.py --summary-only, python scripts/query_command_map.py --safe-read-only --summary-only, and python scripts/validate_command_map.py --summary-only before adding new commands or helpers.
 9. If this is an existing mature repo, stop and read docs/MIGRATING_MATURE_REPO.md before copying or adapting template files.
 10. Check git status before editing.
 
@@ -65,8 +65,10 @@ python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 git diff --check

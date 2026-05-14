@@ -56,6 +56,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
     source_read_register = starter.get("source_read_register", {})
     planned_future_surfaces = starter.get("planned_future_surfaces", {})
     mature_repo_migration = starter.get("mature_repo_migration", {})
+    release_package = starter.get("release_package_validator", {})
     beginner_docs = starter.get("beginner_docs", {})
     realistic_example = starter.get("realistic_small_example", {})
     starter_validator_path = starter.get("starter_validator", {}).get(
@@ -107,6 +108,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
             "`python scripts/validate_command_map.py --summary-only` to confirm command discovery."
         ),
         (
+            "Run `python scripts/query_command_map.py --safe-read-only --summary-only` "
+            "to preview safe command routing."
+        ),
+        (
             "Create `plans/repo_roadmap.json` and "
             "`plans/slices/slice_001_packet.json`."
         ),
@@ -136,6 +141,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Repo file index query: {_wrap_code(repo_file_index.get('query', 'scripts/query_repo_file_index.py'))}",
         f"Command map contract: {_wrap_code(command_map.get('contract', 'contracts/command_map_contract.json'))}",
         f"Command map builder: {_wrap_code(command_map.get('builder', 'scripts/build_command_map.py'))}",
+        f"Command map query: {_wrap_code(command_map.get('query', 'scripts/query_command_map.py'))}",
         f"Command map validator: {_wrap_code(command_map.get('validator', 'scripts/validate_command_map.py'))}",
         f"Read-only command harness: {_wrap_code(read_only_harness.get('validator', 'scripts/validate_read_only_commands.py'))}",
         f"Read-only command contract: {_wrap_code(read_only_harness.get('contract', 'contracts/read_only_command_harness.json'))}",
@@ -146,6 +152,8 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Beginner start: {_wrap_code(beginner_docs.get('start_here', 'START_HERE.md'))}",
         f"New-agent handoff prompt: {_wrap_code(beginner_docs.get('new_agent_prompt', 'PROMPT_FOR_NEW_AGENT.md'))}",
         f"Release checklist: {_wrap_code(beginner_docs.get('release_checklist', 'RELEASE_CHECKLIST.md'))}",
+        f"Release package validator: {_wrap_code(release_package.get('validator', 'scripts/validate_release_package.py'))}",
+        f"CI guide: {_wrap_code(beginner_docs.get('ci', 'docs/CI.md'))}",
         f"Mature-repo migration guide: {_wrap_code(beginner_docs.get('mature_repo_migration', 'docs/MIGRATING_MATURE_REPO.md'))}",
         f"Mature-repo migration validator: {_wrap_code(mature_repo_migration.get('validator', 'scripts/validate_mature_repo_migration_packet.py'))}",
         f"Glossary: {_wrap_code(beginner_docs.get('glossary', 'docs/GLOSSARY.md'))}",
@@ -185,7 +193,7 @@ python scripts/render_canonical_entrypoints.py --write
 
 ## Beginner Path
 
-If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}` to hand a project goal to a fresh agent, `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` before tagging or publishing, `{beginner_docs.get("mature_repo_migration", "docs/MIGRATING_MATURE_REPO.md")}` before adopting this template into an existing repo, `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
+If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("new_agent_prompt", "PROMPT_FOR_NEW_AGENT.md")}` to hand a project goal to a fresh agent, `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` before tagging or publishing, `{beginner_docs.get("ci", "docs/CI.md")}` for CI expectations, `{beginner_docs.get("mature_repo_migration", "docs/MIGRATING_MATURE_REPO.md")}` before adopting this template into an existing repo, `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
 
 ## 10-Minute Bootstrap Path
 
@@ -207,6 +215,7 @@ Validate it with:
 {planned_future_surfaces.get("summary_command", "python scripts/validate_planned_future_surfaces.py --summary-only")}
 {repo_file_index.get("summary_command", "python scripts/build_repo_file_index.py --summary-only")}
 {command_map.get("summary_command", "python scripts/build_command_map.py --summary-only")}
+{command_map.get("query_command", "python scripts/query_command_map.py --safe-read-only --summary-only")}
 {command_map.get("validate_command", "python scripts/validate_command_map.py --summary-only")}
 {read_only_harness.get("summary_command", "python scripts/validate_read_only_commands.py --summary-only")}
 ```
@@ -224,8 +233,10 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -241,12 +252,14 @@ Before publishing or pushing a release branch:
 make check
 make bootstrap-smoke
 make read-only-check
+python scripts/validate_release_package.py --summary-only
 git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
-builder/query pair, a read-only command harness, and example tests.
+builder/query pair, a queryable command map, a read-only command harness, release
+package validation, and example tests.
 
 Use `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` for the full tag and publish sequence.
 
@@ -368,7 +381,7 @@ expanding owner files, generated outputs, external access, or future surfaces.
 
 Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. In this template, `{repo_file_index.get("builder", "scripts/build_repo_file_index.py")}` and `{repo_file_index.get("query", "scripts/query_repo_file_index.py")}` are the starter exact-path inventory tools. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
 
-Use `{command_map.get("builder", "scripts/build_command_map.py")}` and `{command_map.get("validator", "scripts/validate_command_map.py")}` to discover command/helper roles, compact modes, side effects, owner refs, validators, and tests before inventing new command surfaces.
+Use `{command_map.get("builder", "scripts/build_command_map.py")}`, `{command_map.get("query", "scripts/query_command_map.py")}`, and `{command_map.get("validator", "scripts/validate_command_map.py")}` to discover command/helper roles, compact modes, side effects, owner refs, validators, and tests before inventing new command surfaces.
 
 If a targeted read is insufficient, state:
 
@@ -447,7 +460,7 @@ Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` 
 
 Use `{source_read_register.get("register", "plans/source_read_register.json")}` for durable source/full-read refs and `{planned_future_surfaces.get("registry", "plans/planned_future_surfaces.json")}` for intentionally deferred future files.
 
-Use `{command_map.get("builder", "scripts/build_command_map.py")}` and `{command_map.get("validator", "scripts/validate_command_map.py")}` before adding new command, helper, validator, builder, writer, or test surfaces.
+Use `{command_map.get("builder", "scripts/build_command_map.py")}`, `{command_map.get("query", "scripts/query_command_map.py")}`, and `{command_map.get("validator", "scripts/validate_command_map.py")}` before adding new command, helper, validator, builder, writer, or test surfaces.
 
 For mature repos, validate an explicit migration packet with `{mature_repo_migration.get("validator", "scripts/validate_mature_repo_migration_packet.py")}` before copying or adapting template files.
 

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 METHODOLOGY = "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json"
 
 CORE_PATHS = (
+    ".github",
     ".gitignore",
     ".gitattributes",
     "LICENSE",
@@ -146,6 +147,7 @@ def _starter_packet() -> dict:
             "START_HERE.md",
             "PROMPT_FOR_NEW_AGENT.md",
             "RELEASE_CHECKLIST.md",
+            "docs/CI.md",
             "docs/GLOSSARY.md",
             "docs/MIGRATING_MATURE_REPO.md",
             "docs/TROUBLESHOOTING.md",
@@ -154,6 +156,7 @@ def _starter_packet() -> dict:
             "AGENTS.md",
             "SKILL.md",
             "BUILD_STAGE_PROMPTS.md",
+            ".github/workflows/check.yml",
             "pyproject.toml",
             METHODOLOGY,
             "schemas/methodology.schema.json",
@@ -173,10 +176,12 @@ def _starter_packet() -> dict:
             "plans/planned_future_surfaces.json",
             "scripts/build_repo_file_index.py",
             "scripts/build_command_map.py",
+            "scripts/query_command_map.py",
             "scripts/query_repo_file_index.py",
             "scripts/render_canonical_entrypoints.py",
             "scripts/validate_command_map.py",
             "scripts/validate_mature_repo_migration_packet.py",
+            "scripts/validate_release_package.py",
             "scripts/validate_read_only_commands.py",
             "scripts/validate_low_token_workflow.py",
             "scripts/validate_source_read_register.py",
@@ -184,7 +189,9 @@ def _starter_packet() -> dict:
             "scripts/validate_slice_packet.py",
             "tests/test_repo_file_index.py",
             "tests/test_command_map.py",
+            "tests/test_query_command_map.py",
             "tests/test_validate_mature_repo_migration_packet.py",
+            "tests/test_release_package.py",
             "tests/test_validate_read_only_commands.py",
             "tests/test_render_canonical_entrypoints.py",
             "tests/test_validate_low_token_workflow.py",
@@ -276,8 +283,10 @@ def _starter_packet() -> dict:
             "python scripts/validate_low_token_workflow.py --summary-only",
             "python scripts/build_repo_file_index.py --summary-only",
             "python scripts/build_command_map.py --summary-only",
+            "python scripts/query_command_map.py --safe-read-only --summary-only",
             "python scripts/validate_command_map.py --summary-only",
             "python scripts/validate_read_only_commands.py --summary-only",
+            "python scripts/validate_release_package.py --summary-only",
             (
                 "python scripts/validate_slice_packet.py "
                 "plans/slices/slice_001_packet.json --summary-only"
@@ -380,8 +389,10 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  python scripts/validate_planned_future_surfaces.py --summary-only")
     print("  python scripts/build_repo_file_index.py --summary-only")
     print("  python scripts/build_command_map.py --summary-only")
+    print("  python scripts/query_command_map.py --safe-read-only --summary-only")
     print("  python scripts/validate_command_map.py --summary-only")
     print("  python scripts/validate_read_only_commands.py --summary-only")
+    print("  python scripts/validate_release_package.py --summary-only")
     print(
         "  python scripts/validate_slice_packet.py "
         "plans/slices/slice_001_packet.json --summary-only"

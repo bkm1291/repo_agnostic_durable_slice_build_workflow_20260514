@@ -21,8 +21,10 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 make check
 make bootstrap-smoke
 make read-only-check
@@ -40,7 +42,16 @@ python - <<'PY'
 from pathlib import Path
 path = Path(".github/workflows/check.yml")
 text = path.read_text(encoding="utf-8")
-required = ["python-version", "3.11", "3.12", "make check", "make bootstrap-smoke", "make read-only-check"]
+required = [
+    "python-version",
+    "3.11",
+    "3.12",
+    "actions/checkout@v5",
+    "actions/setup-python@v6",
+    "make check",
+    "make bootstrap-smoke",
+    "make read-only-check",
+]
 missing = [item for item in required if item not in text]
 if missing:
     raise SystemExit(f"missing CI checks: {missing}")
@@ -104,8 +115,10 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```

@@ -29,7 +29,7 @@ python scripts/render_canonical_entrypoints.py --write
 
 ## Beginner Path
 
-If this workflow is new to you, start with `START_HERE.md`. Use `PROMPT_FOR_NEW_AGENT.md` to hand a project goal to a fresh agent, `RELEASE_CHECKLIST.md` before tagging or publishing, `docs/MIGRATING_MATURE_REPO.md` before adopting this template into an existing repo, `docs/GLOSSARY.md` for terms, `docs/TROUBLESHOOTING.md` for validator failures, `docs/NEXT_ACTION_DECISION_TREE.md` when you do not know the next action, and `docs/ANNOTATED_SLICE_PACKET.md` before writing your first packet.
+If this workflow is new to you, start with `START_HERE.md`. Use `PROMPT_FOR_NEW_AGENT.md` to hand a project goal to a fresh agent, `RELEASE_CHECKLIST.md` before tagging or publishing, `docs/CI.md` for CI expectations, `docs/MIGRATING_MATURE_REPO.md` before adopting this template into an existing repo, `docs/GLOSSARY.md` for terms, `docs/TROUBLESHOOTING.md` for validator failures, `docs/NEXT_ACTION_DECISION_TREE.md` when you do not know the next action, and `docs/ANNOTATED_SLICE_PACKET.md` before writing your first packet.
 
 ## 10-Minute Bootstrap Path
 
@@ -43,13 +43,14 @@ If this workflow is new to you, start with `START_HERE.md`. Use `PROMPT_FOR_NEW_
 8. Run `python scripts/validate_planned_future_surfaces.py --summary-only` to confirm intentionally deferred future files are classified.
 9. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
 10. Run `python scripts/build_command_map.py --summary-only` and `python scripts/validate_command_map.py --summary-only` to confirm command discovery.
-11. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-12. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-13. Fix packet failures before implementation.
-14. Implement only the owner files named in the packet.
-15. Run the owning validator and focused tests.
-16. Commit implementation first.
-17. Refresh generated indexes only if the packet's refresh decision requires it.
+11. Run `python scripts/query_command_map.py --safe-read-only --summary-only` to preview safe command routing.
+12. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+13. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+14. Fix packet failures before implementation.
+15. Implement only the owner files named in the packet.
+16. Run the owning validator and focused tests.
+17. Commit implementation first.
+18. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Workflow Chain
 
@@ -74,6 +75,7 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
 ```
@@ -91,8 +93,10 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -108,12 +112,14 @@ Before publishing or pushing a release branch:
 make check
 make bootstrap-smoke
 make read-only-check
+python scripts/validate_release_package.py --summary-only
 git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
-builder/query pair, a read-only command harness, and example tests.
+builder/query pair, a queryable command map, a read-only command harness, release
+package validation, and example tests.
 
 Use `RELEASE_CHECKLIST.md` for the full tag and publish sequence.
 
@@ -167,6 +173,7 @@ Adjust commands to the target repo's language and test runner.
 - Repo file index query: `scripts/query_repo_file_index.py`
 - Command map contract: `contracts/command_map_contract.json`
 - Command map builder: `scripts/build_command_map.py`
+- Command map query: `scripts/query_command_map.py`
 - Command map validator: `scripts/validate_command_map.py`
 - Read-only command harness: `scripts/validate_read_only_commands.py`
 - Read-only command contract: `contracts/read_only_command_harness.json`
@@ -177,6 +184,8 @@ Adjust commands to the target repo's language and test runner.
 - Beginner start: `START_HERE.md`
 - New-agent handoff prompt: `PROMPT_FOR_NEW_AGENT.md`
 - Release checklist: `RELEASE_CHECKLIST.md`
+- Release package validator: `scripts/validate_release_package.py`
+- CI guide: `docs/CI.md`
 - Mature-repo migration guide: `docs/MIGRATING_MATURE_REPO.md`
 - Mature-repo migration validator: `scripts/validate_mature_repo_migration_packet.py`
 - Glossary: `docs/GLOSSARY.md`

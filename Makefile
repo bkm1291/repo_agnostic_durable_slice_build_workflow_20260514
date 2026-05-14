@@ -21,6 +21,7 @@ validate-examples:
 	$(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --summary-only
 	$(PYTHON) scripts/build_command_map.py --summary-only
+	$(PYTHON) scripts/query_command_map.py --safe-read-only --summary-only
 	$(PYTHON) scripts/validate_command_map.py --summary-only
 	$(PYTHON) scripts/validate_read_only_commands.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --root examples/small_config_tool_repo --summary-only
@@ -47,6 +48,7 @@ release-check:
 	$(PYTHON) -m json.tool contracts/read_only_command_harness.json >/dev/null
 	$(PYTHON) -B -c "import pathlib,tomllib; tomllib.loads(pathlib.Path('pyproject.toml').read_text())"
 	@if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then git diff --check; else echo "SKIP git diff --check (not a git repo)"; fi
+	$(PYTHON) scripts/validate_release_package.py --summary-only
 
 repo-index:
 	$(PYTHON) scripts/build_repo_file_index.py --write --summary-only
@@ -65,8 +67,10 @@ bootstrap-smoke:
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_planned_future_surfaces.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/build_repo_file_index.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/build_command_map.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/query_command_map.py --safe-read-only --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_command_map.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_read_only_commands.py --summary-only
+	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_release_package.py --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 	cd /tmp/durable-slice-bootstrap-smoke && $(PYTHON) -m pytest -q tests
 

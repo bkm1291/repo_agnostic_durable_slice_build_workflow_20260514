@@ -39,6 +39,33 @@
       "owner_slice": "slice_004_artifact_outputs",
       "activation_packet": "plans/slices/slice_004_artifact_outputs_packet.json",
       "reason": "Useful before durable writer commands produce receipts, reports, or materialized outputs."
+    },
+    {
+      "surface_id": "validator_map",
+      "path": "manifests/validator_map.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_005_validator_map",
+      "activation_packet": "plans/slices/slice_005_validator_map_packet.json",
+      "reason": "Useful after several validators exist and agents need invariant-to-validator routing."
+    },
+    {
+      "surface_id": "test_map",
+      "path": "manifests/test_map.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_006_test_map",
+      "activation_packet": "plans/slices/slice_006_test_map_packet.json",
+      "reason": "Useful after focused tests grow enough to need behavior-to-test routing."
+    },
+    {
+      "surface_id": "schema_contract_map",
+      "path": "manifests/schema_contract_map.json",
+      "surface_type": "generated_index",
+      "status": "planned_not_created",
+      "owner_slice": "slice_007_schema_contract_map",
+      "activation_packet": "plans/slices/slice_007_schema_contract_map_packet.json",
+      "reason": "Useful after configs, schemas, and contracts grow enough to need cross-reference validation."
     }
   ]
 }

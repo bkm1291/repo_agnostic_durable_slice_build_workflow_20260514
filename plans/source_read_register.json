@@ -65,6 +65,16 @@
       "summary": "Dependency-free validator proving command/helper map structure, side-effect classification, read-only harness safety, and command summary counts."
     },
     {
+      "read_id": "query_command_map",
+      "surface": "scripts/query_command_map.py",
+      "surface_type": "other",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/query_command_map.py",
+      "summary": "Dependency-free command-map query helper for command id, entry type, side-effect class, safe-read-only, and path filters."
+    },
+    {
       "read_id": "mature_repo_migration_validator",
       "surface": "scripts/validate_mature_repo_migration_packet.py",
       "surface_type": "validator",
@@ -73,6 +83,16 @@
       "owner_slice": "slice_001",
       "evidence_ref": "scripts/validate_mature_repo_migration_packet.py",
       "summary": "Dependency-free validator proving mature-repo adoption packets preserve local authority, protect high-risk paths, and require explicit operator approval."
+    },
+    {
+      "read_id": "release_package_validator",
+      "surface": "scripts/validate_release_package.py",
+      "surface_type": "validator",
+      "read_type": "full_source",
+      "status": "satisfied",
+      "owner_slice": "slice_001",
+      "evidence_ref": "scripts/validate_release_package.py",
+      "summary": "Dependency-free validator proving required public release files, CI commands, generated entrypoint freshness, example validation, version/changelog alignment, and clean tracked package paths."
     }
   ]
 }

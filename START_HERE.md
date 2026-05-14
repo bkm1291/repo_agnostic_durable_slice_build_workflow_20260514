@@ -35,8 +35,10 @@ python scripts/validate_source_read_register.py --summary-only
 python scripts/validate_planned_future_surfaces.py --summary-only
 python scripts/build_repo_file_index.py --summary-only
 python scripts/build_command_map.py --summary-only
+python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -117,5 +119,6 @@ Only refresh generated indexes afterward if the packet says a refresh is needed.
 - If you do not know the next action, read `docs/NEXT_ACTION_DECISION_TREE.md`.
 - If the packet fields feel abstract, read `docs/ANNOTATED_SLICE_PACKET.md`.
 - If you are handing this repo to a fresh agent, fill in `PROMPT_FOR_NEW_AGENT.md`.
+- If you are checking CI expectations, read `docs/CI.md`.
 - If you are tagging or publishing, follow `RELEASE_CHECKLIST.md`.
 - If you are adopting the template into an existing repo, read `docs/MIGRATING_MATURE_REPO.md`.

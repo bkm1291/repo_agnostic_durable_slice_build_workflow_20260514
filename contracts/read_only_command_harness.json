@@ -106,6 +106,20 @@
       "compact_mode": true
     },
     {
+      "command_id": "query_command_map_summary",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/query_command_map.py",
+        "--safe-read-only",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
       "command_id": "validate_command_map",
       "cwd": ".",
       "argv": [
@@ -150,6 +164,19 @@
       "argv": [
         "{python}",
         "scripts/validate_read_only_commands.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_release_package",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_release_package.py",
         "--summary-only"
       ],
       "expected_exit_codes": [
