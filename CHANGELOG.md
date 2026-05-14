@@ -2,6 +2,13 @@
 
 All notable changes to this local template are documented here.
 
+## 0.3.0 - 2026-05-14
+
+- Added `START_HERE.md` with a first-30-minutes beginner walkthrough.
+- Added glossary, troubleshooting, next-action decision tree, and annotated slice-packet docs.
+- Wired beginner docs into canonical methodology metadata, generated README, pyproject metadata, and bootstrap output.
+- Added tests proving beginner docs exist, cross-link, and explain required packet fields and common validator failures.
+
 ## 0.2.0 - 2026-05-14
 
 - Added dependency-free repo file inventory builder and query scripts.

@@ -52,6 +52,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
     low_token = starter.get("low_token_workflow", {})
     repo_file_index = starter.get("repo_file_index", {})
     read_only_harness = starter.get("read_only_command_harness", {})
+    beginner_docs = starter.get("beginner_docs", {})
     realistic_example = starter.get("realistic_small_example", {})
     starter_validator_path = starter.get("starter_validator", {}).get(
         "path", "scripts/validate_slice_packet.py"
@@ -67,6 +68,7 @@ def render_readme(methodology: dict[str, Any]) -> str:
     )
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
     quickstart = [
+        f"If you are new to the workflow, read `{beginner_docs.get('start_here', 'START_HERE.md')}` first.",
         (
             "Run `python scripts/bootstrap_local_repo.py "
             "../my-new-repo --project-name my-new-repo`."
@@ -114,6 +116,11 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Repo file index query: {_wrap_code(repo_file_index.get('query', 'scripts/query_repo_file_index.py'))}",
         f"Read-only command harness: {_wrap_code(read_only_harness.get('validator', 'scripts/validate_read_only_commands.py'))}",
         f"Read-only command contract: {_wrap_code(read_only_harness.get('contract', 'contracts/read_only_command_harness.json'))}",
+        f"Beginner start: {_wrap_code(beginner_docs.get('start_here', 'START_HERE.md'))}",
+        f"Glossary: {_wrap_code(beginner_docs.get('glossary', 'docs/GLOSSARY.md'))}",
+        f"Troubleshooting: {_wrap_code(beginner_docs.get('troubleshooting', 'docs/TROUBLESHOOTING.md'))}",
+        f"Next-action decision tree: {_wrap_code(beginner_docs.get('decision_tree', 'docs/NEXT_ACTION_DECISION_TREE.md'))}",
+        f"Annotated slice packet: {_wrap_code(beginner_docs.get('annotated_slice_packet', 'docs/ANNOTATED_SLICE_PACKET.md'))}",
         f"Local bootstrap: {_wrap_code(local_bootstrap_path)}",
         f"Minimal example: {_wrap_code(minimal_example_root)}",
         f"Realistic small example: {_wrap_code(realistic_example_root)}",
@@ -144,6 +151,10 @@ python scripts/render_canonical_entrypoints.py --write
 ## Do Not Use This When
 
 {_bullet_list(methodology["not_intended_for"])}
+
+## Beginner Path
+
+If this workflow is new to you, start with `{beginner_docs.get("start_here", "START_HERE.md")}`. Use `{beginner_docs.get("glossary", "docs/GLOSSARY.md")}` for terms, `{beginner_docs.get("troubleshooting", "docs/TROUBLESHOOTING.md")}` for validator failures, `{beginner_docs.get("decision_tree", "docs/NEXT_ACTION_DECISION_TREE.md")}` when you do not know the next action, and `{beginner_docs.get("annotated_slice_packet", "docs/ANNOTATED_SLICE_PACKET.md")}` before writing your first packet.
 
 ## 10-Minute Bootstrap Path
 

@@ -42,3 +42,8 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "scripts/validate_low_token_workflow.py --summary-only" in rendered
     assert "scripts/build_repo_file_index.py --summary-only" in rendered
     assert "scripts/validate_read_only_commands.py --summary-only" in rendered
+    assert "START_HERE.md" in rendered
+    assert "docs/GLOSSARY.md" in rendered
+    assert "docs/TROUBLESHOOTING.md" in rendered
+    assert "docs/NEXT_ACTION_DECISION_TREE.md" in rendered
+    assert "docs/ANNOTATED_SLICE_PACKET.md" in rendered

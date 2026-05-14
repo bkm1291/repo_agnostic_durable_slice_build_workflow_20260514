@@ -1,6 +1,6 @@
 [project]
 name = "durable-slice-build-template"
-version = "0.2.0"
+version = "0.3.0"
 description = "Repo-agnostic bootstrap template for creating brand-new repos with durable slice-based planning, implementation, validation, and closeout."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -22,6 +22,7 @@ dependencies = []
 methodology = "durable_roadmap_per_slice_packet_owner_validator_focused_tests_future_notes_conditional_refresh_meaningful_closeout"
 canonical_methodology_path = "repo_agnostic_durable_slice_build_workflow_methodology_20260514.json"
 quickstart_path = "README.md"
+beginner_start_path = "START_HERE.md"
 intended_use = "brand_new_repo_bootstrap_only"
 not_existing_repo_authority_unless_adapted = true
 durable_format = "json"
@@ -154,6 +155,12 @@ local_bootstrap = "scripts/bootstrap_local_repo.py"
 repo_file_index_builder = "scripts/build_repo_file_index.py"
 repo_file_index_query = "scripts/query_repo_file_index.py"
 read_only_command_harness = "scripts/validate_read_only_commands.py"
+beginner_start = "START_HERE.md"
+beginner_docs = "docs"
+beginner_glossary = "docs/GLOSSARY.md"
+beginner_troubleshooting = "docs/TROUBLESHOOTING.md"
+beginner_decision_tree = "docs/NEXT_ACTION_DECISION_TREE.md"
+annotated_slice_packet = "docs/ANNOTATED_SLICE_PACKET.md"
 changelog = "CHANGELOG.md"
 license = "LICENSE"
 

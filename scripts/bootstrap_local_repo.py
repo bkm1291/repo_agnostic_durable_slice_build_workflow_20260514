@@ -18,6 +18,7 @@ CORE_PATHS = (
     ".gitattributes",
     "LICENSE",
     "CHANGELOG.md",
+    "START_HERE.md",
     "Makefile",
     "README.md",
     "AGENTS.md",
@@ -25,6 +26,7 @@ CORE_PATHS = (
     "BUILD_STAGE_PROMPTS.md",
     "pyproject.toml",
     METHODOLOGY,
+    "docs",
     "contracts",
     "schemas",
     "scripts",
@@ -110,9 +112,9 @@ def _starter_roadmap(project_name: str) -> dict:
                 "owner_area": "workflow_bootstrap",
                 "depends_on": [],
                 "not_in_scope": [
-                    "Domain runtime implementation",
-                    "Generated index refresh",
-                    "External source access",
+                "Domain runtime implementation",
+                "Generated index refresh",
+                "External source access",
                 ],
             }
         ],
@@ -138,6 +140,11 @@ def _starter_packet() -> dict:
         "goal": "Verify the copied durable slice workflow starter surfaces.",
         "files_to_create_or_edit": [
             "README.md",
+            "START_HERE.md",
+            "docs/GLOSSARY.md",
+            "docs/TROUBLESHOOTING.md",
+            "docs/NEXT_ACTION_DECISION_TREE.md",
+            "docs/ANNOTATED_SLICE_PACKET.md",
             "AGENTS.md",
             "SKILL.md",
             "BUILD_STAGE_PROMPTS.md",
@@ -199,6 +206,12 @@ def _starter_packet() -> dict:
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": "contracts/read_only_command_harness.json",
+            },
+            {
+                "surface": "beginner start and glossary documentation",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "START_HERE.md",
             }
         ],
         "owning_wave_validator": "scripts/validate_slice_packet.py",
@@ -285,6 +298,7 @@ def bootstrap(args: argparse.Namespace) -> int:
     print(f"PASS bootstrap target={target} files={len(planned)}")
     print("Next:")
     print("  cd", target)
+    print("  read START_HERE.md")
     print("  python scripts/render_canonical_entrypoints.py --check")
     print("  python scripts/validate_low_token_workflow.py --summary-only")
     print("  python scripts/build_repo_file_index.py --summary-only")

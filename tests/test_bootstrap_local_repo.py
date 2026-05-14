@@ -27,6 +27,11 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
 
     assert result.returncode == 0
     assert (target / "README.md").is_file()
+    assert (target / "START_HERE.md").is_file()
+    assert (target / "docs" / "GLOSSARY.md").is_file()
+    assert (target / "docs" / "TROUBLESHOOTING.md").is_file()
+    assert (target / "docs" / "NEXT_ACTION_DECISION_TREE.md").is_file()
+    assert (target / "docs" / "ANNOTATED_SLICE_PACKET.md").is_file()
     assert (target / "LICENSE").is_file()
     assert (target / "CHANGELOG.md").is_file()
     assert (target / "Makefile").is_file()

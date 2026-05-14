@@ -1,0 +1,113 @@
+# Glossary
+
+## Roadmap
+
+The durable plan for the repo. It says what slices exist, what order they should
+happen in, and what each slice is trying to prove.
+
+Starter path: `plans/repo_roadmap.json`
+
+## Slice
+
+One small piece of work. A slice should be small enough that the files, proof,
+tests, and out-of-scope boundaries are clear before coding.
+
+## Slice Packet
+
+The checklist for one slice. It tells the worker what to edit, what to read,
+what validator owns the behavior, what focused tests prove it, and whether any
+generated indexes need refresh.
+
+Starter path: `plans/slices/slice_001_packet.json`
+
+## Owner Files
+
+The files a slice is allowed to create or edit. These live in
+`files_to_create_or_edit`.
+
+If a needed file is missing from the list, update the packet first.
+
+## Owner Config, Schema, Or Contract
+
+The durable file that owns a behavior or rule.
+
+Examples:
+
+- a JSON config that owns runtime values
+- a JSON schema that owns data shape
+- a contract file that owns workflow rules
+
+## Required Source Reads
+
+The exact files, docs, indexes, or local references that must be read before the
+slice is safe to implement.
+
+Chat memory is not durable evidence. Prefer repo files and compact indexes.
+
+## Owning Validator
+
+The script that checks the rule or behavior owned by the slice.
+
+Example:
+
+```bash
+python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
+```
+
+## Focused Tests
+
+The tests that prove the slice behavior directly. Broad checks are useful, but
+focused tests are the main proof.
+
+## Refresh Decision
+
+The packet section that says whether generated discovery files, indexes,
+inventories, or post-output hooks need to run after implementation.
+
+If no future work depends on fresh generated discovery, the refresh timing
+should usually be `skip`.
+
+## Generated Refresh
+
+A deliberate update to generated indexes, maps, manifests, dashboards, or other
+derived files.
+
+Implementation changes should be committed before generated refresh changes.
+
+## Head-Only Staleness
+
+A generated index may describe the commit before the generated-index commit.
+That alone is not a reason to refresh again.
+
+## Low-Token Workflow
+
+The habit of finding the right file or section before reading broadly.
+
+Default pattern:
+
+1. query or inspect file inventory
+2. read only the exact relevant section
+3. run compact validators
+4. stop
+
+## File Inventory
+
+A compact list of repo files, types, sizes, line counts, and hashes.
+
+Use:
+
+```bash
+python scripts/build_repo_file_index.py --summary-only
+```
+
+## Read-Only Command Harness
+
+A validator that can check or run selected status commands and prove they did
+not change files.
+
+Use:
+
+```bash
+python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_read_only_commands.py --run --summary-only
+```

@@ -74,6 +74,14 @@
       "run_command": "python scripts/validate_read_only_commands.py --run --summary-only",
       "purpose": "Define compact status/check commands and optionally execute them under before/after file snapshots to prove they stay read-only."
     },
+    "beginner_docs": {
+      "start_here": "START_HERE.md",
+      "glossary": "docs/GLOSSARY.md",
+      "troubleshooting": "docs/TROUBLESHOOTING.md",
+      "decision_tree": "docs/NEXT_ACTION_DECISION_TREE.md",
+      "annotated_slice_packet": "docs/ANNOTATED_SLICE_PACKET.md",
+      "purpose": "Give non-agent experts a plain-language first path, term map, failure guide, next-action chooser, and field-by-field packet example."
+    },
     "local_make_targets": {
       "check": "make check",
       "render": "make render",

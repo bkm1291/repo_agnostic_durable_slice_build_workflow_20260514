@@ -27,20 +27,25 @@ python scripts/render_canonical_entrypoints.py --write
 - retroactively replacing a mature repo's local authority without an explicit migration plan
 - copying one repo's exact commands, paths, indexes, providers, or safety rules into another repo without adaptation
 
+## Beginner Path
+
+If this workflow is new to you, start with `START_HERE.md`. Use `docs/GLOSSARY.md` for terms, `docs/TROUBLESHOOTING.md` for validator failures, `docs/NEXT_ACTION_DECISION_TREE.md` when you do not know the next action, and `docs/ANNOTATED_SLICE_PACKET.md` before writing your first packet.
+
 ## 10-Minute Bootstrap Path
 
-1. Run `python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo`.
-2. Change into the generated repo.
-3. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
-4. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
-5. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
-6. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-7. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-8. Fix packet failures before implementation.
-9. Implement only the owner files named in the packet.
-10. Run the owning validator and focused tests.
-11. Commit implementation first.
-12. Refresh generated indexes only if the packet's refresh decision requires it.
+1. If you are new to the workflow, read `START_HERE.md` first.
+2. Run `python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo`.
+3. Change into the generated repo.
+4. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
+5. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
+6. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
+7. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+8. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+9. Fix packet failures before implementation.
+10. Implement only the owner files named in the packet.
+11. Run the owning validator and focused tests.
+12. Commit implementation first.
+13. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Workflow Chain
 
@@ -137,6 +142,11 @@ Adjust commands to the target repo's language and test runner.
 - Repo file index query: `scripts/query_repo_file_index.py`
 - Read-only command harness: `scripts/validate_read_only_commands.py`
 - Read-only command contract: `contracts/read_only_command_harness.json`
+- Beginner start: `START_HERE.md`
+- Glossary: `docs/GLOSSARY.md`
+- Troubleshooting: `docs/TROUBLESHOOTING.md`
+- Next-action decision tree: `docs/NEXT_ACTION_DECISION_TREE.md`
+- Annotated slice packet: `docs/ANNOTATED_SLICE_PACKET.md`
 - Local bootstrap: `scripts/bootstrap_local_repo.py`
 - Minimal example: `examples/minimal_repo`
 - Realistic small example: `examples/small_config_tool_repo`
