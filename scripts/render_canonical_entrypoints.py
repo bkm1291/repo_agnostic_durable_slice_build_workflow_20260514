@@ -14,6 +14,7 @@ DEFAULT_METHODOLOGY = "repo_agnostic_durable_slice_build_workflow_methodology_20
 PROJECT_GOAL_TEMPLATE = "PROJECT_GOAL.template.md"
 PROJECT_GOAL_INTAKE = "PROJECT_GOAL.md"
 GOAL_FALLBACK_QUESTION = "What do you want to build? One or two paragraphs is enough."
+PROMPT_BOX_LABEL = "Paste this into your prompt box:"
 NEXT_IMPLEMENTATION_PROMPT = (
     "Go. Implement slice 001 exactly as defined in "
     "plans/slices/slice_001_packet.json. Do not expand scope. If the packet "
@@ -21,9 +22,11 @@ NEXT_IMPLEMENTATION_PROMPT = (
     "validators/tests before closeout."
 )
 NEXT_PLANNING_PROMPT = (
-    "Continue. Pick the next roadmap slice, create or update its slice packet, "
-    "validate the packet, and stop before coding. Do not implement the next "
-    "slice until I say go."
+    "Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, "
+    "create or update its slice packet with owner files, owner configs/schemas/"
+    "contracts, source reads, owning validator, focused tests, boundary rules, "
+    "refresh decision, and commit plan, validate the packet, and stop before "
+    "coding. Do not implement the next slice until I say go."
 )
 GENERATED_HEADER = (
     "<!-- GENERATED FROM repo_agnostic_durable_slice_build_workflow_methodology_20260514.json "
@@ -46,8 +49,9 @@ BEGINNER_AGENT_PROMPT = (
     "After the goal is known, create or update the roadmap and first slice "
     "packet, then validate the packet. Do not create app/source implementation "
     "files or code features until the packet validates. Do not code until the "
-    "packet validates. After the packet passes, stop and show me the exact next "
-    f'prompt to send: "{NEXT_IMPLEMENTATION_PROMPT}"'
+    "packet validates. After the packet passes, stop and show me "
+    f"`{PROMPT_BOX_LABEL}` followed by this exact prompt: "
+    f'"{NEXT_IMPLEMENTATION_PROMPT}"'
 )
 MISSING_GOAL_RULE = (
     f"Check `{PROJECT_GOAL_INTAKE}` first. If it exists and contains a concrete "
@@ -245,13 +249,17 @@ Easiest path:
 3. If the agent asks what you want to build, answer in one or two paragraphs.
 4. The agent should create or update the roadmap and first slice packet, validate
    the packet, and wait to code until the packet passes.
-5. When the packet passes, the agent should show this next prompt:
+5. When the packet passes, the agent should show:
+
+{PROMPT_BOX_LABEL}
 
 ```text
 {NEXT_IMPLEMENTATION_PROMPT}
 ```
 6. When implementation finishes and proof passes, the agent should show this
    next planning prompt:
+
+{PROMPT_BOX_LABEL}
 
 ```text
 {NEXT_PLANNING_PROMPT}
@@ -521,13 +529,14 @@ commands/results, worktree state, classified residual noise, future-affecting
 notes persisted, and whether the next wave is ready.
 
 For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json`
-validates and show this exact next prompt:
+validates and show `{PROMPT_BOX_LABEL}` followed by this exact prompt:
 
 ```text
 {NEXT_IMPLEMENTATION_PROMPT}
 ```
 
-After an implementation slice passes proof, show this exact next planning prompt:
+After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed
+by this exact next planning prompt:
 
 ```text
 {NEXT_PLANNING_PROMPT}
@@ -627,13 +636,15 @@ irreversible operations, and closeout gates, not default status notes.
 ## Next Prompt Handoff
 
 If the current task only created or updated the roadmap and first slice packet,
-stop after the packet validates and show this exact next prompt:
+stop after the packet validates and show `{PROMPT_BOX_LABEL}` followed by this
+exact next prompt:
 
 ```text
 {NEXT_IMPLEMENTATION_PROMPT}
 ```
 
-After an implementation slice passes proof, show this exact next planning prompt:
+After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed
+by this exact next planning prompt:
 
 ```text
 {NEXT_PLANNING_PROMPT}
@@ -749,13 +760,13 @@ workflow doctrine stays in `AGENTS.md`, `SKILL.md`, and
 
 Report changed files, validation commands/results, worktree state, whether generated refresh was required, and the next recommended slice. Do not leave future requirements only in chat.
 
-For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json` validates and show this exact next prompt:
+For initial roadmap/packet setup, stop after `plans/slices/slice_001_packet.json` validates and show `{PROMPT_BOX_LABEL}` followed by this exact next prompt:
 
 ```text
 {NEXT_IMPLEMENTATION_PROMPT}
 ```
 
-After an implementation slice passes proof, show this exact next planning prompt:
+After an implementation slice passes proof, show `{PROMPT_BOX_LABEL}` followed by this exact next planning prompt:
 
 ```text
 {NEXT_PLANNING_PROMPT}

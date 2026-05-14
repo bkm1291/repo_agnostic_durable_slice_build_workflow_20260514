@@ -31,7 +31,9 @@ First read README.md, START_HERE.md, AGENTS.md, and `PROJECT_GOAL.md` if it exis
 After the goal is known, create or update the roadmap and first slice packet, then validate the packet. Do not create app/source implementation files or code features until the packet validates. Do not code until the packet validates.
 ```
 
-When the packet passes, the agent should show this next prompt:
+When the packet passes, the agent should show:
+
+Paste this into your prompt box:
 
 ```text
 Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json. Do not expand scope. If the packet needs to change, update and revalidate it before coding. Run the focused validators/tests before closeout.
@@ -40,8 +42,10 @@ Go. Implement slice 001 exactly as defined in plans/slices/slice_001_packet.json
 When implementation finishes and proof passes, the agent should show this next
 planning prompt:
 
+Paste this into your prompt box:
+
 ```text
-Continue. Pick the next roadmap slice, create or update its slice packet, validate the packet, and stop before coding. Do not implement the next slice until I say go.
+Continue. Inspect plans/repo_roadmap.json, choose the next planned slice, create or update its slice packet with owner files, owner configs/schemas/contracts, source reads, owning validator, focused tests, boundary rules, refresh decision, and commit plan, validate the packet, and stop before coding. Do not implement the next slice until I say go.
 ```
 
 No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,
