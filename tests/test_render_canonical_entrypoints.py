@@ -48,10 +48,12 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert rendered.index("## 10-Minute Bootstrap Path") < rendered.index(
         "## Expert / Custom Path"
     )
-    assert "drag this folder into Claude Code or Codex" in rendered
+    assert "Easiest path" in rendered
+    assert "Drag this folder into Claude Code or Codex" in rendered
+    assert "use this" in rendered
     assert "PROJECT_GOAL.template.md" in rendered
     assert "PROJECT_GOAL.md" in rendered
-    assert "Fastest no-prompt path" in rendered
+    assert "No-prompt option" in rendered
     assert "Use this workflow template to set up my repo" in rendered
     assert "What do you want to build? One or two paragraphs is enough." in rendered
     assert "Do not code until the packet validates" in rendered

@@ -209,12 +209,24 @@ def render_readme(methodology: dict[str, Any]) -> str:
 
 ## New Here? Start With `{beginner_docs.get("start_here", "START_HERE.md")}`
 
-Fastest no-prompt path: copy `{project_goal_template}` to `{project_goal_local}`,
-fill in the goal, then drag this folder into Claude Code or Codex and say `use
-this`.
+Easiest path:
 
-If you have not filled in `{project_goal_local}`, drag this folder into Claude Code
-or Codex, or open a terminal in this folder, then say:
+1. Drag this folder into Claude Code or Codex.
+2. Type:
+
+```text
+use this
+```
+
+3. When the agent asks what you want to build, answer in one or two paragraphs.
+4. The agent should create or update the roadmap and first slice packet, validate
+   the packet, and wait to code until the packet passes.
+
+No-prompt option: copy `{project_goal_template}` to `{project_goal_local}`, fill
+in the goal, then drag this folder into Claude Code or Codex and say `use this`.
+The agent will read the goal automatically.
+
+If your prompt box works better with a full instruction, paste:
 
 ```text
 {BEGINNER_AGENT_PROMPT}

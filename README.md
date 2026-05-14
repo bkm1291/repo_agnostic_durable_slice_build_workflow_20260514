@@ -10,12 +10,24 @@ Capture a reusable from-scratch planning and implementation workflow for buildin
 
 ## New Here? Start With `START_HERE.md`
 
-Fastest no-prompt path: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`,
-fill in the goal, then drag this folder into Claude Code or Codex and say `use
-this`.
+Easiest path:
 
-If you have not filled in `PROJECT_GOAL.md`, drag this folder into Claude Code
-or Codex, or open a terminal in this folder, then say:
+1. Drag this folder into Claude Code or Codex.
+2. Type:
+
+```text
+use this
+```
+
+3. When the agent asks what you want to build, answer in one or two paragraphs.
+4. The agent should create or update the roadmap and first slice packet, validate
+   the packet, and wait to code until the packet passes.
+
+No-prompt option: copy `PROJECT_GOAL.template.md` to `PROJECT_GOAL.md`, fill
+in the goal, then drag this folder into Claude Code or Codex and say `use this`.
+The agent will read the goal automatically.
+
+If your prompt box works better with a full instruction, paste:
 
 ```text
 Use this workflow template to set up my repo. If `PROJECT_GOAL.md` exists and has a real non-placeholder goal, use it automatically. If it is missing or still placeholder text, ask me: "What do you want to build? One or two paragraphs is enough." After the goal is known, create or update the roadmap and first slice packet. Do not code until the packet validates.
