@@ -40,3 +40,5 @@ def test_rendered_readme_mentions_realistic_example() -> None:
     assert "scripts/render_canonical_entrypoints.py --write" in rendered
     assert "contracts/low_token_workflow_contract.json" in rendered
     assert "scripts/validate_low_token_workflow.py --summary-only" in rendered
+    assert "scripts/build_repo_file_index.py --summary-only" in rendered
+    assert "scripts/validate_read_only_commands.py --summary-only" in rendered

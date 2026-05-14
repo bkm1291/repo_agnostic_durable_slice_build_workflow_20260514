@@ -50,6 +50,8 @@ def _starter_artifacts(methodology: dict[str, Any]) -> dict[str, Any]:
 def render_readme(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
     low_token = starter.get("low_token_workflow", {})
+    repo_file_index = starter.get("repo_file_index", {})
+    read_only_harness = starter.get("read_only_command_harness", {})
     realistic_example = starter.get("realistic_small_example", {})
     starter_validator_path = starter.get("starter_validator", {}).get(
         "path", "scripts/validate_slice_packet.py"
@@ -79,6 +81,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
             "to confirm compact-read defaults."
         ),
         (
+            "Run `python scripts/build_repo_file_index.py --summary-only` "
+            "to preview exact-path read routing without writing an index."
+        ),
+        (
             "Create `plans/repo_roadmap.json` and "
             "`plans/slices/slice_001_packet.json`."
         ),
@@ -104,6 +110,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Starter validator: {_wrap_code(starter_validator_path)}",
         f"Low-token contract: {_wrap_code(low_token.get('contract', 'contracts/low_token_workflow_contract.json'))}",
         f"Low-token validator: {_wrap_code(low_token.get('validator', 'scripts/validate_low_token_workflow.py'))}",
+        f"Repo file index builder: {_wrap_code(repo_file_index.get('builder', 'scripts/build_repo_file_index.py'))}",
+        f"Repo file index query: {_wrap_code(repo_file_index.get('query', 'scripts/query_repo_file_index.py'))}",
+        f"Read-only command harness: {_wrap_code(read_only_harness.get('validator', 'scripts/validate_read_only_commands.py'))}",
+        f"Read-only command contract: {_wrap_code(read_only_harness.get('contract', 'contracts/read_only_command_harness.json'))}",
         f"Local bootstrap: {_wrap_code(local_bootstrap_path)}",
         f"Minimal example: {_wrap_code(minimal_example_root)}",
         f"Realistic small example: {_wrap_code(realistic_example_root)}",
@@ -151,6 +161,8 @@ Validate it with:
 
 ```bash
 {low_token.get("command_template", "python scripts/validate_low_token_workflow.py --summary-only")}
+{repo_file_index.get("summary_command", "python scripts/build_repo_file_index.py --summary-only")}
+{read_only_harness.get("summary_command", "python scripts/validate_read_only_commands.py --summary-only")}
 ```
 
 ## Local Reuse
@@ -162,6 +174,8 @@ python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
 cd ../my-new-repo
 python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/build_repo_file_index.py --summary-only
+python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -179,7 +193,8 @@ git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
-generated entrypoint drift checks, semantic packet validation, and example tests.
+generated entrypoint drift checks, semantic packet validation, a file inventory
+builder/query pair, a read-only command harness, and example tests.
 
 ## First Slice Readiness
 
@@ -217,6 +232,8 @@ Adjust commands to the target repo's language and test runner.
 def render_agents(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
     low_token = starter.get("low_token_workflow", {})
+    repo_file_index = starter.get("repo_file_index", {})
+    read_only_harness = starter.get("read_only_command_harness", {})
     start_steps = [
         "Read this `AGENTS.md`.",
         "Read root `SKILL.md` if present.",
@@ -279,13 +296,13 @@ config-owned or explicitly operator-selected.
 
 ## Low-Token Workflow
 
-Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
+Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. In this template, `{repo_file_index.get("builder", "scripts/build_repo_file_index.py")}` and `{repo_file_index.get("query", "scripts/query_repo_file_index.py")}` are the starter exact-path inventory tools. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
 
 If a targeted read is insufficient, state:
 
 `Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
 
-Prefer validators and status commands that support `--summary-only` or another compact read-only mode.
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `{read_only_harness.get("validator", "scripts/validate_read_only_commands.py")}` to validate or run declared read-only checks under before/after file snapshots.
 
 ## Generated Outputs
 
@@ -312,6 +329,8 @@ notes persisted, and whether the next wave is ready.
 def render_skill(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
     low_token = starter.get("low_token_workflow", {})
+    repo_file_index = starter.get("repo_file_index", {})
+    read_only_harness = starter.get("read_only_command_harness", {})
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
     return f"""{GENERATED_HEADER}
 
@@ -346,7 +365,7 @@ proof, and stage exact intended paths.
 
 ## Low-Token Workflow
 
-Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the compact-read policy. Query or inspect file inventory before large reads, keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the compact-read policy. Query or inspect file inventory before large reads; the starter tools are `{repo_file_index.get("builder", "scripts/build_repo_file_index.py")}` and `{repo_file_index.get("query", "scripts/query_repo_file_index.py")}`. Keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output. Use `{read_only_harness.get("validator", "scripts/validate_read_only_commands.py")}` when you need command status proof to be read-only.
 
 If a wider read is needed, state:
 

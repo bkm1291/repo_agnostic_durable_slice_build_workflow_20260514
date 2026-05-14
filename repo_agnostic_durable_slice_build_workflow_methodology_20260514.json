@@ -29,7 +29,9 @@
       "methodology": "schemas/methodology.schema.json",
       "slice_packet": "schemas/slice_packet.schema.json",
       "refresh_decision": "schemas/refresh_decision.schema.json",
-      "low_token_workflow_contract": "schemas/low_token_workflow_contract.schema.json"
+      "low_token_workflow_contract": "schemas/low_token_workflow_contract.schema.json",
+      "repo_file_index": "schemas/repo_file_index.schema.json",
+      "read_only_command_harness": "schemas/read_only_command_harness.schema.json"
     },
     "starter_validator": {
       "path": "scripts/validate_slice_packet.py",
@@ -54,10 +56,31 @@
       "command_template": "python scripts/validate_low_token_workflow.py --summary-only",
       "purpose": "Provide a repo-agnostic version of the vbtpro-lab low-token workflow: query or file-inventory first, bounded targeted reads, compact command output, raw-output escalation, and no full reads of giant logs or registries unless debugging them directly."
     },
+    "repo_file_index": {
+      "schema": "schemas/repo_file_index.schema.json",
+      "builder": "scripts/build_repo_file_index.py",
+      "query": "scripts/query_repo_file_index.py",
+      "default_output": "manifests/repo_file_index.json",
+      "summary_command": "python scripts/build_repo_file_index.py --summary-only",
+      "write_command": "python scripts/build_repo_file_index.py --write --summary-only",
+      "query_command": "python scripts/query_repo_file_index.py --index manifests/repo_file_index.json --path-contains <path-fragment> --summary-only",
+      "purpose": "Give new repos a dependency-free exact-path file inventory so agents can route reads before opening large docs, logs, generated indexes, or broad plans."
+    },
+    "read_only_command_harness": {
+      "contract": "contracts/read_only_command_harness.json",
+      "schema": "schemas/read_only_command_harness.schema.json",
+      "validator": "scripts/validate_read_only_commands.py",
+      "summary_command": "python scripts/validate_read_only_commands.py --summary-only",
+      "run_command": "python scripts/validate_read_only_commands.py --run --summary-only",
+      "purpose": "Define compact status/check commands and optionally execute them under before/after file snapshots to prove they stay read-only."
+    },
     "local_make_targets": {
       "check": "make check",
       "render": "make render",
       "render_check": "make render-check",
+      "repo_index": "make repo-index",
+      "repo_index_check": "make repo-index-check",
+      "read_only_check": "make read-only-check",
       "bootstrap_smoke": "make bootstrap-smoke",
       "release_check": "make release-check"
     },

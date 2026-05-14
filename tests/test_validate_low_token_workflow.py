@@ -79,6 +79,17 @@ def test_escalation_phrase_requires_placeholders(tmp_path: Path) -> None:
     assert "LOW_TOKEN_ESCALATION_PHRASE_MISSING_PLACEHOLDERS" in result.stdout
 
 
+def test_supporting_tools_are_required(tmp_path: Path) -> None:
+    contract = load_contract()
+    contract["supporting_tools"]["file_inventory_builder"] = "scripts/other.py"
+    path = write_contract(tmp_path, contract)
+
+    result = run_validator(path)
+
+    assert result.returncode == 1
+    assert "LOW_TOKEN_SUPPORTING_TOOL_MISMATCH field=file_inventory_builder" in result.stdout
+
+
 def test_summary_only_does_not_write_files(tmp_path: Path) -> None:
     contract = load_contract()
     path = write_contract(tmp_path, contract)

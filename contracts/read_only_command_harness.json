@@ -1,0 +1,117 @@
+{
+  "schema_version": "v1.repo_agnostic_read_only_command_harness.1",
+  "contract_id": "repo_agnostic_read_only_command_harness_20260514",
+  "status": "active",
+  "purpose": "Define safe, compact commands that can be validated or executed under a before/after file snapshot so status-oriented checks stay read-only.",
+  "default_policy": {
+    "forbid_shell": true,
+    "forbid_shell_metacharacters": true,
+    "compact_mode_tokens": [
+      "--summary-only",
+      "--check",
+      "-q"
+    ],
+    "forbidden_argv_tokens": [
+      "--write",
+      "--force",
+      "--delete",
+      "--output-yaml",
+      "--receipt",
+      "--apply",
+      "--in-place"
+    ],
+    "snapshot_roots": [
+      "."
+    ],
+    "ignore_dirs": [
+      ".git",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".ruff_cache",
+      "__pycache__"
+    ],
+    "timeout_seconds": 30
+  },
+  "commands": [
+    {
+      "command_id": "render_entrypoints_check",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/render_canonical_entrypoints.py",
+        "--check"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_low_token_workflow",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_low_token_workflow.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "build_repo_file_index_summary",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/build_repo_file_index.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_read_only_command_harness",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_read_only_commands.py",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_minimal_example_packet",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_slice_packet.py",
+        "examples/minimal_repo/plans/slices/slice_001_packet.json",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
+      "command_id": "validate_small_config_example_packet",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_slice_packet.py",
+        "examples/small_config_tool_repo/plans/slices/slice_001_packet.json",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    }
+  ]
+}

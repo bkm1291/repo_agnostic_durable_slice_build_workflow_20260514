@@ -67,6 +67,34 @@ NOT_REQUIRED_COMMIT_VALUES = {
     "only_if_refresh_decision_requires_it",
 }
 
+WRITE_INTENT_TOKENS = (
+    " --write",
+    " --force",
+    " --delete",
+    " --apply",
+    " --in-place",
+    " >",
+    ">>",
+    " rm ",
+    " mv ",
+)
+
+REFRESH_FLAG_KEYWORDS = {
+    "repo_index_required": ("repo index", "file inventory", "repo discovery", "repo map"),
+    "script_import_index_required": ("script", "import", "command", "helper"),
+    "plan_note_index_required": ("plan", "note", "roadmap"),
+    "config_variable_inventory_required": ("config", "variable", "runtime field"),
+    "output_schema_index_required": ("output", "schema", "artifact"),
+    "post_output_hook_required": ("post output", "hook", "output hook"),
+    "next_wave_discovery_depends_on_new_surfaces": (
+        "next slice",
+        "next wave",
+        "future slice",
+        "future wave",
+        "future",
+    ),
+}
+
 
 def _load_json(path: Path) -> tuple[Any | None, list[str]]:
     try:
@@ -85,6 +113,15 @@ def _compact_packet(document: Any) -> Any:
 
 def _is_nonempty_string(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
+
+
+def _is_vague_text(value: Any) -> bool:
+    if not _is_nonempty_string(value):
+        return True
+    normalized = str(value).strip().lower()
+    return normalized in VAGUE_REASONS or any(
+        phrase in normalized for phrase in ("tbd", "todo", "if needed", "as needed")
+    )
 
 
 def _is_relative_repo_path(value: str) -> bool:
@@ -138,6 +175,8 @@ def _validate_string_list(packet: dict[str, Any], field: str, failures: list[str
     for index, item in enumerate(value):
         if not _is_nonempty_string(item):
             failures.append(f"PACKET_FIELD_LIST_ITEM_INVALID field={field} index={index}")
+        elif _is_vague_text(item):
+            failures.append(f"PACKET_FIELD_LIST_ITEM_VAGUE field={field} index={index}")
 
 
 def _validate_source_reads(value: Any, failures: list[str]) -> None:
@@ -153,6 +192,8 @@ def _validate_source_reads(value: Any, failures: list[str]) -> None:
         for field in ("surface", "read_type", "status", "evidence_ref"):
             if field not in item:
                 failures.append(f"SOURCE_READ_MISSING_FIELD index={index} field={field}")
+        if _is_vague_text(item.get("surface")):
+            failures.append(f"SOURCE_READ_SURFACE_VAGUE index={index}")
         if item.get("read_type") not in allowed_read_types:
             failures.append(f"SOURCE_READ_BAD_TYPE index={index}")
         if item.get("status") not in allowed_statuses:
@@ -161,6 +202,11 @@ def _validate_source_reads(value: Any, failures: list[str]) -> None:
             failures.append(f"SOURCE_READ_NONE_STATUS_MISMATCH index={index}")
         if item.get("read_type") != "none" and not _is_nonempty_string(item.get("evidence_ref")):
             failures.append(f"SOURCE_READ_EVIDENCE_EMPTY index={index}")
+        evidence_ref = str(item.get("evidence_ref", "")).strip()
+        if item.get("status") == "satisfied" and evidence_ref.lower() in {"chat", "conversation", "memory"}:
+            failures.append(f"SOURCE_READ_EVIDENCE_CHAT_ONLY index={index}")
+        if evidence_ref and "/" in evidence_ref and not _is_relative_repo_path(evidence_ref):
+            failures.append(f"SOURCE_READ_EVIDENCE_PATH_NOT_REPO_RELATIVE index={index}")
 
 
 def _validate_refresh_decision(value: Any, failures: list[str]) -> None:
@@ -196,6 +242,8 @@ def _validate_refresh_decision(value: Any, failures: list[str]) -> None:
         for index, item in enumerate(basis):
             if not _is_nonempty_string(item):
                 failures.append(f"REFRESH_DECISION_BASIS_INVALID index={index}")
+            elif _is_vague_text(item):
+                failures.append(f"REFRESH_DECISION_BASIS_VAGUE index={index}")
 
     if all(field in value and isinstance(value[field], bool) for field in REFRESH_FLAGS):
         any_refresh_required = any(value[field] for field in REFRESH_FLAGS)
@@ -203,6 +251,11 @@ def _validate_refresh_decision(value: Any, failures: list[str]) -> None:
             failures.append("REFRESH_REQUIRED_WITH_SKIP_TIMING")
         if not any_refresh_required and timing != "skip":
             failures.append("REFRESH_NOT_REQUIRED_WITH_NON_SKIP_TIMING")
+        combined_basis = " ".join(str(item).lower() for item in basis or [])
+        decision_text = f"{normalized_reason} {combined_basis}"
+        for field, keywords in REFRESH_FLAG_KEYWORDS.items():
+            if value.get(field) is True and not any(keyword in decision_text for keyword in keywords):
+                failures.append(f"REFRESH_FLAG_REASON_MISSING_KEYWORD field={field}")
         return
 
 
@@ -229,6 +282,9 @@ def _validate_commit_plan(value: Any, failures: list[str]) -> None:
         "do_not_chase_head_only_staleness"
     ] is not True:
         failures.append("COMMIT_PLAN_HEAD_CHASE_GUARD_NOT_TRUE")
+    for field in ("implementation_commit", "generated_refresh_commit"):
+        if field in value and _is_vague_text(value[field]):
+            failures.append(f"COMMIT_PLAN_FIELD_VAGUE field={field}")
 
 
 def _validate_commit_refresh_consistency(
@@ -263,6 +319,18 @@ def _validate_focused_command_refs(packet: dict[str, Any], failures: list[str]) 
                 failures.append(f"FOCUSED_COMMANDS_MISSING_OWNING_TEST path={test_path}")
 
 
+def _validate_focused_commands_are_read_only(packet: dict[str, Any], failures: list[str]) -> None:
+    commands = packet.get("focused_validators_and_tests")
+    if not isinstance(commands, list):
+        return
+    for index, command in enumerate(commands):
+        if not isinstance(command, str):
+            continue
+        padded = f" {command.strip().lower()} "
+        if any(token in padded for token in WRITE_INTENT_TOKENS):
+            failures.append(f"FOCUSED_COMMANDS_CONTAIN_WRITE_INTENT index={index}")
+
+
 def validate_packet(document: Any) -> list[str]:
     packet = _compact_packet(document)
     failures: list[str] = []
@@ -277,6 +345,8 @@ def validate_packet(document: Any) -> list[str]:
     for field in ("selected_wave_or_slice", "goal", "owning_wave_validator"):
         if field in packet and not _is_nonempty_string(packet[field]):
             failures.append(f"PACKET_FIELD_EMPTY field={field}")
+        elif field in packet and field != "owning_wave_validator" and _is_vague_text(packet[field]):
+            failures.append(f"PACKET_FIELD_VAGUE field={field}")
 
     for field in (
         "files_to_create_or_edit",
@@ -326,6 +396,7 @@ def validate_packet(document: Any) -> list[str]:
         packet, _refresh_required(packet.get("refresh_decision")), failures
     )
     _validate_focused_command_refs(packet, failures)
+    _validate_focused_commands_are_read_only(packet, failures)
 
     return failures
 

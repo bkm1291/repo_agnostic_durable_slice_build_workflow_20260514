@@ -120,6 +120,8 @@ def _starter_roadmap(project_name: str) -> dict:
             "commands": [
                 "python scripts/render_canonical_entrypoints.py --check",
                 "python scripts/validate_low_token_workflow.py --summary-only",
+                "python scripts/build_repo_file_index.py --summary-only",
+                "python scripts/validate_read_only_commands.py --summary-only",
                 (
                     "python scripts/validate_slice_packet.py "
                     "plans/slices/slice_001_packet.json --summary-only"
@@ -145,10 +147,18 @@ def _starter_packet() -> dict:
             "schemas/slice_packet.schema.json",
             "schemas/refresh_decision.schema.json",
             "schemas/low_token_workflow_contract.schema.json",
+            "schemas/repo_file_index.schema.json",
+            "schemas/read_only_command_harness.schema.json",
             "contracts/low_token_workflow_contract.json",
+            "contracts/read_only_command_harness.json",
+            "scripts/build_repo_file_index.py",
+            "scripts/query_repo_file_index.py",
             "scripts/render_canonical_entrypoints.py",
+            "scripts/validate_read_only_commands.py",
             "scripts/validate_low_token_workflow.py",
             "scripts/validate_slice_packet.py",
+            "tests/test_repo_file_index.py",
+            "tests/test_validate_read_only_commands.py",
             "tests/test_render_canonical_entrypoints.py",
             "tests/test_validate_low_token_workflow.py",
             "tests/test_validate_slice_packet.py",
@@ -160,7 +170,10 @@ def _starter_packet() -> dict:
             "schemas/slice_packet.schema.json",
             "schemas/refresh_decision.schema.json",
             "schemas/low_token_workflow_contract.schema.json",
+            "schemas/repo_file_index.schema.json",
+            "schemas/read_only_command_harness.schema.json",
             "contracts/low_token_workflow_contract.json",
+            "contracts/read_only_command_harness.json",
         ],
         "required_source_reads": [
             {
@@ -174,6 +187,18 @@ def _starter_packet() -> dict:
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": "contracts/low_token_workflow_contract.json",
+            },
+            {
+                "surface": "repo file inventory starter tools",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "scripts/build_repo_file_index.py",
+            },
+            {
+                "surface": "read-only command harness contract",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "contracts/read_only_command_harness.json",
             }
         ],
         "owning_wave_validator": "scripts/validate_slice_packet.py",
@@ -184,6 +209,8 @@ def _starter_packet() -> dict:
         "focused_validators_and_tests": [
             "python scripts/render_canonical_entrypoints.py --check",
             "python scripts/validate_low_token_workflow.py --summary-only",
+            "python scripts/build_repo_file_index.py --summary-only",
+            "python scripts/validate_read_only_commands.py --summary-only",
             (
                 "python scripts/validate_slice_packet.py "
                 "plans/slices/slice_001_packet.json --summary-only"
@@ -260,6 +287,8 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  cd", target)
     print("  python scripts/render_canonical_entrypoints.py --check")
     print("  python scripts/validate_low_token_workflow.py --summary-only")
+    print("  python scripts/build_repo_file_index.py --summary-only")
+    print("  python scripts/validate_read_only_commands.py --summary-only")
     print(
         "  python scripts/validate_slice_packet.py "
         "plans/slices/slice_001_packet.json --summary-only"

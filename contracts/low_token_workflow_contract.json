@@ -93,6 +93,13 @@
     "focused_validation_rule": "Focused validators should expose --summary-only or an equivalent compact mode whenever practical.",
     "refresh_rule": "Generated indexes and broad discovery refreshes are governed by the slice packet refresh_decision, not by habit."
   },
+  "supporting_tools": {
+    "file_inventory_builder": "scripts/build_repo_file_index.py",
+    "file_inventory_query": "scripts/query_repo_file_index.py",
+    "read_only_command_harness": "scripts/validate_read_only_commands.py",
+    "read_only_command_contract": "contracts/read_only_command_harness.json",
+    "rule": "Use file inventory routing before broad reads, and use the read-only command harness when a status/check command needs proof that it did not write files."
+  },
   "repo_gate_enforcement": {
     "check_script": "scripts/validate_low_token_workflow.py",
     "summary_command": "python scripts/validate_low_token_workflow.py --summary-only",

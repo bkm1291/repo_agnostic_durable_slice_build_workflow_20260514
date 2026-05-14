@@ -17,6 +17,7 @@
     "read_escalation_ladder",
     "command_output_policy",
     "slice_packet_integration",
+    "supporting_tools",
     "repo_gate_enforcement"
   ],
   "properties": {
@@ -78,6 +79,24 @@
           "minItems": 1,
           "items": { "type": "string", "minLength": 1 }
         }
+      }
+    },
+    "supporting_tools": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "file_inventory_builder",
+        "file_inventory_query",
+        "read_only_command_harness",
+        "read_only_command_contract",
+        "rule"
+      ],
+      "properties": {
+        "file_inventory_builder": { "const": "scripts/build_repo_file_index.py" },
+        "file_inventory_query": { "const": "scripts/query_repo_file_index.py" },
+        "read_only_command_harness": { "const": "scripts/validate_read_only_commands.py" },
+        "read_only_command_contract": { "const": "contracts/read_only_command_harness.json" },
+        "rule": { "type": "string", "minLength": 16 }
       }
     }
   }

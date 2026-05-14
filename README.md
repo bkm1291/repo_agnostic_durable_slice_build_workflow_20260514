@@ -33,13 +33,14 @@ python scripts/render_canonical_entrypoints.py --write
 2. Change into the generated repo.
 3. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
 4. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
-5. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-6. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-7. Fix packet failures before implementation.
-8. Implement only the owner files named in the packet.
-9. Run the owning validator and focused tests.
-10. Commit implementation first.
-11. Refresh generated indexes only if the packet's refresh decision requires it.
+5. Run `python scripts/build_repo_file_index.py --summary-only` to preview exact-path read routing without writing an index.
+6. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+7. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+8. Fix packet failures before implementation.
+9. Implement only the owner files named in the packet.
+10. Run the owning validator and focused tests.
+11. Commit implementation first.
+12. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Workflow Chain
 
@@ -60,6 +61,8 @@ Validate it with:
 
 ```bash
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/build_repo_file_index.py --summary-only
+python scripts/validate_read_only_commands.py --summary-only
 ```
 
 ## Local Reuse
@@ -71,6 +74,8 @@ python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
 cd ../my-new-repo
 python scripts/render_canonical_entrypoints.py --check
 python scripts/validate_low_token_workflow.py --summary-only
+python scripts/build_repo_file_index.py --summary-only
+python scripts/validate_read_only_commands.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -88,7 +93,8 @@ git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
-generated entrypoint drift checks, semantic packet validation, and example tests.
+generated entrypoint drift checks, semantic packet validation, a file inventory
+builder/query pair, a read-only command harness, and example tests.
 
 ## First Slice Readiness
 
@@ -127,6 +133,10 @@ Adjust commands to the target repo's language and test runner.
 - Starter validator: `scripts/validate_slice_packet.py`
 - Low-token contract: `contracts/low_token_workflow_contract.json`
 - Low-token validator: `scripts/validate_low_token_workflow.py`
+- Repo file index builder: `scripts/build_repo_file_index.py`
+- Repo file index query: `scripts/query_repo_file_index.py`
+- Read-only command harness: `scripts/validate_read_only_commands.py`
+- Read-only command contract: `contracts/read_only_command_harness.json`
 - Local bootstrap: `scripts/bootstrap_local_repo.py`
 - Minimal example: `examples/minimal_repo`
 - Realistic small example: `examples/small_config_tool_repo`

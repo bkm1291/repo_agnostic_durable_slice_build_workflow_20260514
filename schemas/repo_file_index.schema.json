@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/repo_file_index.schema.json",
+  "title": "Repo File Index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "index_id",
+    "inventory_mode",
+    "root_name",
+    "summary",
+    "files"
+  ],
+  "properties": {
+    "schema_version": { "const": "v1.repo_file_index.1" },
+    "index_id": { "const": "repo_file_index" },
+    "inventory_mode": {
+      "type": "string",
+      "enum": ["git_ls_files_cached_and_untracked", "filesystem_walk"]
+    },
+    "root_name": { "type": "string", "minLength": 1 },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_count", "kind_counts"],
+      "properties": {
+        "file_count": { "type": "integer", "minimum": 0 },
+        "kind_counts": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "extension",
+          "size_bytes",
+          "line_count",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))(?!.*\\\\).+"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "config",
+              "contract",
+              "doc",
+              "generated_or_evidence",
+              "plan",
+              "schema",
+              "script",
+              "source",
+              "test"
+            ]
+          },
+          "extension": { "type": "string" },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "line_count": {
+            "oneOf": [
+              { "type": "integer", "minimum": 0 },
+              { "type": "null" }
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -212,3 +212,57 @@ def test_refresh_required_needs_generated_refresh_commit_plan(tmp_path: Path) ->
 
     assert result.returncode == 1
     assert "COMMIT_PLAN_REFRESH_REQUIRED_BUT_GENERATED_COMMIT_NOT_REQUIRED" in result.stdout
+
+
+def test_vague_goal_fails(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["goal"] = "TBD"
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "PACKET_FIELD_VAGUE field=goal" in result.stdout
+
+
+def test_source_read_cannot_use_chat_as_evidence(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["required_source_reads"][0]["evidence_ref"] = "chat"
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "SOURCE_READ_EVIDENCE_CHAT_ONLY" in result.stdout
+
+
+def test_refresh_required_reason_must_match_flag(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["refresh_decision"]["config_variable_inventory_required"] = True
+    packet["refresh_decision"]["refresh_timing"] = "after_implementation_commit"
+    packet["refresh_decision"]["required_reason"] = "future discovery needs a fresh artifact map"
+    packet["refresh_decision"]["decision_basis"] = ["The next slice needs generated discovery."]
+    packet["commit_plan"]["generated_refresh_commit"] = "config_inventory_refresh"
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert (
+        "REFRESH_FLAG_REASON_MISSING_KEYWORD field=config_variable_inventory_required"
+        in result.stdout
+    )
+
+
+def test_focused_commands_cannot_have_write_intent(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["focused_validators_and_tests"][0] = (
+        "python scripts/validate_slice_packet.py "
+        "plans/slices/slice_001_packet.json --summary-only --write"
+    )
+    packet_path = write_packet(tmp_path, packet)
+
+    result = run_validator(packet_path)
+
+    assert result.returncode == 1
+    assert "FOCUSED_COMMANDS_CONTAIN_WRITE_INTENT" in result.stdout

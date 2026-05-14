@@ -38,7 +38,7 @@ proof, and stage exact intended paths.
 
 ## Low-Token Workflow
 
-Use `contracts/low_token_workflow_contract.json` as the compact-read policy. Query or inspect file inventory before large reads, keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+Use `contracts/low_token_workflow_contract.json` as the compact-read policy. Query or inspect file inventory before large reads; the starter tools are `scripts/build_repo_file_index.py` and `scripts/query_repo_file_index.py`. Keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output. Use `scripts/validate_read_only_commands.py` when you need command status proof to be read-only.
 
 If a wider read is needed, state:
 

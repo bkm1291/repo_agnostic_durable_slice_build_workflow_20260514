@@ -2,6 +2,15 @@
 
 All notable changes to this local template are documented here.
 
+## 0.2.0 - 2026-05-14
+
+- Added dependency-free repo file inventory builder and query scripts.
+- Added repo file index schema and compact JSON summary/query output.
+- Added read-only command harness contract, schema, validator, and snapshot-based no-write proof.
+- Deepened slice-packet semantic validation for vague goals, chat-only evidence, refresh flag rationale, and write-intent focused commands.
+- Wired file-index and read-only harness checks into bootstrap, Makefile validation, generated entrypoints, and pyproject metadata.
+- Added low-token file-inventory coverage to the small config-tool example.
+
 ## 0.1.0 - 2026-05-14
 
 - Added canonical methodology JSON as the source of doctrine.

@@ -64,13 +64,13 @@ config-owned or explicitly operator-selected.
 
 ## Low-Token Workflow
 
-Use `contracts/low_token_workflow_contract.json` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
+Use `contracts/low_token_workflow_contract.json` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. In this template, `scripts/build_repo_file_index.py` and `scripts/query_repo_file_index.py` are the starter exact-path inventory tools. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
 
 If a targeted read is insufficient, state:
 
 `Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
 
-Prefer validators and status commands that support `--summary-only` or another compact read-only mode.
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode. Use `scripts/validate_read_only_commands.py` to validate or run declared read-only checks under before/after file snapshots.
 
 ## Generated Outputs
 

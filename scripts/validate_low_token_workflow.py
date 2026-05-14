@@ -23,6 +23,7 @@ REQUIRED_TOP_LEVEL_FIELDS = (
     "read_escalation_ladder",
     "command_output_policy",
     "slice_packet_integration",
+    "supporting_tools",
     "repo_gate_enforcement",
 )
 REQUIRED_LIMITS = (
@@ -131,6 +132,20 @@ def validate_contract(contract: Any) -> list[str]:
         summary_fields = output_policy.get("compact_summary_fields")
         if not isinstance(summary_fields, list) or not summary_fields:
             failures.append("LOW_TOKEN_SUMMARY_FIELDS_EMPTY")
+
+    supporting_tools = contract.get("supporting_tools")
+    if not isinstance(supporting_tools, dict):
+        failures.append("LOW_TOKEN_SUPPORTING_TOOLS_NOT_OBJECT")
+    else:
+        expected_tools = {
+            "file_inventory_builder": "scripts/build_repo_file_index.py",
+            "file_inventory_query": "scripts/query_repo_file_index.py",
+            "read_only_command_harness": "scripts/validate_read_only_commands.py",
+            "read_only_command_contract": "contracts/read_only_command_harness.json",
+        }
+        for field, expected in expected_tools.items():
+            if supporting_tools.get(field) != expected:
+                failures.append(f"LOW_TOKEN_SUPPORTING_TOOL_MISMATCH field={field}")
 
     enforcement = contract.get("repo_gate_enforcement")
     if isinstance(enforcement, dict):
