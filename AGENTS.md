@@ -20,15 +20,17 @@ unless the current task explicitly authorizes mutation.
 1. Read this `AGENTS.md`.
 2. Read root `SKILL.md` if present.
 3. Read the canonical methodology JSON.
-4. Check worktree state.
-5. Read the current durable roadmap or owner plan.
-6. Confirm or create the selected slice packet before protected edits.
-7. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
+4. Read `contracts/low_token_workflow_contract.json` if present.
+5. Check worktree state.
+6. Read the current durable roadmap or owner plan.
+7. Confirm or create the selected slice packet before protected edits.
+8. Classify stale generated outputs as evidence unless a required validator/test or hard safety invariant fails.
 
 ## Core Rules
 
 - `durability_over_chat`: Important decisions must be saved in repo-native durable artifacts before they are treated as future authority.
 - `small_provable_slices`: A slice must be small enough that its owner surfaces, validator, tests, and downstream effects can be named before coding starts.
+- `low_token_by_default`: Use index or file-inventory routing before broad reads, keep targeted reads normally at or below 120 lines, and make command output compact by default.
 - `owner_validator_first`: Every implementation slice must have an owning validator or explicitly extend an existing owning validator.
 - `focused_tests_are_slice_proof`: Focused tests prove the behavior added by the slice. Broad index or status checks are navigation evidence, not behavioral proof.
 - `future_notes_only_when_actionable`: Only save future-wave notes when a discovery changes future implementation order, owner files, validators, full-read/source requirements, safety boundaries, index requirements, activation gates, or closeout criteria.
@@ -56,8 +58,19 @@ If the answers are vague, split the slice or return to targeted planning.
 ## Build Mode
 
 Implement only the owner bundle named in the packet. Use existing helpers,
-indexes, catalogs, and patterns before creating new helpers. Keep runtime values
+indexes, catalogs, and patterns before creating new helpers. Keep reads targeted
+and command output compact under the low-token contract. Keep runtime values
 config-owned or explicitly operator-selected.
+
+## Low-Token Workflow
+
+Use `contracts/low_token_workflow_contract.json` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
+
+If a targeted read is insufficient, state:
+
+`Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
+
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode.
 
 ## Generated Outputs
 

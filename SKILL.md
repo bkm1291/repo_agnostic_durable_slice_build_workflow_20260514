@@ -36,6 +36,14 @@ files, reuse existing patterns, keep runtime values config-owned, avoid future
 placeholders, add/update the owning validator, add focused tests, run focused
 proof, and stage exact intended paths.
 
+## Low-Token Workflow
+
+Use `contracts/low_token_workflow_contract.json` as the compact-read policy. Query or inspect file inventory before large reads, keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+
+If a wider read is needed, state:
+
+`Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
+
 ## Packet Checklist
 
 - `selected_wave_or_slice`

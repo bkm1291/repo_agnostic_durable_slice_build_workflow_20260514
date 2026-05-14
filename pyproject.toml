@@ -158,8 +158,10 @@ license = "LICENSE"
 methodology = "schemas/methodology.schema.json"
 slice_packet = "schemas/slice_packet.schema.json"
 refresh_decision = "schemas/refresh_decision.schema.json"
+low_token_workflow_contract = "schemas/low_token_workflow_contract.schema.json"
 
 [tool.durable_slice_workflow.commands]
+validate_low_token_workflow = "python scripts/validate_low_token_workflow.py --summary-only"
 validate_slice_packet = "python scripts/validate_slice_packet.py <packet> --summary-only"
 validate_minimal_example_packet = "python scripts/validate_slice_packet.py examples/minimal_repo/plans/slices/slice_001_packet.json --summary-only"
 validate_small_config_example_packet = "python scripts/validate_slice_packet.py examples/small_config_tool_repo/plans/slices/slice_001_packet.json --summary-only"
@@ -191,6 +193,16 @@ next_wave_discovery_depends_on_new_surfaces = true
 required_reason = true
 refresh_timing = true
 decision_basis = true
+
+[tool.durable_slice_workflow.low_token_workflow]
+contract = "contracts/low_token_workflow_contract.json"
+validator = "scripts/validate_low_token_workflow.py"
+max_targeted_read_lines = 120
+max_tool_output_tokens_default = 4000
+query_or_file_inventory_first = true
+summary_only_modes_must_be_read_only = true
+raw_noisy_output_allowed_by_default = false
+required_escalation_phrase = "Need wider read because <specific missing fact>. Reading <path> lines <range> only."
 
 [tool.durable_slice_workflow.refresh_policy]
 refresh_mid_wave = false

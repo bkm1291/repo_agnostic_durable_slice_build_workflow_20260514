@@ -32,13 +32,14 @@ python scripts/render_canonical_entrypoints.py --write
 1. Run `python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo`.
 2. Change into the generated repo.
 3. Keep the methodology JSON as canonical, or deliberately replace it with the target repo's canonical methodology file.
-4. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-5. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-6. Fix packet failures before implementation.
-7. Implement only the owner files named in the packet.
-8. Run the owning validator and focused tests.
-9. Commit implementation first.
-10. Refresh generated indexes only if the packet's refresh decision requires it.
+4. Run `python scripts/validate_low_token_workflow.py --summary-only` to confirm compact-read defaults.
+5. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+6. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+7. Fix packet failures before implementation.
+8. Implement only the owner files named in the packet.
+9. Run the owning validator and focused tests.
+10. Commit implementation first.
+11. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Workflow Chain
 
@@ -51,6 +52,16 @@ python scripts/render_canonical_entrypoints.py --write
 - Conditional generated/index refresh
 - Closeout receipt only when it proves something
 
+## Low-Token Defaults
+
+Use `contracts/low_token_workflow_contract.json` as the generic low-token policy. It keeps work index-first, targeted, and compact: query or file-inventory before large reads, normally read no more than 120 lines around exact keys, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+
+Validate it with:
+
+```bash
+python scripts/validate_low_token_workflow.py --summary-only
+```
+
 ## Local Reuse
 
 Bootstrap a new local repo:
@@ -59,6 +70,7 @@ Bootstrap a new local repo:
 python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
 cd ../my-new-repo
 python scripts/render_canonical_entrypoints.py --check
+python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -113,6 +125,8 @@ Adjust commands to the target repo's language and test runner.
 - Prompt library: `BUILD_STAGE_PROMPTS.md`
 - Starter schemas: `schemas/`
 - Starter validator: `scripts/validate_slice_packet.py`
+- Low-token contract: `contracts/low_token_workflow_contract.json`
+- Low-token validator: `scripts/validate_low_token_workflow.py`
 - Local bootstrap: `scripts/bootstrap_local_repo.py`
 - Minimal example: `examples/minimal_repo`
 - Realistic small example: `examples/small_config_tool_repo`

@@ -25,6 +25,7 @@ CORE_PATHS = (
     "BUILD_STAGE_PROMPTS.md",
     "pyproject.toml",
     METHODOLOGY,
+    "contracts",
     "schemas",
     "scripts",
     "tests",
@@ -118,6 +119,7 @@ def _starter_roadmap(project_name: str) -> dict:
         "validation_policy": {
             "commands": [
                 "python scripts/render_canonical_entrypoints.py --check",
+                "python scripts/validate_low_token_workflow.py --summary-only",
                 (
                     "python scripts/validate_slice_packet.py "
                     "plans/slices/slice_001_packet.json --summary-only"
@@ -142,9 +144,13 @@ def _starter_packet() -> dict:
             "schemas/methodology.schema.json",
             "schemas/slice_packet.schema.json",
             "schemas/refresh_decision.schema.json",
+            "schemas/low_token_workflow_contract.schema.json",
+            "contracts/low_token_workflow_contract.json",
             "scripts/render_canonical_entrypoints.py",
+            "scripts/validate_low_token_workflow.py",
             "scripts/validate_slice_packet.py",
             "tests/test_render_canonical_entrypoints.py",
+            "tests/test_validate_low_token_workflow.py",
             "tests/test_validate_slice_packet.py",
             "plans/repo_roadmap.json",
             "plans/slices/slice_001_packet.json",
@@ -153,6 +159,8 @@ def _starter_packet() -> dict:
             "schemas/methodology.schema.json",
             "schemas/slice_packet.schema.json",
             "schemas/refresh_decision.schema.json",
+            "schemas/low_token_workflow_contract.schema.json",
+            "contracts/low_token_workflow_contract.json",
         ],
         "required_source_reads": [
             {
@@ -160,6 +168,12 @@ def _starter_packet() -> dict:
                 "read_type": "docs",
                 "status": "satisfied",
                 "evidence_ref": METHODOLOGY,
+            },
+            {
+                "surface": "generic low-token workflow contract",
+                "read_type": "docs",
+                "status": "satisfied",
+                "evidence_ref": "contracts/low_token_workflow_contract.json",
             }
         ],
         "owning_wave_validator": "scripts/validate_slice_packet.py",
@@ -169,6 +183,7 @@ def _starter_packet() -> dict:
         ],
         "focused_validators_and_tests": [
             "python scripts/render_canonical_entrypoints.py --check",
+            "python scripts/validate_low_token_workflow.py --summary-only",
             (
                 "python scripts/validate_slice_packet.py "
                 "plans/slices/slice_001_packet.json --summary-only"
@@ -244,6 +259,7 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("Next:")
     print("  cd", target)
     print("  python scripts/render_canonical_entrypoints.py --check")
+    print("  python scripts/validate_low_token_workflow.py --summary-only")
     print(
         "  python scripts/validate_slice_packet.py "
         "plans/slices/slice_001_packet.json --summary-only"

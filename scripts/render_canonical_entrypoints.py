@@ -49,6 +49,7 @@ def _starter_artifacts(methodology: dict[str, Any]) -> dict[str, Any]:
 
 def render_readme(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
+    low_token = starter.get("low_token_workflow", {})
     realistic_example = starter.get("realistic_small_example", {})
     starter_validator_path = starter.get("starter_validator", {}).get(
         "path", "scripts/validate_slice_packet.py"
@@ -74,6 +75,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
             "with the target repo's canonical methodology file."
         ),
         (
+            "Run `python scripts/validate_low_token_workflow.py --summary-only` "
+            "to confirm compact-read defaults."
+        ),
+        (
             "Create `plans/repo_roadmap.json` and "
             "`plans/slices/slice_001_packet.json`."
         ),
@@ -97,6 +102,8 @@ def render_readme(methodology: dict[str, Any]) -> str:
         f"Prompt library: {_wrap_code('BUILD_STAGE_PROMPTS.md')}",
         f"Starter schemas: {_wrap_code('schemas/')}",
         f"Starter validator: {_wrap_code(starter_validator_path)}",
+        f"Low-token contract: {_wrap_code(low_token.get('contract', 'contracts/low_token_workflow_contract.json'))}",
+        f"Low-token validator: {_wrap_code(low_token.get('validator', 'scripts/validate_low_token_workflow.py'))}",
         f"Local bootstrap: {_wrap_code(local_bootstrap_path)}",
         f"Minimal example: {_wrap_code(minimal_example_root)}",
         f"Realistic small example: {_wrap_code(realistic_example_root)}",
@@ -136,6 +143,16 @@ python scripts/render_canonical_entrypoints.py --write
 
 {_bullet_list(workflow)}
 
+## Low-Token Defaults
+
+Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the generic low-token policy. It keeps work index-first, targeted, and compact: query or file-inventory before large reads, normally read no more than 120 lines around exact keys, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+
+Validate it with:
+
+```bash
+{low_token.get("command_template", "python scripts/validate_low_token_workflow.py --summary-only")}
+```
+
 ## Local Reuse
 
 Bootstrap a new local repo:
@@ -144,6 +161,7 @@ Bootstrap a new local repo:
 python scripts/bootstrap_local_repo.py ../my-new-repo --project-name my-new-repo
 cd ../my-new-repo
 python scripts/render_canonical_entrypoints.py --check
+python scripts/validate_low_token_workflow.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
 ```
@@ -198,10 +216,12 @@ Adjust commands to the target repo's language and test runner.
 
 def render_agents(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
+    low_token = starter.get("low_token_workflow", {})
     start_steps = [
         "Read this `AGENTS.md`.",
         "Read root `SKILL.md` if present.",
         "Read the canonical methodology JSON.",
+        f"Read `{low_token.get('contract', 'contracts/low_token_workflow_contract.json')}` if present.",
         "Check worktree state.",
         "Read the current durable roadmap or owner plan.",
         "Confirm or create the selected slice packet before protected edits.",
@@ -253,8 +273,19 @@ If the answers are vague, split the slice or return to targeted planning.
 ## Build Mode
 
 Implement only the owner bundle named in the packet. Use existing helpers,
-indexes, catalogs, and patterns before creating new helpers. Keep runtime values
+indexes, catalogs, and patterns before creating new helpers. Keep reads targeted
+and command output compact under the low-token contract. Keep runtime values
 config-owned or explicitly operator-selected.
+
+## Low-Token Workflow
+
+Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the portable low-token policy. Query an authority map, repo index, file inventory, or exact-path search before opening large repo-truth files. Targeted reads should normally stay at or below 120 lines around exact keys. Do not full-read giant logs, JSONL streams, registries, generated indexes, or broad handoff notes unless debugging that exact file.
+
+If a targeted read is insufficient, state:
+
+`Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
+
+Prefer validators and status commands that support `--summary-only` or another compact read-only mode.
 
 ## Generated Outputs
 
@@ -280,6 +311,7 @@ notes persisted, and whether the next wave is ready.
 
 def render_skill(methodology: dict[str, Any]) -> str:
     starter = _starter_artifacts(methodology)
+    low_token = starter.get("low_token_workflow", {})
     workflow = methodology.get("one_page_summary", {}).get("workflow", [])
     return f"""{GENERATED_HEADER}
 
@@ -311,6 +343,14 @@ Build Mode begins when the selected slice packet is ready. Read targeted owner
 files, reuse existing patterns, keep runtime values config-owned, avoid future
 placeholders, add/update the owning validator, add focused tests, run focused
 proof, and stage exact intended paths.
+
+## Low-Token Workflow
+
+Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the compact-read policy. Query or inspect file inventory before large reads, keep normal targeted reads at or below 120 lines, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
+
+If a wider read is needed, state:
+
+`Need wider read because <specific missing fact>. Reading <path> lines <range> only.`
 
 ## Packet Checklist
 

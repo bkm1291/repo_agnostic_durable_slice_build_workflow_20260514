@@ -8,6 +8,7 @@ All notable changes to this local template are documented here.
 - Added generated Markdown entrypoints and renderer drift checks.
 - Added dependency-free slice-packet validator.
 - Added starter JSON schemas for methodology, slice packets, and refresh decisions.
+- Added a generic low-token workflow contract, schema, validator, and bootstrap wiring based on the vbtpro-lab low-token pattern.
 - Added minimal and small config-tool examples.
 - Added Makefile targets for local checks.
 - Added local bootstrap script for seeding new repos from this template.

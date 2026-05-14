@@ -28,7 +28,8 @@
     "schemas": {
       "methodology": "schemas/methodology.schema.json",
       "slice_packet": "schemas/slice_packet.schema.json",
-      "refresh_decision": "schemas/refresh_decision.schema.json"
+      "refresh_decision": "schemas/refresh_decision.schema.json",
+      "low_token_workflow_contract": "schemas/low_token_workflow_contract.schema.json"
     },
     "starter_validator": {
       "path": "scripts/validate_slice_packet.py",
@@ -45,6 +46,13 @@
       "path": "scripts/bootstrap_local_repo.py",
       "command_template": "python scripts/bootstrap_local_repo.py <target> --project-name <name>",
       "purpose": "Copy the template into a new local repo, generate a starter roadmap and slice packet, and refuse overwrites unless --force is explicit."
+    },
+    "low_token_workflow": {
+      "contract": "contracts/low_token_workflow_contract.json",
+      "schema": "schemas/low_token_workflow_contract.schema.json",
+      "validator": "scripts/validate_low_token_workflow.py",
+      "command_template": "python scripts/validate_low_token_workflow.py --summary-only",
+      "purpose": "Provide a repo-agnostic version of the vbtpro-lab low-token workflow: query or file-inventory first, bounded targeted reads, compact command output, raw-output escalation, and no full reads of giant logs or registries unless debugging them directly."
     },
     "local_make_targets": {
       "check": "make check",
@@ -91,6 +99,12 @@
       "rule": "A slice must be small enough that its owner surfaces, validator, tests, and downstream effects can be named before coding starts.",
       "reason": "Large ambiguous work causes broad reads, over-testing, accidental refactors, and unclear proof.",
       "implementation": "Split work until one slice has a coherent owner bundle and an explicit proof path."
+    },
+    {
+      "principle_id": "low_token_by_default",
+      "rule": "Use index or file-inventory routing before broad reads, keep targeted reads normally at or below 120 lines, and make command output compact by default.",
+      "reason": "Agents lose useful context when they dump giant logs, generated indexes, registries, or raw validator output into the conversation.",
+      "implementation": "Adopt contracts/low_token_workflow_contract.json, run scripts/validate_low_token_workflow.py --summary-only, use summary/status command modes, and escalate wider reads only with the required reason phrase."
     },
     {
       "principle_id": "owner_validator_first",
@@ -831,6 +845,7 @@
       "validate_worktree_cleanliness",
       "validate_read_only_commands",
       "validate_no_secrets_persisted",
+      "validate_low_token_workflow",
       "one owning behavior validator per implementation slice"
     ],
     "build_order": [
@@ -2426,6 +2441,7 @@
     "A future wave can find the previous wave's owner surfaces and future notes.",
     "Generated index refreshes happen for stated reasons, not habit.",
     "Receipts and checkpoints remain meaningful.",
+    "Large logs, registries, generated indexes, and raw command outputs stay out of normal context unless a targeted escalation justifies them.",
     "Worktree noise is classified instead of becoming panic.",
     "The repo can grow without restarting from scratch."
   ],

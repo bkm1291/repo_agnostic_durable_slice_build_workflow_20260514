@@ -30,6 +30,8 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "LICENSE").is_file()
     assert (target / "CHANGELOG.md").is_file()
     assert (target / "Makefile").is_file()
+    assert (target / "contracts" / "low_token_workflow_contract.json").is_file()
+    assert (target / "scripts" / "validate_low_token_workflow.py").is_file()
     assert (target / "plans" / "repo_roadmap.json").is_file()
     assert (target / "plans" / "slices" / "slice_001_packet.json").is_file()
     assert not (target / ".git").exists()
@@ -50,9 +52,14 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
         ],
         cwd=target,
     )
+    low_token_check = run_command(
+        [sys.executable, "scripts/validate_low_token_workflow.py", "--summary-only"],
+        cwd=target,
+    )
 
     assert render_check.returncode == 0
     assert packet_check.returncode == 0
+    assert low_token_check.returncode == 0
 
 
 def test_bootstrap_dry_run_does_not_create_target(tmp_path: Path) -> None:

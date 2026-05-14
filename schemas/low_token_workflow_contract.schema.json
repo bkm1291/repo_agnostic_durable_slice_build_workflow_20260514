@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/low_token_workflow_contract.schema.json",
+  "title": "Repo-Agnostic Low-Token Workflow Contract",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "status",
+    "purpose",
+    "default_limits",
+    "bootstrap_exception",
+    "forbidden_full_reads",
+    "preferred_routing_surfaces",
+    "mandatory_sequence",
+    "read_escalation_ladder",
+    "command_output_policy",
+    "slice_packet_integration",
+    "repo_gate_enforcement"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "minLength": 1 },
+    "contract_id": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "default_limits": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "max_targeted_read_lines",
+        "max_tool_output_tokens_default",
+        "max_sync_calls_per_doc_slice",
+        "max_validate_only_calls_per_doc_slice",
+        "raw_sync_output_allowed",
+        "raw_validate_only_output_allowed"
+      ],
+      "properties": {
+        "max_targeted_read_lines": { "type": "integer", "minimum": 1, "maximum": 120 },
+        "max_tool_output_tokens_default": { "type": "integer", "minimum": 1, "maximum": 4000 },
+        "max_sync_calls_per_doc_slice": { "type": "integer", "minimum": 0, "maximum": 1 },
+        "max_validate_only_calls_per_doc_slice": { "type": "integer", "minimum": 0, "maximum": 1 },
+        "raw_sync_output_allowed": { "const": false },
+        "raw_validate_only_output_allowed": { "const": false }
+      }
+    },
+    "forbidden_full_reads": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "read_escalation_ladder": {
+      "type": "object",
+      "required": ["tier_0", "tier_1", "tier_2", "tier_3", "tier_4", "required_escalation_phrase"],
+      "properties": {
+        "required_escalation_phrase": {
+          "type": "string",
+          "pattern": "<specific missing fact>.*<path>.*<range>"
+        }
+      }
+    },
+    "command_output_policy": {
+      "type": "object",
+      "required": [
+        "command_stdout_default",
+        "full_stdout_stderr_log_root_template",
+        "summary_only_modes_must_be_read_only",
+        "writer_modes_require_explicit_intent",
+        "raw_output_escalation_rule",
+        "compact_summary_fields"
+      ],
+      "properties": {
+        "command_stdout_default": { "const": "compact_json_summary_only" },
+        "summary_only_modes_must_be_read_only": { "const": true },
+        "writer_modes_require_explicit_intent": { "const": true },
+        "compact_summary_fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

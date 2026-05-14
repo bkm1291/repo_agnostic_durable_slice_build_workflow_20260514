@@ -1,0 +1,115 @@
+{
+  "schema_version": "v1.repo_agnostic_low_token_workflow_contract.1",
+  "contract_id": "repo_agnostic_low_token_workflow_contract_20260514",
+  "status": "active",
+  "source_model": {
+    "based_on": "vbtpro-lab low-token workflow contract",
+    "adaptation_rule": "Keep the operational shape, remove repo-specific paths, and require target repos to bind concrete query, wrapper, and log paths during local adoption."
+  },
+  "purpose": "Make index-first routing, bounded reads, and compact command output the default so durable slice work does not burn context on giant logs, registries, generated indexes, or raw command output.",
+  "default_limits": {
+    "max_targeted_read_lines": 120,
+    "max_tool_output_tokens_default": 4000,
+    "max_sync_calls_per_doc_slice": 1,
+    "max_validate_only_calls_per_doc_slice": 1,
+    "raw_sync_output_allowed": false,
+    "raw_validate_only_output_allowed": false
+  },
+  "bootstrap_exception": {
+    "allowed_before_index_routing": [
+      "AGENTS.md",
+      "SKILL.md",
+      "README.md",
+      "the canonical methodology or local workflow contract",
+      "explicitly user-supplied small target files"
+    ],
+    "not_a_blanket_exception": [
+      "If the named file is a giant log, registry, JSONL stream, generated index, or large control-plane note, use targeted reads or index routing first.",
+      "Startup files should still be read by targeted section when they are known to be large."
+    ]
+  },
+  "forbidden_full_reads": [
+    "large event logs",
+    "JSONL streams",
+    "build or run registries",
+    "generated indexes and projections",
+    "giant roadmap, control-plane, or handoff notes",
+    "raw command logs unless debugging that exact log"
+  ],
+  "preferred_routing_surfaces": {
+    "query_first_rule": "Query the local authority map, repo index, roadmap index, file inventory, or exact-path lookup before opening large repo-truth files.",
+    "target_repo_must_bind": [
+      "authority query command or file",
+      "repo/file index command or file",
+      "roadmap or plan index command or file",
+      "large-log storage root"
+    ],
+    "fallback_when_no_index_exists": "Use rg or file inventory first, then a bounded targeted read around exact keys. Do not full-read large files just because the target repo has not built an index yet."
+  },
+  "mandatory_sequence": {
+    "doc_or_plan_only_slice": [
+      "query_or_file_inventory_first",
+      "targeted_read_only",
+      "patch",
+      "focused_parse_or_validator",
+      "one_compact_sync_if_available",
+      "one_compact_validate_if_available",
+      "stop"
+    ],
+    "implementation_slice": [
+      "read compact slice packet",
+      "query or inspect only named owner surfaces",
+      "run owning validator with summary or compact output",
+      "run focused tests",
+      "avoid broad generated refresh unless the refresh decision requires it"
+    ]
+  },
+  "read_escalation_ladder": {
+    "tier_0": "index_query_or_file_inventory_only",
+    "tier_1": "targeted_read_max_120_lines_around_exact_keys",
+    "tier_2": "second_targeted_read_of_linked_file_or_nearby_section",
+    "tier_3": "broader_bounded_read_300_to_500_lines_only_with_stated_reason",
+    "tier_4": "full_file_or_giant_log_only_when_debugging_that_file_directly",
+    "required_escalation_phrase": "Need wider read because <specific missing fact>. Reading <path> lines <range> only."
+  },
+  "command_output_policy": {
+    "command_stdout_default": "compact_json_summary_only",
+    "full_stdout_stderr_log_root_template": "/tmp/<repo-slug>-command-logs",
+    "summary_only_modes_must_be_read_only": true,
+    "writer_modes_require_explicit_intent": true,
+    "raw_output_escalation_rule": "If compact output is insufficient, search the saved /tmp log for the exact missing field first. Dumping raw output is allowed only when the exact missing field cannot be extracted from the saved log.",
+    "compact_summary_fields": [
+      "command_status",
+      "changed_path_count",
+      "artifact_count",
+      "validation_passed",
+      "hard_failure_count",
+      "warning_count",
+      "output_log_path"
+    ]
+  },
+  "slice_packet_integration": {
+    "source_reads_rule": "Slice packets should name the exact source reads needed and should prefer index/query evidence before large file reads.",
+    "focused_validation_rule": "Focused validators should expose --summary-only or an equivalent compact mode whenever practical.",
+    "refresh_rule": "Generated indexes and broad discovery refreshes are governed by the slice packet refresh_decision, not by habit."
+  },
+  "repo_gate_enforcement": {
+    "check_script": "scripts/validate_low_token_workflow.py",
+    "summary_command": "python scripts/validate_low_token_workflow.py --summary-only",
+    "required_checks": [
+      "contract_exists",
+      "max_targeted_read_lines_at_or_below_120",
+      "default_output_tokens_at_or_below_4000",
+      "raw_noisy_output_disabled_by_default",
+      "read_escalation_ladder_present",
+      "required_escalation_phrase_present",
+      "summary_only_commands_read_only",
+      "writer_modes_explicit"
+    ]
+  },
+  "localization_notes": [
+    "Replace placeholder routing surfaces with target-repo commands or files during bootstrap.",
+    "Do not copy vbtpro-lab paths into another repo.",
+    "Keep this contract focused on token and output discipline; heavy-run topology belongs in a separate target-repo policy when needed."
+  ]
+}
