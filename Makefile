@@ -14,6 +14,7 @@ governance-check:
 	$(PYTHON) scripts/build_artifact_output_map.py --write --summary-only
 	$(PYTHON) scripts/validate_artifact_output_map.py --summary-only
 	$(PYTHON) scripts/validate_cross_surface_consistency.py --mode strict --summary-only
+	$(PYTHON) scripts/validate_slice_closeout.py --mode strict
 	$(PYTHON) scripts/validate_slice_lifecycle.py --mode strict
 	$(PYTHON) scripts/validate_future_note_materiality.py --mode strict
 	$(PYTHON) scripts/validate_runtime_governance_dirs.py --summary-only

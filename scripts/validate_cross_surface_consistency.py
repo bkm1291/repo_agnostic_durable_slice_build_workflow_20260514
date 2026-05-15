@@ -11,6 +11,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--root", type=Path, default=Path.cwd())
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
     p.add_argument("--summary-only", action="store_true")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
     root = args.root
     failures: list[str] = []
@@ -38,12 +39,32 @@ def main(argv: list[str] | None = None) -> int:
         if pth in kind_by_path and not kind_by_path[pth].startswith("artifact:"):
             failures.append(f"REPO_INDEX_KIND_MISMATCH path={pth} kind={kind_by_path[pth]}")
 
+    roadmap_path = root / "plans" / "repo_roadmap.json"
+    if roadmap_path.exists():
+        roadmap = json.loads(roadmap_path.read_text(encoding="utf-8"))
+        wave_ids = {w.get("wave_id") for w in roadmap.get("waves", []) if isinstance(w, dict)}
+        for w in roadmap.get("waves", []):
+            if not isinstance(w, dict):
+                continue
+            packet = w.get("packet")
+            if isinstance(packet, str) and packet and not (root / packet).exists():
+                failures.append(f"ROADMAP_PACKET_MISSING wave={w.get('wave_id')} packet={packet}")
+            for dep in w.get("depends_on", []):
+                if dep not in wave_ids:
+                    failures.append(f"ROADMAP_ORPHAN_DEPENDENCY wave={w.get('wave_id')} depends_on={dep}")
+
     if failures and args.mode == "strict":
-        print("FAIL cross_surface_consistency")
-        for f in failures:
-            print(f)
+        if args.json:
+            print(json.dumps({"status": "failed", "failure_codes": failures}))
+        else:
+            print("FAIL cross_surface_consistency")
+            for f in failures:
+                print(f)
         return 1
-    print(f"{'WARN' if failures else 'PASS'} cross_surface_consistency mode={args.mode} failures={len(failures)}")
+    if args.json:
+        print(json.dumps({"status": "warn" if failures else "passed", "failure_codes": failures, "count": len(failures)}))
+    else:
+        print(f"{'WARN' if failures else 'PASS'} cross_surface_consistency mode={args.mode} failures={len(failures)}")
     return 0
 
 

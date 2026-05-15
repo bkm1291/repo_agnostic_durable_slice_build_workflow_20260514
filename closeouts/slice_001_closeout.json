@@ -1,0 +1,9 @@
+{
+  "implementation_commit": "placeholder",
+  "generated_refresh_required": false,
+  "proof_commands": [
+    "python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only"
+  ],
+  "residual_classification": "none",
+  "next_slice_ready": true
+}

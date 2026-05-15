@@ -91,10 +91,10 @@
     {
       "extension": "",
       "kind": "source",
-      "line_count": 106,
+      "line_count": 107,
       "path": "Makefile",
-      "sha256": "b04c8362749969007ea23e6b7ae0d42385caeab847ec6cfa18db6be237129eec",
-      "size_bytes": 6646
+      "sha256": "ed449e5cb667614eebaf3054edbe4937091dbd57b7368ed304b59c1f97f5bfe7",
+      "size_bytes": 6706
     },
     {
       "extension": ".md",
@@ -143,6 +143,14 @@
       "path": "START_HERE.md",
       "sha256": "24ad002e370de3384fed24402eb2ef1e2579b781c99df63bb819a879174b4926",
       "size_bytes": 7465
+    },
+    {
+      "extension": ".json",
+      "kind": "source",
+      "line_count": 9,
+      "path": "closeouts/slice_001_closeout.json",
+      "sha256": "f03aa4ea4ba4245010e8dff07978be23b846962529d05d83bc3344fe819978e5",
+      "size_bytes": 272
     },
     {
       "extension": ".json",
@@ -923,10 +931,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 51,
+      "line_count": 72,
       "path": "scripts/validate_cross_surface_consistency.py",
-      "sha256": "8bdd25c72f638baf05a9121b02bc9adc0a58130e467a2bfbeb08b0110c40224b",
-      "size_bytes": 2393
+      "sha256": "792505714e12b77a117e9d8eda27a9d1573abda019dcb96a79662799ce01643b",
+      "size_bytes": 3501
     },
     {
       "extension": ".py",
@@ -1027,10 +1035,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 26,
+      "line_count": 46,
       "path": "scripts/validate_slice_closeout.py",
-      "sha256": "ef31940ba57efd8e44e073468ecc3481b4c7e12901740b3abf29a763bc27de27",
-      "size_bytes": 989
+      "sha256": "fb17ac7d43dfe6d6e9c9fa6bee1b2d7735aa5035bf9700adfba4aefe2f0dca3d",
+      "size_bytes": 1788
     },
     {
       "extension": ".py",
@@ -1155,6 +1163,14 @@
     {
       "extension": ".py",
       "kind": "test",
+      "line_count": 32,
+      "path": "tests/test_slice_closeout_and_cross_surface.py",
+      "sha256": "ffa0751f63b3e9e06caadb50bc98ee816c769dd726f4a7c6aa7b7ddf098f6f93",
+      "size_bytes": 892
+    },
+    {
+      "extension": ".py",
+      "kind": "test",
       "line_count": 94,
       "path": "tests/test_validate_claude_integration.py",
       "sha256": "a187b419a0ead422b9a037b8a87ccdd79506ddd47fc10b2ac5ca5b7d6c4bddf0",
@@ -1214,7 +1230,7 @@
   "root_name": "repo_agnostic_durable_slice_build_workflow_20260514",
   "schema_version": "v1.repo_file_index.1",
   "summary": {
-    "file_count": 151,
+    "file_count": 153,
     "kind_counts": {
       "artifact:generated_index": 3,
       "config": 1,
@@ -1224,8 +1240,8 @@
       "plan": 5,
       "schema": 15,
       "script": 35,
-      "source": 38,
-      "test": 20
+      "source": 39,
+      "test": 21
     }
   }
 }
