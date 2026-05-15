@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from _validator_output import emit_json
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -55,14 +56,18 @@ def main(argv: list[str] | None = None) -> int:
 
     if failures and args.mode == "strict":
         if args.json:
-            print(json.dumps({"status": "failed", "failure_codes": failures}))
+            emit_json(validator="cross_surface_consistency", status="failed", failure_codes=failures)
         else:
             print("FAIL cross_surface_consistency")
             for f in failures:
                 print(f)
         return 1
     if args.json:
-        print(json.dumps({"status": "warn" if failures else "passed", "failure_codes": failures, "count": len(failures)}))
+        emit_json(
+            validator="cross_surface_consistency",
+            status="warn" if failures else "passed",
+            failure_codes=failures,
+        )
     else:
         print(f"{'WARN' if failures else 'PASS'} cross_surface_consistency mode={args.mode} failures={len(failures)}")
     return 0

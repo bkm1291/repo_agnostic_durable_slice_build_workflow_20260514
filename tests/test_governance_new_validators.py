@@ -36,3 +36,7 @@ def test_json_modes_emit_parseable_payloads() -> None:
         assert result.returncode == 0
         payload = json.loads(result.stdout)
         assert payload["status"] in {"passed", "warn"}
+        assert payload["validator"]
+        assert "failure_codes" in payload
+        assert "warnings" in payload
+        assert "count" in payload

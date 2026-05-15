@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from _validator_output import emit_json
 
 REQUIRED = ("implementation_commit", "proof_commands", "residual_classification", "next_slice_ready")
 
@@ -29,14 +30,14 @@ def main(argv: list[str] | None = None) -> int:
             fails.append(f"CLOSEOUT_MISSING_GENERATED_REFRESH_COMMIT path={rel}")
     if fails and args.mode == "strict":
         if args.json:
-            print(json.dumps({"status": "failed", "failure_codes": fails}))
+            emit_json(validator="slice_closeout", status="failed", failure_codes=fails)
         else:
             print("FAIL slice_closeout")
             for f in fails:
                 print(f)
         return 1
     if args.json:
-        print(json.dumps({"status": "warn" if fails else "passed", "failure_codes": fails, "count": len(fails)}))
+        emit_json(validator="slice_closeout", status="warn" if fails else "passed", failure_codes=fails)
     else:
         print(f"{'WARN' if fails else 'PASS'} slice_closeout mode={args.mode} failures={len(fails)}")
     return 0

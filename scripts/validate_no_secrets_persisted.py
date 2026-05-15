@@ -6,6 +6,7 @@ import math
 import json
 import re
 from pathlib import Path
+from _validator_output import emit_json
 
 PATTERNS = [
     re.compile(r"(?i)(api[_-]?key|token|secret|password)\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{8,}"),
@@ -27,6 +28,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--policy", type=Path, default=Path("configs/no_secrets_persisted_policy.json"))
     p.add_argument("--summary-only", action="store_true")
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
     policy = json.loads((args.root / args.policy).read_text(encoding="utf-8"))
     allow = [re.compile(x) for x in policy.get("allowlist_patterns", [])]
@@ -60,13 +62,24 @@ def main(argv: list[str] | None = None) -> int:
                     warnings.append(f"HIGH_ENTROPY_TOKEN severity=medium path={path.relative_to(args.root).as_posix()}")
                     break
     if failures and args.mode == "strict":
-        print("FAIL no_secrets_persisted")
-        for f in failures[:20]:
-            print(f)
+        if args.json:
+            emit_json(validator="no_secrets_persisted", status="failed", failure_codes=failures, warnings=warnings)
+        else:
+            print("FAIL no_secrets_persisted")
+            for f in failures[:20]:
+                print(f)
         return 1
     total_warn = len(warnings)
     status = "WARN" if (failures or warnings) else "PASS"
-    print(f"{status} no_secrets_persisted mode={args.mode} failures={len(failures)} warnings={total_warn}")
+    if args.json:
+        emit_json(
+            validator="no_secrets_persisted",
+            status="warn" if (failures or warnings) else "passed",
+            failure_codes=failures,
+            warnings=warnings,
+        )
+    else:
+        print(f"{status} no_secrets_persisted mode={args.mode} failures={len(failures)} warnings={total_warn}")
     return 0
 
 

@@ -5,6 +5,7 @@ import argparse
 import json
 import re
 from pathlib import Path
+from _validator_output import emit_json
 
 TS_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
 PLAN_RE = re.compile(r"^plan_note_[a-z0-9_]+_[0-9]{8}$")
@@ -15,6 +16,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--root", type=Path, default=Path.cwd())
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
     p.add_argument("--summary-only", action="store_true")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
     fails: list[str] = []
     for path in sorted((args.root / "plans" / "notes").glob("*.json")):
@@ -25,11 +27,21 @@ def main(argv: list[str] | None = None) -> int:
         if not TS_RE.match(str(d.get("created_at", ""))):
             fails.append(f"BAD_CREATED_AT path={rel}")
     if fails and args.mode == "strict":
-        print("FAIL governance_ids_timestamps")
-        for f in fails:
-            print(f)
+        if args.json:
+            emit_json(validator="governance_ids_timestamps", status="failed", failure_codes=fails)
+        else:
+            print("FAIL governance_ids_timestamps")
+            for f in fails:
+                print(f)
         return 1
-    print(f"{'WARN' if fails else 'PASS'} governance_ids_timestamps mode={args.mode} failures={len(fails)}")
+    if args.json:
+        emit_json(
+            validator="governance_ids_timestamps",
+            status="warn" if fails else "passed",
+            failure_codes=fails,
+        )
+    else:
+        print(f"{'WARN' if fails else 'PASS'} governance_ids_timestamps mode={args.mode} failures={len(fails)}")
     return 0
 
 

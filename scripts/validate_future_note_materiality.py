@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from _validator_output import emit_json
 
 MATERIAL_KEYS = {
     "execution_strategy",
@@ -28,14 +29,18 @@ def main(argv: list[str] | None = None) -> int:
             fails.append(f"FUTURE_NOTE_NOT_MATERIAL path={path.relative_to(args.root).as_posix()}")
     if fails and args.mode == "strict":
         if args.json:
-            print(json.dumps({"status": "failed", "failure_codes": fails, "count": len(fails)}))
+            emit_json(validator="future_note_materiality", status="failed", failure_codes=fails)
         else:
             print("FAIL future_note_materiality")
             for f in fails:
                 print(f)
         return 1
     if args.json:
-        print(json.dumps({"status": "warn" if fails else "passed", "failure_codes": fails, "count": len(fails)}))
+        emit_json(
+            validator="future_note_materiality",
+            status="warn" if fails else "passed",
+            failure_codes=fails,
+        )
     else:
         print(f"{'WARN' if fails else 'PASS'} future_note_materiality mode={args.mode} failures={len(fails)}")
     return 0

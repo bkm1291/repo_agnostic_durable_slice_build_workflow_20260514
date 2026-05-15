@@ -835,6 +835,14 @@
     {
       "extension": ".py",
       "kind": "script",
+      "line_count": 14,
+      "path": "scripts/_validator_output.py",
+      "sha256": "73f0fc9734c44123fbf94946a06ef18b54823e04c7a9a00d28585427eda8d844",
+      "size_bytes": 390
+    },
+    {
+      "extension": ".py",
+      "kind": "script",
       "line_count": 588,
       "path": "scripts/bootstrap_local_repo.py",
       "sha256": "ad8a9283d89a60eb3de75f3e9bb3c1000e69ffa62d192d7f7655a86ebffa582a",
@@ -947,26 +955,26 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 72,
+      "line_count": 77,
       "path": "scripts/validate_cross_surface_consistency.py",
-      "sha256": "792505714e12b77a117e9d8eda27a9d1573abda019dcb96a79662799ce01643b",
-      "size_bytes": 3501
+      "sha256": "12e179a51bdef636ad2787374f96fbcb9985dd2d8b76937d48d39e3711ca12fa",
+      "size_bytes": 3610
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 45,
+      "line_count": 50,
       "path": "scripts/validate_future_note_materiality.py",
-      "sha256": "f5d15e22a726baad31805bd4a9289dd2f1035c9c5045023553d2d8e877fd8d1b",
-      "size_bytes": 1484
+      "sha256": "169cf16cf61ae32a8edaf50c8837ad346e61bc3730269e28fe55ef6a1a2bfae6",
+      "size_bytes": 1571
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 37,
+      "line_count": 49,
       "path": "scripts/validate_governance_ids_timestamps.py",
-      "sha256": "64422222c78cf260f4c4e42c3023422122b09b338cf397e619790e298dbbe279",
-      "size_bytes": 1340
+      "sha256": "2a8ef7ed7c28cfd0c9852cc1ae49f607f7e416177d5f6bd0b478f80ef9e0bdab",
+      "size_bytes": 1772
     },
     {
       "extension": ".py",
@@ -987,10 +995,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 74,
+      "line_count": 87,
       "path": "scripts/validate_no_secrets_persisted.py",
-      "sha256": "cc12abd19df58473bd1cb05c09f5721b5d8d0b686dab8ccf0cdb348019869d69",
-      "size_bytes": 3096
+      "sha256": "da70fcdd2971c517e534b08dd9c1a8aae1f9da04d9418deb57830cd91e7f6308",
+      "size_bytes": 3591
     },
     {
       "extension": ".py",
@@ -1003,10 +1011,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 58,
+      "line_count": 64,
       "path": "scripts/validate_plan_notes.py",
-      "sha256": "007e40bc2ea79daa3ea2923ac00a87e0e68f309d4e642dd4dd3f1caa8dff0260",
-      "size_bytes": 2266
+      "sha256": "86b240978ad2a20955972e36ae8edf2952ded9b0dcf88e335581767706fc5a8c",
+      "size_bytes": 2322
     },
     {
       "extension": ".py",
@@ -1051,18 +1059,18 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 46,
+      "line_count": 47,
       "path": "scripts/validate_slice_closeout.py",
-      "sha256": "fb17ac7d43dfe6d6e9c9fa6bee1b2d7735aa5035bf9700adfba4aefe2f0dca3d",
-      "size_bytes": 1788
+      "sha256": "cccd8c51bee89e4fadc4c55c0b7df68a154b9b59fcfc254af63f8affcf9e5e80",
+      "size_bytes": 1831
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 48,
+      "line_count": 49,
       "path": "scripts/validate_slice_lifecycle.py",
-      "sha256": "c2816d065fa017b1d9baa8e593a87e578a6f51bde2d6ae63410b6ae805aafac6",
-      "size_bytes": 1841
+      "sha256": "b5092a4f758ab1aaad77553aac89396dadd8d9595c74352913b79bd741244acb",
+      "size_bytes": 1866
     },
     {
       "extension": ".py",
@@ -1123,10 +1131,10 @@
     {
       "extension": ".py",
       "kind": "test",
-      "line_count": 38,
+      "line_count": 42,
       "path": "tests/test_governance_new_validators.py",
-      "sha256": "99b92c95c0c86332ea7207f4922ee5afcf71faa2155a827dc932b77d096af230",
-      "size_bytes": 1149
+      "sha256": "af16564496266e1f9ff0fed48bd0a8f4f458238874d826822ca77ad6a2672b87",
+      "size_bytes": 1298
     },
     {
       "extension": ".py",
@@ -1246,7 +1254,7 @@
   "root_name": "repo_agnostic_durable_slice_build_workflow_20260514",
   "schema_version": "v1.repo_file_index.1",
   "summary": {
-    "file_count": 155,
+    "file_count": 156,
     "kind_counts": {
       "artifact:generated_index": 3,
       "config": 1,
@@ -1255,7 +1263,7 @@
       "generated_or_evidence": 5,
       "plan": 5,
       "schema": 15,
-      "script": 35,
+      "script": 36,
       "source": 39,
       "test": 21
     }

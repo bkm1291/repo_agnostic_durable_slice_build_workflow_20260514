@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from _validator_output import emit_json
 
 ORDER = ["draft", "implementation_ready", "in_progress", "closed"]
 
@@ -16,7 +17,7 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     if not args.roadmap.exists():
         if args.json:
-            print(json.dumps({"status": "warn", "failure_codes": ["ROADMAP_MISSING"], "count": 1}))
+            emit_json(validator="slice_lifecycle", status="warn", failure_codes=["ROADMAP_MISSING"])
         else:
             print("WARN slice_lifecycle mode=strict failures=1")
             print("ROADMAP_MISSING")
@@ -31,14 +32,14 @@ def main(argv: list[str] | None = None) -> int:
                 fails.append(f"ORPHAN_DEPENDENCY wave={w.get('wave_id')} depends_on={dep}")
     if fails and args.mode == "strict":
         if args.json:
-            print(json.dumps({"status": "failed", "failure_codes": fails, "count": len(fails)}))
+            emit_json(validator="slice_lifecycle", status="failed", failure_codes=fails)
         else:
             print("FAIL slice_lifecycle")
             for f in fails:
                 print(f)
         return 1
     if args.json:
-        print(json.dumps({"status": "warn" if fails else "passed", "failure_codes": fails, "count": len(fails)}))
+        emit_json(validator="slice_lifecycle", status="warn" if fails else "passed", failure_codes=fails)
     else:
         print(f"{'WARN' if fails else 'PASS'} slice_lifecycle mode={args.mode} failures={len(fails)}")
     return 0

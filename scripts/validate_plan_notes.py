@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from _validator_output import emit_json
+
 ID_RE = re.compile(r"^plan_note_[a-z0-9_]+_[0-9]{8}$")
 TS_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
 
@@ -40,7 +42,7 @@ def main(argv: list[str] | None = None) -> int:
     failures = validate(args.root, strict=args.mode == "strict")
     if failures and args.mode == "strict":
         if args.json:
-            print(json.dumps({"status": "failed", "failure_codes": failures, "count": len(failures)}))
+            emit_json(validator="plan_notes", status="failed", failure_codes=failures)
         else:
             print("FAIL plan_notes")
             for f in failures:
@@ -48,7 +50,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     status = "WARN" if failures else "PASS"
     if args.json:
-        print(json.dumps({"status": "warn" if failures else "passed", "failure_codes": failures, "count": len(failures)}))
+        emit_json(
+            validator="plan_notes",
+            status="warn" if failures else "passed",
+            failure_codes=failures,
+        )
     else:
         print(f"{status} plan_notes mode={args.mode} failures={len(failures)}")
     return 0
