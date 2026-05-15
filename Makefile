@@ -6,14 +6,19 @@ check: render-check validate-examples test release-check
 
 governance-check:
 	$(PYTHON) scripts/validate_plan_notes.py --summary-only
+	$(PYTHON) scripts/build_command_map.py --write --summary-only
+	$(PYTHON) scripts/build_repo_file_index.py --write --summary-only
 	$(PYTHON) scripts/build_plan_note_index.py --summary-only
 	$(PYTHON) scripts/build_artifact_output_map.py --summary-only
+	$(PYTHON) scripts/build_artifact_output_map.py --write --summary-only
 	$(PYTHON) scripts/validate_artifact_output_map.py --summary-only
 	$(PYTHON) scripts/validate_cross_surface_consistency.py --mode strict --summary-only
 	$(PYTHON) scripts/validate_slice_lifecycle.py --mode strict
+	$(PYTHON) scripts/validate_future_note_materiality.py --mode strict
 	$(PYTHON) scripts/validate_runtime_governance_dirs.py --summary-only
-	$(PYTHON) scripts/validate_no_secrets_persisted.py --summary-only
+	$(PYTHON) scripts/validate_no_secrets_persisted.py --mode strict --summary-only
 	$(PYTHON) scripts/validate_receipts_checkpoints.py --summary-only
+	$(PYTHON) scripts/validate_source_provenance.py
 
 render:
 	$(PYTHON) scripts/render_canonical_entrypoints.py --write

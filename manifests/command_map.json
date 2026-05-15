@@ -1,0 +1,801 @@
+{
+  "authority_rule": {
+    "conflict_rule": "When a schema accepts a document but the Python validator rejects it, the validator rejection blocks closeout until the schema or document is intentionally updated.",
+    "python_validator_authority": "Python validators define semantic rules, cross-file rules, side-effect rules, read-only checks, and local adoption safety",
+    "schema_authority": "schemas define JSON shape, required fields, allowed enum values, and portable structural constraints"
+  },
+  "commands": [
+    {
+      "argv_template": "python scripts/bootstrap_local_repo.py <target> --project-name <name>",
+      "command_id": "bootstrap_local_repo",
+      "compact_mode_supported": false,
+      "entry_type": "command",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/bootstrap_local_repo.py",
+      "purpose": "Run bootstrap local repo.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/build_artifact_output_map.py --summary-only",
+      "command_id": "build_artifact_output_map_summary",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_artifact_output_map.py",
+      "purpose": "Build or summarize build artifact output map summary discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/build_command_map.py --summary-only",
+      "command_id": "build_command_map_summary",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_command_map.py",
+      "purpose": "Build or summarize build command map summary discovery evidence.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/build_plan_note_index.py --summary-only",
+      "command_id": "build_plan_note_index_summary",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_plan_note_index.py",
+      "purpose": "Build or summarize build plan note index summary discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/build_repo_file_index.py --summary-only",
+      "command_id": "build_repo_file_index_summary",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_repo_file_index.py",
+      "purpose": "Build or summarize build repo file index summary discovery evidence.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/render_canonical_entrypoints.py --check",
+      "command_id": "check_canonical_entrypoints",
+      "compact_mode_supported": true,
+      "entry_type": "command",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/render_canonical_entrypoints.py",
+      "purpose": "Run check canonical entrypoints.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "make check",
+      "command_id": "make_check",
+      "compact_mode_supported": false,
+      "entry_type": "command",
+      "owner_area": "Makefile",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "Makefile",
+      "purpose": "Run make check.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "test_runner",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/next_governed_action.py",
+      "command_id": "next_governed_action",
+      "compact_mode_supported": false,
+      "entry_type": "command",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/next_governed_action.py",
+      "purpose": "Run next governed action.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "unknown",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/query_command_map.py --safe-read-only --summary-only",
+      "command_id": "query_command_map_summary",
+      "compact_mode_supported": true,
+      "entry_type": "helper",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/query_command_map.py",
+      "purpose": "Query or route query command map summary without broad manual discovery.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/query_plan_note_index.py --summary-only",
+      "command_id": "query_plan_note_index",
+      "compact_mode_supported": true,
+      "entry_type": "helper",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/query_plan_note_index.py",
+      "purpose": "Query or route query plan note index without broad manual discovery.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/query_repo_file_index.py --index manifests/repo_file_index.json --path-contains <path-fragment> --summary-only",
+      "command_id": "query_repo_file_index",
+      "compact_mode_supported": true,
+      "entry_type": "helper",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/query_repo_file_index.py",
+      "purpose": "Query or route query repo file index without broad manual discovery.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_read_only_commands.py --run --summary-only",
+      "command_id": "run_read_only_commands",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_read_only_commands.py",
+      "purpose": "Validate run read only commands with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_artifact_output_map.py --summary-only",
+      "command_id": "validate_artifact_output_map",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_artifact_output_map.py",
+      "purpose": "Validate validate artifact output map with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_claude_integration.py --summary-only",
+      "command_id": "validate_claude_integration",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_claude_integration.py",
+      "purpose": "Validate validate claude integration with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_command_map.py --summary-only",
+      "command_id": "validate_command_map",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_command_map.py",
+      "purpose": "Validate validate command map with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_cross_surface_consistency.py --mode strict --summary-only",
+      "command_id": "validate_cross_surface_consistency",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_cross_surface_consistency.py",
+      "purpose": "Validate validate cross surface consistency with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_low_token_workflow.py --summary-only",
+      "command_id": "validate_low_token_workflow",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_low_token_workflow.py",
+      "purpose": "Validate validate low token workflow with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_mature_repo_migration_packet.py <packet> --summary-only",
+      "command_id": "validate_mature_repo_migration_packet",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_mature_repo_migration_packet.py",
+      "purpose": "Validate validate mature repo migration packet with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_slice_packet.py examples/minimal_repo/plans/slices/slice_001_packet.json --summary-only",
+      "command_id": "validate_minimal_example_packet",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_packet.py",
+      "purpose": "Validate validate minimal example packet with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_no_secrets_persisted.py --summary-only",
+      "command_id": "validate_no_secrets_persisted",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_no_secrets_persisted.py",
+      "purpose": "Validate validate no secrets persisted with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_plan_notes.py --summary-only",
+      "command_id": "validate_plan_notes",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_plan_notes.py",
+      "purpose": "Validate validate plan notes with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_planned_future_surfaces.py --summary-only",
+      "command_id": "validate_planned_future_surfaces",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_planned_future_surfaces.py",
+      "purpose": "Validate validate planned future surfaces with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_read_only_commands.py --summary-only",
+      "command_id": "validate_read_only_commands",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_read_only_commands.py",
+      "purpose": "Validate validate read only commands with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_receipts_checkpoints.py --summary-only",
+      "command_id": "validate_receipts_checkpoints",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_receipts_checkpoints.py",
+      "purpose": "Validate validate receipts checkpoints with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_release_package.py --summary-only",
+      "command_id": "validate_release_package",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_release_package.py",
+      "purpose": "Validate validate release package with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_runtime_governance_dirs.py --summary-only",
+      "command_id": "validate_runtime_governance_dirs",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_runtime_governance_dirs.py",
+      "purpose": "Validate validate runtime governance dirs with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_slice_lifecycle.py --mode strict",
+      "command_id": "validate_slice_lifecycle",
+      "compact_mode_supported": false,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_lifecycle.py",
+      "purpose": "Validate validate slice lifecycle with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_slice_packet.py <packet> --summary-only",
+      "command_id": "validate_slice_packet",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_packet.py",
+      "purpose": "Validate validate slice packet with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_slice_packet.py examples/small_config_tool_repo/plans/slices/slice_001_packet.json --summary-only",
+      "command_id": "validate_small_config_example_packet",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_packet.py",
+      "purpose": "Validate validate small config example packet with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/validate_source_read_register.py --summary-only",
+      "command_id": "validate_source_read_register",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_source_read_register.py",
+      "purpose": "Validate validate source read register with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/build_artifact_output_map.py --write --summary-only",
+      "command_id": "write_artifact_output_map",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_artifact_output_map.py",
+      "purpose": "Build or summarize write artifact output map discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/render_canonical_entrypoints.py --write",
+      "command_id": "write_canonical_entrypoints",
+      "compact_mode_supported": false,
+      "entry_type": "writer",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/render_canonical_entrypoints.py",
+      "purpose": "Write write canonical entrypoints only when explicit writer mode is requested.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/build_command_map.py --write --summary-only",
+      "command_id": "write_command_map",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_command_map.py",
+      "purpose": "Build or summarize write command map discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/build_plan_note_index.py --write --summary-only",
+      "command_id": "write_plan_note_index",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_plan_note_index.py",
+      "purpose": "Build or summarize write plan note index discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/build_repo_file_index.py --write --summary-only",
+      "command_id": "write_repo_file_index",
+      "compact_mode_supported": true,
+      "entry_type": "builder",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/build_repo_file_index.py",
+      "purpose": "Build or summarize write repo file index discovery evidence.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    }
+  ],
+  "contract_ref": "contracts/command_map_contract.json",
+  "generated_by": "scripts/build_command_map.py",
+  "map_id": "repo_agnostic_command_map",
+  "schema_version": "v1.repo_agnostic_command_map.1",
+  "status": "active",
+  "summary": {
+    "command_count": 35,
+    "entry_type_counts": {
+      "builder": 8,
+      "command": 4,
+      "helper": 3,
+      "validator": 19,
+      "writer": 1
+    },
+    "side_effect_counts": {
+      "read_only": 2,
+      "read_only_summary": 25,
+      "test_runner": 1,
+      "unknown": 1,
+      "write_explicit": 6
+    }
+  }
+}

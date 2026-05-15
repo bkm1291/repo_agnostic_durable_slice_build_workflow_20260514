@@ -1,9 +1,10 @@
 {
   "schema_version": "v1.plan_note_active_set.1",
   "active_paths": [
+    "plans/notes/plan_note_best_in_class_governance_20260514.json",
     "plans/notes/plan_note_governance_gap_closure_20260514.json",
     "plans/planned_future_surfaces.json",
     "plans/source_read_register.json"
   ],
-  "count": 3
+  "count": 4
 }

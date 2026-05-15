@@ -3,6 +3,19 @@
   "index_id": "plan_note_index",
   "entries": [
     {
+      "path": "plans/notes/plan_note_best_in_class_governance_20260514.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Elevate template to best-in-class AI-agent build governance.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
       "path": "plans/notes/plan_note_governance_gap_closure_20260514.json",
       "status": "active",
       "authority_class": "authority",
