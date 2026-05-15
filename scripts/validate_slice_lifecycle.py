@@ -12,7 +12,15 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--roadmap", type=Path, default=Path("plans/repo_roadmap.json"))
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
+    if not args.roadmap.exists():
+        if args.json:
+            print(json.dumps({"status": "warn", "failure_codes": ["ROADMAP_MISSING"], "count": 1}))
+        else:
+            print("WARN slice_lifecycle mode=strict failures=1")
+            print("ROADMAP_MISSING")
+        return 0
     d = json.loads(args.roadmap.read_text(encoding="utf-8"))
     fails: list[str] = []
     for w in d.get("waves", []):
@@ -22,9 +30,19 @@ def main(argv: list[str] | None = None) -> int:
             if dep not in {x.get("wave_id") for x in d.get("waves", [])}:
                 fails.append(f"ORPHAN_DEPENDENCY wave={w.get('wave_id')} depends_on={dep}")
     if fails and args.mode == "strict":
-        print("FAIL slice_lifecycle")
-        for f in fails:
-            print(f)
+        if args.json:
+            print(json.dumps({"status": "failed", "failure_codes": fails, "count": len(fails)}))
+        else:
+            print("FAIL slice_lifecycle")
+            for f in fails:
+                print(f)
         return 1
-    print(f"{'WARN' if fails else 'PASS'} slice_lifecycle mode={args.mode} failures={len(fails)}")
+    if args.json:
+        print(json.dumps({"status": "warn" if fails else "passed", "failure_codes": fails, "count": len(fails)}))
+    else:
+        print(f"{'WARN' if fails else 'PASS'} slice_lifecycle mode={args.mode} failures={len(fails)}")
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -35,15 +35,22 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--root", type=Path, default=Path.cwd())
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
     p.add_argument("--summary-only", action="store_true")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
     failures = validate(args.root, strict=args.mode == "strict")
     if failures and args.mode == "strict":
-        print("FAIL plan_notes")
-        for f in failures:
-            print(f)
+        if args.json:
+            print(json.dumps({"status": "failed", "failure_codes": failures, "count": len(failures)}))
+        else:
+            print("FAIL plan_notes")
+            for f in failures:
+                print(f)
         return 1
     status = "WARN" if failures else "PASS"
-    print(f"{status} plan_notes mode={args.mode} failures={len(failures)}")
+    if args.json:
+        print(json.dumps({"status": "warn" if failures else "passed", "failure_codes": failures, "count": len(failures)}))
+    else:
+        print(f"{status} plan_notes mode={args.mode} failures={len(failures)}")
     return 0
 
 

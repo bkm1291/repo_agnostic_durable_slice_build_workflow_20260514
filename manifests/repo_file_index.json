@@ -171,6 +171,14 @@
     {
       "extension": ".json",
       "kind": "contract",
+      "line_count": 8,
+      "path": "contracts/compatibility_policy.json",
+      "sha256": "0dd3dd3e5cbd22be10b6fd662e3204f4c01eae04c05f7600dd3fdb21d6953daa",
+      "size_bytes": 200
+    },
+    {
+      "extension": ".json",
+      "kind": "contract",
       "line_count": 9,
       "path": "contracts/governance_id_timestamp_policy.json",
       "sha256": "902687289047e2aa92744d0f04b9a7be6d14d347a0d83fd4dd398bdde2ff4171",
@@ -255,6 +263,14 @@
       "path": "docs/TROUBLESHOOTING.md",
       "sha256": "035cb2363b17038700a9dea055f7a64f4d01aa14dc40cb18d1a4b909dd0fa748",
       "size_bytes": 7827
+    },
+    {
+      "extension": ".md",
+      "kind": "doc",
+      "line_count": 3,
+      "path": "docs/migrations/v0_4_0.md",
+      "sha256": "d0a11d78c3ffe5eae2dfb317888ee3d30858c406066900c5dbd82c0e8e719e19",
+      "size_bytes": 90
     },
     {
       "extension": ".md",
@@ -939,10 +955,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 34,
+      "line_count": 45,
       "path": "scripts/validate_future_note_materiality.py",
-      "sha256": "19375021aa3dc648799080b07b817fea7948142a28c9013210a0973317860068",
-      "size_bytes": 1085
+      "sha256": "f5d15e22a726baad31805bd4a9289dd2f1035c9c5045023553d2d8e877fd8d1b",
+      "size_bytes": 1484
     },
     {
       "extension": ".py",
@@ -987,10 +1003,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 51,
+      "line_count": 58,
       "path": "scripts/validate_plan_notes.py",
-      "sha256": "6b3745b34c39f807e24798e6740a855e6f517d983b2d695c8321855f8b86d45c",
-      "size_bytes": 1910
+      "sha256": "007e40bc2ea79daa3ea2923ac00a87e0e68f309d4e642dd4dd3f1caa8dff0260",
+      "size_bytes": 2266
     },
     {
       "extension": ".py",
@@ -1019,10 +1035,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 353,
+      "line_count": 389,
       "path": "scripts/validate_release_package.py",
-      "sha256": "4e23384bcf672831e4c9e5fdcbba6cf392293d82cb8866112f77000ff8523188",
-      "size_bytes": 11380
+      "sha256": "6236204cee1ebf33aef98c06a9f30221815448633318df55f86d7f478b2d03c5",
+      "size_bytes": 13048
     },
     {
       "extension": ".py",
@@ -1043,10 +1059,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 30,
+      "line_count": 48,
       "path": "scripts/validate_slice_lifecycle.py",
-      "sha256": "1675fec0d0193355fb2b5d63b9438a3c8c3de0789a8be26edc8b1cf70e8eb2ad",
-      "size_bytes": 1153
+      "sha256": "c2816d065fa017b1d9baa8e593a87e578a6f51bde2d6ae63410b6ae805aafac6",
+      "size_bytes": 1841
     },
     {
       "extension": ".py",
@@ -1107,10 +1123,10 @@
     {
       "extension": ".py",
       "kind": "test",
-      "line_count": 19,
+      "line_count": 38,
       "path": "tests/test_governance_new_validators.py",
-      "sha256": "6326b3ab87c0b5fc6ac51782309dd1310e9fbecb8aed4d8b34ad7109e8c7b830",
-      "size_bytes": 558
+      "sha256": "99b92c95c0c86332ea7207f4922ee5afcf71faa2155a827dc932b77d096af230",
+      "size_bytes": 1149
     },
     {
       "extension": ".py",
@@ -1230,12 +1246,12 @@
   "root_name": "repo_agnostic_durable_slice_build_workflow_20260514",
   "schema_version": "v1.repo_file_index.1",
   "summary": {
-    "file_count": 153,
+    "file_count": 155,
     "kind_counts": {
       "artifact:generated_index": 3,
       "config": 1,
-      "contract": 4,
-      "doc": 25,
+      "contract": 5,
+      "doc": 26,
       "generated_or_evidence": 5,
       "plan": 5,
       "schema": 15,

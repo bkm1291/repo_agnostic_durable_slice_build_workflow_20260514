@@ -1,0 +1,8 @@
+{
+  "schema_version": "v1.compatibility_policy.1",
+  "policy": {
+    "requires_migration_doc_for_breaking": true,
+    "breaking_version_prefix": "v",
+    "migration_docs_dir": "docs/migrations"
+  }
+}

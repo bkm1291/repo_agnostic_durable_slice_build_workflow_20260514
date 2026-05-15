@@ -19,6 +19,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--root", type=Path, default=Path.cwd())
     p.add_argument("--mode", choices=("warning", "strict"), default="strict")
+    p.add_argument("--json", action="store_true")
     args = p.parse_args(argv)
     fails: list[str] = []
     for path in sorted((args.root / "plans" / "notes").glob("*.json")):
@@ -26,9 +27,19 @@ def main(argv: list[str] | None = None) -> int:
         if not MATERIAL_KEYS.intersection(d.keys()):
             fails.append(f"FUTURE_NOTE_NOT_MATERIAL path={path.relative_to(args.root).as_posix()}")
     if fails and args.mode == "strict":
-        print("FAIL future_note_materiality")
-        for f in fails:
-            print(f)
+        if args.json:
+            print(json.dumps({"status": "failed", "failure_codes": fails, "count": len(fails)}))
+        else:
+            print("FAIL future_note_materiality")
+            for f in fails:
+                print(f)
         return 1
-    print(f"{'WARN' if fails else 'PASS'} future_note_materiality mode={args.mode} failures={len(fails)}")
+    if args.json:
+        print(json.dumps({"status": "warn" if fails else "passed", "failure_codes": fails, "count": len(fails)}))
+    else:
+        print(f"{'WARN' if fails else 'PASS'} future_note_materiality mode={args.mode} failures={len(fails)}")
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

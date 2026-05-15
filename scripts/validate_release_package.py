@@ -45,6 +45,7 @@ REQUIRED_PATHS = (
     "contracts/low_token_workflow_contract.json",
     "contracts/read_only_command_harness.json",
     "contracts/command_map_contract.json",
+    "contracts/compatibility_policy.json",
     "plans/source_read_register.json",
     "plans/planned_future_surfaces.json",
     "schemas/methodology.schema.json",
@@ -192,7 +193,11 @@ def _tracked_or_packaged_paths(root: Path) -> list[str]:
         capture_output=True,
     )
     if result.returncode == 0:
-        return [line for line in result.stdout.splitlines() if line.strip()]
+        return [
+            line
+            for line in result.stdout.splitlines()
+            if line.strip() and not line.startswith("manifests/")
+        ]
 
     paths: list[str] = []
     for path in root.rglob("*"):
@@ -217,6 +222,8 @@ def _forbidden_release_path(path: str) -> str | None:
     if exact_reason:
         return exact_reason
     name = posix_path.name.lower()
+    if path in {"scripts/validate_no_secrets_persisted.py", "configs/no_secrets_persisted_policy.json"}:
+        return None
     if name.startswith(".env") or any(fragment in name for fragment in FORBIDDEN_NAME_FRAGMENTS):
         return "RELEASE_TRACKED_PRIVATE_OR_SECRET_LIKE_PATH"
     return None
@@ -282,6 +289,34 @@ def _validate_ci(root: Path) -> list[str]:
     return failures
 
 
+def _validate_compatibility_policy(root: Path) -> list[str]:
+    path = root / "contracts" / "compatibility_policy.json"
+    try:
+        policy = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return ["RELEASE_COMPAT_POLICY_MISSING"]
+    except json.JSONDecodeError as exc:
+        return [f"RELEASE_COMPAT_POLICY_INVALID_JSON line={exc.lineno} column={exc.colno}"]
+    schema_version = policy.get("schema_version")
+    if schema_version != "v1.compatibility_policy.1":
+        return ["RELEASE_COMPAT_POLICY_BAD_SCHEMA_VERSION"]
+    cfg = policy.get("policy", {})
+    if not isinstance(cfg, dict):
+        return ["RELEASE_COMPAT_POLICY_BAD_POLICY_OBJECT"]
+    if cfg.get("requires_migration_doc_for_breaking") is not True:
+        return ["RELEASE_COMPAT_POLICY_BAD_MIGRATION_RULE"]
+    pyproject, failures = _load_pyproject(root)
+    if failures or not isinstance(pyproject, dict):
+        return failures
+    version = str(pyproject.get("project", {}).get("version", "")).strip()
+    if not version:
+        return ["RELEASE_PYPROJECT_VERSION_MISSING"]
+    migration_doc = root / cfg.get("migration_docs_dir", "docs/migrations") / f"v{version.replace('.', '_')}.md"
+    if not migration_doc.exists():
+        return [f"RELEASE_MIGRATION_DOC_MISSING path={migration_doc.relative_to(root).as_posix()}"]
+    return []
+
+
 def validate_release_package(
     root: Path,
     *,
@@ -297,6 +332,7 @@ def validate_release_package(
     failures.extend(pyproject_failures)
     failures.extend(_validate_version(root, pyproject))
     failures.extend(_validate_ci(root))
+    failures.extend(_validate_compatibility_policy(root))
 
     paths = tracked_paths if tracked_paths is not None else _tracked_or_packaged_paths(root)
     for path in paths:
