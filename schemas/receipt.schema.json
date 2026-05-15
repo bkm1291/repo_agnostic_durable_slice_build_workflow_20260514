@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Receipt",
+  "type": "object",
+  "required": ["schema_version", "record_type", "reason_class", "related_command", "artifacts_proven", "validation_refs"],
+  "properties": {
+    "schema_version": { "const": "v1.receipt.1" },
+    "record_type": { "const": "receipt" },
+    "reason_class": { "type": "string", "enum": ["writer", "generator", "materializer", "external_action", "irreversible_decision", "closeout_gate"] },
+    "related_command": { "type": "string", "minLength": 1 },
+    "artifacts_proven": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "validation_refs": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  }
+}
