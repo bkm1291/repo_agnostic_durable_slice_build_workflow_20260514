@@ -1,0 +1,42 @@
+{
+  "schema_version": "v1.plan_note.1",
+  "plan_note_id": "plan_note_best_in_class_governance_20260514",
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "active",
+  "goal": "Elevate template to best-in-class AI-agent build governance.",
+  "priorities": {
+    "highest_impact": [
+      "strict_plan_note_schema_and_validator",
+      "cross_surface_consistency_validator",
+      "slice_closeout_validator",
+      "warning_and_strict_modes",
+      "deterministic_ids_and_timestamps_policy"
+    ],
+    "workflow_durability": [
+      "slice_packet_lifecycle_validator",
+      "dependency_graph_orphan_checks",
+      "not_in_scope_guard",
+      "future_note_materiality_validator"
+    ],
+    "proof_quality": [
+      "invariant_tests_for_core_validators",
+      "golden_tests_for_index_builders",
+      "make_governance_check_target"
+    ],
+    "security_compliance": [
+      "entropy_and_prefix_secret_detection",
+      "license_provenance_validator",
+      "generated_artifact_privacy_policy"
+    ],
+    "operator_ux": [
+      "new_slice_packet_command",
+      "next_governed_action_command",
+      "uniform_machine_readable_failure_codes"
+    ],
+    "release_readiness": [
+      "schema_contract_compatibility_policy",
+      "migration_guides",
+      "linux_macos_bootstrap_smoke_ci"
+    ]
+  }
+}

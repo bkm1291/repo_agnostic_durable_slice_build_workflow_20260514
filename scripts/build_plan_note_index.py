@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -56,6 +58,15 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--summary-only", action="store_true")
     args = p.parse_args(argv)
     root = args.root.resolve()
+    check = subprocess.run(
+        [sys.executable, str(root / "scripts" / "validate_plan_notes.py"), "--root", str(root), "--mode", "strict", "--summary-only"],
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    if check.returncode != 0:
+        print(check.stdout.strip())
+        return 1
     index = build_index(root)
     active = build_active_set(index)
     if args.write:
