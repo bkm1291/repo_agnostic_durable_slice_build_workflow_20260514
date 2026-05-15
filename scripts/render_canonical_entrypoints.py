@@ -176,6 +176,10 @@ def render_readme(methodology: dict[str, Any]) -> str:
             "to confirm Claude Code entrypoints and skills are present."
         ),
         (
+            "Run `make governance-check` to validate plan notes, IDs, maps, "
+            "closeout evidence, lifecycle state, secrets policy, provenance, and the event ledger."
+        ),
+        (
             "Create `plans/repo_roadmap.json` and "
             "`plans/slices/slice_001_packet.json`."
         ),
@@ -244,6 +248,26 @@ def render_readme(methodology: dict[str, Any]) -> str:
 {methodology["positioning_statement"]}
 
 {methodology["purpose"]}
+
+It gives an AI agent a repo-native operating system for build work: the goal is
+captured in project files, the roadmap selects the next slice, the packet names
+owner files and proof before implementation, validators and focused tests prove
+the slice, generated indexes refresh only when justified, and closeout or ledger
+events preserve the evidence chain after chat context is gone.
+
+## What It Installs
+
+- Canonical agent rules in `AGENTS.md`, `SKILL.md`, `CLAUDE.md`, and generated docs.
+- A durable roadmap and per-slice packet structure in `plans/`.
+- Validators for slice packets, plan notes, command maps, source-read refs,
+  planned future surfaces, closeouts, receipts/checkpoints, secrets, provenance,
+  release readiness, and governance event ledger integrity.
+- Queryable discovery surfaces in `manifests/` for repo files, commands,
+  plan notes, artifact outputs, and governance events.
+- A release/CI path through `make check`, `make governance-check`,
+  `make bootstrap-smoke`, and `python scripts/validate_release_package.py --json`.
+- A bootstrap script that can initialize git/GitHub tracking for new repos
+  without relying on chat as authority.
 
 ## New Here? Start With `{beginner_docs.get("start_here", "START_HERE.md")}`
 
@@ -316,6 +340,28 @@ Claude Code support stays on the same doctrine: `CLAUDE.md` imports `AGENTS.md`,
 
 {_bullet_list(workflow)}
 
+The high-level loop is:
+
+```text
+project goal -> roadmap -> slice packet -> owner implementation -> focused proof -> closeout -> governance event ledger -> optional generated refresh
+```
+
+See `docs/OPERATOR_FLOW.md` for the exact command loop.
+
+## Governance Event Ledger
+
+`manifests/governance_event_ledger.jsonl` records closeouts, generated refreshes,
+release gates, and external-action decisions as durable machine-readable events.
+Explicit manifest writers append generated-refresh events automatically and skip
+duplicate event IDs on repeated runs, so generated evidence is traceable without
+creating infinite refresh churn.
+
+Validate it with:
+
+```bash
+python scripts/validate_governance_event_ledger.py --summary-only
+```
+
 ## Low-Token Defaults
 
 Use `{low_token.get("contract", "contracts/low_token_workflow_contract.json")}` as the generic low-token policy. It keeps work index-first, targeted, and compact: query or file-inventory before large reads, normally read no more than 120 lines around exact keys, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
@@ -350,6 +396,7 @@ python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+make governance-check
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
@@ -385,16 +432,18 @@ Before publishing or pushing a release branch:
 
 ```bash
 make check
+make governance-check
 make bootstrap-smoke
 make read-only-check
-python scripts/validate_release_package.py --summary-only
+python scripts/validate_release_package.py --json
 git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
-builder/query pair, a queryable command map, Claude Code entrypoints/skills, a read-only command harness, release
-package validation, and example tests.
+builder/query pair, a queryable command map, plan-note and artifact-output maps,
+Claude Code entrypoints/skills, a read-only command harness, release package
+validation, governance event ledger validation, and example tests.
 
 Use `{beginner_docs.get("release_checklist", "RELEASE_CHECKLIST.md")}` for the full tag and publish sequence.
 

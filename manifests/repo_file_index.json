@@ -67,10 +67,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 47,
+      "line_count": 53,
       "path": "CHANGELOG.md",
-      "sha256": "ec3df9f60dc0bff43fb93932dd68b4d2b2bb10c4970712336c0a067f634eb2a6",
-      "size_bytes": 3181
+      "sha256": "eb42398930148881a36dc96754628a489a5c07b027a5b88b290347d00b8208ec",
+      "size_bytes": 3636
     },
     {
       "extension": ".md",
@@ -115,18 +115,18 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 282,
+      "line_count": 328,
       "path": "README.md",
-      "sha256": "1158137b83e6cd0f7b087c17bc413316a3aa02da1dd46b529d59dbffdd10dc4b",
-      "size_bytes": 15859
+      "sha256": "2d7306f9264d613ba10105488ce2ae33f639f2f876c843a6c1559cdc8e6d086e",
+      "size_bytes": 18016
     },
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 144,
+      "line_count": 147,
       "path": "RELEASE_CHECKLIST.md",
-      "sha256": "e363ecff78010022d885b7851d9d2c3eb4f7af24d0e1d7b8d44ab6db876a690d",
-      "size_bytes": 3816
+      "sha256": "d220f9b5760aaa4b6be6199ee4c22e0bd1822a5f01b595c106bdb51a122d5fbd",
+      "size_bytes": 3992
     },
     {
       "extension": ".md",
@@ -139,10 +139,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 177,
+      "line_count": 194,
       "path": "START_HERE.md",
-      "sha256": "24ad002e370de3384fed24402eb2ef1e2579b781c99df63bb819a879174b4926",
-      "size_bytes": 7465
+      "sha256": "42cdb88ec79cb2fc1d610a657b11a606ea874d07937944f6fd1ac61d0f6318db",
+      "size_bytes": 8233
     },
     {
       "extension": ".json",
@@ -251,10 +251,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 12,
+      "line_count": 51,
       "path": "docs/OPERATOR_FLOW.md",
-      "sha256": "99dfa7642541965cb1898d07c411b42cc8469129f733e853ae7d797375877565",
-      "size_bytes": 821
+      "sha256": "e4cc0b03897ad65f8d55062c8339903f12767b3b62c866f047cffd2466c7fa2d",
+      "size_bytes": 1759
     },
     {
       "extension": ".md",
@@ -971,10 +971,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 851,
+      "line_count": 900,
       "path": "scripts/render_canonical_entrypoints.py",
-      "sha256": "697224d5dcd26926f3fd3748ce45c923b3671ac99da2a61bd93e0533772d4a6c",
-      "size_bytes": 41072
+      "sha256": "01c70dbda83c640396db9edb837dcee659bb88b934e77f49e93c1055c0228503",
+      "size_bytes": 43275
     },
     {
       "extension": ".py",

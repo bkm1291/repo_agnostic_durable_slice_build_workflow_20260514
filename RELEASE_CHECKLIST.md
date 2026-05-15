@@ -25,8 +25,10 @@ python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_governance_event_ledger.py --summary-only
 python scripts/validate_release_package.py --summary-only
 make check
+make governance-check
 make bootstrap-smoke
 make read-only-check
 git diff --check
@@ -66,7 +68,7 @@ After pushing, confirm the GitHub Actions `check` workflow passes on `main`.
 
 ```bash
 git diff --stat
-git diff -- README.md START_HERE.md PROMPT_FOR_NEW_AGENT.md RELEASE_CHECKLIST.md CHANGELOG.md .github/workflows/check.yml
+git diff -- README.md START_HERE.md docs/OPERATOR_FLOW.md PROMPT_FOR_NEW_AGENT.md RELEASE_CHECKLIST.md CHANGELOG.md .github/workflows/check.yml
 ```
 
 Confirm the public entrypoints explain the current workflow and no generated
@@ -121,6 +123,7 @@ python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+python scripts/validate_governance_event_ledger.py --summary-only
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests

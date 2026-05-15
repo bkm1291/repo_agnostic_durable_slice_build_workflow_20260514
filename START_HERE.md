@@ -13,6 +13,8 @@ Use it when you want a new repo to have:
 - optional git/GitHub tracking from the first bootstrap commit
 - a Claude Code entrypoint and project skills when using Claude
 - a release checklist for tagging or publishing
+- a governance event ledger for generated refreshes, closeouts, release gates,
+  and external-action decisions
 
 ## First 30 Minutes
 
@@ -81,6 +83,7 @@ python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+make governance-check
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
@@ -88,11 +91,17 @@ python -m pytest -q tests
 
 If these pass, the workflow copied correctly.
 
+`make governance-check` is the main health gate for agent workflow state. It
+checks plan notes, deterministic IDs/timestamps, command and artifact maps,
+closeout evidence, lifecycle state, secrets policy, receipt/checkpoint
+semantics, provenance, and `manifests/governance_event_ledger.jsonl`.
+
 ### 3. Read Three Files
 
 Read these before changing the new repo:
 
 - `README.md`: the short workflow overview
+- `docs/OPERATOR_FLOW.md`: the exact slice loop and closeout path
 - `CLAUDE.md`: the Claude Code entrypoint if you are using Claude
 - `plans/repo_roadmap.json`: the current work plan
 - `plans/slices/slice_001_packet.json`: the first slice packet
@@ -163,6 +172,14 @@ When a closeout receipt or checkpoint proves a real gate, commit it as closeout
 evidence. This keeps the workflow traceable like the Wave 1-11 pattern:
 bootstrap governance, implementation commit, optional generated-refresh commit,
 and meaningful closeout evidence.
+
+The manifest writer commands append generated-refresh entries to
+`manifests/governance_event_ledger.jsonl` automatically and skip duplicate event
+IDs on repeated runs. Validate the ledger with:
+
+```bash
+python scripts/validate_governance_event_ledger.py --summary-only
+```
 
 ## What To Do When Stuck
 

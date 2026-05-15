@@ -8,6 +8,26 @@ This is not a coding template. It is a build-governance template for working wit
 
 Capture a reusable from-scratch planning and implementation workflow for building new complex repositories through durable evidence, small provable slices, focused validators, future-facing notes, conditional index refreshes, and meaningful closeout receipts.
 
+It gives an AI agent a repo-native operating system for build work: the goal is
+captured in project files, the roadmap selects the next slice, the packet names
+owner files and proof before implementation, validators and focused tests prove
+the slice, generated indexes refresh only when justified, and closeout or ledger
+events preserve the evidence chain after chat context is gone.
+
+## What It Installs
+
+- Canonical agent rules in `AGENTS.md`, `SKILL.md`, `CLAUDE.md`, and generated docs.
+- A durable roadmap and per-slice packet structure in `plans/`.
+- Validators for slice packets, plan notes, command maps, source-read refs,
+  planned future surfaces, closeouts, receipts/checkpoints, secrets, provenance,
+  release readiness, and governance event ledger integrity.
+- Queryable discovery surfaces in `manifests/` for repo files, commands,
+  plan notes, artifact outputs, and governance events.
+- A release/CI path through `make check`, `make governance-check`,
+  `make bootstrap-smoke`, and `python scripts/validate_release_package.py --json`.
+- A bootstrap script that can initialize git/GitHub tracking for new repos
+  without relying on chat as authority.
+
 ## New Here? Start With `START_HERE.md`
 
 Easiest path:
@@ -69,13 +89,14 @@ Use `RELEASE_CHECKLIST.md` before tagging or publishing, `docs/CI.md` for CI exp
 11. Run `python scripts/build_command_map.py --summary-only` and `python scripts/validate_command_map.py --summary-only` to confirm command discovery.
 12. Run `python scripts/query_command_map.py --safe-read-only --summary-only` to preview safe command routing.
 13. Run `python scripts/validate_claude_integration.py --summary-only` to confirm Claude Code entrypoints and skills are present.
-14. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
-15. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
-16. Fix packet failures before implementation.
-17. Implement only the owner files named in the packet.
-18. Run the owning validator and focused tests.
-19. Commit implementation first.
-20. Refresh generated indexes only if the packet's refresh decision requires it.
+14. Run `make governance-check` to validate plan notes, IDs, maps, closeout evidence, lifecycle state, secrets policy, provenance, and the event ledger.
+15. Create `plans/repo_roadmap.json` and `plans/slices/slice_001_packet.json`.
+16. Run `python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only`.
+17. Fix packet failures before implementation.
+18. Implement only the owner files named in the packet.
+19. Run the owning validator and focused tests.
+20. Commit implementation first.
+21. Refresh generated indexes only if the packet's refresh decision requires it.
 
 ## Expert / Custom Path
 
@@ -115,6 +136,28 @@ Claude Code support stays on the same doctrine: `CLAUDE.md` imports `AGENTS.md`,
 - Conditional generated/index refresh
 - Closeout receipt only when it proves something
 
+The high-level loop is:
+
+```text
+project goal -> roadmap -> slice packet -> owner implementation -> focused proof -> closeout -> governance event ledger -> optional generated refresh
+```
+
+See `docs/OPERATOR_FLOW.md` for the exact command loop.
+
+## Governance Event Ledger
+
+`manifests/governance_event_ledger.jsonl` records closeouts, generated refreshes,
+release gates, and external-action decisions as durable machine-readable events.
+Explicit manifest writers append generated-refresh events automatically and skip
+duplicate event IDs on repeated runs, so generated evidence is traceable without
+creating infinite refresh churn.
+
+Validate it with:
+
+```bash
+python scripts/validate_governance_event_ledger.py --summary-only
+```
+
 ## Low-Token Defaults
 
 Use `contracts/low_token_workflow_contract.json` as the generic low-token policy. It keeps work index-first, targeted, and compact: query or file-inventory before large reads, normally read no more than 120 lines around exact keys, avoid full reads of giant logs/registries/generated indexes, and prefer `--summary-only` or equivalent compact output.
@@ -149,6 +192,7 @@ python scripts/query_command_map.py --safe-read-only --summary-only
 python scripts/validate_command_map.py --summary-only
 python scripts/validate_claude_integration.py --summary-only
 python scripts/validate_read_only_commands.py --summary-only
+make governance-check
 python scripts/validate_release_package.py --summary-only
 python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only
 python -m pytest -q tests
@@ -188,16 +232,18 @@ Before publishing or pushing a release branch:
 
 ```bash
 make check
+make governance-check
 make bootstrap-smoke
 make read-only-check
-python scripts/validate_release_package.py --summary-only
+python scripts/validate_release_package.py --json
 git status --short
 ```
 
 The template includes `LICENSE`, `CHANGELOG.md`, `.gitattributes`, `.gitignore`,
 generated entrypoint drift checks, semantic packet validation, a file inventory
-builder/query pair, a queryable command map, Claude Code entrypoints/skills, a read-only command harness, release
-package validation, and example tests.
+builder/query pair, a queryable command map, plan-note and artifact-output maps,
+Claude Code entrypoints/skills, a read-only command harness, release package
+validation, governance event ledger validation, and example tests.
 
 Use `RELEASE_CHECKLIST.md` for the full tag and publish sequence.
 
