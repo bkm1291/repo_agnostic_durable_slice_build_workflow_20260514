@@ -1,0 +1,32 @@
+{
+  "schema_version": "v1.plan_note.1",
+  "plan_note_id": "plan_note_governance_9_8_execution_20260514",
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "active",
+  "goal": "Raise governance template quality from 8.7 to 9.8+ through deterministic, strict, cross-surface-enforced workflow controls.",
+  "phases": [
+    "close_enforcement_gaps",
+    "deterministic_governance_surfaces",
+    "cross_surface_contract_hardening",
+    "security_signal_quality",
+    "operator_ux_throughput",
+    "ci_release_maturity"
+  ],
+  "implementation_order": [
+    "schema_validator_unification_for_closeout_receipt_checkpoint",
+    "strict_not_in_scope_boundary_integration",
+    "deterministic_id_timestamp_policy_and_validator",
+    "governance_event_ledger_and_validator",
+    "cross_surface_validator_expansion_failure_code_normalization",
+    "golden_fixture_tests_for_builders",
+    "ci_release_compatibility_and_migration_gating"
+  ],
+  "validation_matrix": [
+    "make governance-check",
+    "pytest -q tests/test_governance_* tests/test_*index*",
+    "python scripts/validate_release_package.py --summary-only",
+    "make bootstrap-smoke",
+    "git diff --check",
+    "git status --short"
+  ]
+}

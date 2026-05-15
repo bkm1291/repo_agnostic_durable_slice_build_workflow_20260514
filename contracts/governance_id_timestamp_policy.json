@@ -1,0 +1,9 @@
+{
+  "schema_version": "v1.governance_id_timestamp_policy.1",
+  "timestamp_utc_pattern": "YYYY-MM-DDTHH:MM:SSZ",
+  "id_patterns": {
+    "plan_note_id": "^plan_note_[a-z0-9_]+_[0-9]{8}$",
+    "receipt_id": "^receipt_[a-z0-9_]+_[0-9]{8}$",
+    "checkpoint_id": "^checkpoint_[a-z0-9_]+_[0-9]{8}$"
+  }
+}

@@ -200,6 +200,21 @@ def _validate_string_list(packet: dict[str, Any], field: str, failures: list[str
             failures.append(f"PACKET_FIELD_LIST_ITEM_VAGUE field={field} index={index}")
 
 
+def _validate_not_in_scope_conflicts(packet: dict[str, Any], failures: list[str]) -> None:
+    not_in_scope = packet.get("not_in_scope")
+    edits = packet.get("files_to_create_or_edit")
+    if not isinstance(not_in_scope, list) or not isinstance(edits, list):
+        return
+    lowered_edits = [str(x).lower() for x in edits if isinstance(x, str)]
+    for item in not_in_scope:
+        token = str(item).strip().lower()
+        if not token:
+            continue
+        if any(token in e for e in lowered_edits):
+            failures.append("NOT_IN_SCOPE_CONFLICTS_WITH_EDIT_LIST")
+            return
+
+
 def _source_read_register_by_id(source_read_register: Any) -> dict[str, dict[str, Any]]:
     if not isinstance(source_read_register, dict):
         return {}
@@ -599,6 +614,7 @@ def validate_packet(
     _validate_commit_refresh_consistency(
         packet, _refresh_required(packet.get("refresh_decision")), failures
     )
+    _validate_not_in_scope_conflicts(packet, failures)
     _validate_focused_command_refs(packet, failures)
     _validate_focused_commands_are_read_only(packet, failures)
 

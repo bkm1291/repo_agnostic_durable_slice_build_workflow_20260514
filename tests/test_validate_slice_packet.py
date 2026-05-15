@@ -325,3 +325,12 @@ def test_planned_future_surface_ref_cannot_be_edited_by_wrong_slice(tmp_path: Pa
 
     assert result.returncode == 1
     assert "BOUNDARY_PLANNED_SURFACE_WRONG_OWNER" in result.stdout
+
+
+def test_not_in_scope_conflict_with_edit_list_fails(tmp_path: Path) -> None:
+    packet = valid_packet()
+    packet["not_in_scope"] = ["validate_slice_packet.py"]
+    packet_path = write_packet(tmp_path, packet)
+    result = run_validator(packet_path)
+    assert result.returncode == 1
+    assert "NOT_IN_SCOPE_CONFLICTS_WITH_EDIT_LIST" in result.stdout

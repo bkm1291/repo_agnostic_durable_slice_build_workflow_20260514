@@ -6,6 +6,7 @@ check: render-check validate-examples test release-check
 
 governance-check:
 	$(PYTHON) scripts/validate_plan_notes.py --summary-only
+	$(PYTHON) scripts/validate_governance_ids_timestamps.py --mode strict --summary-only
 	$(PYTHON) scripts/build_command_map.py --write --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --write --summary-only
 	$(PYTHON) scripts/build_plan_note_index.py --summary-only
