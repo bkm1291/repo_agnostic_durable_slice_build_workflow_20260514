@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Artifact Output Map",
+  "type": "object",
+  "required": ["schema_version", "map_id", "outputs"],
+  "properties": {
+    "schema_version": { "const": "v1.artifact_output_map.1" },
+    "map_id": { "type": "string", "minLength": 1 },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["writer_command_id", "output_path", "artifact_kind", "role", "summary_only"],
+        "properties": {
+          "writer_command_id": { "type": "string" },
+          "output_path": { "type": "string" },
+          "artifact_kind": { "type": "string", "enum": ["manifest", "report", "receipt", "checkpoint", "generated_index", "runtime_output"] },
+          "role": { "type": "string", "enum": ["authority", "evidence"] },
+          "summary_only": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

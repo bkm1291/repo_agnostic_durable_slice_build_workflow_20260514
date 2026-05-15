@@ -35,7 +35,7 @@
       "surface_id": "artifact_output_map",
       "path": "manifests/artifact_output_map.json",
       "surface_type": "generated_index",
-      "status": "planned_not_created",
+      "status": "active",
       "owner_slice": "slice_004_artifact_outputs",
       "activation_packet": "plans/slices/slice_004_artifact_outputs_packet.json",
       "reason": "Useful before durable writer commands produce receipts, reports, or materialized outputs."
