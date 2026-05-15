@@ -40,6 +40,7 @@ CORE_PATHS = (
     "scripts",
     "tests",
 )
+RUNTIME_GOVERNANCE_DIRS = ("manifests", "receipts", "checkpoints", "reports")
 
 EXCLUDED_DIRS = {".git", "__pycache__", ".pytest_cache"}
 
@@ -507,6 +508,8 @@ def bootstrap(args: argparse.Namespace) -> int:
         return 0
 
     target.mkdir(parents=True, exist_ok=True)
+    for dirname in RUNTIME_GOVERNANCE_DIRS:
+        (target / dirname).mkdir(parents=True, exist_ok=True)
     for dst, src in planned:
         if src is None:
             continue
@@ -547,6 +550,9 @@ def bootstrap(args: argparse.Namespace) -> int:
     print("  python scripts/validate_command_map.py --summary-only")
     print("  python scripts/validate_claude_integration.py --summary-only")
     print("  python scripts/validate_read_only_commands.py --summary-only")
+    print("  python scripts/validate_runtime_governance_dirs.py --summary-only")
+    print("  python scripts/validate_no_secrets_persisted.py --summary-only")
+    print("  python scripts/validate_receipts_checkpoints.py --summary-only")
     print("  python scripts/validate_release_package.py --summary-only")
     print(
         "  python scripts/validate_slice_packet.py "
