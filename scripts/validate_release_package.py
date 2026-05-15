@@ -11,6 +11,16 @@ import tomllib
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+def emit_json(*, validator: str, status: str, failure_codes: list[str], warnings: list[str] | None = None) -> None:
+    payload = {
+        "validator": validator,
+        "status": status,
+        "failure_codes": failure_codes,
+        "warnings": warnings or [],
+        "count": len(failure_codes),
+    }
+    print(json.dumps(payload))
+
 
 REQUIRED_PATHS = (
     "README.md",
@@ -351,11 +361,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--summary-only", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     failures = validate_release_package(args.root)
     if failures:
-        if args.summary_only:
+        if args.json:
+            emit_json(validator="release_package", status="failed", failure_codes=failures)
+        elif args.summary_only:
             payload = {
                 "status": "failed",
                 "failure_count": len(failures),
@@ -373,7 +386,9 @@ def main(argv: list[str] | None = None) -> int:
         "required_path_count": len(REQUIRED_PATHS),
         "subprocess_check_count": len(SUBPROCESS_CHECKS),
     }
-    if args.summary_only:
+    if args.json:
+        emit_json(validator="release_package", status="passed", failure_codes=[])
+    elif args.summary_only:
         print(json.dumps(payload))
     else:
         print(
@@ -387,3 +402,12 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+def emit_json(*, validator: str, status: str, failure_codes: list[str], warnings: list[str] | None = None) -> None:
+    payload = {
+        "validator": validator,
+        "status": status,
+        "failure_codes": failure_codes,
+        "warnings": warnings or [],
+        "count": len(failure_codes),
+    }
+    print(json.dumps(payload))

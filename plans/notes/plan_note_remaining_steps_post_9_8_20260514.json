@@ -1,0 +1,68 @@
+{
+  "schema_version": "v1.plan_note.1",
+  "plan_note_id": "plan_note_remaining_steps_post_9_8_20260514",
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "active",
+  "goal": "Finish final governance hardening after 9.8 tranche.",
+  "remaining_steps": [
+    {
+      "step_id": "R1",
+      "title": "Uniform JSON output across all validators",
+      "scope": [
+        "validate_slice_packet",
+        "validate_release_package",
+        "validate_command_map",
+        "validate_source_read_register",
+        "validate_planned_future_surfaces",
+        "validate_read_only_commands"
+      ],
+      "success_criteria": "All governance validators emit the same machine-readable payload contract."
+    },
+    {
+      "step_id": "R2",
+      "title": "Strict roadmap requirement in governance-check",
+      "scope": [
+        "Fail strict mode when ROADMAP_MISSING for non-bootstrap repos",
+        "Keep warning behavior for bootstrap/minimal contexts only"
+      ],
+      "success_criteria": "Lifecycle governance does not silently pass in production-like repos."
+    },
+    {
+      "step_id": "R3",
+      "title": "Golden fixture tests for index/map builders",
+      "scope": [
+        "repo_file_index",
+        "command_map",
+        "plan_note_index",
+        "artifact_output_map"
+      ],
+      "success_criteria": "Builder output drift is caught via snapshot/fixture tests."
+    },
+    {
+      "step_id": "R4",
+      "title": "Governance event ledger",
+      "scope": [
+        "manifests/governance_event_ledger.jsonl",
+        "validator for append-only and schema order",
+        "record closeout and generated-refresh events"
+      ],
+      "success_criteria": "Closeout and refresh events have durable machine-trace evidence."
+    },
+    {
+      "step_id": "R5",
+      "title": "Final operator-flow docs",
+      "scope": [
+        "new_slice_packet -> validate_slice_packet -> implement -> validate_slice_closeout -> governance-check -> release-check"
+      ],
+      "success_criteria": "Operator flow is documented and reproducible without chat context."
+    }
+  ],
+  "execution_order": ["R1", "R2", "R3", "R4", "R5"],
+  "validation_matrix": [
+    "make governance-check",
+    "python scripts/validate_release_package.py --summary-only",
+    "pytest -q tests/test_governance_* tests/test_*index*",
+    "git diff --check",
+    "git status --short"
+  ]
+}

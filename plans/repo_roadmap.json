@@ -1,0 +1,14 @@
+{
+  "roadmap_id": "repo_agnostic_governance_roadmap",
+  "status": "active",
+  "purpose": "Track governed slice progression for this template repo.",
+  "waves": [
+    {
+      "wave_id": "slice_001",
+      "goal": "Bootstrap governance surfaces and validators.",
+      "packet": "plans/slices/slice_001_packet.json",
+      "status": "closed",
+      "depends_on": []
+    }
+  ]
+}

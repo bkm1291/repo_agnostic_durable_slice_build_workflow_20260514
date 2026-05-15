@@ -1,0 +1,64 @@
+{
+  "selected_wave_or_slice": "slice_001",
+  "goal": "Maintain and validate governance template surfaces.",
+  "files_to_create_or_edit": [
+    "scripts/validate_slice_packet.py",
+    "tests/test_validate_slice_packet.py"
+  ],
+  "exact_owner_configs_schemas_contracts": [
+    "schemas/slice_packet.schema.json",
+    "schemas/refresh_decision.schema.json"
+  ],
+  "required_source_reads": [
+    {
+      "read_id": "methodology_json",
+      "surface": "repo-local workflow methodology",
+      "read_type": "docs",
+      "status": "satisfied",
+      "evidence_ref": "source_read:methodology_json"
+    }
+  ],
+  "owning_wave_validator": "scripts/validate_slice_packet.py",
+  "owning_wave_tests": [
+    "tests/test_validate_slice_packet.py"
+  ],
+  "focused_validators_and_tests": [
+    "python scripts/validate_slice_packet.py plans/slices/slice_001_packet.json --summary-only",
+    "python -m pytest -q tests/test_validate_slice_packet.py"
+  ],
+  "not_in_scope": [
+    "External provider access",
+    "Runtime feature development"
+  ],
+  "boundary_rules": {
+    "allowed_scope": [
+      "governance validator and focused tests"
+    ],
+    "forbidden_path_prefixes": [
+      "receipts/"
+    ],
+    "forbidden_keywords": [
+      "External provider access"
+    ],
+    "planned_future_surface_ids": []
+  },
+  "refresh_decision": {
+    "repo_index_required": false,
+    "script_import_index_required": false,
+    "plan_note_index_required": false,
+    "config_variable_inventory_required": false,
+    "output_schema_index_required": false,
+    "post_output_hook_required": false,
+    "next_wave_discovery_depends_on_new_surfaces": false,
+    "required_reason": "Focused validator and tests provide direct proof.",
+    "refresh_timing": "skip",
+    "decision_basis": [
+      "No new surfaces required for this packet."
+    ]
+  },
+  "commit_plan": {
+    "implementation_commit": "validator_and_test_changes",
+    "generated_refresh_commit": "not_required",
+    "do_not_chase_head_only_staleness": true
+  }
+}

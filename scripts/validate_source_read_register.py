@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path, PurePosixPath
 from typing import Any
+from _validator_output import emit_json
 
 
 DEFAULT_REGISTER = Path("plans/source_read_register.json")
@@ -123,17 +124,23 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("register", nargs="?", type=Path, default=DEFAULT_REGISTER)
     parser.add_argument("--summary-only", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     document, load_failures = _load_json(args.register)
     failures = load_failures or validate_register(document)
     if failures:
-        print(f"FAIL source_read_register path={args.register} failures={len(failures)}")
-        for failure in failures:
-            print(failure)
+        if args.json:
+            emit_json(validator="source_read_register", status="failed", failure_codes=failures)
+        else:
+            print(f"FAIL source_read_register path={args.register} failures={len(failures)}")
+            for failure in failures:
+                print(failure)
         return 1
 
-    if args.summary_only:
+    if args.json:
+        emit_json(validator="source_read_register", status="passed", failure_codes=[])
+    elif args.summary_only:
         read_count = len(document.get("reads", [])) if isinstance(document, dict) else 0
         print(f"PASS source_read_register path={args.register} reads={read_count}")
     else:

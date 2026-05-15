@@ -16,6 +16,19 @@
       ]
     },
     {
+      "path": "plans/notes/plan_note_governance_9_8_execution_20260514.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Raise governance template quality from 8.7 to 9.8+ through deterministic, strict, cross-surface-enforced workflow controls.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
       "path": "plans/notes/plan_note_governance_gap_closure_20260514.json",
       "status": "active",
       "authority_class": "authority",
@@ -29,6 +42,19 @@
       ]
     },
     {
+      "path": "plans/notes/plan_note_remaining_steps_post_9_8_20260514.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Finish final governance hardening after 9.8 tranche.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
       "path": "plans/planned_future_surfaces.json",
       "status": "active",
       "authority_class": "authority",
@@ -36,6 +62,32 @@
       "supersedes": [],
       "superseded_by": [],
       "current_decision": "Classify intentionally absent future files so agents do not treat planned-but-not-created surfaces as broken current work.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
+      "path": "plans/repo_roadmap.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Track governed slice progression for this template repo.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
+      "path": "plans/slices/slice_001_packet.json",
+      "status": "unknown",
+      "authority_class": "authority",
+      "active_eligible": false,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Maintain and validate governance template surfaces.",
       "next_action": "",
       "validation_refs": [
         "scripts/validate_slice_packet.py"

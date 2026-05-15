@@ -12,6 +12,7 @@ import subprocess
 import sys
 from pathlib import Path, PurePosixPath
 from typing import Any
+from _validator_output import emit_json
 
 
 DEFAULT_CONTRACT = Path("contracts/read_only_command_harness.json")
@@ -280,15 +281,22 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--command-id", action="append", default=[])
     parser.add_argument("--run", action="store_true", help="Execute selected commands under snapshots")
     parser.add_argument("--summary-only", action="store_true", help="Print compact JSON")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     try:
         contract = _load_json(args.contract)
     except FileNotFoundError:
-        print(json.dumps({"status": "failed", "failures": ["READ_ONLY_CONTRACT_MISSING"]}))
+        if args.json:
+            emit_json(validator="read_only_commands", status="failed", failure_codes=["READ_ONLY_CONTRACT_MISSING"])
+        else:
+            print(json.dumps({"status": "failed", "failures": ["READ_ONLY_CONTRACT_MISSING"]}))
         return 1
     except json.JSONDecodeError as exc:
-        print(json.dumps({"status": "failed", "failures": [f"READ_ONLY_CONTRACT_JSON_INVALID line={exc.lineno}"]}))
+        if args.json:
+            emit_json(validator="read_only_commands", status="failed", failure_codes=[f"READ_ONLY_CONTRACT_JSON_INVALID line={exc.lineno}"])
+        else:
+            print(json.dumps({"status": "failed", "failures": [f"READ_ONLY_CONTRACT_JSON_INVALID line={exc.lineno}"]}))
         return 1
 
     failures = validate_contract(contract)
@@ -306,7 +314,13 @@ def main(argv: list[str] | None = None) -> int:
         "failures": failures,
         "commands": command_results,
     }
-    if args.summary_only:
+    if args.json:
+        emit_json(
+            validator="read_only_commands",
+            status="failed" if failures else "passed",
+            failure_codes=failures,
+        )
+    elif args.summary_only:
         print(json.dumps(payload))
     else:
         print(json.dumps(payload, indent=2, sort_keys=True))

@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path, PurePosixPath
 from typing import Any
+from _validator_output import emit_json
 
 
 DEFAULT_REGISTRY = Path("plans/planned_future_surfaces.json")
@@ -120,17 +121,23 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("registry", nargs="?", type=Path, default=DEFAULT_REGISTRY)
     parser.add_argument("--summary-only", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     document, load_failures = _load_json(args.registry)
     failures = load_failures or validate_registry(document)
     if failures:
-        print(f"FAIL planned_future_surfaces path={args.registry} failures={len(failures)}")
-        for failure in failures:
-            print(failure)
+        if args.json:
+            emit_json(validator="planned_future_surfaces", status="failed", failure_codes=failures)
+        else:
+            print(f"FAIL planned_future_surfaces path={args.registry} failures={len(failures)}")
+            for failure in failures:
+                print(failure)
         return 1
 
-    if args.summary_only:
+    if args.json:
+        emit_json(validator="planned_future_surfaces", status="passed", failure_codes=[])
+    elif args.summary_only:
         count = len(document.get("surfaces", [])) if isinstance(document, dict) else 0
         print(f"PASS planned_future_surfaces path={args.registry} surfaces={count}")
     else:

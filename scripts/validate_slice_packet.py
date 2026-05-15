@@ -8,6 +8,7 @@ import json
 from pathlib import PurePosixPath
 from pathlib import Path
 from typing import Any
+from _validator_output import emit_json
 
 
 REQUIRED_PACKET_FIELDS = (
@@ -641,6 +642,7 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_PLANNED_FUTURE_SURFACES,
         help="Optional planned-future-surfaces registry used by boundary_rules",
     )
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     document, load_failures = _load_json(args.packet)
@@ -653,12 +655,17 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     if failures:
-        print(f"FAIL slice_packet path={args.packet} failures={len(failures)}")
-        for failure in failures:
-            print(failure)
+        if args.json:
+            emit_json(validator="slice_packet", status="failed", failure_codes=failures)
+        else:
+            print(f"FAIL slice_packet path={args.packet} failures={len(failures)}")
+            for failure in failures:
+                print(failure)
         return 1
 
-    if args.summary_only:
+    if args.json:
+        emit_json(validator="slice_packet", status="passed", failure_codes=[])
+    elif args.summary_only:
         print(f"PASS slice_packet path={args.packet}")
     else:
         print(f"PASS slice_packet path={args.packet} mode=check")

@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path, PurePosixPath
 from typing import Any
+from _validator_output import emit_json
 
 import build_command_map
 
@@ -208,6 +209,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("command_map", nargs="?", type=Path)
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--summary-only", action="store_true")
+    parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     if args.command_map:
@@ -220,13 +222,18 @@ def main(argv: list[str] | None = None) -> int:
 
     failures = load_failures or validate_command_map(document)
     if failures:
-        print(f"FAIL command_map source={source} failures={len(failures)}")
-        for failure in failures:
-            print(failure)
+        if args.json:
+            emit_json(validator="command_map", status="failed", failure_codes=failures)
+        else:
+            print(f"FAIL command_map source={source} failures={len(failures)}")
+            for failure in failures:
+                print(failure)
         return 1
 
     command_count = len(document.get("commands", [])) if isinstance(document, dict) else 0
-    if args.summary_only:
+    if args.json:
+        emit_json(validator="command_map", status="passed", failure_codes=[])
+    elif args.summary_only:
         print(f"PASS command_map source={source} commands={command_count}")
     else:
         print(f"PASS command_map source={source} mode=check commands={command_count}")
