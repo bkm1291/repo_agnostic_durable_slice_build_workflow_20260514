@@ -1,0 +1,45 @@
+{
+  "schema_version": "v1.plan_note_index.1",
+  "index_id": "plan_note_index",
+  "entries": [
+    {
+      "path": "plans/notes/plan_note_governance_gap_closure_20260514.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Close the 5 governance gaps by adding enforceable authority/evidence indexing, artifact routing, secret scanning, receipt semantics, and finer classification without over-expanding scope.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
+      "path": "plans/planned_future_surfaces.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Classify intentionally absent future files so agents do not treat planned-but-not-created surfaces as broken current work.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    },
+    {
+      "path": "plans/source_read_register.json",
+      "status": "active",
+      "authority_class": "authority",
+      "active_eligible": true,
+      "supersedes": [],
+      "superseded_by": [],
+      "current_decision": "Track exact internal or external source reads that slice packets may cite instead of relying on chat memory.",
+      "next_action": "",
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    }
+  ]
+}

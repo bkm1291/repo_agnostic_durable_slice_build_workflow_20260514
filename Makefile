@@ -25,6 +25,12 @@ validate-examples:
 	$(PYTHON) scripts/validate_command_map.py --summary-only
 	$(PYTHON) scripts/validate_claude_integration.py --summary-only
 	$(PYTHON) scripts/validate_read_only_commands.py --summary-only
+	$(PYTHON) scripts/build_plan_note_index.py --summary-only
+	$(PYTHON) scripts/build_artifact_output_map.py --summary-only
+	$(PYTHON) scripts/validate_artifact_output_map.py --summary-only
+	$(PYTHON) scripts/validate_runtime_governance_dirs.py --summary-only
+	$(PYTHON) scripts/validate_no_secrets_persisted.py --summary-only
+	$(PYTHON) scripts/validate_receipts_checkpoints.py --summary-only
 	$(PYTHON) scripts/build_repo_file_index.py --root examples/small_config_tool_repo --summary-only
 	$(PYTHON) scripts/validate_slice_packet.py examples/minimal_repo/plans/slices/slice_001_packet.json --summary-only
 	$(PYTHON) scripts/validate_slice_packet.py examples/small_config_tool_repo/plans/slices/slice_001_packet.json --summary-only

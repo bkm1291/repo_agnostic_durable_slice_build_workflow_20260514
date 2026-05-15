@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/durable-slice-workflow/plan_note_index.schema.json",
+  "title": "Plan Note Index",
+  "type": "object",
+  "required": ["schema_version", "index_id", "entries"],
+  "properties": {
+    "schema_version": { "const": "v1.plan_note_index.1" },
+    "index_id": { "type": "string", "minLength": 1 },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "status", "authority_class", "active_eligible", "supersedes", "superseded_by", "current_decision", "next_action", "validation_refs"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "authority_class": { "type": "string", "enum": ["authority", "evidence"] },
+          "active_eligible": { "type": "boolean" },
+          "supersedes": { "type": "array", "items": { "type": "string" } },
+          "superseded_by": { "type": "array", "items": { "type": "string" } },
+          "current_decision": { "type": "string" },
+          "next_action": { "type": "string" },
+          "validation_refs": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
