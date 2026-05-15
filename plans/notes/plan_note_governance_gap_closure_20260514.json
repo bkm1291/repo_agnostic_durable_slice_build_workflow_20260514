@@ -1,0 +1,105 @@
+{
+  "schema_version": "v1.plan_note.1",
+  "plan_note_id": "plan_note_governance_gap_closure_20260514",
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "active",
+  "title": "Close core governance gaps with enforceable routing and validators",
+  "goal": "Close the 5 governance gaps by adding enforceable authority/evidence indexing, artifact routing, secret scanning, receipt semantics, and finer classification without over-expanding scope.",
+  "execution_strategy": "Implement in small vertical slices so each new control has schema, contract (if needed), builder/validator, focused tests, and command-map/release integration.",
+  "slices": [
+    {
+      "slice_id": "A",
+      "name": "plan_note_index baseline",
+      "scope": [
+        "manifests/plan_note_index.json",
+        "manifests/plan_note_active_set.json",
+        "scripts/build_plan_note_index.py",
+        "scripts/query_plan_note_index.py",
+        "schemas/plan_note_index.schema.json",
+        "focused tests",
+        "command map and make check wiring"
+      ]
+    },
+    {
+      "slice_id": "B",
+      "name": "artifact_output_map baseline",
+      "scope": [
+        "manifests/artifact_output_map.json",
+        "scripts/build_artifact_output_map.py",
+        "scripts/validate_artifact_output_map.py",
+        "schemas/artifact_output_map.schema.json",
+        "focused tests"
+      ]
+    },
+    {
+      "slice_id": "C",
+      "name": "runtime scaffold and directory guarantees",
+      "scope": [
+        "bootstrap creates manifests/ receipts/ checkpoints/ reports/",
+        "bootstrap tests",
+        "validator for governance dirs"
+      ]
+    },
+    {
+      "slice_id": "D",
+      "name": "secret/token persistence validator",
+      "scope": [
+        "scripts/validate_no_secrets_persisted.py",
+        "configs/no_secrets_persisted_policy.json",
+        "focused tests",
+        "make check integration"
+      ]
+    },
+    {
+      "slice_id": "E",
+      "name": "receipt/checkpoint semantics enforcement",
+      "scope": [
+        "schemas/receipt.schema.json",
+        "schemas/checkpoint.schema.json",
+        "scripts/validate_receipts_checkpoints.py",
+        "focused tests"
+      ]
+    },
+    {
+      "slice_id": "F",
+      "name": "repo file index precision update",
+      "scope": [
+        "artifact_output_map-aware classification in scripts/build_repo_file_index.py",
+        "fallback heuristic unchanged",
+        "focused tests"
+      ]
+    },
+    {
+      "slice_id": "G",
+      "name": "integration and migration pass",
+      "scope": [
+        "update contracts/command_map_contract.json",
+        "update README.md AGENTS.md SKILL.md only where behavior changed",
+        "update plans/planned_future_surfaces.json statuses",
+        "migration note for warning mode rollout"
+      ]
+    }
+  ],
+  "commit_shape": [
+    "plan_note_index implementation",
+    "artifact_output_map implementation",
+    "scaffold/bootstrap enforcement",
+    "no-secrets validator",
+    "receipt/checkpoint schemas and validator",
+    "repo file index precision update",
+    "integration/docs/contracts/status updates"
+  ],
+  "validation_matrix": [
+    "python -m json.tool on added JSON/schema/contract outputs",
+    "new validators with --summary-only",
+    "focused pytest modules for each new surface",
+    "existing make check full pass",
+    "git diff --check and clean worktree state"
+  ],
+  "risk_controls": [
+    "Add new validators orthogonally before touching existing validator logic.",
+    "Keep default modes read-only; writer behavior explicitly declared.",
+    "Do not make generated indexes mandatory for behavioral proof.",
+    "Preserve repo-agnostic behavior."
+  ]
+}
