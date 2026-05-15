@@ -358,6 +358,28 @@
       "writer_mode_requires_explicit_intent": false
     },
     {
+      "argv_template": "python scripts/validate_governance_event_ledger.py --summary-only",
+      "command_id": "validate_governance_event_ledger",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_governance_event_ledger.py",
+      "purpose": "Validate validate governance event ledger with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
       "argv_template": "python scripts/validate_governance_ids_timestamps.py --mode strict --summary-only",
       "command_id": "validate_governance_ids_timestamps",
       "compact_mode_supported": true,
@@ -804,17 +826,17 @@
   "schema_version": "v1.repo_agnostic_command_map.1",
   "status": "active",
   "summary": {
-    "command_count": 36,
+    "command_count": 37,
     "entry_type_counts": {
       "builder": 8,
       "command": 4,
       "helper": 3,
-      "validator": 20,
+      "validator": 21,
       "writer": 1
     },
     "side_effect_counts": {
       "read_only": 2,
-      "read_only_summary": 26,
+      "read_only_summary": 27,
       "test_runner": 1,
       "unknown": 1,
       "write_explicit": 6

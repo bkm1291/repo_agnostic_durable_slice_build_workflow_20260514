@@ -51,6 +51,7 @@ def test_bootstrap_creates_valid_local_repo(tmp_path: Path) -> None:
     assert (target / "contracts" / "read_only_command_harness.json").is_file()
     assert (target / "plans" / "source_read_register.json").is_file()
     assert (target / "plans" / "planned_future_surfaces.json").is_file()
+    assert (target / "manifests" / "governance_event_ledger.jsonl").is_file()
     assert (target / "scripts" / "validate_low_token_workflow.py").is_file()
     assert (target / "scripts" / "validate_source_read_register.py").is_file()
     assert (target / "scripts" / "validate_planned_future_surfaces.py").is_file()

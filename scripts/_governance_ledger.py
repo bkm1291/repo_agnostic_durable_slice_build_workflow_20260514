@@ -1,0 +1,98 @@
+from __future__ import annotations
+
+import json
+import re
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path, PurePosixPath
+from typing import Any
+
+
+DEFAULT_LEDGER = Path("manifests/governance_event_ledger.jsonl")
+
+
+def _slug(value: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
+    return slug or "unknown"
+
+
+def _short_head(root: Path) -> str:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=root,
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+    except FileNotFoundError:
+        return "unknown"
+    return result.stdout.strip() if result.returncode == 0 and result.stdout.strip() else "unknown"
+
+
+def _repo_ref(root: Path, path: Path | str) -> str:
+    path_obj = Path(path)
+    if not path_obj.is_absolute():
+        value = path_obj.as_posix()
+    else:
+        try:
+            value = path_obj.resolve().relative_to(root.resolve()).as_posix()
+        except ValueError:
+            value = path_obj.name
+    posix = PurePosixPath(value)
+    if posix.is_absolute() or ".." in posix.parts or "\\" in value:
+        return posix.name
+    return value
+
+
+def _existing_event_ids(ledger_path: Path) -> set[str]:
+    if not ledger_path.exists():
+        return set()
+    ids: set[str] = set()
+    for line in ledger_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(event, dict) and isinstance(event.get("event_id"), str):
+            ids.add(event["event_id"])
+    return ids
+
+
+def append_generated_refresh_event(
+    *,
+    root: Path,
+    writer_command_id: str,
+    artifact_refs: list[Path | str],
+    validator_ref: str,
+    ledger_path: Path = DEFAULT_LEDGER,
+    timestamp_utc: str | None = None,
+) -> bool:
+    root = root.resolve()
+    ledger_abs = ledger_path if ledger_path.is_absolute() else root / ledger_path
+    date_token = (timestamp_utc or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))[:10].replace("-", "")
+    event_id = f"event_generated_refresh_{_slug(writer_command_id)}_{date_token}"
+    if event_id in _existing_event_ids(ledger_abs):
+        return False
+
+    timestamp = timestamp_utc or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    event: dict[str, Any] = {
+        "schema_version": "v1.governance_event.1",
+        "event_id": event_id,
+        "event_type": "generated_refresh",
+        "entity_id": writer_command_id,
+        "timestamp_utc": timestamp,
+        "validator_ref": validator_ref,
+        "artifact_refs": [_repo_ref(root, item) for item in artifact_refs],
+        "commit_ref": _short_head(root),
+        "details": {
+            "reason_class": "generator",
+            "writer_command_id": writer_command_id,
+        },
+    }
+    ledger_abs.parent.mkdir(parents=True, exist_ok=True)
+    with ledger_abs.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(event, sort_keys=True, separators=(",", ":")) + "\n")
+    return True

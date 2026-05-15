@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "active_eligible": true,
+      "authority_class": "authority",
+      "current_decision": "Fixture plan note.",
+      "next_action": "Run fixture proof.",
+      "path": "plans/notes/plan_note_fixture_20260514.json",
+      "status": "active",
+      "superseded_by": [],
+      "supersedes": [],
+      "validation_refs": [
+        "scripts/validate_slice_packet.py"
+      ]
+    }
+  ],
+  "index_id": "plan_note_index",
+  "schema_version": "v1.plan_note_index.1"
+}

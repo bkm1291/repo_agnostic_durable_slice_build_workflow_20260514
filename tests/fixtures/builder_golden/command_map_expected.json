@@ -1,0 +1,69 @@
+{
+  "authority_rule": {
+    "conflict_rule": "When a schema accepts a document but the Python validator rejects it, the validator rejection blocks closeout until the schema or document is intentionally updated.",
+    "python_validator_authority": "Python validators define semantic rules, cross-file rules, side-effect rules, read-only checks, and local adoption safety",
+    "schema_authority": "schemas define JSON shape, required fields, allowed enum values, and portable structural constraints"
+  },
+  "commands": [
+    {
+      "argv_template": "python scripts/validate_demo.py --summary-only",
+      "command_id": "validate_demo",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_demo.py",
+      "purpose": "Validate validate demo with compact output where available.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
+      "argv_template": "python scripts/write_demo.py --write --summary-only",
+      "command_id": "write_demo",
+      "compact_mode_supported": true,
+      "entry_type": "writer",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/write_demo.py",
+      "purpose": "Write write demo only when explicit writer mode is requested.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    }
+  ],
+  "contract_ref": "contracts/command_map_contract.json",
+  "generated_by": "scripts/build_command_map.py",
+  "map_id": "repo_agnostic_command_map",
+  "schema_version": "v1.repo_agnostic_command_map.1",
+  "status": "active",
+  "summary": {
+    "command_count": 2,
+    "entry_type_counts": {
+      "validator": 1,
+      "writer": 1
+    },
+    "side_effect_counts": {
+      "read_only_summary": 1,
+      "write_explicit": 1
+    }
+  }
+}

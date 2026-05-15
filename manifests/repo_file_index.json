@@ -91,10 +91,10 @@
     {
       "extension": "",
       "kind": "source",
-      "line_count": 107,
+      "line_count": 108,
       "path": "Makefile",
-      "sha256": "ed449e5cb667614eebaf3054edbe4937091dbd57b7368ed304b59c1f97f5bfe7",
-      "size_bytes": 6706
+      "sha256": "5424851cb21687a9844ee8ebf2c9bc6c9740fdd38e74a46f9e29351064271675",
+      "size_bytes": 6776
     },
     {
       "extension": ".md",
@@ -247,6 +247,14 @@
       "path": "docs/NEXT_ACTION_DECISION_TREE.md",
       "sha256": "bb7b00f75551c9d25c1eef56de957a0d7bba6f6c4c5e0893d45daadef76cf6e1",
       "size_bytes": 3276
+    },
+    {
+      "extension": ".md",
+      "kind": "doc",
+      "line_count": 12,
+      "path": "docs/OPERATOR_FLOW.md",
+      "sha256": "99dfa7642541965cb1898d07c411b42cc8469129f733e853ae7d797375877565",
+      "size_bytes": 821
     },
     {
       "extension": ".md",
@@ -603,26 +611,26 @@
     {
       "extension": ".json",
       "kind": "artifact:generated_index",
-      "line_count": 823,
+      "line_count": 845,
       "path": "manifests/command_map.json",
-      "sha256": "c0f1ec82738caf1391f6dee1e05a288b1211507d304657dfb32eb4eb09c3ba93",
-      "size_bytes": 29783
+      "sha256": "93d7f1fa30838755c00409b64fcdc4eca582e61b287a5ce4521558fb84d67c91",
+      "size_bytes": 30610
     },
     {
       "extension": ".json",
       "kind": "generated_or_evidence",
-      "line_count": 13,
+      "line_count": 14,
       "path": "manifests/plan_note_active_set.json",
-      "sha256": "cd05c81cca44e810844a7e97266bd38e6866dc2118ae0338e7d12effdd7506f4",
-      "size_bytes": 472
+      "sha256": "4da84ee250cf9bbb35619a9c2ccf34994080381e3bfc57d381c59234be057db7",
+      "size_bytes": 535
     },
     {
       "extension": ".json",
       "kind": "artifact:generated_index",
-      "line_count": 110,
+      "line_count": 123,
       "path": "manifests/plan_note_index.json",
-      "sha256": "83e922267a250af31f40f5d15d826e74556daffa00903c92bbcd78da63ea430c",
-      "size_bytes": 3700
+      "sha256": "71b5f5f0e0654e212497d5c94b2750c574c53fce0feaebc903868647ba99884d",
+      "size_bytes": 4207
     },
     {
       "extension": ".json",
@@ -631,6 +639,14 @@
       "path": "plans/notes/plan_note_best_in_class_governance_20260514.json",
       "sha256": "ee3d1e52c5b0281f0dce247e122883ff814786956d2918367b694ec230dd2a15",
       "size_bytes": 1297
+    },
+    {
+      "extension": ".json",
+      "kind": "plan",
+      "line_count": 43,
+      "path": "plans/notes/plan_note_final_hardening_1_5_20260514.json",
+      "sha256": "6d17566dac5537c730f405d3851d31d487b544df168a1498c2fd2f5aa31c076b",
+      "size_bytes": 1549
     },
     {
       "extension": ".json",
@@ -691,10 +707,10 @@
     {
       "extension": ".toml",
       "kind": "source",
-      "line_count": 332,
+      "line_count": 333,
       "path": "pyproject.toml",
-      "sha256": "bac8da00ac1e10b71b50a4bb1e98cd24a30df977b2c15fbc86e5cfa990c5f89f",
-      "size_bytes": 19556
+      "sha256": "f9102b34b482e87545c488d2108d580e17a25408092f8d37f67acbd7d74e218e",
+      "size_bytes": 19659
     },
     {
       "extension": ".json",
@@ -859,6 +875,14 @@
     {
       "extension": ".py",
       "kind": "script",
+      "line_count": 98,
+      "path": "scripts/_governance_ledger.py",
+      "sha256": "fe03e99e4cd137848beedd56b4c598a8b295afb5f72e962ad8dac9ef9ce77338",
+      "size_bytes": 3164
+    },
+    {
+      "extension": ".py",
+      "kind": "script",
       "line_count": 14,
       "path": "scripts/_validator_output.py",
       "sha256": "73f0fc9734c44123fbf94946a06ef18b54823e04c7a9a00d28585427eda8d844",
@@ -867,42 +891,42 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 588,
+      "line_count": 589,
       "path": "scripts/bootstrap_local_repo.py",
-      "sha256": "ad8a9283d89a60eb3de75f3e9bb3c1000e69ffa62d192d7f7655a86ebffa582a",
-      "size_bytes": 22442
+      "sha256": "e9ce9753053f5ab7f183b95101930b54087a8e7b39cb4e655bd6edc43a49c7b2",
+      "size_bytes": 22489
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 39,
+      "line_count": 48,
       "path": "scripts/build_artifact_output_map.py",
-      "sha256": "fbe00198633040bc2ff7c7eac7a388308fdadab4b66d2850c1339329c9e4b88f",
-      "size_bytes": 1809
+      "sha256": "dde4fbd84ed72ce5f79603d66d984cdc3bc611d6163b592066174fcff4c83db8",
+      "size_bytes": 2190
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 279,
+      "line_count": 289,
       "path": "scripts/build_command_map.py",
-      "sha256": "b5d3c312f579715dddc2fbcd1b6e4c6d4d94625a2b2bf856dc88a65a9c7fd03d",
-      "size_bytes": 10100
+      "sha256": "d77670269caa8722773ee255e3f11d9cadf29a36791039fbd67932ef9c11b840",
+      "size_bytes": 10482
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 87,
+      "line_count": 97,
       "path": "scripts/build_plan_note_index.py",
-      "sha256": "e21737835f2432cb7f899ca4b299044089e59bbb886d58ef84bbdffbf1b9982c",
-      "size_bytes": 3480
+      "sha256": "7d4a7985ce69a87daf0c6b1242bb027d48d3203095074b0b8e5d8a65c979e911",
+      "size_bytes": 3874
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 251,
+      "line_count": 265,
       "path": "scripts/build_repo_file_index.py",
-      "sha256": "707345d8f1f6f4e4221b462060e0b332153329c29a740df46fcad57fb1bff577",
-      "size_bytes": 8049
+      "sha256": "e23bb3f5da80577ac5dd03dfb35c06d015c2d3f8bbcd1c0f668eb451bed5633b",
+      "size_bytes": 8656
     },
     {
       "extension": ".py",
@@ -995,6 +1019,14 @@
     {
       "extension": ".py",
       "kind": "script",
+      "line_count": 126,
+      "path": "scripts/validate_governance_event_ledger.py",
+      "sha256": "2cb50b3f9bb4e754342f5e53ce4a1dacce69d83bf6aca988b90d2748db00ccd8",
+      "size_bytes": 5215
+    },
+    {
+      "extension": ".py",
+      "kind": "script",
       "line_count": 49,
       "path": "scripts/validate_governance_ids_timestamps.py",
       "sha256": "2a8ef7ed7c28cfd0c9852cc1ae49f607f7e416177d5f6bd0b478f80ef9e0bdab",
@@ -1067,10 +1099,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 413,
+      "line_count": 421,
       "path": "scripts/validate_release_package.py",
-      "sha256": "c899015afee8a75b4127778e8ea62a41699623e89baa7957c54b59a4bd867cda",
-      "size_bytes": 14002
+      "sha256": "3a6dfefbecd9a26f2144d8deb6c645ee194e4c8af08fdfb97ab01db58dd9af8e",
+      "size_bytes": 14375
     },
     {
       "extension": ".py",
@@ -1121,6 +1153,38 @@
       "size_bytes": 5761
     },
     {
+      "extension": ".json",
+      "kind": "test",
+      "line_count": 34,
+      "path": "tests/fixtures/builder_golden/artifact_output_map_expected.json",
+      "sha256": "8634825e0439ed29d216672f2bf8ecd4c780a050b0cc7149306d3200f3f7edd2",
+      "size_bytes": 971
+    },
+    {
+      "extension": ".json",
+      "kind": "test",
+      "line_count": 69,
+      "path": "tests/fixtures/builder_golden/command_map_expected.json",
+      "sha256": "46fe38743ad36c272131ca2ba4adfafc994b9a82b149bfef4b75d78366c1fbdc",
+      "size_bytes": 2453
+    },
+    {
+      "extension": ".json",
+      "kind": "test",
+      "line_count": 19,
+      "path": "tests/fixtures/builder_golden/plan_note_index_expected.json",
+      "sha256": "0d406bdf7de8e0ed811034eebe2d650de9a44707984f793d7731adca17ce3a6c",
+      "size_bytes": 488
+    },
+    {
+      "extension": ".json",
+      "kind": "test",
+      "line_count": 22,
+      "path": "tests/fixtures/builder_golden/repo_file_index_expected.json",
+      "sha256": "a3ee5feeee5960240e6630dac61e6b5f5ccb505860a248ac0514af6dc8deae6e",
+      "size_bytes": 466
+    },
+    {
       "extension": ".py",
       "kind": "test",
       "line_count": 30,
@@ -1139,18 +1203,18 @@
     {
       "extension": ".py",
       "kind": "test",
-      "line_count": 218,
+      "line_count": 219,
       "path": "tests/test_bootstrap_local_repo.py",
-      "sha256": "9b5262df537654444534802f7d09cdad02faa4d02f3c1bbf27e43d0405e2134f",
-      "size_bytes": 8232
+      "sha256": "a18d5374912a024c1436176953031d7f643f2680c34ec24cb9d07d7fd87c939b",
+      "size_bytes": 8310
     },
     {
       "extension": ".py",
       "kind": "test",
-      "line_count": 30,
+      "line_count": 117,
       "path": "tests/test_builder_golden_contracts.py",
-      "sha256": "7c95d1b8b7eb218cafb37598d75a1d04c4e419d9d537a2a5cd1feb3e11a4df51",
-      "size_bytes": 1366
+      "sha256": "2ff665bb419203af7c53d14a530266d22e4813773557a3477facbd9f1be45dda",
+      "size_bytes": 4592
     },
     {
       "extension": ".py",
@@ -1159,6 +1223,14 @@
       "path": "tests/test_command_map.py",
       "sha256": "f008909cf5158aaa3ef70cb7aa0e71aca1206b136767e86dd779c413779ce714",
       "size_bytes": 5316
+    },
+    {
+      "extension": ".py",
+      "kind": "test",
+      "line_count": 49,
+      "path": "tests/test_governance_event_ledger.py",
+      "sha256": "1fd5c587c261f193c657232ff0bf404969cc40a5faf6a84b4532386232bc628e",
+      "size_bytes": 1476
     },
     {
       "extension": ".py",
@@ -1286,18 +1358,18 @@
   "root_name": "repo_agnostic_durable_slice_build_workflow_20260514",
   "schema_version": "v1.repo_file_index.1",
   "summary": {
-    "file_count": 160,
+    "file_count": 169,
     "kind_counts": {
       "artifact:generated_index": 3,
       "config": 1,
       "contract": 5,
-      "doc": 26,
+      "doc": 27,
       "generated_or_evidence": 5,
-      "plan": 8,
+      "plan": 9,
       "schema": 15,
-      "script": 36,
+      "script": 38,
       "source": 39,
-      "test": 22
+      "test": 27
     }
   }
 }

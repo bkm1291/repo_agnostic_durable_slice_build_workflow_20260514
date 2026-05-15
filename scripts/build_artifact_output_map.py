@@ -5,6 +5,8 @@ import argparse
 import json
 from pathlib import Path
 
+from _governance_ledger import append_generated_refresh_event
+
 
 def build_map() -> dict:
     return {
@@ -27,11 +29,18 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--summary-only", action="store_true")
     args = p.parse_args(argv)
     data = build_map()
+    ledger_appended = False
     if args.write:
         out = args.root / args.output
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"status": "passed", "output_count": len(data["outputs"])} if args.summary_only else data))
+        ledger_appended = append_generated_refresh_event(
+            root=args.root,
+            writer_command_id="write_artifact_output_map",
+            artifact_refs=[out],
+            validator_ref="scripts/build_artifact_output_map.py",
+        )
+    print(json.dumps({"status": "passed", "output_count": len(data["outputs"]), "ledger_appended": ledger_appended} if args.summary_only else data))
     return 0
 
 

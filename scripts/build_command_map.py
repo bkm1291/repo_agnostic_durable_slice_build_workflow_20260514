@@ -10,6 +10,8 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from _governance_ledger import append_generated_refresh_event
+
 
 DEFAULT_OUTPUT = Path("manifests/command_map.json")
 DEFAULT_CONTRACT = Path("contracts/command_map_contract.json")
@@ -239,7 +241,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.write:
         output_abs.parent.mkdir(parents=True, exist_ok=True)
         output_abs.write_text(expected, encoding="utf-8")
-        print(json.dumps(_summary_payload(command_map, status="passed", output_path=args.output)))
+        ledger_appended = append_generated_refresh_event(
+            root=root,
+            writer_command_id="write_command_map",
+            artifact_refs=[output_abs],
+            validator_ref="scripts/build_command_map.py",
+        )
+        summary = _summary_payload(command_map, status="passed", output_path=args.output)
+        summary["ledger_appended"] = ledger_appended
+        print(json.dumps(summary))
         return 0
 
     if args.check:

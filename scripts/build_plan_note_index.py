@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from _governance_ledger import append_generated_refresh_event
+
 DEFAULT_OUTPUT = Path("manifests/plan_note_index.json")
 DEFAULT_ACTIVE_OUTPUT = Path("manifests/plan_note_active_set.json")
 
@@ -76,8 +78,16 @@ def main(argv: list[str] | None = None) -> int:
         active_out = root / args.active_output
         active_out.parent.mkdir(parents=True, exist_ok=True)
         active_out.write_text(json.dumps(active, indent=2) + "\n", encoding="utf-8")
+        ledger_appended = append_generated_refresh_event(
+            root=root,
+            writer_command_id="write_plan_note_index",
+            artifact_refs=[out, active_out],
+            validator_ref="scripts/build_plan_note_index.py",
+        )
+    else:
+        ledger_appended = False
     if args.summary_only:
-        print(json.dumps({"status": "passed", "entry_count": len(index["entries"]), "active_count": active["count"]}))
+        print(json.dumps({"status": "passed", "entry_count": len(index["entries"]), "active_count": active["count"], "ledger_appended": ledger_appended}))
     else:
         print(json.dumps(index, indent=2))
     return 0

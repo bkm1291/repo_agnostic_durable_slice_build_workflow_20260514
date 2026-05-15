@@ -39,6 +39,7 @@ CORE_PATHS = (
     "schemas",
     "scripts",
     "tests",
+    "manifests/governance_event_ledger.jsonl",
 )
 RUNTIME_GOVERNANCE_DIRS = ("manifests", "receipts", "checkpoints", "reports")
 

@@ -1,0 +1,43 @@
+{
+  "schema_version": "v1.plan_note.1",
+  "plan_note_id": "plan_note_final_hardening_1_5_20260514",
+  "created_at": "2026-05-14T00:00:00Z",
+  "status": "active",
+  "goal": "Implement the final 1-5 hardening pass: governance event ledger, operator-flow docs, exact builder fixtures, full validation, and final score.",
+  "slices": [
+    {
+      "slice_id": "F1",
+      "goal": "Add governance event ledger and validator.",
+      "proof": "scripts/validate_governance_event_ledger.py --summary-only"
+    },
+    {
+      "slice_id": "F2",
+      "goal": "Add final operator-flow documentation and release gate requirement.",
+      "proof": "python scripts/validate_release_package.py --json"
+    },
+    {
+      "slice_id": "F3",
+      "goal": "Add fixture-based builder golden tests.",
+      "proof": "pytest -q tests/test_builder_golden_contracts.py"
+    },
+    {
+      "slice_id": "F4",
+      "goal": "Run full release validation matrix.",
+      "proof": "make check; make governance-check; python scripts/validate_release_package.py --json; make bootstrap-smoke"
+    },
+    {
+      "slice_id": "F5",
+      "goal": "Score the repo after the final hardening pass.",
+      "proof": "Final response records score and residual gaps."
+    }
+  ],
+  "validation_matrix": [
+    "make check",
+    "make governance-check",
+    "python scripts/validate_release_package.py --json",
+    "make bootstrap-smoke",
+    "pytest -q tests/test_builder_golden_contracts.py tests/test_governance_* tests/test_*index*",
+    "git diff --check",
+    "git status --short"
+  ]
+}

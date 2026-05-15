@@ -11,8 +11,11 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from _governance_ledger import append_generated_refresh_event
+
 
 DEFAULT_OUTPUT = Path("manifests/repo_file_index.json")
+SELF_REFERENTIAL_GENERATED_OUTPUTS = {"manifests/governance_event_ledger.jsonl"}
 EXCLUDED_DIRS = {
     ".git",
     ".mypy_cache",
@@ -158,6 +161,9 @@ def build_index(root: Path, output_path: Path = DEFAULT_OUTPUT) -> dict[str, Any
             continue
         if file_path == output_abs:
             continue
+        relpath = file_path.relative_to(root).as_posix()
+        if relpath in SELF_REFERENTIAL_GENERATED_OUTPUTS:
+            continue
         rel_parts = file_path.relative_to(root).parts
         if any(part in EXCLUDED_DIRS for part in rel_parts):
             continue
@@ -210,7 +216,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.write:
         output_abs.parent.mkdir(parents=True, exist_ok=True)
         output_abs.write_text(expected, encoding="utf-8")
-        print(json.dumps(_summary_payload(index, status="passed", output_path=output_path)))
+        ledger_appended = append_generated_refresh_event(
+            root=root,
+            writer_command_id="write_repo_file_index",
+            artifact_refs=[output_abs],
+            validator_ref="scripts/build_repo_file_index.py",
+        )
+        summary = _summary_payload(index, status="passed", output_path=output_path)
+        summary["ledger_appended"] = ledger_appended
+        print(json.dumps(summary))
         return 0
 
     if args.check:

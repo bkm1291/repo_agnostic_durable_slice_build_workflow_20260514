@@ -46,6 +46,7 @@ REQUIRED_PATHS = (
     "docs/NEXT_ACTION_DECISION_TREE.md",
     "docs/TROUBLESHOOTING.md",
     "docs/ANNOTATED_SLICE_PACKET.md",
+    "docs/OPERATOR_FLOW.md",
     "docs/SOURCE_PROVENANCE_POLICY.md",
     "docs/GENERATED_ARTIFACT_PRIVACY_POLICY.md",
     "docs/migrations/v0_5_0.md",
@@ -73,6 +74,8 @@ REQUIRED_PATHS = (
     "scripts/validate_slice_packet.py",
     "scripts/validate_low_token_workflow.py",
     "scripts/build_repo_file_index.py",
+    "scripts/build_artifact_output_map.py",
+    "scripts/build_plan_note_index.py",
     "scripts/query_repo_file_index.py",
     "scripts/build_command_map.py",
     "scripts/query_command_map.py",
@@ -88,7 +91,10 @@ REQUIRED_PATHS = (
     "scripts/validate_slice_lifecycle.py",
     "scripts/validate_not_in_scope_guard.py",
     "scripts/validate_future_note_materiality.py",
+    "scripts/_governance_ledger.py",
     "scripts/validate_source_provenance.py",
+    "scripts/validate_governance_event_ledger.py",
+    "manifests/governance_event_ledger.jsonl",
     "tests/test_validate_slice_packet.py",
     "tests/test_validate_low_token_workflow.py",
     "tests/test_repo_file_index.py",
@@ -214,6 +220,8 @@ def _tracked_or_packaged_paths(root: Path) -> list[str]:
         if not path.is_file():
             continue
         relative = path.relative_to(root).as_posix()
+        if relative.startswith("manifests/") and relative != "manifests/governance_event_ledger.jsonl":
+            continue
         parts = set(PurePosixPath(relative).parts)
         if parts & {".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}:
             continue

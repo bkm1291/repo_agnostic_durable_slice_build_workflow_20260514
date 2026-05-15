@@ -21,6 +21,7 @@ governance-check:
 	$(PYTHON) scripts/validate_no_secrets_persisted.py --mode strict --summary-only
 	$(PYTHON) scripts/validate_receipts_checkpoints.py --summary-only
 	$(PYTHON) scripts/validate_source_provenance.py
+	$(PYTHON) scripts/validate_governance_event_ledger.py --summary-only
 
 render:
 	$(PYTHON) scripts/render_canonical_entrypoints.py --write

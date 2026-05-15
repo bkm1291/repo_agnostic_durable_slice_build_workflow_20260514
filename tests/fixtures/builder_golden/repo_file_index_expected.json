@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "extension": ".md",
+      "kind": "doc",
+      "line_count": 1,
+      "path": "README.md",
+      "sha256": "31ca6c61ca3fcc54029a62bd082448b88718b913d24e195794969dd2d123b990",
+      "size_bytes": 7
+    }
+  ],
+  "index_id": "repo_file_index",
+  "inventory_mode": "filesystem_walk",
+  "root_name": "fixture_repo",
+  "schema_version": "v1.repo_file_index.1",
+  "summary": {
+    "file_count": 1,
+    "kind_counts": {
+      "doc": 1
+    }
+  }
+}
