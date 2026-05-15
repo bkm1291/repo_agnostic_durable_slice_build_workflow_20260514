@@ -104,6 +104,25 @@ def _classify_path(relpath: str) -> str:
     return "source"
 
 
+def _artifact_kind_overrides(root: Path) -> dict[str, str]:
+    path = root / "manifests" / "artifact_output_map.json"
+    if not path.exists():
+        return {}
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    overrides: dict[str, str] = {}
+    for item in doc.get("outputs", []):
+        if not isinstance(item, dict):
+            continue
+        out = item.get("output_path")
+        kind = item.get("artifact_kind")
+        if isinstance(out, str) and isinstance(kind, str):
+            overrides[out] = f"artifact:{kind}"
+    return overrides
+
+
 def _text_line_count(data: bytes, suffix: str) -> int | None:
     if suffix.lower() not in TEXT_EXTENSIONS and b"\0" in data[:2048]:
         return None
@@ -113,14 +132,14 @@ def _text_line_count(data: bytes, suffix: str) -> int | None:
         return None
 
 
-def _file_entry(path: Path, root: Path) -> dict[str, Any]:
+def _file_entry(path: Path, root: Path, artifact_overrides: dict[str, str]) -> dict[str, Any]:
     relpath = _repo_relative(path, root)
     data = path.read_bytes()
     suffix = path.suffix.lower()
     line_count = _text_line_count(data, suffix)
     return {
         "path": relpath,
-        "kind": _classify_path(relpath),
+        "kind": artifact_overrides.get(relpath, _classify_path(relpath)),
         "extension": suffix,
         "size_bytes": len(data),
         "line_count": line_count,
@@ -132,6 +151,7 @@ def build_index(root: Path, output_path: Path = DEFAULT_OUTPUT) -> dict[str, Any
     root = root.resolve()
     output_abs = (root / output_path).resolve() if not output_path.is_absolute() else output_path.resolve()
     inventory_mode, files = _iter_inventory(root)
+    artifact_overrides = _artifact_kind_overrides(root)
     entries = []
     for file_path in sorted({path.resolve() for path in files}):
         if not file_path.exists() or not file_path.is_file():
@@ -141,7 +161,7 @@ def build_index(root: Path, output_path: Path = DEFAULT_OUTPUT) -> dict[str, Any
         rel_parts = file_path.relative_to(root).parts
         if any(part in EXCLUDED_DIRS for part in rel_parts):
             continue
-        entries.append(_file_entry(file_path, root))
+        entries.append(_file_entry(file_path, root, artifact_overrides))
     kind_counts = Counter(entry["kind"] for entry in entries)
     return {
         "schema_version": "v1.repo_file_index.1",
