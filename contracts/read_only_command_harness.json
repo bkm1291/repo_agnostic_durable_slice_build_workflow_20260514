@@ -185,6 +185,21 @@
       "compact_mode": true
     },
     {
+      "command_id": "validate_slice_closeout",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/validate_slice_closeout.py",
+        "--mode",
+        "strict",
+        "--summary-only"
+      ],
+      "expected_exit_codes": [
+        0
+      ],
+      "compact_mode": true
+    },
+    {
       "command_id": "validate_release_package",
       "cwd": ".",
       "argv": [

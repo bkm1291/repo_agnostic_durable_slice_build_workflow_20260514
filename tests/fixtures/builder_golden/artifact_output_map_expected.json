@@ -28,6 +28,20 @@
       "role": "authority",
       "summary_only": false,
       "writer_command_id": "write_artifact_output_map"
+    },
+    {
+      "artifact_kind": "manifest",
+      "output_path": "manifests/governance_event_ledger.jsonl",
+      "role": "evidence",
+      "summary_only": false,
+      "writer_command_id": "record_slice_closeout"
+    },
+    {
+      "artifact_kind": "manifest",
+      "output_path": "manifests/governance_event_ledger.jsonl",
+      "role": "evidence",
+      "summary_only": false,
+      "writer_command_id": "record_release_gate"
     }
   ],
   "schema_version": "v1.artifact_output_map.1"

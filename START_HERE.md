@@ -175,7 +175,15 @@ and meaningful closeout evidence.
 
 The manifest writer commands append generated-refresh entries to
 `manifests/governance_event_ledger.jsonl` automatically and skip duplicate event
-IDs on repeated runs. Validate the ledger with:
+IDs on repeated runs. Closeout and release gates use the same explicit-writer
+model:
+
+```bash
+python scripts/validate_slice_closeout.py <closeout> --mode strict --record-ledger --summary-only
+python scripts/validate_release_package.py --record-ledger --summary-only
+```
+
+Validate the ledger with:
 
 ```bash
 python scripts/validate_governance_event_ledger.py --summary-only

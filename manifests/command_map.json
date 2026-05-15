@@ -248,6 +248,50 @@
       "writer_mode_requires_explicit_intent": false
     },
     {
+      "argv_template": "python scripts/validate_release_package.py --record-ledger --summary-only",
+      "command_id": "record_release_gate",
+      "compact_mode_supported": true,
+      "entry_type": "writer",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_release_package.py",
+      "purpose": "Write record release gate only when explicit writer mode is requested.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
+      "argv_template": "python scripts/validate_slice_closeout.py <closeout> --mode strict --record-ledger --summary-only",
+      "command_id": "record_slice_closeout",
+      "compact_mode_supported": true,
+      "entry_type": "writer",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_closeout.py",
+      "purpose": "Write record slice closeout only when explicit writer mode is requested.",
+      "safe_to_run_in_read_only_harness": false,
+      "side_effect_class": "write_explicit",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": true
+    },
+    {
       "argv_template": "python scripts/validate_read_only_commands.py --run --summary-only",
       "command_id": "run_read_only_commands",
       "compact_mode_supported": true,
@@ -622,6 +666,28 @@
       "writer_mode_requires_explicit_intent": false
     },
     {
+      "argv_template": "python scripts/validate_slice_closeout.py --mode strict --summary-only",
+      "command_id": "validate_slice_closeout",
+      "compact_mode_supported": true,
+      "entry_type": "validator",
+      "owner_area": "workflow_scripts",
+      "owner_refs": [
+        "pyproject.toml",
+        "contracts/command_map_contract.json"
+      ],
+      "path": "scripts/validate_slice_closeout.py",
+      "purpose": "Validate validate slice closeout with compact output where available.",
+      "safe_to_run_in_read_only_harness": true,
+      "side_effect_class": "read_only_summary",
+      "test_refs": [
+        "tests/test_command_map.py"
+      ],
+      "validator_refs": [
+        "scripts/validate_command_map.py"
+      ],
+      "writer_mode_requires_explicit_intent": false
+    },
+    {
       "argv_template": "python scripts/validate_slice_lifecycle.py --mode strict",
       "command_id": "validate_slice_lifecycle",
       "compact_mode_supported": false,
@@ -713,14 +779,14 @@
       "argv_template": "python scripts/build_artifact_output_map.py --write --summary-only",
       "command_id": "write_artifact_output_map",
       "compact_mode_supported": true,
-      "entry_type": "builder",
+      "entry_type": "writer",
       "owner_area": "workflow_scripts",
       "owner_refs": [
         "pyproject.toml",
         "contracts/command_map_contract.json"
       ],
       "path": "scripts/build_artifact_output_map.py",
-      "purpose": "Build or summarize write artifact output map discovery evidence.",
+      "purpose": "Write write artifact output map only when explicit writer mode is requested.",
       "safe_to_run_in_read_only_harness": false,
       "side_effect_class": "write_explicit",
       "test_refs": [
@@ -757,14 +823,14 @@
       "argv_template": "python scripts/build_command_map.py --write --summary-only",
       "command_id": "write_command_map",
       "compact_mode_supported": true,
-      "entry_type": "builder",
+      "entry_type": "writer",
       "owner_area": "workflow_scripts",
       "owner_refs": [
         "pyproject.toml",
         "contracts/command_map_contract.json"
       ],
       "path": "scripts/build_command_map.py",
-      "purpose": "Build or summarize write command map discovery evidence.",
+      "purpose": "Write write command map only when explicit writer mode is requested.",
       "safe_to_run_in_read_only_harness": false,
       "side_effect_class": "write_explicit",
       "test_refs": [
@@ -779,14 +845,14 @@
       "argv_template": "python scripts/build_plan_note_index.py --write --summary-only",
       "command_id": "write_plan_note_index",
       "compact_mode_supported": true,
-      "entry_type": "builder",
+      "entry_type": "writer",
       "owner_area": "workflow_scripts",
       "owner_refs": [
         "pyproject.toml",
         "contracts/command_map_contract.json"
       ],
       "path": "scripts/build_plan_note_index.py",
-      "purpose": "Build or summarize write plan note index discovery evidence.",
+      "purpose": "Write write plan note index only when explicit writer mode is requested.",
       "safe_to_run_in_read_only_harness": false,
       "side_effect_class": "write_explicit",
       "test_refs": [
@@ -801,14 +867,14 @@
       "argv_template": "python scripts/build_repo_file_index.py --write --summary-only",
       "command_id": "write_repo_file_index",
       "compact_mode_supported": true,
-      "entry_type": "builder",
+      "entry_type": "writer",
       "owner_area": "workflow_scripts",
       "owner_refs": [
         "pyproject.toml",
         "contracts/command_map_contract.json"
       ],
       "path": "scripts/build_repo_file_index.py",
-      "purpose": "Build or summarize write repo file index discovery evidence.",
+      "purpose": "Write write repo file index only when explicit writer mode is requested.",
       "safe_to_run_in_read_only_harness": false,
       "side_effect_class": "write_explicit",
       "test_refs": [
@@ -826,20 +892,20 @@
   "schema_version": "v1.repo_agnostic_command_map.1",
   "status": "active",
   "summary": {
-    "command_count": 37,
+    "command_count": 40,
     "entry_type_counts": {
-      "builder": 8,
+      "builder": 4,
       "command": 4,
       "helper": 3,
-      "validator": 21,
-      "writer": 1
+      "validator": 22,
+      "writer": 7
     },
     "side_effect_counts": {
       "read_only": 2,
-      "read_only_summary": 27,
+      "read_only_summary": 28,
       "test_runner": 1,
       "unknown": 1,
-      "write_explicit": 6
+      "write_explicit": 8
     }
   }
 }

@@ -93,6 +93,12 @@ Report changed files, validation commands and results, generated-refresh decisio
 worktree state, remaining risks, and the next recommended slice. Do not leave
 future requirements only in chat.
 
+When a closeout file is durable evidence, record it with:
+
+```bash
+python scripts/validate_slice_closeout.py <closeout> --mode strict --record-ledger --summary-only
+```
+
 If the current task only created or updated the roadmap and first slice packet,
 stop after the packet validates. Report that the packet is ready and do not
 create app/source implementation files unless the current user request

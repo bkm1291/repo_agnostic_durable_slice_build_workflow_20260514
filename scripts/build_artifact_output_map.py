@@ -13,10 +13,48 @@ def build_map() -> dict:
         "schema_version": "v1.artifact_output_map.1",
         "map_id": "artifact_output_map",
         "outputs": [
-            {"writer_command_id": "write_repo_file_index", "output_path": "manifests/repo_file_index.json", "artifact_kind": "generated_index", "role": "evidence", "summary_only": False},
-            {"writer_command_id": "write_command_map", "output_path": "manifests/command_map.json", "artifact_kind": "generated_index", "role": "evidence", "summary_only": False},
-            {"writer_command_id": "write_plan_note_index", "output_path": "manifests/plan_note_index.json", "artifact_kind": "generated_index", "role": "authority", "summary_only": False},
-            {"writer_command_id": "write_artifact_output_map", "output_path": "manifests/artifact_output_map.json", "artifact_kind": "generated_index", "role": "authority", "summary_only": False}
+            {
+                "writer_command_id": "write_repo_file_index",
+                "output_path": "manifests/repo_file_index.json",
+                "artifact_kind": "generated_index",
+                "role": "evidence",
+                "summary_only": False,
+            },
+            {
+                "writer_command_id": "write_command_map",
+                "output_path": "manifests/command_map.json",
+                "artifact_kind": "generated_index",
+                "role": "evidence",
+                "summary_only": False,
+            },
+            {
+                "writer_command_id": "write_plan_note_index",
+                "output_path": "manifests/plan_note_index.json",
+                "artifact_kind": "generated_index",
+                "role": "authority",
+                "summary_only": False,
+            },
+            {
+                "writer_command_id": "write_artifact_output_map",
+                "output_path": "manifests/artifact_output_map.json",
+                "artifact_kind": "generated_index",
+                "role": "authority",
+                "summary_only": False,
+            },
+            {
+                "writer_command_id": "record_slice_closeout",
+                "output_path": "manifests/governance_event_ledger.jsonl",
+                "artifact_kind": "manifest",
+                "role": "evidence",
+                "summary_only": False,
+            },
+            {
+                "writer_command_id": "record_release_gate",
+                "output_path": "manifests/governance_event_ledger.jsonl",
+                "artifact_kind": "manifest",
+                "role": "evidence",
+                "summary_only": False,
+            },
         ],
     }
 

@@ -37,6 +37,12 @@ git diff --check
 git status --short
 ```
 
+If the release gate should become durable evidence, run:
+
+```bash
+python scripts/validate_release_package.py --record-ledger --summary-only
+```
+
 ## Release Rules
 
 - Do not tag or publish if generated entrypoints drift.

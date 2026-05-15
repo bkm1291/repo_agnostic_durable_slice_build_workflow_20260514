@@ -53,7 +53,7 @@ ALLOWED_SIDE_EFFECT_CLASSES = {
     "unknown",
 }
 COMPACT_TOKENS = ("--summary-only", "--check", "-q")
-WRITE_TOKENS = ("--write", "--force", "--delete", "--apply", "--in-place")
+WRITE_TOKENS = ("--write", "--record-ledger", "--force", "--delete", "--apply", "--in-place")
 
 
 def _load_json(path: Path) -> tuple[Any | None, list[str]]:

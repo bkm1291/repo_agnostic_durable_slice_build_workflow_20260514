@@ -356,6 +356,13 @@ Explicit manifest writers append generated-refresh events automatically and skip
 duplicate event IDs on repeated runs, so generated evidence is traceable without
 creating infinite refresh churn.
 
+Closeout and release gate recording use the same explicit-writer model:
+
+```bash
+python scripts/validate_slice_closeout.py <closeout> --mode strict --record-ledger --summary-only
+python scripts/validate_release_package.py --record-ledger --summary-only
+```
+
 Validate it with:
 
 ```bash

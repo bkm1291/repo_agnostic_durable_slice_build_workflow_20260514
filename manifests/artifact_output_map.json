@@ -29,6 +29,20 @@
       "artifact_kind": "generated_index",
       "role": "authority",
       "summary_only": false
+    },
+    {
+      "writer_command_id": "record_slice_closeout",
+      "output_path": "manifests/governance_event_ledger.jsonl",
+      "artifact_kind": "manifest",
+      "role": "evidence",
+      "summary_only": false
+    },
+    {
+      "writer_command_id": "record_release_gate",
+      "output_path": "manifests/governance_event_ledger.jsonl",
+      "artifact_kind": "manifest",
+      "role": "evidence",
+      "summary_only": false
     }
   ]
 }

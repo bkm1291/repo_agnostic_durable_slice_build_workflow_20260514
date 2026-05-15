@@ -89,12 +89,14 @@ def _path_from_template(template: str) -> str:
 
 
 def _entry_type(command_id: str, path: str, template: str) -> str:
+    if command_id.startswith(("write_", "record_")) or any(
+        token in f" {template} " for token in (" --write", " --record-ledger")
+    ):
+        return "writer"
     if command_id.startswith("validate_") or Path(path).name.startswith("validate_"):
         return "validator"
     if command_id.startswith("build_") or Path(path).name.startswith("build_"):
         return "builder"
-    if command_id.startswith("write_") or " --write" in f" {template} ":
-        return "writer"
     if "pytest" in template or command_id.endswith("_test") or command_id.endswith("_tests"):
         return "test"
     if command_id.startswith("query_") or Path(path).name.startswith("query_"):
@@ -104,7 +106,11 @@ def _entry_type(command_id: str, path: str, template: str) -> str:
 
 def _side_effect_class(command_id: str, template: str, entry_type: str) -> str:
     padded = f" {template} "
-    if " --write" in padded or command_id.startswith("write_"):
+    if (
+        " --write" in padded
+        or " --record-ledger" in padded
+        or command_id.startswith(("write_", "record_"))
+    ):
         return "write_explicit"
     if "bootstrap" in command_id or "bootstrap_local_repo.py" in template:
         return "write_explicit"

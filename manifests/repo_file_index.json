@@ -3,10 +3,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 104,
+      "line_count": 110,
       "path": ".claude/skills/durable-slice/SKILL.md",
-      "sha256": "138106c62db3b67bac96d07a7895666810c6de94a8d550322cd666db65c6abbb",
-      "size_bytes": 3827
+      "sha256": "f27892b851511f1a6d3f571c9a1016cc9eed610ce45253fb2a1504af511cd838",
+      "size_bytes": 3997
     },
     {
       "extension": ".md",
@@ -19,10 +19,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 50,
+      "line_count": 56,
       "path": ".claude/skills/durable-slice-release/SKILL.md",
-      "sha256": "a8540c7fcf7e67c067a97845bbd6d7d2cae02338fff56ac214114e3f800d2570",
-      "size_bytes": 1344
+      "sha256": "379a9d6feec6223ca08fabae0f3e5b2c6877925c1add568a97310e0063deb938",
+      "size_bytes": 1489
     },
     {
       "extension": "",
@@ -67,10 +67,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 53,
+      "line_count": 54,
       "path": "CHANGELOG.md",
-      "sha256": "eb42398930148881a36dc96754628a489a5c07b027a5b88b290347d00b8208ec",
-      "size_bytes": 3636
+      "sha256": "e41bbf2e2df6d929a3caf703f9fb42f83a28f2cd6433809e87a7b09d72e55641",
+      "size_bytes": 3732
     },
     {
       "extension": ".md",
@@ -115,18 +115,18 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 328,
+      "line_count": 335,
       "path": "README.md",
-      "sha256": "2d7306f9264d613ba10105488ce2ae33f639f2f876c843a6c1559cdc8e6d086e",
-      "size_bytes": 18016
+      "sha256": "a003579ec5372bb73139c26556edde34b24c2f26d18dc68836db057cc357f2f2",
+      "size_bytes": 18274
     },
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 147,
+      "line_count": 154,
       "path": "RELEASE_CHECKLIST.md",
-      "sha256": "d220f9b5760aaa4b6be6199ee4c22e0bd1822a5f01b595c106bdb51a122d5fbd",
-      "size_bytes": 3992
+      "sha256": "9b9f2894bea2bdc633044eeebb9f56ce78ce5d7ca1354862b0474793d090ca06",
+      "size_bytes": 4179
     },
     {
       "extension": ".md",
@@ -139,10 +139,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 194,
+      "line_count": 202,
       "path": "START_HERE.md",
-      "sha256": "42cdb88ec79cb2fc1d610a657b11a606ea874d07937944f6fd1ac61d0f6318db",
-      "size_bytes": 8233
+      "sha256": "28a96896be7c062715e438ea4b6b03b111f794aa4482cafa8e09c38cde9b5535",
+      "size_bytes": 8482
     },
     {
       "extension": ".json",
@@ -195,10 +195,10 @@
     {
       "extension": ".json",
       "kind": "contract",
-      "line_count": 229,
+      "line_count": 244,
       "path": "contracts/read_only_command_harness.json",
-      "sha256": "70cd47ffa7216738d01f507eff1a4e6d1278dcf888fdd1d3b5a0506ed3ab6a20",
-      "size_bytes": 5255
+      "sha256": "16acc395aa2427ab7a3cd06ad84b596f44a4f1f51b3c18c055bd99fc60a64b9e",
+      "size_bytes": 5562
     },
     {
       "extension": ".md",
@@ -251,10 +251,10 @@
     {
       "extension": ".md",
       "kind": "doc",
-      "line_count": 51,
+      "line_count": 59,
       "path": "docs/OPERATOR_FLOW.md",
-      "sha256": "e4cc0b03897ad65f8d55062c8339903f12767b3b62c866f047cffd2466c7fa2d",
-      "size_bytes": 1759
+      "sha256": "3481abf836a62943d14fcc039f942595751497bbcc68398cc6cfaed961015415",
+      "size_bytes": 2343
     },
     {
       "extension": ".md",
@@ -603,18 +603,18 @@
     {
       "extension": ".json",
       "kind": "artifact:generated_index",
-      "line_count": 34,
+      "line_count": 48,
       "path": "manifests/artifact_output_map.json",
-      "sha256": "4fc786f5a81c2cc59ca659ddc659bbca6098df745a2e1d715ebc2031858ed646",
-      "size_bytes": 971
+      "sha256": "9c5f5d02b4b328d7c353a2448532de22da17d699e41de8b1074e0a4ee2da5795",
+      "size_bytes": 1405
     },
     {
       "extension": ".json",
       "kind": "artifact:generated_index",
-      "line_count": 845,
+      "line_count": 911,
       "path": "manifests/command_map.json",
-      "sha256": "93d7f1fa30838755c00409b64fcdc4eca582e61b287a5ce4521558fb84d67c91",
-      "size_bytes": 30610
+      "sha256": "722d36b5309fa9867e64212ffb8fb6f47992eb354e02955c20bfc1ace354cc8a",
+      "size_bytes": 33083
     },
     {
       "extension": ".json",
@@ -707,10 +707,10 @@
     {
       "extension": ".toml",
       "kind": "source",
-      "line_count": 333,
+      "line_count": 336,
       "path": "pyproject.toml",
-      "sha256": "f9102b34b482e87545c488d2108d580e17a25408092f8d37f67acbd7d74e218e",
-      "size_bytes": 19659
+      "sha256": "767bd4689e9e3d2c9329c5b21f6086e6987a43df25886645d9505c1d25c5b401",
+      "size_bytes": 19980
     },
     {
       "extension": ".json",
@@ -875,10 +875,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 98,
+      "line_count": 174,
       "path": "scripts/_governance_ledger.py",
-      "sha256": "fe03e99e4cd137848beedd56b4c598a8b295afb5f72e962ad8dac9ef9ce77338",
-      "size_bytes": 3164
+      "sha256": "b7a2963f2e520734cf08920253f307ba793007143aa766526a494e8301850f0f",
+      "size_bytes": 5373
     },
     {
       "extension": ".py",
@@ -899,18 +899,18 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 48,
+      "line_count": 86,
       "path": "scripts/build_artifact_output_map.py",
-      "sha256": "dde4fbd84ed72ce5f79603d66d984cdc3bc611d6163b592066174fcff4c83db8",
-      "size_bytes": 2190
+      "sha256": "9049c35bc2816bd1b0505095f8974f1da0d130e7196f699d24ec2a1a2a104d3b",
+      "size_bytes": 3139
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 289,
+      "line_count": 295,
       "path": "scripts/build_command_map.py",
-      "sha256": "d77670269caa8722773ee255e3f11d9cadf29a36791039fbd67932ef9c11b840",
-      "size_bytes": 10482
+      "sha256": "1efe2711b1bd7ad6d763960a715a8e2fed54c6e0c2d35b193e7430702d3cbef9",
+      "size_bytes": 10632
     },
     {
       "extension": ".py",
@@ -971,18 +971,18 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 900,
+      "line_count": 907,
       "path": "scripts/render_canonical_entrypoints.py",
-      "sha256": "01c70dbda83c640396db9edb837dcee659bb88b934e77f49e93c1055c0228503",
-      "size_bytes": 43275
+      "sha256": "07b2f386154bf61cc23d6fef485818bc33f32b40f510ceb4e077f56fdec0df7e",
+      "size_bytes": 43533
     },
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 29,
+      "line_count": 30,
       "path": "scripts/validate_artifact_output_map.py",
-      "sha256": "f417b851a13de41150d787e7dc814d7b73c691dbc5cc8d575dc4d8e95e624892",
-      "size_bytes": 946
+      "sha256": "455374c49434f924fbefe0bfcc085f85f530cc271061c94d1084f76a9f594a44",
+      "size_bytes": 1005
     },
     {
       "extension": ".py",
@@ -997,8 +997,8 @@
       "kind": "script",
       "line_count": 244,
       "path": "scripts/validate_command_map.py",
-      "sha256": "79198126dcef7a240f2ff6c7211029154eaa7cc939f19a0da4be33776f0cf3c3",
-      "size_bytes": 9813
+      "sha256": "1ceff5a6b2b236d1460cc66f29968f4b2054a7c9f7dbad00de9310db3932b804",
+      "size_bytes": 9832
     },
     {
       "extension": ".py",
@@ -1099,10 +1099,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 421,
+      "line_count": 440,
       "path": "scripts/validate_release_package.py",
-      "sha256": "3a6dfefbecd9a26f2144d8deb6c645ee194e4c8af08fdfb97ab01db58dd9af8e",
-      "size_bytes": 14375
+      "sha256": "15013cea07d4c74459daf39180a6692e561ad20eeeae13d7fd9c1c0ad0e471aa",
+      "size_bytes": 15063
     },
     {
       "extension": ".py",
@@ -1115,10 +1115,10 @@
     {
       "extension": ".py",
       "kind": "script",
-      "line_count": 47,
+      "line_count": 113,
       "path": "scripts/validate_slice_closeout.py",
-      "sha256": "cccd8c51bee89e4fadc4c55c0b7df68a154b9b59fcfc254af63f8affcf9e5e80",
-      "size_bytes": 1831
+      "sha256": "54e758664d8a7955049f79cb1eaff687f15baf16c4a2e6f824301585628cda51",
+      "size_bytes": 4264
     },
     {
       "extension": ".py",
@@ -1155,10 +1155,10 @@
     {
       "extension": ".json",
       "kind": "test",
-      "line_count": 34,
+      "line_count": 48,
       "path": "tests/fixtures/builder_golden/artifact_output_map_expected.json",
-      "sha256": "8634825e0439ed29d216672f2bf8ecd4c780a050b0cc7149306d3200f3f7edd2",
-      "size_bytes": 971
+      "sha256": "9056429c27f290939ed83942edd13a9c9c5c56c7518635a2e0385934237b2b69",
+      "size_bytes": 1405
     },
     {
       "extension": ".json",
@@ -1227,10 +1227,10 @@
     {
       "extension": ".py",
       "kind": "test",
-      "line_count": 49,
+      "line_count": 132,
       "path": "tests/test_governance_event_ledger.py",
-      "sha256": "1fd5c587c261f193c657232ff0bf404969cc40a5faf6a84b4532386232bc628e",
-      "size_bytes": 1476
+      "sha256": "2dabba37f085139696f6e6e0c9b9841c78ad6fddc30e6da1d73873cebafad9e3",
+      "size_bytes": 4273
     },
     {
       "extension": ".py",

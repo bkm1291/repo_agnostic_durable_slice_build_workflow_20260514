@@ -70,27 +70,103 @@ def append_generated_refresh_event(
     ledger_path: Path = DEFAULT_LEDGER,
     timestamp_utc: str | None = None,
 ) -> bool:
+    return append_governance_event(
+        root=root,
+        event_type="generated_refresh",
+        entity_id=writer_command_id,
+        artifact_refs=artifact_refs,
+        validator_ref=validator_ref,
+        reason_class="generator",
+        details={"writer_command_id": writer_command_id},
+        ledger_path=ledger_path,
+        timestamp_utc=timestamp_utc,
+    )
+
+
+def append_closeout_event(
+    *,
+    root: Path,
+    closeout_id: str,
+    artifact_refs: list[Path | str],
+    validator_ref: str = "scripts/validate_slice_closeout.py",
+    ledger_path: Path = DEFAULT_LEDGER,
+    timestamp_utc: str | None = None,
+    details: dict[str, Any] | None = None,
+) -> bool:
+    event_details = {"writer_command_id": "record_slice_closeout"}
+    if details:
+        event_details.update(details)
+    return append_governance_event(
+        root=root,
+        event_type="closeout",
+        entity_id=closeout_id,
+        artifact_refs=artifact_refs,
+        validator_ref=validator_ref,
+        reason_class="closeout_gate",
+        details=event_details,
+        ledger_path=ledger_path,
+        timestamp_utc=timestamp_utc,
+    )
+
+
+def append_release_gate_event(
+    *,
+    root: Path,
+    artifact_refs: list[Path | str],
+    validator_ref: str = "scripts/validate_release_package.py",
+    ledger_path: Path = DEFAULT_LEDGER,
+    timestamp_utc: str | None = None,
+    details: dict[str, Any] | None = None,
+) -> bool:
+    event_details = {"writer_command_id": "record_release_gate"}
+    if details:
+        event_details.update(details)
+    return append_governance_event(
+        root=root,
+        event_type="release_gate",
+        entity_id="release_package",
+        artifact_refs=artifact_refs,
+        validator_ref=validator_ref,
+        reason_class="closeout_gate",
+        details=event_details,
+        ledger_path=ledger_path,
+        timestamp_utc=timestamp_utc,
+    )
+
+
+def append_governance_event(
+    *,
+    root: Path,
+    event_type: str,
+    entity_id: str,
+    artifact_refs: list[Path | str],
+    validator_ref: str,
+    reason_class: str,
+    details: dict[str, Any] | None = None,
+    ledger_path: Path = DEFAULT_LEDGER,
+    timestamp_utc: str | None = None,
+) -> bool:
     root = root.resolve()
     ledger_abs = ledger_path if ledger_path.is_absolute() else root / ledger_path
     date_token = (timestamp_utc or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))[:10].replace("-", "")
-    event_id = f"event_generated_refresh_{_slug(writer_command_id)}_{date_token}"
+    event_id = f"event_{_slug(event_type)}_{_slug(entity_id)}_{date_token}"
     if event_id in _existing_event_ids(ledger_abs):
         return False
 
+    event_details: dict[str, Any] = {"reason_class": reason_class}
+    if details:
+        event_details.update(details)
     timestamp = timestamp_utc or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     event: dict[str, Any] = {
         "schema_version": "v1.governance_event.1",
         "event_id": event_id,
-        "event_type": "generated_refresh",
-        "entity_id": writer_command_id,
+        "event_type": event_type,
+        "entity_id": entity_id,
         "timestamp_utc": timestamp,
         "validator_ref": validator_ref,
         "artifact_refs": [_repo_ref(root, item) for item in artifact_refs],
         "commit_ref": _short_head(root),
-        "details": {
-            "reason_class": "generator",
-            "writer_command_id": writer_command_id,
-        },
+        "details": event_details,
     }
     ledger_abs.parent.mkdir(parents=True, exist_ok=True)
     with ledger_abs.open("a", encoding="utf-8") as f:

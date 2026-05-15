@@ -11,6 +11,13 @@ import tomllib
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from _governance_ledger import append_release_gate_event
+
+
 def emit_json(*, validator: str, status: str, failure_codes: list[str], warnings: list[str] | None = None) -> None:
     payload = {
         "validator": validator,
@@ -370,9 +377,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--summary-only", action="store_true")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--record-ledger", action="store_true")
+    parser.add_argument("--ledger-path", type=Path, default=Path("manifests/governance_event_ledger.jsonl"))
+    parser.add_argument("--timestamp-utc")
     args = parser.parse_args(argv)
 
-    failures = validate_release_package(args.root)
+    root = args.root.resolve()
+    failures = validate_release_package(root)
     if failures:
         if args.json:
             emit_json(validator="release_package", status="failed", failure_codes=failures)
@@ -389,10 +400,26 @@ def main(argv: list[str] | None = None) -> int:
                 print(failure)
         return 1
 
+    ledger_appended = False
+    if args.record_ledger:
+        ledger_appended = append_release_gate_event(
+            root=root,
+            artifact_refs=[
+                "RELEASE_CHECKLIST.md",
+                "CHANGELOG.md",
+                "pyproject.toml",
+                "contracts/compatibility_policy.json",
+            ],
+            ledger_path=args.ledger_path,
+            timestamp_utc=args.timestamp_utc,
+            details={"release_validator": "scripts/validate_release_package.py"},
+        )
+
     payload = {
         "status": "passed",
         "required_path_count": len(REQUIRED_PATHS),
         "subprocess_check_count": len(SUBPROCESS_CHECKS),
+        "ledger_appended": ledger_appended,
     }
     if args.json:
         emit_json(validator="release_package", status="passed", failure_codes=[])
@@ -401,21 +428,13 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(
             "PASS release_package "
-            f"root={args.root} "
+            f"root={root} "
             f"required_paths={payload['required_path_count']} "
-            f"subprocess_checks={payload['subprocess_check_count']}"
+            f"subprocess_checks={payload['subprocess_check_count']} "
+            f"ledger_appended={ledger_appended}"
         )
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-def emit_json(*, validator: str, status: str, failure_codes: list[str], warnings: list[str] | None = None) -> None:
-    payload = {
-        "validator": validator,
-        "status": status,
-        "failure_codes": failure_codes,
-        "warnings": warnings or [],
-        "count": len(failure_codes),
-    }
-    print(json.dumps(payload))

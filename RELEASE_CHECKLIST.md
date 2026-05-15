@@ -38,6 +38,13 @@ git status --short
 The expected result is no command failure. `git status --short` should show only
 intentional release changes.
 
+If this release gate should become durable workflow evidence, record it before
+the release commit:
+
+```bash
+python scripts/validate_release_package.py --record-ledger --summary-only
+```
+
 ## 3. Confirm CI Configuration
 
 ```bash

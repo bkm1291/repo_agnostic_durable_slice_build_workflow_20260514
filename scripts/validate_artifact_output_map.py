@@ -14,7 +14,8 @@ def main(argv: list[str] | None = None) -> int:
     doc = json.loads(args.map.read_text(encoding="utf-8"))
     failures: list[str] = []
     for item in doc.get("outputs", []):
-        if item.get("summary_only") and item.get("writer_command_id", "").startswith("write_"):
+        writer_command_id = item.get("writer_command_id", "")
+        if item.get("summary_only") and writer_command_id.startswith(("write_", "record_")):
             failures.append("ARTIFACT_MAP_SUMMARY_ONLY_WRITER_INVALID")
     if failures:
         print("FAIL artifact_output_map")

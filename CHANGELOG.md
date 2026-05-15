@@ -7,6 +7,7 @@ All notable changes to this local template are documented here.
 - Added governance event ledger documentation to the generated README, `START_HERE.md`, `docs/OPERATOR_FLOW.md`, and release checklist.
 - Documented `make governance-check` as the main workflow health gate for plan notes, maps, closeout, lifecycle, secrets, provenance, receipts/checkpoints, and ledger integrity.
 - Clarified that manifest writer commands append generated-refresh ledger events automatically and skip duplicate event IDs.
+- Added explicit closeout and release-gate ledger writer modes with idempotent event recording.
 
 ## 0.4.0 - 2026-05-14
 
